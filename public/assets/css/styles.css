@@ -1,0 +1,7 @@
+.sidebar-item.active .sidebar-link:hover,.sidebar-item.active>.sidebar-link{
+  background:linear-gradient(90deg,rgba(4, 33, 77, 0.601),rgba(59,125,221,.088) 50%,
+  transparent);border-left-color:#3b7ddd;color:#e9ecef;
+}
+#sidebar{
+  background:#222e3c;
+}
