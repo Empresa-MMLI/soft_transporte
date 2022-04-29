@@ -17,8 +17,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url('assets/img/logo/ico.png') }}">
 
     <!-- Scripts -->
-    <script src="{{ url('assets/js/jquery.min.js') }}"></script>
-    <script src="{{ url('assets/js/app.js') }}"></script>
+	<script src="{{ url('assets/js/app.js') }}">
+	</script><script src="{{ url('assets/js/jquery.min.js') }}" ></script>
+	<script src="{{ url('assets/js/popper.min.js') }}" ></script>
     <style>
    
     </style>
@@ -36,5 +37,7 @@
     </main>
     </div>
     
+	
+	<script src="{{ url('assets/js/custom.js') }}" ></script>
     </body>
 </html>

@@ -23,9 +23,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home', function () {
+    return view('welcome');
+})->name('home');
+
 Route::get('/index', function () {
     return view('welcome');
 })->name('index');
+
+Route::get('/res', function () {
+    //return view('aluguel_res');
+    
+    return view('bi_search');
+})->name('search.res');
+
 
 Route::get('/sessao', function () {
     return view('login');

@@ -17,14 +17,14 @@
 */
 
 
-*{margin:0;padding: 0;}  
+*{margin:0;padding: 0; font-family: 'Segoe UI';}  
 
 html, body{width:100%; height:100%;}
-/*Config do logo*/
 .logo{
-    width:25%;   
+  width:50%!important;
+  padding:0;
+  margin:0;
 }
-
 .icons{width:50%!important;height:90px;overflow: hidden;}
 
 .fa-lg{font-size: 1.6rem!important;}
@@ -44,21 +44,23 @@ html, body{width:100%; height:100%;}
 .navbar-nav .nav-item .nav-link:hover{color:#fff;}
 
 .bg-img{
+  padding:10%;
   width: 100%;
   height: 100%;
-  background-image: url("../img/bg/banner.jpg");
+ /* background-image: url("../img/bg/banner.png");*/
   background-repeat: no-repeat;
   background-size: cover;
   background-position: right center;
   overflow: hidden;
 }
 /*config de um back transparente*/
+/*
 .bg-img .bg-img-dark{
   width: 100%;
   height: 100ch;
   padding-top:20ch;
   background-color: rgba(0, 0, 0, 0.7); 
-}
+}*/
 .bg-img .bg-content{
   width: 80%;
   padding:4% 3%;
@@ -124,6 +126,62 @@ input.form-control, textarea, select {
   height: 46px; 
   font-weight: 400!important;
 }
+input.form-control.input-radius-md{
+  border:1px solid #ccc;
+  border-left:none!important;
+  box-shadow: none;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  height: 50px!important; 
+  font-weight: 500!important;
+  font-size:20px;
+}
+.search-radius-input{
+  border:1px solid #ccc;
+  border-right:none!important;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  height: 50px!important; 
+  font-weight: 500!important;
+  font-size:20px;
+  background-color: #fff;
+}
+/*
+* css personalizado
+*/
+#myInput {
+  background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+  background-position: 10px 12px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  width: 100%; /* Full-width */
+  font-size: 16px; /* Increase font-size */
+  padding: 12px 20px 12px 40px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 12px; /* Add some space below the input */
+}
+
+#myUL {
+  /* Remove default list styling */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#myUL li a {
+  border: 1px solid #ddd; /* Add a border to all links */
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6; /* Grey background color */
+  padding: 12px; /* Add some padding */
+  text-decoration: none; /* Remove default text underline */
+  font-size: 18px; /* Increase the font-size */
+  color: black; /* Add a black text color */
+  display: block; /* Make it into a block element to fill the whole list */
+}
+
+#myUL li a:hover:not(.header) {
+  background-color: #eee; /* Add a hover effect to all links, except for headers */
+}
+
 .btn{
   font-weight: 600;
 }
@@ -460,9 +518,10 @@ input.form-control,textarea,.text_descricao{height:40px!important; min-height:30
 .form-control{border-radius: 0px !important;}
 .btn-submit{ 
   color:#eee;
-  background-color:#2f68a8 /*#0f468f*/;
-  font-weight: 500;
-  opacity: 0.9;
+  background-color:#122f63 /*#0f468f*/;
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.7;
   border-bottom:3px solid transparent;
 }
 .btn,.btn-submit{
@@ -471,7 +530,7 @@ text-transform: uppercase;
 .btn-submit:hover{
 opacity: 1;
 color:#fff;
-border-bottom:3px solid #e3a112;
+border-bottom:3px solid #0d9e44;
 }
 .btn-padrao{
 background-color: #2262b6;
@@ -537,20 +596,6 @@ border-bottom:3px solid #e3a112;
     text-decoration: none;
     text-transform: uppercase;
 }
- 
-.logo{
-  width:30%!important;
-  margin-top:-30%;
-}
-.welcome .logo{
-  margin-top:0%;
-  width:20%!important;
-  background-color: rgba(0, 0, 0, 0.007);
-  
-}
-.logo_oficial{
-  width:70%!important;
-  }
         .fa-ico{
             color: #10445c;
             font-size:50px;
