@@ -241,9 +241,22 @@ body::-webkit-scrollbar-thumb {
   right: 0;
   width: auto;
   height: 70px;
-  background-color: #122f63;
+  background-color: #122f63;/*cor primaria*/
+  z-index: 101;
+  margin-bottom: -0.9%;
+  transition: box-shadow 0.5s ease;
+}
+.banner-box{
+  display: block;
+  width: auto;
+  height: max-content;
+  background-color: #122f63;/*cor primaria*/
   z-index: 101;
   transition: box-shadow 0.5s ease;
+}
+.banner-box .padding-top{
+  padding-top:10px;
+
 }
 .header--active {
   box-shadow: 3px 3px 9px rgba(164,164,186,0.2);
@@ -256,8 +269,8 @@ body::-webkit-scrollbar-thumb {
 .header__content {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: left;
   height: 70px;
   width: 100%;
   position: relative;
@@ -437,7 +450,11 @@ body::-webkit-scrollbar-thumb {
   justify-content: flex-start;
   align-items: center;
   font-weight: 400;
-  font-family: 'Nunito', sans-serif;
+  border-bottom:3px solid  transparent;
+}
+.nav-link{
+  padding:10px 30px;
+  border-radius: 30px;
 }
 .header__nav-link svg {
   fill: #4e5d78;
@@ -452,17 +469,30 @@ body::-webkit-scrollbar-thumb {
   margin-top: 0;
   margin-left: 0;
 }
-.header__nav-link--active {
-  color: #189cf4;
+.nav-item{
+  padding-right:5px;
+}
+.btn-outline-primary:hover{
+  background-color: #142b55;
+  border-color:transparent;
+}
+.header__nav-link--active, .nav-item.active .nav-link {
+  color: #fff;
   cursor: default;
   font-weight: 600;
+  background-color: #28426f;
+  border:1.5px solid #ebebeb;
 }
-.header__nav-link--active:hover {
-  color: #189cf4 !important;
+.header__nav-link--active:hover, .nav-item.active .nav-link:hover {
+  background-color: #167956 !important;
+  border-color:transparent;
+  cursor: pointer;
 }
 .header__nav-link:hover,
-.header__nav-link[aria-expanded="true"] {
-  color: #189cf4;
+.header__nav-link[aria-expanded="true"], .nav-link:hover {
+  color:#fff;
+  /*border-bottom:3px solid  #0d9e44;*/
+  background-color: #2f4f88;/*cor secundaria*/
 }
 .header__nav-link:hover svg,
 .header__nav-link[aria-expanded="true"] svg {
