@@ -11,6 +11,7 @@
     <link href="{{ url('assets/css/hello.css') }}?r=<?php echo random_int(1,50); ?>" rel="stylesheet"> 
    
   <link href="{{ url('assets/css/bootstrap.grid.min.css') }}" rel="stylesheet"> 
+	<link rel="stylesheet" href="{{ asset('assets/css/datatimepicker.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/splides.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/select2.css') }}">
@@ -18,6 +19,7 @@
 	<link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/styles3.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/styles4.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/styles5.css') }}">
 
     <link href="{{ url('assets/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ url('assets/css/fontawesome.min.css') }}" rel="stylesheet">
@@ -27,12 +29,7 @@
     <meta name="description" content="Facilita Viages e Alguer de Carros">
 	<meta name="keywords" content="Viagens Alugar Carro Interprovincial Reservar Viagens Comprar Bilhetes Passageiro Lugares">
 	<meta name="author" content="MMLI Soluções">
-    <!-- Scripts -->
-    <script src="{{ url('assets/js/jquery.min.js') }}" ></script>
-    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.easing.min.js') }}"></script>
-    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
-    <script src="{{ url('assets/js/bootstrap.min.js') }}"></script>
+
 	<style>
    
     </style>
@@ -114,7 +111,28 @@
     </main>
     </div>
     
-	
-	<script src="{{ url('assets/js/custom.js') }}" ></script>
+	    <!-- Scripts -->
+    <script src="{{ url('assets/js/jquery.min.js') }}" ></script>
+    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script src="{{ url('assets/js/app.js') }}"></script>
+    <script src="{{ url('assets/js/custom.js') }}" ></script>
+    <script src="{{ url('assets/js/datapicker.min.js') }}" ></script>
+  <script>
+    $('body').dblclick(function(){//solucao preventiva
+      $('#list_origem, #list_destino, #xp__calendar, #xp__guests__inputs-container').css('display','none');
+    });
+    $data = new Date();
+    console.log($data)
+    $('#picker, .picker').datetimepicker({
+      timepicker:false,
+      datepicker:true,
+      format: 'Y-m-d',
+      value: $data,
+      locale:'pt-br'
+    })
+  </script>
     </body>
+    
 </html>

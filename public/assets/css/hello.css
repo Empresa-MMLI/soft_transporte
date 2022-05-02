@@ -131,7 +131,7 @@ input.form-control, textarea, select {
   height: 46px; 
   font-weight: 400!important;
 }
-input.form-control.input-radius-md{
+input.form-control.input-radius-md, select.form-control.input-radius-md{
   border:1px solid #ccc;
   border-left:none!important;
   box-shadow: none;

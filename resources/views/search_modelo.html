@@ -106,19 +106,107 @@ Cuiabá
 </div>
 </div>
 
-<div  class="xp__datess">
+<div data-visible="accommodation,flights,rentalcars" class="xp__dates xp__group">
 <div class="xp__dates-inner">
 
 
-<div class="row px-1 sb-searchbox__inputs">
-  <div class="col-6 pr-1">
-  <input type="text" class="form-control picker xp__input py-4" id="xp__calendar" name="checkin">
-  </div>
-  <div class="col-6">
-  <input type="text" class="form-control picker xp__input py-4" name="checkout">
-  </div>
+<div data-component="search/dates/dates-errors" data-view-id="accommodation" data-sb-id="main" role="alert" data-dates-errors=""></div>
+<div data-visible="accommodation,flights,rentalcars" class="xp__input-group xp__date-time">
+<div class="xp__dates-inner xp__dates__checkin">
+<div data-visible="accommodation,flights,rentalcars" class="xp__group xp__date c2-wrapper-s-hidden">
+<div class="sb-date-field b-datepicker" data-component="search/dates/date-field-select" data-sb-id="main" data-mode="checkin" data-calendar2-type="checkin" data-calendar2-title="Data de entrada">
+<div class="sb-searchbox__input sb-date-field__field  -empty sb-date__field-svg_icon" data-field="">
+<span class="sb-date-field__icon sb-date-field__icon-btn bk-svg-wrapper calendar-restructure-sb" aria-hidden="true" onclick="$('#xp__calendar').css('display','block');">
+<svg aria-hidden="true" class="bk-icon -experiments-calendar sb-date-picker_icon-svg" fill="#BDBDBD" focusable="false" height="20" role="presentation" width="20" viewBox="0 0 128 128"><path d="m112 16h-16v-8h-8v8h-48v-8h-8v8h-16c-4.4 0-8 3.9-8 8.7v86.6c0 4.8 3.6 8.7 8 8.7h96c4.4 0 8-3.9 8-8.7v-86.6c0-4.8-3.6-8.7-8-8.7zm0 95.3a1.1 1.1 0 0 1 -.2.7h-95.6a1.1 1.1 0 0 1 -.2-.7v-71.3h96zm-68-43.3h-12v-12h12zm0 28h-12v-12h12zm26-28h-12v-12h12zm0 28h-12v-12h12zm26 0h-12v-12h12zm0-28h-12v-12h12z" fill-rule="evenodd"></path></svg>
+<i class="
+sb-date-field__icon-text
+sb-date-field__icon-text-wide
+" data-icon-day="" data-placeholder="+">+</i>
+</span>
+<div class="sb-date-field__controls sb-date-field__controls__ie-fix" data-controls="" data-calendar2-cant-touch-this="">
+<div class="sb-date-field__select -month-year js-date-field__part" data-type="month-year">
+<div class="sb-date-field__select-value" aria-hidden="true">
+<span class="js-date-field__value sb-date-field__value_empty" data-placeholder="
+Mês de entrada
+">
+Mês de entrada
+</span>
+<i class="sb-date-field__select-icon bicon-downchevron"></i>
 </div>
-
+<select class="sb-date-field__select-field js-date-field__select" aria-label="
+Mês de entrada
+" data-no-old-calendar="1"><option value="" disabled="" selected=""></option><option value="4-2022">maio de 2022</option><option value="5-2022">junho de 2022</option><option value="6-2022">julho de 2022</option><option value="7-2022">agosto de 2022</option><option value="8-2022">setembro de 2022</option><option value="9-2022">outubro de 2022</option><option value="10-2022">novembro de 2022</option><option value="11-2022">dezembro de 2022</option><option value="0-2023">janeiro de 2023</option><option value="1-2023">fevereiro de 2023</option><option value="2-2023">março de 2023</option><option value="3-2023">abril de 2023</option><option value="4-2023">maio de 2023</option><option value="5-2023">junho de 2023</option><option value="6-2023">julho de 2023</option><option value="7-2023">agosto de 2023</option></select>
+<input type="hidden" class="js-date-field__year" name="checkin_year" value="">
+<input type="hidden" class="js-date-field__month" name="checkin_month" value="">
+</div>
+<div class="sb-date-field__select -day js-date-field__part sb-date-field__select_disabled" data-type="date">
+<div class="sb-date-field__select-value" aria-hidden="true">
+<span class="js-date-field__value sb-date-field__value_empty" data-placeholder="
+Dia de entrada
+">
+Dia de entrada
+</span>
+<i class="sb-date-field__select-icon bicon-downchevron"></i>
+</div>
+<select class="sb-date-field__select-field js-date-field__select" name="checkin_monthday" data-selected="" aria-label="
+Dia de entrada
+" data-no-old-calendar="1" disabled=""><option value="" disabled="" selected=""></option></select>
+</div>
+</div>
+<div class="sb-date-field__display" data-placeholder="Check-in" data-date-format="short_date_with_weekday_without_year" data-display="" aria-hidden="true">Check-in</div>
+<i class="sb-date-field__chevron bicon-downchevron" aria-hidden="true"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div data-visible="accommodation,flights,rentalcars" class="xp__input-group xp__date-time">
+<div class="xp__dates-inner xp__dates__checkout">
+<div data-visible="accommodation,flights,rentalcars" class="xp__group xp__date c2-wrapper-s-hidden">
+<div class="sb-date-field b-datepicker" data-component="search/dates/date-field-select" data-sb-id="main" data-mode="checkout" data-calendar2-type="checkout" data-calendar2-title="Data de saída">
+<div class="sb-searchbox__input sb-date-field__field  -empty sb-date__field-svg_icon" data-field="">
+<span class="sb-date-field__icon sb-date-field__icon-btn bk-svg-wrapper calendar-restructure-sb" aria-hidden="true" onclick="$('#xp__calendar').css('display','block');">
+<svg aria-hidden="true" class="bk-icon -experiments-calendar sb-date-picker_icon-svg" fill="#BDBDBD" focusable="false" height="20" role="presentation" width="20" viewBox="0 0 128 128"><path d="m112 16h-16v-8h-8v8h-48v-8h-8v8h-16c-4.4 0-8 3.9-8 8.7v86.6c0 4.8 3.6 8.7 8 8.7h96c4.4 0 8-3.9 8-8.7v-86.6c0-4.8-3.6-8.7-8-8.7zm0 95.3a1.1 1.1 0 0 1 -.2.7h-95.6a1.1 1.1 0 0 1 -.2-.7v-71.3h96zm-68-43.3h-12v-12h12zm0 28h-12v-12h12zm26-28h-12v-12h12zm0 28h-12v-12h12zm26 0h-12v-12h12zm0-28h-12v-12h12z" fill-rule="evenodd"></path></svg>
+<i class="
+sb-date-field__icon-text
+sb-date-field__icon-text-wide
+" data-icon-day="" data-placeholder="+">+</i>
+</span>
+<div class="sb-date-field__controls sb-date-field__controls__ie-fix" data-controls="" data-calendar2-cant-touch-this="">
+<div class="sb-date-field__select -month-year js-date-field__part" data-type="month-year">
+<div class="sb-date-field__select-value" aria-hidden="true">
+<span class="js-date-field__value sb-date-field__value_empty" data-placeholder="
+Mês de saída
+">
+Mês de saída
+</span>
+<i class="sb-date-field__select-icon bicon-downchevron"></i>
+</div>
+<select class="sb-date-field__select-field js-date-field__select" aria-label="
+Mês de saída
+" data-no-old-calendar="1"><option value="" disabled="" selected=""></option><option value="4-2022">maio de 2022</option><option value="5-2022">junho de 2022</option><option value="6-2022">julho de 2022</option><option value="7-2022">agosto de 2022</option><option value="8-2022">setembro de 2022</option><option value="9-2022">outubro de 2022</option><option value="10-2022">novembro de 2022</option><option value="11-2022">dezembro de 2022</option><option value="0-2023">janeiro de 2023</option><option value="1-2023">fevereiro de 2023</option><option value="2-2023">março de 2023</option><option value="3-2023">abril de 2023</option><option value="4-2023">maio de 2023</option><option value="5-2023">junho de 2023</option><option value="6-2023">julho de 2023</option><option value="7-2023">agosto de 2023</option></select>
+<input type="hidden" class="js-date-field__year" name="checkout_year" value="">
+<input type="hidden" class="js-date-field__month" name="checkout_month" value="">
+</div>
+<div class="sb-date-field__select -day js-date-field__part sb-date-field__select_disabled" data-type="date">
+<div class="sb-date-field__select-value" aria-hidden="true">
+<span class="js-date-field__value sb-date-field__value_empty" data-placeholder="
+Dia de saída
+">
+Dia de saída
+</span>
+<i class="sb-date-field__select-icon bicon-downchevron"></i>
+</div>
+<select class="sb-date-field__select-field js-date-field__select" name="checkout_monthday" data-selected="" aria-label="Dia de saída" data-no-old-calendar="1" disabled=""><option value="" disabled="" selected=""></option></select>
+</div>
+</div>
+<div class="sb-date-field__display" data-placeholder="Check-out" data-date-format="short_date_with_weekday_without_year" data-display="" aria-hidden="true">Check-out</div>
+<i class="sb-date-field__chevron bicon-downchevron" aria-hidden="true"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
