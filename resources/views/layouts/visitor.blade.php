@@ -7,13 +7,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name') }}</title>
     <!-- Styles -->
-    <link href="{{ url('assets/css/bootstrap.min.css') }}" rel="stylesheet"> 
     <link href="{{ url('assets/css/app.css') }}" rel="stylesheet"> 
     <link href="{{ url('assets/css/hello.css') }}?r=<?php echo random_int(1,50); ?>" rel="stylesheet"> 
    
-    <link rel="stylesheet" href="{{ asset('assets/css/splide.min.css') }}">
+  <link href="{{ url('assets/css/bootstrap.grid.min.css') }}" rel="stylesheet"> 
+  <link rel="stylesheet" href="{{ asset('assets/css/splides.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/select2.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/styles3.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/styles4.css') }}">
 
     <link href="{{ url('assets/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ url('assets/css/fontawesome.min.css') }}" rel="stylesheet">
@@ -22,7 +26,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url('assets/img/logo/ico.png') }}">
     <meta name="description" content="Facilita Viages e Alguer de Carros">
 	<meta name="keywords" content="Viagens Alugar Carro Interprovincial Reservar Viagens Comprar Bilhetes Passageiro Lugares">
-	<meta name="author" content="Mmli Soluções">
+	<meta name="author" content="MMLI Soluções">
     <!-- Scripts -->
     <script src="{{ url('assets/js/jquery.min.js') }}" ></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
@@ -81,20 +85,20 @@
         <a class="nav-link" href="{{ route('index') }}"><i class="fa fa-home"></i> Página inicial <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fa fa-credit-card-alt"></i> Bilhetes e Horários</a>
+      <a class="nav-link" href="{{ route('comprar.bilhete') }}"><i class="fa fa-credit-card-alt"></i> Bilhetes e Horários</a>
       </li>
       <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fa fa-map-marker"></i> Pontos de Venda e Embarque</a>
+      <a class="nav-link" href="{{ route('pontos') }}"><i class="fa fa-map-marker"></i> Pontos de Venda e Embarque</a>
       </li>
       <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fa fa-car"></i> Alugueres de Carros</a>
+      <a class="nav-link" href="{{ route('aluguer.carro') }}"><i class="fa fa-car"></i> Alugueres de Carros</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fa fa-list"></i> Planos e Preçários</a>
+        <a class="nav-link" href="{{ route('planos') }}"><i class="fa fa-list"></i> Planos e Preçários</a>
       </li>
       
       <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fa fa-phone"></i> Contactos</a>
+        <a class="nav-link" href="{{ route('contacts') }}"><i class="fa fa-phone"></i> Contactos</a>
       </li>
     </ul>
   </div>

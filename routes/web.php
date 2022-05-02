@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,12 +32,36 @@ Route::get('/index', function () {
     return view('welcome');
 })->name('index');
 
-Route::get('/res', function () {
+Route::get('/res', function (Request $request) {
     //return view('aluguel_res');
-    
+    if($request->mySearch == "Comprar Bilhetes")
     return view('bi_search');
+    else if($request->mySearch == "Alugar Carro")
+    return view('aluguer_search');
+    else if($request->mySearch == "Comprar B.I e Aluguel Carro")
+    return view('bi_search');
+
 })->name('search.res');
 
+Route::get('/aluguer', function () {
+    return view('aluguer_search');
+})->name('aluguer.carro');
+
+Route::get('/bilhetes', function () {
+    return view('bi_search');
+})->name('comprar.bilhete');
+
+Route::get('/planos', function () {
+    return view('planos');
+})->name('planos');
+
+Route::get('/pontos', function () {
+    return view('pontos');
+})->name('pontos');
+
+Route::get('/contactos', function () {
+    return view('contactos');
+})->name('contacts');
 
 Route::get('/sessao', function () {
     return view('login');

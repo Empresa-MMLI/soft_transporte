@@ -1,21 +1,19 @@
 @extends ('layouts.visitor') <!--Call of template welcome-->
 @section('content')  <!--Sectino to show content to yield -->
 <!-- banner principal -->
-<div class="banner-box-img2">
-<div class="banner-escuro-img">
+<div class="banner-box">
     <div class="container">
            <div class="row">
                <div class="col-8">
                <h1 class="header-title padding-top">
-            Transporte seguro? É SLA. 
+           Pontos de venda e Embarque! 
             </h1>
             <p class="padding-text">
-            Quer viajar em segurança? confie sua viagem na maior Transportadora de bens e pessoas do país, somos a SLA - sua Agência de Turismo nacional.
+            Confira abaixo, os pontos de Venda e Embarque de suas mercadorias, usando nosso Transporte,
             </p>
                </div>
            </div>
     </div>
-</div>
 </div>
 <!-- end banner --> 
 <!-- inputs search --> 
@@ -823,7 +821,7 @@ Pesquisar
                                         	<!-- title -->
 				<div class="col-12">
 					<div class="main__title main__title--page">
-						<h2>Locais de Levantamento dos Bilhetes</h2>
+						<h2>Pontos de Vendas e Embarque de Mercadorias</h2>
 					</div>
 				</div>
 				<!-- end title -->
