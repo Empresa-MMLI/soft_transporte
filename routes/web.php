@@ -32,7 +32,7 @@ Route::get('/index', function () {
     return view('welcome');
 })->name('index');
 
-Route::get('/res', function (Request $request) {
+Route::get('/search', function (Request $request) {
     //return view('aluguel_res');
     if($request->mySearch == "Comprar Bilhetes")
     return view('bi_search');
@@ -42,6 +42,11 @@ Route::get('/res', function (Request $request) {
     return view('bi_search');
 
 })->name('search.res');
+
+
+Route::get('/results', function (Request $request) {
+    return view('bi_results');
+})->name('res.bilhetes');
 
 Route::get('/aluguer', function () {
     return view('aluguer_search');

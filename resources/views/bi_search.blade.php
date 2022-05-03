@@ -20,19 +20,12 @@
 <!-- end banner --> 
 <!-- inputs search --> 
 <div class="container">
-<div class="xpi__content__wrapper xpi__content__wrappergray xpi__content_hero_banner">
+<div class="search_content_banner">
 <div class="hero-banner-searchbox">
 <div class="
 sb-searchbox__outer
 " data-sb-outer="">
-<form id="frm" method="get" role="search" class="sb-searchbox sb-searchbox--painted sb-searchbox--xp js--sb-searchbox" data-component="search/searchbox/searchbox-xp" data-sb-id="main" data-sb-flags=" AEJPAcBacPONDcFGHT:0 calendar_on_destination_change:1 open_location_in_map_checkbox:1 with_popular_nearby_suggestions:1 can_show_sb_entire_place_checkbox:1 icon_revamp:1 region_second_line:1" data-is-first-visible="1">
-<input type="hidden" name="label" value="gen173nr-1FCAEoggI46AdIM1gEaAmIAQGYAS24ARnIAQzYAQHoAQH4AQuIAgGoAgO4ArbIu5MGwAIB0gIkMzllZjkxMzQtNzVhNy00ZTEzLTk0ZDQtZjdmYjJjODEyZTU02AIG4AIB">
-<input type="hidden" name="sid" value="a95e71a0cdfe366101bbf14d78c437e0">
-<input type="hidden" name="sb" value="1">
-<input type="hidden" name="sb_lp" value="1">
-<input type="hidden" name="src" value="index">
-<input type="hidden" name="src_elem" value="sb">
-<input type="hidden" name="error_url" value="https://www.booking.com/index.pt-br.html?label=gen173nr-1FCAEoggI46AdIM1gEaAmIAQGYAS24ARnIAQzYAQHoAQH4AQuIAgGoAgO4ArbIu5MGwAIB0gIkMzllZjkxMzQtNzVhNy00ZTEzLTk0ZDQtZjdmYjJjODEyZTU02AIG4AIB;sid=a95e71a0cdfe366101bbf14d78c437e0;sb_price_type=total&amp;;">
+<form id="frm" method="get" role="search" action="{{ route('res.bilhetes') }}" class="sb-searchbox sb-searchbox--painted sb-searchbox--xp js--sb-searchbox">
 
 <div class="xp__fieldset js--sb-fieldset accommodation " data-view="accommodation">
 <div data-visible="accommodation,flights,rentalcars" class="xp__input-group xp__search" data-destination-input="">
@@ -43,7 +36,11 @@ sb-searchbox__outer
 </button>
 <div class="row mr-1">
   <div class="col-6 pr-1">
-  <input type="search" name="origem" id="ss" class="c-autocomplete__input sb-searchbox__input sb-destination__input w-100" placeholder="Selecione Origem" value="" autocomplete="off" data-component="search/destination/input-placeholder" data-sb-id="main" data-input="" aria-autocomplete="both" aria-label="Por favor, insira sua origem" onclick="$('#list_destino').css('display','none');$('#list_origem').css('display','block');">
+  <div class="input-group flex-nowrap mb-1">
+  <span class="input-group-text group-input" id="addon-wrapping"> <i class="fa fa-map-marker fa-sm text-muted"></i> </span>
+  <input type="search" name="origem" id="origem" class="c-autocomplete__input sb-searchbox__input sb-destination__input w-100" placeholder="Origem" value="" autocomplete="off" data-component="search/destination/input-placeholder" data-sb-id="main" data-input="" aria-autocomplete="both" aria-label="Por favor, insira sua origem" onclick="$('#list_destino').css('display','none');$('#list_origem').css('display','block');">
+  
+</div>
   <!-- bloco de origem --> 
   <ul id="list_origem" data-list="" class="c-autocomplete__list sb-autocomplete__list sb-autocomplete__list-with_photos -visible" role="listbox" aria-label="Lista de destinos sugeridos" style="display:none;" data-keyboard="false">
             <li class="c-autocomplete__item sb-autocomplete__item sb-popular-nearby-title">
@@ -62,7 +59,11 @@ sb-searchbox__outer
   <!-- end bloco de origem --> 
   </div>
   <div class="col-6 px-0">
-  <input type="search" name="destino" id="ss" class="c-autocomplete__input sb-searchbox__input sb-destination__input w-100" placeholder="Selecione Destino" value="" autocomplete="off" data-component="search/destination/input-placeholder" data-sb-id="main" data-input="" aria-autocomplete="both" aria-label="Por favor, insira seu destino"  onclick="$('#list_origem').css('display','none');$('#list_destino').css('display','block');">
+  <div class="input-group flex-nowrap mb-1">
+  <span class="input-group-text group-input" id="addon-wrapping"> <i class="fa fa-map-marker fa-sm text-muted"></i> </span>
+  <input type="search" name="destino" id="destino" class="c-autocomplete__input sb-searchbox__input sb-destination__input w-100" placeholder="Destino" value="" autocomplete="off" data-component="search/destination/input-placeholder" data-sb-id="main" data-input="" aria-autocomplete="both" aria-label="Por favor, insira seu destino"  onclick="$('#list_origem').css('display','none');$('#list_destino').css('display','block');">
+  
+</div>
     <!-- bloco de destino --> 
     <ul id="list_destino" data-list="" class="c-autocomplete__list sb-autocomplete__list sb-autocomplete__list-with_photos -visible" role="listbox" aria-label="Lista de destinos sugeridos" style="display:none;" data-keyboard="false">
             <li class="c-autocomplete__item sb-autocomplete__item sb-popular-nearby-title ">
@@ -82,27 +83,8 @@ sb-searchbox__outer
   </div>
 </div>
 
-<div class="sb-a11y-announcement invisible_spoken" aria-live="polite" aria-atomic="true" style="display: none;"></div>
 </div>
-
-<div class="fe_banner fe_banner__accessible fe_banner__red" id="destination__error" role="alert"> <div class="fe_banner__message"> 
-<span class="invisible_spoken">Erro: </span>
-Por favor, insira um destino para começar a pesquisar.
- </div> </div> 
-</div><input type="hidden" name="is_ski_area" value="0">
-<div class="search-suggestion recommended-destinations c-autocomplete__list sb-autocomplete__list ">
-<h2 class="search-suggestion__title">Tente pesquisar...</h2>
-<ul class="search-suggestion__list">
-<li class="c-autocomplete__item sb-autocomplete__item sb-autocomplete__item-with_photo sb-autocomplete__item--city sb-autocomplete__item__item--elipsis" data-ss="Brasília" data-dest-id="-631243" data-dest-type="city" data-dest-latitude="-15.793581216267" data-dest-longitude="-47.8836958408465">
-Brasília
-</li>
-<li class="c-autocomplete__item sb-autocomplete__item sb-autocomplete__item-with_photo sb-autocomplete__item--city sb-autocomplete__item__item--elipsis" data-ss="São Paulo" data-dest-id="-671824" data-dest-type="city" data-dest-latitude="-23.55065" data-dest-longitude="-46.63338">
-São Paulo
-</li>
-<li class="c-autocomplete__item sb-autocomplete__item sb-autocomplete__item-with_photo sb-autocomplete__item--city sb-autocomplete__item__item--elipsis" data-ss="Cuiabá" data-dest-id="-639305" data-dest-type="city" data-dest-latitude="-15.59867" data-dest-longitude="-56.09913">
-Cuiabá
-</li>
-</ul>
+ 
 </div>
 </div>
 
@@ -110,12 +92,18 @@ Cuiabá
 <div class="xp__dates-inner">
 
 
-<div class="row px-1 sb-searchbox__inputs">
-  <div class="col-6 pr-1">
-  <input type="text" class="form-control picker xp__input py-4" id="xp__calendar" name="checkin">
+<div class="row px-1 my-">
+  <div class="col-6" >
+  <div class="input-group flex-nowrap mb-1">
+  <span class="input-group-text group-input" id="addon-wrapping"> <i class="fa fa-calendar fa-sm text-muted"></i> </span>
+  <input type="text" class="picker c-autocomplete__input sb-searchbox__input sb-destination__input w-100" id="xp__calendar" name="checkin" value="{{ date('Y-m-d') }}">
+</div>
   </div>
   <div class="col-6">
-  <input type="text" class="form-control picker xp__input py-4" name="checkout">
+  <div class="input-group flex-nowrap mb-1">
+  <span class="input-group-text group-input" id="addon-wrapping"> <i class="fa fa-calendar fa-sm text-muted"></i> </span>
+  <input type="text" class="picker c-autocomplete__input sb-searchbox__input sb-destination__input w-100" id="xp__calendar" name="checkout" value="Data de regresso">
+</div>
   </div>
 </div>
 
@@ -127,13 +115,13 @@ Cuiabá
 </div>
 <label id="xp__guests__toggle" for="xp__guests__input" class="xp__input" data-group-toggle="" role="button" aria-expanded="false" aria-controls="xp__guests__inputs-container" onclick=" $('#xp__guests__inputs-container').css('display','block'); ">
 <span class="xp__guests__count">
-<span data-adults-count="">2 adultos</span>
+<span data-adults-count="" id="adults-count">2 adultos</span>
 <span data-visible="accommodation">
 &nbsp;·&nbsp;
-<span data-children-count="">1 criança</span>
+<span data-children-count="" id="childrens-count">1 criança</span>
 </span>
 </span>
-</label>
+</label> 
 
 <div id="xp__guests__inputs-container" class="xp__guests__inputs focussable " data-group-modal="" style="display: none;" role="region" aria-label="Número de quartos e de hóspedes" style="display:none;">
 <div data-component="search/group/group" data-sb-id="main" data-sb-width="medium" data-sb-bbtool-searchbox="0" data-sb-group-children-hide="0" data-sb-group-children-ages-hide="0" data-sb-group-infants-hide="1" data-sb-group-pets-hide="0" data-sb-group-rooms-hide="0" data-sb-group-block-labels="0" data-sb-group-use_adults_label="0" data-sb-group-always-expanded="0" data-sb-group-use-bui-stepper="1" data-sb-group-bui-steppers-accessible="1" data-fe_sb_group_descriptive_dropdowns="0" data-fe_sb_universal_design="0" data-fe_sb_xpi="1" data-fe_remove_duplicate_ids="0" data-fe_sb_unique_id="" data-sb_reorder_rooms_block="1" data-sb-facelift="0" data-fe_sb_show_children_age_bracket="1" data-fe_sb_mandatory_child_ages="1" data-fe_fam_d_index_mandatory_ages_new_copy="0" data-fe_sb_dont_use_default_child_age="1">
@@ -149,11 +137,11 @@ Cuiabá
     
       <div class="bui-stepper__wrapper sb-group__stepper-a11y">
         <input style="display: none" type="number" class="bui-stepper__input" data-bui-ref="input-stepper-field" id="group_adults" name="group_adults" min="1" max="30" value="2" data-group-adults-count="">
-        <button class="bui-button bui-button--secondary bui-stepper__subtract-button " data-bui-ref="input-stepper-subtract-button" type="button" aria-label="Diminuir número de Adultos" aria-describedby="group_adults_desc">
+        <button class="bui-button bui-button--secondary bui-stepper__subtract-button " data-bui-ref="input-stepper-subtract-button" type="button" id="btn_adult_desc" aria-label="Diminuir número de Adultos" aria-describedby="group_adults_desc">
           <span class="bui-button__text">−</span>
         </button>
-        <span class="bui-stepper__display" data-bui-ref="input-stepper-value" aria-hidden="true">2</span>
-        <button class="bui-button bui-button--secondary bui-stepper__add-button " data-bui-ref="input-stepper-add-button" type="button" aria-label="Aumentar número de Adultos" aria-describedby="group_adults_desc">
+        <span class="bui-stepper__display" id="adults-qtd" data-bui-ref="input-stepper-value" aria-hidden="true">2</span>
+        <button class="bui-button bui-button--secondary bui-stepper__add-button " data-bui-ref="input-stepper-add-button" type="button" id="btn_adult_asc" aria-label="Aumentar número de Adultos" aria-describedby="group_adults_desc">
           <span class="bui-button__text">+</span>
         </button>
         <span class="bui-u-sr-only" aria-live="assertive" id="group_adults_desc">2 Adultos</span>
@@ -174,15 +162,15 @@ Cuiabá
     </div>
     
       <div class="bui-stepper__wrapper sb-group__stepper-a11y">
-        <input style="display: none" type="number" class="bui-stepper__input" data-bui-ref="input-stepper-field" id="group_children" name="group_children" min="0" max="10" value="1" data-group-children-count="">
-        <button class="bui-button bui-button--secondary bui-stepper__subtract-button " data-bui-ref="input-stepper-subtract-button" type="button" aria-label="Diminuir número de Crianças" aria-describedby="group_children_desc">
+        <input style="display: none" type="number" id="group_childrens" class="bui-stepper__input" data-bui-ref="input-stepper-field" id="group_children" name="group_children" min="0" max="10" value="1" data-group-children-count="">
+        <button class="bui-button bui-button--secondary bui-stepper__subtract-button " id="btn_children_desc" data-bui-ref="input-stepper-subtract-button" type="button" aria-label="Diminuir número de Crianças" aria-describedby="group_children_desc">
           <span class="bui-button__text">−</span>
         </button>
-        <span class="bui-stepper__display" data-bui-ref="input-stepper-value" aria-hidden="true">1</span>
-        <button class="bui-button bui-button--secondary bui-stepper__add-button " data-bui-ref="input-stepper-add-button" type="button" aria-label="Aumentar número de Crianças" aria-describedby="group_children_desc">
+        <span class="bui-stepper__display" id="childrens-qtd" data-bui-ref="input-stepper-value" aria-hidden="true">1</span>
+        <button class="bui-button bui-button--secondary bui-stepper__add-button " id="btn_children_asc" data-bui-ref="input-stepper-add-button" type="button" aria-label="Aumentar número de Crianças" aria-describedby="group_children_desc">
           <span class="bui-button__text">+</span>
         </button>
-        <span class="bui-u-sr-only" aria-live="assertive" id="group_children_desc">1 Crianças</span>
+        <span class="bui-u-sr-only" aria-live="assertive" id="group_children_desc">1 Criança</span>
       </div>
     
   </div>
@@ -320,8 +308,8 @@ Cuiabá
 <div class="xp__button">
 <div class="sb-searchbox-submit-col -button-messages">
 </div>
-<div class="sb-searchbox-submit-col -submit-button ">
-<button data-sb-id="main" type="submit" class="sb-searchbox__button " data-et-click="      customGoal:cCHObTRVDEZRdPQBcGCfTKYCccaT:1 goal:www_index_search_button_click   ">
+<div class="sb-searchbox-submit-col -submit-button mt-12">
+<button data-sb-id="main" type="submit" class="sb-searchbox__button">
 <span class="js-sb-submit-text ">
 Pesquisar
 </span>
@@ -342,89 +330,5 @@ Pesquisar
 </div>
 </div>
 <!-- end input search --> 
-<!-- results --> 
-<div class="container">
-<div class="row row--grid">
-								<div class="col-12">
-									<!-- cart -->
-									<div class="cart">
-                                        	<!-- title -->
-				<div class="col-12">
-					<div class="main__title main__title--page">
-						<h2>Locais de Levantamento dos Bilhetes</h2>
-					</div>
-				</div>
-				<!-- end title -->
-										<div class="cart__table-wrap">
-											<div class="cart__table-scroll" data-scrollbar="true" tabindex="-1" style="overflow: hidden; outline: none;"><div class="scroll-content">
-												<table class="cart__table">
-													<thead>
-														<tr>
-															<th>Local disponível</th>
-															<th></th>
-															<th>Data & Hora</th>
-															<th>Preçário</th>
-															<th>Opções</th>
-															<th></th>
-														</tr>
-													</thead>
 
-														<tr>
-															<td>
-																<div class="cart__img">
-																	<img src="{{ asset('assets/img_transp/cars/local.png') }}" alt="A">
-																</div>
-															</td>
-															<td><a href="car.html">Patriota Central</a></td>
-															<td>2022/05/03 10:30:02</td>
-                                                            <td><span class="cart__price">1600 Kz<span>440 Kz</span></span></td>
-															
-                                                            <td>
-                                                                <input type="checkbox" class="form-control" name="check_local">
-                                                            </td>
-														</tr>
-                                                        <tr>
-															<td>
-																<div class="cart__img">
-																	<img src="{{ asset('assets/img_transp/cars/local.png') }}" alt="">
-																</div>
-															</td>
-															<td><a href="car.html">Ulengo Center</a></td>
-															<td>2022/05/07 10:10:02</td>
-                                                            <td><span class="cart__price">3000 Kz<span>3800 Kz</span></span></td>
-															
-                                                            <td>
-                                                                <input type="radio" class="form-control" name="check_local">
-                                                            </td>
-														</tr>
-                                                        <tr>
-															<td>
-																<div class="cart__img">
-																	<img src="{{ asset('assets/img_transp/cars/local.png') }}" alt="">
-																</div>
-															</td>
-															<td><a href="car.html">Farmácia Central</a></td>
-															<td>2022/05/04 10:10:02</td>
-                                                            <td><span class="cart__price">3000 Kz<span>1500 Kz</span></span></td>
-															
-                                                            <td>
-                                                            <div>
-      <input type="radio" class="form-control" name="check_local">
-    </div>
-                                                            </td>
-														</tr>
-                                                        <tr>
-                                                            <td class="text-right" colspan="6"><button class="sb-searchbtn__button"><i class="fa fa-check-circle"></i> Levantar Bilhete</button></td>
-                                                        </tr>
-													</tbody>
-                                                    
-												</table>
-											</div><div class="scrollbar-track scrollbar-track-x show" style="display: none;"><div class="scrollbar-thumb scrollbar-thumb-x" style="width: 1158px; transform: translate3d(0px, 0px, 0px);"></div></div><div class="scrollbar-track scrollbar-track-y show" style="display: none;"><div class="scrollbar-thumb scrollbar-thumb-y" style="height: 436px; transform: translate3d(0px, 0px, 0px);"></div></div></div>
-										</div>
-									</div>
-									<!-- end cart -->
-								</div>
-							</div>
-</div>
-<!-- end results --> 
 @endsection

@@ -30,6 +30,10 @@ html, body{width:100%; height:100%;}
   padding:0;
   margin:0;
 }
+.operadora-ico{
+  width: 20px;
+  height: 20px;
+}
 .icons{width:50%!important;height:90px;overflow: hidden;}
 
 .fa-lg{font-size: 1.6rem!important;}
@@ -149,6 +153,12 @@ input.form-control.input-radius-md, select.form-control.input-radius-md{
   height: 50px!important; 
   font-weight: 500!important;
   font-size:20px;
+  background-color: #fff;
+}
+.group-input{
+  border:3px solid #fff;
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
   background-color: #fff;
 }
 /*

@@ -7,15 +7,16 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name') }}</title>
     <!-- Styles -->
-    <link href="{{ url('assets/css/app.css') }}" rel="stylesheet"> 
-    <link href="{{ url('assets/css/hello.css') }}?r=<?php echo random_int(1,50); ?>" rel="stylesheet"> 
-   
+    <!-- <link href="{{ url('assets/css/bootstrap.min.css') }}" rel="stylesheet"> --> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="{{ url('assets/css/hello.css') }}?r=<?php echo random_int(1,50); ?>" rel="stylesheet">
   <link href="{{ url('assets/css/bootstrap.grid.min.css') }}" rel="stylesheet"> 
 	<link rel="stylesheet" href="{{ asset('assets/css/datatimepicker.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/splides.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/select2.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/style0.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/styles3.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/styles4.css') }}">
@@ -29,10 +30,7 @@
     <meta name="description" content="Facilita Viages e Alguer de Carros">
 	<meta name="keywords" content="Viagens Alugar Carro Interprovincial Reservar Viagens Comprar Bilhetes Passageiro Lugares">
 	<meta name="author" content="MMLI Soluções">
-
-	<style>
-   
-    </style>
+  <link href="//db.onlinewebfonts.com/c/fa8cbf16882d4c4c3336976be40d9410?family=Carnas-Medium" rel="stylesheet" type="text/css"/>
 </head>
     <body style="overflow-x: hidden;">
     <!-- Config da tela de boas vindas-->
@@ -120,16 +118,21 @@
     <script src="{{ url('assets/js/custom.js') }}" ></script>
     <script src="{{ url('assets/js/datapicker.min.js') }}" ></script>
   <script>
-    $('body').dblclick(function(){//solucao preventiva
-      $('#list_origem, #list_destino, #xp__calendar, #xp__guests__inputs-container').css('display','none');
-    });
+    /*
+    let box = $('#xp__guests__inputs-container');
+    if(!box.contains(event.target))
+    {
+      alert('ola')
+    box.style.display = 'none';
+    } */  
+    $(function () {
+  $('[data-toggle="tooltip-"]').tooltip()
+})
     $data = new Date();
-    console.log($data)
     $('#picker, .picker').datetimepicker({
       timepicker:false,
       datepicker:true,
       format: 'Y-m-d',
-      value: $data,
       locale:'pt-br'
     })
   </script>

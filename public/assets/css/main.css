@@ -44,13 +44,15 @@ Primary use:	Waydex HTML Template
 /*==============================
 	Fonts
 ==============================*/
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;1,400&amp;family=Open+Sans:wght@400;600&amp;display=swap");
+/*@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;1,400&amp;family=Open+Sans:wght@400;600&amp;display=swap");*/
+@import url(//db.onlinewebfonts.com/c/fa8cbf16882d4c4c3336976be40d9410?family=Carnas-Medium);
 /*==============================
 	Common styles
 ==============================*/
 html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
+  font-family: "Carnas-Bold",Helvetica,Arial,serif;
 }
 html,
 body {
@@ -82,20 +84,6 @@ a:active,
 a:focus {
   outline: none;
   text-decoration: none;
-}
-input,
-textarea,
-select {
-  padding: 0;
-  margin: 0;
-  border-radius: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
-  box-shadow: none;
-  transition: 0.5s ease;
-  transition-property: color, border-color, box-shadow;
 }
 input:focus,
 textarea:focus,
@@ -341,7 +329,7 @@ p.padding-text.no-pb{
   color:#ebebeb;
 }
 /* search banner */
-.xpi__content_hero_banner{
+.search_content_banner{
   margin-top:-5%;
 }
 .header--active {
@@ -562,6 +550,77 @@ p.padding-text.no-pb{
 .text-right{text-align: right!important;}
 .text-left{text-align: left!important;}
 .text-center{text-align: center!important;}
+.text-identity{
+  color:#122f63;
+}
+.border-boottom-line{
+  border-bottom: 2px solid #7c9bd4;/*cor para fundos mortos*/
+}
+
+.operadora-ico{
+  width: 120px;
+  height: 30px;
+}
+.svg-ico{
+  width: 20px;
+  cursor:pointer;
+}
+.bilhete-preco{
+  font-size:28px;
+  text-align: right;
+  font-weight: 900!important;
+  line-height: 1.2;
+  letter-spacing: 0.00938em;
+  margin-top:-40px;
+}
+.text-reserve{
+  font-size:1rem;
+  color:#02b3e4;
+}
+.card.card-reserve{
+  border:none!important;
+}
+
+.card.card-reserve .card-body{
+  border:1px solid #dad8d8ee;
+}
+.card-header.bg-reserve, .bg-header-modal{
+  background-color:  #4d689b;
+  color:#fff;
+}
+.btn-reserve{
+  border-radius: 10px;
+  font-size:20px;
+  padding:5px 20px;
+  border-color:#777;
+  opacity: 0.5;
+}
+.card.bilhete-card-radius{
+  border-radius: 15px;
+  border-color: #3e5c92;
+
+}
+
+.card.bilhete-card-radius:hover{
+  border-radius: 15px;
+  border-color: #02b3e4;
+}
+
+.btn-reserve.active{
+  border-radius: 10px;
+  font-size:20px;
+  padding:5px 20px;
+  border-color:transparent;
+  background-color:#02b3e4;
+  opacity: 0.5;
+}
+.btn-reserve:hover{
+  opacity: 1;
+  background-color:#67c25b;
+  border-color:transparent;
+  color:#fff!important;
+}
+
 .sb-searchbtn__button{position:relative;cursor:pointer;border-radius:6px;padding:3px 20px;line-height:30px;font-size:18px;border:0;color:#fff;background-color:#167956;opacity: 0.8;}
 .sb-searchbtn__button.btn-header{
   border-radius: 25px;
@@ -5594,65 +5653,9 @@ p.padding-text.no-pb{
 /*==============================
 	Modal
 ==============================*/
-.modal {
-  position: relative;
-  display: block;
-  margin: 40px auto;
-  width: 100%;
-  max-width: 420px;
-  padding: 20px;
-  border-radius: 20px;
-  overflow: hidden;
-  background: linear-gradient(1turn, #f1f6fd 30%, #edf1f7);
-  box-shadow: 3px 3px 9px rgba(164,164,186,0.2);
-  border: 1px solid #fff;
-}
-.modal .mfp-close {
-  display: none;
-}
-.modal__form {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 100%;
-}
-.modal__title {
-  font-family: 'Nunito', sans-serif;
-  font-weight: 400;
-  color: #33334f;
-  font-size: 20px;
-  line-height: 26px;
-  margin-bottom: 20px;
-}
-.modal__close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  z-index: 1;
-}
-.modal__close svg {
-  fill: #8a94a6;
-  opacity: 0.6;
-  transition: 0.5s ease;
-  height: auto;
-  width: 24px;
-}
-.modal__close:hover svg {
-  opacity: 1;
-  fill: #189cf4;
-}
-@media (min-width: 768px) {
-  .modal {
-    padding: 40px;
-  }
-  .modal__title {
-    margin-bottom: 30px;
-  }
-  .modal__close {
-    top: 36px;
-    right: 36px;
-  }
+.modal-content{
+  padding:0!important;
+  margin:0!important;
 }
 .mfp-bg {
   background: rgba(78,93,120,0.5);
