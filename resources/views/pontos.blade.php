@@ -1,8 +1,13 @@
 @extends ('layouts.visitor') <!--Call of template welcome-->
+@section('map_links')
+
+<link rel="stylesheet" type="text/css" href="{{ url('assets/css/map.css') }}" />
+@endsection
 @section('content')  <!--Sectino to show content to yield -->
 <!-- banner principal -->
-<div class="banner-box">
-    <div class="container">
+<div class="banner-box-img2">
+<div class="banner-escuro-img">
+<div class="container">
            <div class="row">
                <div class="col-8">
                <h1 class="header-title padding-top">
@@ -14,9 +19,10 @@
                </div>
            </div>
     </div>
+    </div>
 </div><!-- end banner --> 
 <!-- inputs search --> 
-<div class="container">
+<div class="container pb-2">
 <div class="search_content_banner">
 <div class="hero-banner-searchbox">
 <div class="
@@ -35,7 +41,7 @@ sb-searchbox__outer
   <div class="col-6 pr-1">
   <div class="input-group flex-nowrap mb-1">
   <span class="input-group-text group-input" id="addon-wrapping"> <i class="fa fa-map-marker fa-sm text-muted"></i> </span>
-  <input type="search" name="origem" id="origem" class="c-autocomplete__input sb-searchbox__input sb-destination__input w-100" placeholder="Origem" value="" autocomplete="off" data-component="search/destination/input-placeholder" data-sb-id="main" data-input="" aria-autocomplete="both" aria-label="Por favor, insira sua origem" onclick="$('#list_destino').css('display','none');$('#list_origem').css('display','block');">
+  <input type="search" name="origem" id="origem" class="c-autocomplete__input sb-searchbox__input sb-destination__input w-100" placeholder="Origem" value="" autocomplete="off" data-component="search/destination/input-placeholder" data-sb-id="main" data-input="" aria-autocomplete="both" aria-label="Por favor, insira sua origem" onclick="$('#list_destino').css('display','none');$('#list_origem').css('display','block');" required>
   
 </div>
   <!-- bloco de origem --> 
@@ -58,7 +64,7 @@ sb-searchbox__outer
   <div class="col-6 px-0">
   <div class="input-group flex-nowrap mb-1">
   <span class="input-group-text group-input" id="addon-wrapping"> <i class="fa fa-map-marker fa-sm text-muted"></i> </span>
-  <input type="search" name="destino" id="destino" class="c-autocomplete__input sb-searchbox__input sb-destination__input w-100" placeholder="Destino" value="" autocomplete="off" data-component="search/destination/input-placeholder" data-sb-id="main" data-input="" aria-autocomplete="both" aria-label="Por favor, insira seu destino"  onclick="$('#list_origem').css('display','none');$('#list_destino').css('display','block');">
+  <input type="search" name="destino" id="destino" class="c-autocomplete__input sb-searchbox__input sb-destination__input w-100" placeholder="Destino" value="" autocomplete="off" data-component="search/destination/input-placeholder" data-sb-id="main" data-input="" aria-autocomplete="both" aria-label="Por favor, insira seu destino"  onclick="$('#list_origem').css('display','none');$('#list_destino').css('display','block');" required>
   
 </div>
     <!-- bloco de destino --> 
@@ -93,13 +99,13 @@ sb-searchbox__outer
   <div class="col-6" >
   <div class="input-group flex-nowrap mb-1">
   <span class="input-group-text group-input" id="addon-wrapping"> <i class="fa fa-calendar fa-sm text-muted"></i> </span>
-  <input type="text" class="picker c-autocomplete__input sb-searchbox__input sb-destination__input w-100" id="xp__calendar" name="checkin" value="{{ date('Y-m-d') }}">
+  <input type="text" class="picker c-autocomplete__input sb-searchbox__input sb-destination__input w-100" id="xp__calendar" name="checkin" value="{{ date('Y-m-d') }}" required>
 </div>
   </div>
   <div class="col-6">
   <div class="input-group flex-nowrap mb-1">
   <span class="input-group-text group-input" id="addon-wrapping"> <i class="fa fa-calendar fa-sm text-muted"></i> </span>
-  <input type="text" class="picker c-autocomplete__input sb-searchbox__input sb-destination__input w-100" id="xp__calendar" name="checkout" value="Data de regresso">
+  <input type="text" class="picker c-autocomplete__input sb-searchbox__input sb-destination__input w-100" id="xp__calendar" name="checkout" value="Data de regresso" required>
 </div>
   </div>
 </div>
@@ -112,10 +118,10 @@ sb-searchbox__outer
 </div>
 <label id="xp__guests__toggle" for="xp__guests__input" class="xp__input" data-group-toggle="" role="button" aria-expanded="false" aria-controls="xp__guests__inputs-container" onclick=" $('#xp__guests__inputs-container').css('display','block'); ">
 <span class="xp__guests__count">
-<span data-adults-count="" id="adults-count">2 adultos</span>
+<span data-adults-count="" id="adults-count">1 adultos</span>
 <span data-visible="accommodation">
 &nbsp;·&nbsp;
-<span data-children-count="" id="childrens-count">1 criança</span>
+<span data-children-count="" id="childrens-count">0 criança</span>
 </span>
 </span>
 </label> 
@@ -133,15 +139,15 @@ sb-searchbox__outer
     </div>
     
       <div class="bui-stepper__wrapper sb-group__stepper-a11y">
-        <input style="display: none" type="number" class="bui-stepper__input" data-bui-ref="input-stepper-field" id="group_adults" name="group_adults" min="1" max="30" value="2" data-group-adults-count="">
+        <input style="display: none" type="number" class="bui-stepper__input" data-bui-ref="input-stepper-field" id="group_adults" name="group_adults" min="1" max="30" value="1" data-group-adults-count="">
         <button class="bui-button bui-button--secondary bui-stepper__subtract-button " data-bui-ref="input-stepper-subtract-button" type="button" id="btn_adult_desc" aria-label="Diminuir número de Adultos" aria-describedby="group_adults_desc">
           <span class="bui-button__text">−</span>
         </button>
-        <span class="bui-stepper__display" id="adults-qtd" data-bui-ref="input-stepper-value" aria-hidden="true">2</span>
+        <span class="bui-stepper__display" id="adults-qtd" data-bui-ref="input-stepper-value" aria-hidden="true">1</span>
         <button class="bui-button bui-button--secondary bui-stepper__add-button " data-bui-ref="input-stepper-add-button" type="button" id="btn_adult_asc" aria-label="Aumentar número de Adultos" aria-describedby="group_adults_desc">
           <span class="bui-button__text">+</span>
         </button>
-        <span class="bui-u-sr-only" aria-live="assertive" id="group_adults_desc">2 Adultos</span>
+        <span class="bui-u-sr-only" aria-live="assertive" id="group_adults_desc">1 Adultos</span>
       </div>
     
   </div>
@@ -159,11 +165,11 @@ sb-searchbox__outer
     </div>
     
       <div class="bui-stepper__wrapper sb-group__stepper-a11y">
-        <input style="display: none" type="number" id="group_childrens" class="bui-stepper__input" data-bui-ref="input-stepper-field" id="group_children" name="group_children" min="0" max="10" value="1" data-group-children-count="">
+        <input style="display: none" type="number" id="group_childrens" class="bui-stepper__input" data-bui-ref="input-stepper-field" id="group_children" name="group_children" min="0" max="10" value="0" data-group-children-count="">
         <button class="bui-button bui-button--secondary bui-stepper__subtract-button " id="btn_children_desc" data-bui-ref="input-stepper-subtract-button" type="button" aria-label="Diminuir número de Crianças" aria-describedby="group_children_desc">
           <span class="bui-button__text">−</span>
         </button>
-        <span class="bui-stepper__display" id="childrens-qtd" data-bui-ref="input-stepper-value" aria-hidden="true">1</span>
+        <span class="bui-stepper__display" id="childrens-qtd" data-bui-ref="input-stepper-value" aria-hidden="true">0</span>
         <button class="bui-button bui-button--secondary bui-stepper__add-button " id="btn_children_asc" data-bui-ref="input-stepper-add-button" type="button" aria-label="Aumentar número de Crianças" aria-describedby="group_children_desc">
           <span class="bui-button__text">+</span>
         </button>
@@ -174,12 +180,16 @@ sb-searchbox__outer
 
     </div>
   
-      <div class="sb-group__children__field clearfix">
-        
+      <div class="sb-group__children__field clearfix mt-2">
+      <div class="row  px-3">
+        <div class="col-6">
+        <label class="bui-stepper__title pt-4" for="group_children">Idade máxima</label>
+        </div>
+        <div class="col-5">
     <select name="age" data-group-child-age="0" aria-label="Criança 1: idade" class="sb-group-field-has-error">
       <option class="sb_child_ages_empty_zero" value="">
           
-            Idade necessária
+            Idades permitidas
           
       </option>
       
@@ -291,8 +301,9 @@ sb-searchbox__outer
             
         </option>
       
-    </select>
-        <label class="sb-searchbox__label -small sb-group__children__label">
+    </select></div>
+      </div>
+        <label class="sb-searchbox__label -small sb-group__children__label d-none">
           Para encontrar um lugar que acomode todo o seu grupo e te mostrar os preços corretos, precisamos saber que idade as crianças que viajam com você terão no momento do check-out
 
         </label>
@@ -326,6 +337,19 @@ Pesquisar
 </div>
 </div>
 </div>
+
+
+<!-- google map --> 
+<div id="map"></div>
+<!-- end google map --> 
 <!-- end input search --> 
+@section('map_js')
+<script src="{{ url('assets/js/map.js') }}"></script>
+ 
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap" async defer></script>
+
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAW8yQ_Wsf9Ref9NuBsb0NciUKUyrRe5IU&v=weekly" async></script>-->
+ 
+@endsection
 
 @endsection

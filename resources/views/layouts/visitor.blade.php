@@ -12,7 +12,7 @@
     <link href="{{ url('assets/css/hello.css') }}?r=<?php echo random_int(1,50); ?>" rel="stylesheet">
   <link href="{{ url('assets/css/bootstrap.grid.min.css') }}" rel="stylesheet"> 
 	<link rel="stylesheet" href="{{ asset('assets/css/datatimepicker.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/css/splides.min.css') }}">
+  <!--<link rel="stylesheet" href="{{ asset('assets/css/splides.min.css') }}">-->
 	<link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/select2.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
@@ -31,6 +31,7 @@
 	<meta name="keywords" content="Viagens Alugar Carro Interprovincial Reservar Viagens Comprar Bilhetes Passageiro Lugares">
 	<meta name="author" content="MMLI Soluções">
   <link href="//db.onlinewebfonts.com/c/fa8cbf16882d4c4c3336976be40d9410?family=Carnas-Medium" rel="stylesheet" type="text/css"/>
+  @yield('map_links')
 </head>
     <body style="overflow-x: hidden;">
     <!-- Config da tela de boas vindas-->
@@ -56,7 +57,7 @@
 								</a>
 							</div>
                             <div class="header__action">
-								<a class="btn btn-outline-primary" href="cars.html">
+								<a class="btn btn-outline-primary" href="{{ route('dashboard') }}">
                                 <i class="fa fa-lock"></i> Iniciar Sessão
 								</a>
 							</div>
@@ -109,8 +110,83 @@
     </main>
     </div>
     
+    <footer class="footer">
+     <div class="container"> 
+      <div class="row">
+        <div class="col-4 p-0">
+        <ul class="Footer--footer__listVertical--2Hxvk">
+          <li>
+          <a href="#" title="SLA Agência - Logotipo" class="footer-img-logo" target="" rel="">
+            <img class="footer-img-logo" src="{{ url('assets/img/logo/logo_branco.png') }}" alt="SLA Agência de Turismo- Logotipo" title="SLA Agência de Turismo - Logotipo" loading="lazy">
+          </a>
+        </li>
+        <li>
+        <a href="https://itunes.apple.com/pt/app/myrne/id551700536?mt=8" title="Instale a app iOS MySLA pela App Store" class="footer-img-logo" target="_blank" rel="noopener noreferrer">
+          <img class="footer-img-logo" src="https://rnemedia.blob.core.windows.net/images/website/AppStore_PT.png" alt="Instale a app iOS SLA pela App Store" title="Instale a app iOS SLA pela App Store" loading="lazy">
+        </a>
+        </li>
+        <li>
+        <a href="https://play.google.com/store/apps/details?id=pt.beware.myrne" title="Instale a app Android SLA pelo Google Play" class="footer-img-logo" target="_blank" rel="noopener noreferrer">
+          <img class="footer-img-logo" src="https://rnemedia.blob.core.windows.net/images/website/GooglePlay_PT.png" alt="Instale a app Android SLA pelo Google Play" title="Instale a app Android SLA pelo Google Play" loading="lazy">
+        </a>
+     </li>
+    </ul>
+    <p class="Footer--footer__copyrightItems--1FCqx footer__copyright" style="margin-left: 0px;">© {{ date('Y') }} Agência SLA | Todos os direitos reservados</p>
+        </div>
+
+
+        <div class="col-3 p-0">
+        <ul class="Footer--footer__listVertical--2Hxvk">
+        <li><p class="footer__title">Receba as nossas novidades</p></li>
+        <li><a class="Footer--footer__subscribeLink--2HNIJ" href="#" target="_blank" rel="noopener noreferrer" title="Subscreva a nossa newsletter"><button class="footer__subscribeBtn">Registar</button></a></li>
+        </ul>  
+      </div>
+
+        <div class="col-2 p-0">
+        <ul class="Footer--footer__listVertical--2Hxvk">
+          <li><p class="footer__title">Acesso rápido</p></li>
+          <li class="footer__links"><a href="#" title="Pesquisa, reserva viagens e garante os teus bilhetes" target="" rel="">Bilhetes e horários</a></li>
+          <li class="footer__links"><a href="#" title="Consulta as nossas FAQs" target="" rel="">FAQs</a></li>
+          <li class="footer__links"><a href="#" title="Consulta os nossos contactos" target="" rel="">Contactos</a></li>
+          <li class="footer__links"><a href="#" title="Feedback - Ajude-nos a melhorar os nossos serviços e a sua satisfação." target="_blank" rel="noopener noreferrer">Feedback</a></li>
+        </ul>
+        </div>
+
+        <div class="col-3 p-0">
+        <ul class="Footer--footer__listVertical--2Hxvk">
+          <li><p class="footer__title">Siga as nossas novidades </p></li>
+          <li><p class="footer__text">Veja as novidades no nosso feed do Instagram e conecte-se connosco no Facebook, Instagram, Twitter e muito mais</p></li>
+          <div class="Footer--footer__socialIconsWrapper--UUIR1">
+            <li class="Footer--footer__itemIcon--2uF-8">
+              <a href="https://www.facebook.com/" title="Vê e interage com o Facebook da Agência SLA" target="_blank" rel="noopener noreferrer">
+                <img src="https://rnemedia.blob.core.windows.net/images/website/Facebook_Footer.png" alt="Vê e interage com o Facebook da Agência SLA" title="Vê e interage com o Facebook da Agência SLA" loading="lazy">
+              </a></li>
+              <li class="Footer--footer__itemIcon--2uF-8">
+                <a href="https://www.instagram.com/" title="Vê e interage com o Instagram da Agência SLA" target="_blank" rel="noopener noreferrer">
+                  <img src="https://rnemedia.blob.core.windows.net/images/website/Instagram_Footer.png" alt="Vê e interage com o Instagram da Agência SLA" title="Vê e interage com o Instagram da Agência SLA" loading="lazy">
+                </a></li>
+                <li class="Footer--footer__itemIcon--2uF-8"><a href="https://twitter.com/" title="Vê e interage com o Twitter da Agência SLA" target="_blank" rel="noopener noreferrer">
+                  <img src="https://rnemedia.blob.core.windows.net/images/website/Twitter_Footer.png" alt="Vê e interage com o Twitter da Agência SLA" title="Vê e interage com o Twitter da Agência SLA" loading="lazy"></a>
+                </li>
+                <li class="Footer--footer__itemIcon--2uF-8"><a href="https://www.youtube.com/" title="Vê e interage com o Youtube da Agência SLA" target="_blank" rel="noopener noreferrer">
+                  <img src="https://rnemedia.blob.core.windows.net/images/website/Youtube_Footer.png" alt="Vê e interage com o Youtube da Agência SLA" title="Vê e interage com o Youtube da Agência SLA" loading="lazy"></a>
+                </li>
+                <li class="Footer--footer__itemIcon--2uF-8"><a href="https://www.linkedin.com/company/" title="Vê e interage com o LinkedIn da Agência SLA" target="_blank" rel="noopener noreferrer">
+                  <img src="https://rnemedia.blob.core.windows.net/images/website/LinkedIn_Footer.png" alt="Vê e interage com o LinkedIn da Agência SLA" title="Vê e interage com o LinkedIn da Agência SLA" loading="lazy"></a>
+                </li>
+              </div>
+            </ul>
+        </div>
+      </div>
+    </div>
+    </footer>
+    <div class="footer-copyright text-center">
+    <p class="color-padrao text-simples"><strong>SLA</strong> - A sua Agência de Turismo & Prestadora de Serviços</p>
+    </div>
+ 
 	    <!-- Scripts -->
     <script src="{{ url('assets/js/jquery.min.js') }}" ></script>
+    @yield('map_js')
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>

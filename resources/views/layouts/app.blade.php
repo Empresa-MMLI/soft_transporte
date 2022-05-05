@@ -9,16 +9,15 @@
 	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
 	<meta name="author" content="MMLI-Soluções">
 	<meta name="keywords" content="Facilita, Gestão, Software de Gestão de Empresas, Empresa, mmlisoluções, mmlisolucoes,soluões">
-
-	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="shortcut icon" href="{{ url('assets/img/logo/ico.png') }}" />
-
-	<title>Facilita-Empresa | Admin</title>
-
+	<title>Facilita-Empresa | Admin</title> 
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  	<link href="{{ url('assets/css/app.css') }}" rel="stylesheet">
 	<link href="{{ url('assets/css/app.css') }}" rel="stylesheet">
     <link href="{{ url('assets/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ url('assets/css/fontawesome.min.css') }}" rel="stylesheet">
 	<link href="{{ url('assets/css/custom.css') }}?@php echo 'time='.random_int(10,50) @endphp" rel="stylesheet">
+	<link href="//db.onlinewebfonts.com/c/fa8cbf16882d4c4c3336976be40d9410?family=Carnas-Medium" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
@@ -31,11 +30,7 @@
         </a>
 
 				<ul class="sidebar-nav">
-					<li class="sidebar-header" data-toggle="collapse" href="#visao" role="button" aria-expanded="false" aria-controls="collapseExample" >
-						Visão geral
-					</li>
-
-				<div class="collapse_" id="visao">
+				
 					<li class="sidebar-item  active">
 						<a class="sidebar-link" href="index.html">
               <i class="align-middle" data-feather="activity"></i> <span class="align-middle">Dashboard</span>
@@ -50,130 +45,46 @@
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="pages-sign-in.html">
-              <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Compras</span>
+              <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Venda de Bilhetes</span>
             </a>
 					</li>
 
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-sign-up.html">
-              <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Vendas</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-blank.html">
-              <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Produtos & Stoque</span>
-            </a>
-					</li>
-			</div>
-					<!-- RH-->
-					<li class="sidebar-header" data-toggle="collapse" href="#recursoHumano" role="button" aria-expanded="false" aria-controls="recursoHumano" >
-						Recursos Humanos
-					</li>
-
-					
-				<div class="collapse" id="recursoHumano">
-					<li class="sidebar-item  active">
-						<a class="sidebar-link" href="index.html">
-              <i class="align-middle" data-feather="users"></i> <span class="align-middle">Funcionários</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-profile.html">
-              <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Relatório de Despesas</span>
-            </a>
-					</li>
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-profile.html">
-              <i class="align-middle" data-feather="edit"></i> <span class="align-middle">Faltas & Presenças</span>
-            </a>
-					</li>
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="pages-sign-in.html">
-              <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Solicitações de Licença</span>
+              <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Alugueres de carros</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="pages-sign-up.html">
-              <i class="align-middle" data-feather="clock"></i> <span class="align-middle">Quadro de Horários</span>
+              <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Serviços</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-blank.html">
-              <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Recrutamento</span>
+						<a class="sidebar-link" href="pages-sign-up.html">
+              <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Viagens</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="maps-google.html">
-						<i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Salários</span>
+						<a class="sidebar-link" href="pages-sign-up.html">
+              <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Mapa de Viagens</span>
             </a>
 					</li>
 					
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="pages-blank.html">
-              <i class="align-middle" data-feather="home"></i> <span class="align-middle">Filiação</span>
+              <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Itinerários</span>
             </a>
 					</li>
-				</div>
-					<!-- fim RH -->
-					
-					<li class="sidebar-header" data-toggle="collapse" href="#empresa" role="button" aria-expanded="false" aria-controls="collapseExample">
-						Empresa
-					</li>
 
-					<div class="collapse" id="empresa">
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="charts-chartjs.html">
-            		  <i class="align-middle" data-feather="inbox"></i> <span class="align-middle">Caixa</span>
-            		</a>
-					</li>
-
-          <li class="sidebar-item">
-						<a class="sidebar-link" href="charts-chartjs.html">
-              <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Facturamento & Pagamentos</span>
+						<a class="sidebar-link" href="pages-sign-up.html">
+              <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Imprimir/Relatórios</span>
             </a>
 					</li>
-
-          <li class="sidebar-item">
-						<a class="sidebar-link" href="maps-google.html">
-              <i class="align-middle" data-feather="folder-plus"></i> <span class="align-middle">Gestão de Arquivos</span>
-            </a>
-					</li>
-</div>
-		<li class="sidebar-header" data-toggle="collapse" href="#marketing" role="button" aria-expanded="false" aria-controls="collapseExample" >
-			Marketing
-		</li>
-		<div class="collapse" id="marketing">
-          <li class="sidebar-item">
-						<a class="sidebar-link" href="maps-google.html">
-              <i class="align-middle" data-feather="mail"></i> <span class="align-middle">Emailling</span>
-            </a>
-					</li>
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="maps-google.html">
-              <i class="align-middle" data-feather="search"></i> <span class="align-middle">Pesquisas</span>
-            </a>
-					</li>
-</div>
-				</ul>
-
-				<div class="sidebar-cta">
-					<div class="sidebar-cta-content">
-						<strong class="d-inline-block mb-2">Facilita - Empresa</strong>
-						<div class="mb-3 text-sm">
-							Software de Gestão de Empresas, certificado pela AGT, é um software super eficiente para gerir funcionários, lançamento de salários
-              e gestão do seu core business.
-						</div>
-						<div class="d-grid">
-							<a href="https://mmlisolucoes.com/facilita#upgrade" class="btn btn-primary">Ver Pacotes</a>
-						</div>
-					</div>
-				</div>
-			</div>
+</ul>
 		</nav>
 
 		<div class="main">

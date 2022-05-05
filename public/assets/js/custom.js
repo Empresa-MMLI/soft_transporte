@@ -8,6 +8,9 @@ $(document).on("click", function(e) {
   console.log(fora ? 'Fora!' : 'Dentro!');
 });*/
 
+$('#xp__guests__inputs-container, #list_origem, #list_destino').on("mouseleave", function(e) {
+$(this).css('display','none');
+});
   //pontos ou terminais de embarque
   $('#list_origem li').click(function(){
     $res = $(this).find('.search_hl_name').text();
