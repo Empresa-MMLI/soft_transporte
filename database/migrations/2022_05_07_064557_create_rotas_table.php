@@ -14,12 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('rotas', function (Blueprint $table) {
-            $table->bigIncrements('id')->primary();
+            $table->bigInteger('id')->autoIncrement();
             $table->string('origem');
             $table->string('destino');
             $table->string('kilometros');
             $table->double('preco');
             $table->timestamps();
+
+            
         });
     }
 

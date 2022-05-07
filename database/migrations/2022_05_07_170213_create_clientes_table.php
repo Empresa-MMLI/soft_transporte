@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('empresas', function (Blueprint $table) {
-            $table->id();
+        Schema::create('clientes', function (Blueprint $table) {
+            $table->bigInteger('id')->autoIncrement();
+            $table->string('nome');
+            $table->string('nif')->unique();
+            $table->string('username')->unique();
+            $table->string('password');
+            $table->string('telefone')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pontos_empresas');
+        Schema::dropIfExists('clientes');
     }
 };

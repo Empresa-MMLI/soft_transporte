@@ -14,16 +14,30 @@ return new class extends Migration
     public function up()
     {
         Schema::create('viagens', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigInteger('id')->autoIncrement();
             $table->text('itnerario');
+            $table->timestamp('data_partida');
+            $table->timestamp('data_chegada');
             $table->bigInteger('embarque_id');
             $table->bigInteger('desembarque_id');
-            $table->bigInteger('veiculo_id');
-            $table->bigInteger('cliente_id');
+            $table->bigInteger('autocarro_id');
             $table->bigInteger('rota_id');
-            $table->timestamp('data_viagem');
-            $table->timestamp('data_chegada');
+            $table->bigInteger('classe_id');
+
+            $table->double('preco_viagem');
+
             $table->timestamps();
+
+            $table->foreign('embarque_id')->references('id')->on('pontos_embarque');
+            $table->foreign('desembarque_id')->references('id')->on('pontos_desembarque');
+            $table->foreign('autocarro_id')->references('id')->on('autocarros');
+            $table->foreign('rota_id')->references('id')->on('rotas');
+            $table->foreign('classe_id')->references('id')->on('classes');
+
+
+
+
+
         });
     }
 

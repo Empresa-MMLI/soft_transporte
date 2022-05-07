@@ -14,8 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('marcas', function (Blueprint $table) {
-            $table->id();
+            $table->bigInteger('id')->autoIncrement();
+            $table->string('marca');
             $table->timestamps();
+
         });
     }
 

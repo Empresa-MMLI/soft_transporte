@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('veiculos', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('matricula');
-            $table->bigInteger('empresa_id');
+        Schema::create('classes', function (Blueprint $table) {
+            $table->bigInteger('id')->autoIncrement();
+            $table->string('classe');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pontos_veiculos');
+        Schema::dropIfExists('classes_');
     }
 };

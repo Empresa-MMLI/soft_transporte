@@ -14,10 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('pontos_desembarque', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('ponto');
+            $table->bigInteger('id')->autoIncrement();
+            $table->string('ponto')->unique();
             $table->bigInteger('provincia_id');
             $table->timestamps();
+
+            $table->foreign('provincia_id')->references('id')->on('provincias');
+
         });
     }
 

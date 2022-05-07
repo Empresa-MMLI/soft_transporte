@@ -14,9 +14,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('bilhetes', function (Blueprint $table) {
-            $table->bigIncrements('id')->primary();
+            $table->bigInteger('id')->autoIncrement();
             $table->string('num_bilhete');
-            $table->timestamps();
+            $table->smallInteger('estado');
+            $table->bigInteger('viagem_id');
+            $table->bigInteger('cliente_id');
+            $table->bigInteger('autocarro_id');
+            $table->timestamps(); //Data da compra do bilhete : created_at
+
+            $table->foreign('viagem_id')->references('id')->on('viagens');
+            $table->foreign('cliente_id')->references('id')->on('clientes');
+            $table->foreign('autocarro_id')->references('id')->on('autocarros');
+
         });
     }
 
