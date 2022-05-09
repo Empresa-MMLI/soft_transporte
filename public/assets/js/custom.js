@@ -114,3 +114,14 @@ function myFunction() {
     }
   }
 }
+
+function criar_conta($value){
+  if($value == 2)
+  {
+    $('#cliente_dados').fadeOut('fast');
+    $('#empresa_dados').fadeIn();
+  }else if($value == 3){
+    $('#cliente_dados').fadeIn();
+    $('#empresa_dados').fadeOut('fast');
+  }
+}

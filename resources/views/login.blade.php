@@ -8,46 +8,32 @@
         <form method="post" action="{{ route('login') }}">
             @csrf
     <div class="text-center">
-<span> <img src="{{ url('assets/img/logo/logo.png') }}"  alt="logo" class="logo_oficial img-responsive"></span>
+    <span> <img src="{{ url('assets/img/logo/logo.png') }}"  alt="logo" class="logo_auth img-responsive"></span><br>
 </div>
             <h3 class="text-center d-none">Iniciar Sessão</h3>
             <div class="dropdown-divider"></div>
-@error('error')
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-   <i class="fas fa-info-circle"></i> {{ $message }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  @enderror
-@error('warning')
-<div class="alert alert-warning text-dark alert-dismissible fade show" role="alert">
-<i class="fa fa-warning text-warning"></i> {{ $message }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-@enderror
+
+@include('inc.messages')            
 
   <div class="form-group">
     <label for="usuario">Usuário:</label>
-    <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Email ou Telefone" required>
+    <input type="text" class="form-control" id="user" name="user" placeholder="Email ou Telefone" required>
   
   </div>
   <div class="form-group">
     <label for="senha">Código de acesso:</label>
-    <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha secreta" required>
+    <input type="password" class="form-control" id="pass" name="pass" placeholder="Senha secreta" required>
   </div>
-  <div class="form-group form-check mb-2">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Lembrar-me</label>
+  <div class="form-group">
+    <a href="{{ route('register') }}" class="text-left text-danger" ><i class="fa fa-lock"></i> Esqueceu a senha.</a> ou  
+    <a href="{{ route('register') }}" class="text-left text-dark" ><i class="fa fa-user"></i> Criar nova conta.</a>
   </div>
   <button type="submit" class="btn btn-submit btn-block">Entrar no Sistema</button>
 </form>
 
         </div> 
         </div>
-        <a href="{{ route('index') }}" class="text-center" ><small class="small text-light text-center"><i class="fas fa-home"></i> Voltar a Tela Principal</small></a>
+        <a href="{{ route('index') }}" class="text-center" ><small class="small text-dark text-center"><i class="fa fa-globe"></i> SLA - Agência de Turismo | Início</small></a>
     </div>
 </div>
 @endsection

@@ -652,19 +652,72 @@ Pesquisar
 
 <!-- Modal -->
 <div class="modal fade" id="modalReserva" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header bg-header-modal">
         <h5 class="modal-title text-light text-center" id="exampleModalLabel">Formulário de Reservas</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:12px">
-          <span class="text-white" aria-hidden="true">Fechar</span>
+          <span class="text-white" aria-hidden="true">X</span>
         </button>
       </div>
       <div class="modal-body">
-      <div class="spinner-border" role="status">
-  <span class="sr-only">Loading...</span>
+      
+        <p class="p-2 alert alert-light"> <i class="fa fa-info-circle"></i> Preencha devidamente os campos abaixos.</p>
+
+        <form method="post" action="{{ route('user.store') }}">
+            @csrf
+    <div class="text-center">
+    <span> <img src="{{ url('assets/img/logo/logo.png') }}"  alt="logo" class="d-none logo_auth_0 img-responsive"></span><br>
 </div>
-        <p class="p-2 alert alert-success"> <i class="fa fa-info-circle"></i> Carregando o Formulário.</p>
+            <div class="dropdown-divider"></div>
+            <h2 class="text-left d-nones"><strong> Formulário de cadastro </strong></h2>
+            <br>
+            
+@include('inc.messages')  
+<div class="form-group">
+    <label for="tipo">Tipo de conta:</label>
+    <select  class="form-control custom-select text-capitalize" name="tipo" id="tipo" aria-describedby="addon-wrapping" onchange=" criar_conta($(this).val());" required>
+    <option value="2" selected readonly>Cliente</option>
+  </select>
+  </div>          
+<div class="form-group">
+    <label for="nome">Nome:</label>
+    <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" required>
+  </div>
+
+  <!-- detalhes do cliente --> 
+
+  <div id="cliente_dados">
+
+  <div class="form-group">
+    <label for="telefone_cliente">Telefone:</label>
+    <input type="tel" class="form-control" id="telefone" name="telefone_cliente" value="932853283" placeholder="Telefone válido" required>
+  </div>
+  <div class="form-group">
+    <label for="tipo_doc">Tipo Documento:</label>
+    <select  class="form-control custom-select text-capitalize" name="tipo_doc" id="tipo_doc" aria-describedby="addon-wrapping">
+    <option value="" selected disabled>Selecionar...</option>
+    <option value="BI">Bilhete</option>
+    <option value="PP">Passa-porte</option>
+    <option value="Outro">Outro...</option>
+    </select>
+  </div>  
+  <div class="form-group">
+    <label for="n_doc">Nº Documento:</label>
+    <input type="text" class="form-control" id="n_doc" name="n_doc" value="00123456789"  placeholder="Nº Documento apresentado" required>
+  </div>
+  </div>
+  <!-- fim detalhes do cliente --> 
+  <div class="form-group">
+    <label for="usuario">Usuário:</label>
+    <input type="text" class="form-control" id="user" name="user" placeholder="Email ou Telefone" required>
+  </div>
+  <div class="form-group">
+    <label for="senha">Código de acesso:</label>
+    <input type="password" class="form-control" id="pass" name="pass" placeholder="Senha secreta" required>
+  </div>
+  <button type="submit" class="btn btn-submit btn-block">Criar conta</button>
+</form>
       </div>
      
     </div>

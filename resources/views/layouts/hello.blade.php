@@ -16,15 +16,11 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url('assets/img/logo/ico.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url('assets/img/logo/ico.png') }}">
 
-    <!-- Scripts -->
-	<script src="{{ url('assets/js/app.js') }}">
-	</script><script src="{{ url('assets/js/jquery.min.js') }}" ></script>
-	<script src="{{ url('assets/js/popper.min.js') }}" ></script>
     <style>
    
     </style>
 </head>
-    <body style="overflow: hidden;">
+    <body style="overflow-x: hidden;overflow-y: auto!important;">
     <!-- Config da tela de boas vindas-->
     
     <div id='app'>
@@ -38,6 +34,11 @@
     </div>
     
 	
+    <!-- Scripts -->
+	<script src="{{ url('assets/js/jquery.min.js') }}" ></script>
+	<script src="{{ url('assets/js/app.js') }}"></script>
+	<script src="{{ url('assets/js/popper.min.js') }}" ></script>	
+	<script src="{{ url('assets/js/bootstrap.min.js') }}" ></script>
 	<script src="{{ url('assets/js/custom.js') }}" ></script>
     </body>
 </html>

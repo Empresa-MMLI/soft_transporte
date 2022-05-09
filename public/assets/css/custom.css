@@ -17,8 +17,6 @@
 */
 
 *{margin:0;padding: 0;}  
-
-
 /*Config do logo*/
 .logo_ {
     width: 80%;
@@ -202,6 +200,15 @@ ul.list-unstyled>li {
     padding: 2%;
     border-radius: 5px;
     border-left: 5px solid #17a2b8;
+}
+
+.text-normal{
+    font-size:12pt;
+    line-height: 20pt;
+}
+.text-simples{
+    font-size:10pt;
+    line-height: 16pt;
 }
 
 .span-table {

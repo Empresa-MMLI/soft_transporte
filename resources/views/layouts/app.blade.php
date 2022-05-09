@@ -10,12 +10,16 @@
 	<meta name="author" content="MMLI-Soluções">
 	<meta name="keywords" content="Facilita, Gestão, Software de Gestão de Empresas, Empresa, mmlisoluções, mmlisolucoes,soluões">
 	<link rel="shortcut icon" href="{{ url('assets/img/logo/ico.png') }}" />
-	<title>Facilita-Empresa | Admin</title> 
+	<title>@yield('html_title')</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<!-- Link dataTables -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">		
+	<!-- fim Link dataTables -->
   	<link href="{{ url('assets/css/app.css') }}" rel="stylesheet">
-	<link href="{{ url('assets/css/app.css') }}" rel="stylesheet">
     <link href="{{ url('assets/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ url('assets/css/fontawesome.min.css') }}" rel="stylesheet">
+	
 	<link href="{{ url('assets/css/custom.css') }}?@php echo 'time='.random_int(10,50) @endphp" rel="stylesheet">
 	<link href="//db.onlinewebfonts.com/c/fa8cbf16882d4c4c3336976be40d9410?family=Carnas-Medium" rel="stylesheet" type="text/css"/>
 </head>
@@ -24,7 +28,7 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="{{ route('dashboard') }}">
+				<a class="sidebar-brand" href="{{ route('dashboard.index') }}">
           <span class="align-middle welcome">
     <img src="{{ url('assets/img/logo/logo_branco.png') }}" alt="Logo-facilita" class="logo_ img-responsive"></span>
         </a>
@@ -32,58 +36,113 @@
 				<ul class="sidebar-nav">
 				
 					<li class="sidebar-item  active">
-						<a class="sidebar-link" href="index.html">
+						<a class="sidebar-link" href="{{ route('dashboard.index') }}">
               <i class="align-middle" data-feather="activity"></i> <span class="align-middle">Dashboard</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-profile.html">
-              <i class="align-middle" data-feather="users"></i> <span class="align-middle">Clientes</span>
+						<a class="sidebar-link" href="{{ route('dashboard.bilhetes') }}">
+              <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Bilhetes</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-sign-in.html">
-              <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Venda de Bilhetes</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-sign-in.html">
+						<a class="sidebar-link" href="{{ route('dashboard.alugueres') }}">
               <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Alugueres de carros</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-sign-up.html">
+						<a class="sidebar-link" href="{{ route('dashboard.servicos') }}">
               <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Serviços</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-sign-up.html">
+						<a class="sidebar-link" href="{{ route('dashboard.rotas') }}">
+              <i class="align-middle" data-feather="users"></i> <span class="align-middle">Rotas</span>
+            </a>
+					</li>
+
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="{{ route('dashboard.viagem') }}">
               <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Viagens</span>
             </a>
 					</li>
 
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-sign-up.html">
-              <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Mapa de Viagens</span>
-            </a>
-					</li>
+				<li class="sidebar-item">
+				<a class="sidebar-link" href="{{ route('dashboard.map_viagem') }}">
+              	<i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Mapa de Viagens</span>
+            	</a>
+				</li>
 					
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-blank.html">
-              <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Itinerários</span>
-            </a>
-					</li>
+				<li class="sidebar-item">
+				<a class="sidebar-link" href="{{ route('dashboard.itinerarios') }}">
+              	<i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Itinerários</span>
+            	</a>
+				</li>
 
+				<li class="sidebar-item">
+				<a class="sidebar-link" href="{{ route('dashboard.veiculos') }}">
+             	<i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Veículos</span>
+           		</a>
+				</li>
+				
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-sign-up.html">
+						<a class="sidebar-link" href="{{ route('dashboard.relatorios') }}">
               <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Imprimir/Relatórios</span>
             </a>
 					</li>
+
+					<li class="sidebar-header text-normal" data-toggle="collapse" href="#marketing" role="button" aria-expanded="false" aria-controls="collapseExample" >
+			Dept. Comuinicação <i class="fa fa-caret-down float-right"></i>
+		</li>
+		<div class="collapse" id="marketing">
+          <li class="sidebar-item">
+						<a class="sidebar-link" href="{{ route('dashboard.notificacoes') }}">
+              <i class="align-middle" data-feather="bell"></i> <span class="align-middle">Notificações</span>
+            </a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="{{ route('dashboard.mensagens') }}">
+              <i class="align-middle" data-feather="message-square"></i> <span class="align-middle">Mensagens</span>
+            </a>
+					</li>
+</div>
+
+					<li class="sidebar-header text-normal" data-toggle="collapse" href="#configuracoes" role="button" aria-expanded="false" aria-controls="collapseExample" >
+						Configurações <i class="fa fa-caret-down float-right"></i>
+					</li>
+
+				<div class="collapse" id="configuracoes">
+
+				<li class="sidebar-item">
+				<a class="sidebar-link" href="{{ route('dashboard.empresa') }}">
+             	<i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Empresa</span>
+            	</a>
+				</li>
+				
+				<li class="sidebar-item">
+				<a class="sidebar-link" href="{{ route('dashboard.usuarios') }}">
+              	<i class="align-middle" data-feather="activity"></i> <span class="align-middle">Clientes</span>
+            	</a>
+				</li>
+				
+				<li class="sidebar-item">
+				<a class="sidebar-link" href="{{ route('dashboard.provincias') }}">
+              	<i class="align-middle" data-feather="activity"></i> <span class="align-middle">Províncias</span>
+            	</a>
+				</li>
+
+				<li class="sidebar-item">
+				<a class="sidebar-link" href="{{ route('dashboard.pontos') }}" title="Pontos de Embarque e Desembarque">
+                <i class="align-middle" data-feather="users"></i> <span class="align-middle">Pontos de E & D</span>
+            	</a>
+				</li>
+
+			</div>
 </ul>
 		</nav>
 
@@ -156,7 +215,7 @@
 									</a>
 								</div>
 								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Mostrar todas Notificações</a>
+									<a href="{{ route('dashboard.notificacoes') }}" class="text-muted">Mostrar todas Notificações</a>
 								</div>
 							</div>
 						</li>
@@ -223,7 +282,7 @@
 									</a>
 								</div>
 								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Mostrar todas Mensagens</a>
+									<a href="{{ route('dashboard.mensagens') }}" class="text-muted">Mostrar todas Mensagens</a>
 								</div>
 							</div>
 						</li>
@@ -280,232 +339,55 @@
 		</div>
 	</div>
 
-	<script src="{{ url('assets/js/app.js') }}">
-	</script><script src="{{ url('assets/js/jquery.min.js') }}" ></script>
+	<!--<script src="{{ url('assets/js/jquery.min.js') }}" ></script>-->
+	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+	<script src="{{ url('assets/js/app.js') }}"></script>
 	<script src="{{ url('assets/js/popper.min.js') }}" ></script>	
 	<script src="{{ url('assets/js/bootstrap.min.js') }}" ></script>
-  <script>
-		document.addEventListener("DOMContentLoaded", function() {
-			var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
-			var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-			gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-			gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
-			// Line chart
-			new Chart(document.getElementById("chartjs-dashboard-line"), {
-				type: "line",
-				data: {
-					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-					datasets: [{
-						label: "Sales ($)",
-						fill: true,
-						backgroundColor: gradient,
-						borderColor: window.theme.primary,
-						data: [
-							2115,
-							1562,
-							1584,
-							1892,
-							1587,
-							1923,
-							2566,
-							2448,
-							2805,
-							3438,
-							2917,
-							3327
-						]
-					}]
-				},
-				options: {
-					maintainAspectRatio: false,
-					legend: {
-						display: false
-					},
-					tooltips: {
-						intersect: false
-					},
-					hover: {
-						intersect: true
-					},
-					plugins: {
-						filler: {
-							propagate: false
-						}
-					},
-					scales: {
-						xAxes: [{
-							reverse: true,
-							gridLines: {
-								color: "rgba(0,0,0,0.0)"
-							}
-						}],
-						yAxes: [{
-							ticks: {
-								stepSize: 1000
-							},
-							display: true,
-							borderDash: [3, 3],
-							gridLines: {
-								color: "rgba(0,0,0,0.0)"
-							}
-						}]
-					}
-				}
-			});
-		});
-	</script>
+	
+	@yield('html_graphics')
+	<!-- Datatable -->
 	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			// Pie chart
-			new Chart(document.getElementById("chartjs-dashboard-pie"), {
-				type: "pie",
-				data: {
-					labels: ["Chrome", "Firefox", "IE"],
-					datasets: [{
-						data: [4306, 3801, 1689],
-						backgroundColor: [
-							window.theme.primary,
-							window.theme.warning,
-							window.theme.danger
-						],
-						borderWidth: 5
-					}]
-				},
-				options: {
-					responsive: !window.MSInputMethodContext,
-					maintainAspectRatio: false,
-					legend: {
-						display: false
-					},
-					cutoutPercentage: 75
-				}
-			});
-		});
-	</script>
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			// Bar chart
-			new Chart(document.getElementById("chartjs-dashboard-bar"), {
-				type: "bar",
-				data: {
-					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-					datasets: [{
-						label: "This year",
-						backgroundColor: window.theme.primary,
-						borderColor: window.theme.primary,
-						hoverBackgroundColor: window.theme.primary,
-						hoverBorderColor: window.theme.primary,
-						data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-						barPercentage: .75,
-						categoryPercentage: .5
-					}]
-				},
-				options: {
-					maintainAspectRatio: false,
-					legend: {
-						display: false
-					},
-					scales: {
-						yAxes: [{
-							gridLines: {
-								display: false
-							},
-							stacked: false,
-							ticks: {
-								stepSize: 20
-							}
-						}],
-						xAxes: [{
-							stacked: false,
-							gridLines: {
-								color: "transparent"
-							}
-						}]
-					}
-				}
-			});
-		});
-	</script>
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			var markers = [{
-					coords: [31.230391, 121.473701],
-					name: "Shanghai"
-				},
-				{
-					coords: [28.704060, 77.102493],
-					name: "Delhi"
-				},
-				{
-					coords: [6.524379, 3.379206],
-					name: "Lagos"
-				},
-				{
-					coords: [35.689487, 139.691711],
-					name: "Tokyo"
-				},
-				{
-					coords: [23.129110, 113.264381],
-					name: "Guangzhou"
-				},
-				{
-					coords: [40.7127837, -74.0059413],
-					name: "New York"
-				},
-				{
-					coords: [34.052235, -118.243683],
-					name: "Los Angeles"
-				},
-				{
-					coords: [41.878113, -87.629799],
-					name: "Chicago"
-				},
-				{
-					coords: [51.507351, -0.127758],
-					name: "London"
-				},
-				{
-					coords: [40.416775, -3.703790],
-					name: "Madrid "
-				}
-			];
-			var map = new jsVectorMap({
-				map: "world",
-				selector: "#world_map",
-				zoomButtons: true,
-				markers: markers,
-				markerStyle: {
-					initial: {
-						r: 9,
-						strokeWidth: 7,
-						stokeOpacity: .4,
-						fill: window.theme.primary
-					},
-					hover: {
-						fill: window.theme.warning,
-						stroke: window.theme.primary
-					}
-				},
-				zoomOnScroll: false
-			});
-			window.addEventListener("resize", () => {
-				map.updateSize();
-			});
-		});
-	</script>
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
-			var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
-			document.getElementById("datetimepicker-dashboard").flatpickr({
-				inline: true,
-				prevArrow: "<span title=\"Previous month\">&laquo;</span>",
-				nextArrow: "<span title=\"Next month\">&raquo;</span>",
-				defaultDate: defaultDate
-			});
-		});
-	</script>
+  $(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
 
+    $('#dataTables, .dataTables').DataTable( {
+        "paging":   true,
+        "ordering": true,
+        "info":     true,
+		dom: 'Bfrtip',
+        buttons: [
+        'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        "order": [[ 3, "desc" ]],
+        "language": {
+          "decimal":        "",
+          "emptyTable":     "Nenhum registro disponíveis na tabela",
+          "info":           "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+          "infoEmpty":      "Mostrando 0 a 0 de 0 entradas",
+          "infoFiltered":   "(filtrado de _MAX_ entradas totais)",
+          "infoPostFix":    "",
+          "thousands":      ",",
+          "lengthMenu":     "Mostrar _MENU_ entradas",
+          "loadingRecords": "Carregando...",
+          "processing":     "Em processamento...",
+          "search":         "Procurar:",
+          "zeroRecords":    "Nenhum registro correspondente encontrado",
+          "paginate": {
+              "first":      "Primeiro",
+              "last":       "Último",
+              "next":       "Próximo",
+              "previous":   "Anterior"
+    },
+        }
+    } );
+} );
+</script>
 </body>
 
 </html>

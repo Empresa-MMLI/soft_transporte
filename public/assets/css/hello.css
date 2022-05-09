@@ -25,6 +25,17 @@ html, body{width:100%; height:100%;}
   padding:0;
   margin:0;
 }
+.logo_auth{
+  width:60%!important;
+  padding:0;
+  margin:0;
+}
+
+.logo_auth_0{
+  width:35%!important;
+  padding:0;
+  margin:0;
+}
 .logotipo{
   width:50%!important;
   padding:0;

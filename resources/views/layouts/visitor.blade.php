@@ -33,7 +33,7 @@
   <link href="//db.onlinewebfonts.com/c/fa8cbf16882d4c4c3336976be40d9410?family=Carnas-Medium" rel="stylesheet" type="text/css"/>
   @yield('map_links')
 </head>
-    <body style="overflow-x: hidden;">
+    <body>
     <!-- Config da tela de boas vindas-->
     	<!-- header -->
         <nav class="navbar navbar-expand static-top p-1">
@@ -52,12 +52,12 @@
 <div class="col-4">
 <div class="header__action">
     <div class="header__action">
-								<a class="btn btn-outline-primary" href="cars.html">
+								<a class="btn btn-outline-primary" href="{{ route('register') }}">
 								 <i class="fa fa-user"></i>	Registar
 								</a>
 							</div>
                             <div class="header__action">
-								<a class="btn btn-outline-primary" href="{{ route('dashboard') }}">
+								<a class="btn btn-outline-primary" href="{{ route('sessao') }}">
                                 <i class="fa fa-lock"></i> Iniciar Sessão
 								</a>
 							</div>

@@ -80,7 +80,7 @@ body {
     font-weight: var(--bs-body-font-weight);
     line-height: var(--bs-body-line-height);
     margin: 0;
-    text-align: var(--bs-body-text-align)
+    text-align: var(--bs-body-text-align);
 }
 
 hr {
@@ -4179,13 +4179,17 @@ fieldset:disabled .btn {
     vertical-align: 0
 }
 
-.dropdown-divider {
+.dropdown-divider, hr {
     border-top: 1px solid rgba(0, 0, 0, .15);
     height: 0;
     margin: .5rem 0;
     overflow: hidden
 }
-
+hr{
+    background-color: #ccc;
+    margin-bottom: 2rem;
+    width: 98%!important;
+}
 .dropdown-item {
     background-color: transparent;
     border: 0;
@@ -13764,7 +13768,7 @@ screen and (-ms-high-contrast:active) {
     list-style: none;
     margin-top: 20%;
     margin-bottom: 0;
-    padding-left: 0
+    padding-left: 0;
 }
 
 .sidebar-link,
@@ -13808,7 +13812,7 @@ a.sidebar-link svg {
 }
 
 .sidebar-item.active .sidebar-link:hover,
-.sidebar-item.active>.sidebar-link {
+.sidebar-item.active>.sidebar-link, .sidebar-item .sidebar-link:active {
     background: linear-gradient(90deg, rgba(59, 125, 221, .1), rgba(59, 125, 221, .088) 50%, transparent);
     border-left-color: #3b7ddd;
     color: #e9ecef
@@ -15225,7 +15229,8 @@ span.flatpickr-weekday {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    padding-bottom: 0 !important
+    padding-bottom: 0 !important;
+    /*overflow-y: auto;*/
 }
 
 [data-simplebar] {
