@@ -4,21 +4,12 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProvinciaController;
+use App\Http\Controllers\RotaController;
+use App\Http\Controllers\ViagemController;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-/*
-|--------------------------------------------------------------------------
-| Routes de acesso ao soft
+| Routes de acesso ao soft - MMLI Teams
 |--------------------------------------------------------------------------
 */
 
@@ -112,13 +103,42 @@ Route::get('/pontos_e_d', [ProvinciaController::class, 'index_pontos'])->name('d
 Route::post('/store_pontos', [ProvinciaController::class, 'store_pontos'])->name('pontos.store');
 
 
+/*
+|--------------------------------------------------------------------------
+| Routes de configuracao das Rotas de viagens
+|--------------------------------------------------------------------------
+*/
+
+//mostrar rotas
+Route::get('/rotas', [RotaController::class, 'index'])->name('dashboard.rotas');
+//store new rota
+Route::post('/store_rota', [ROtaController::class, 'store'])->name('rotas.store');
+
+/*
+|--------------------------------------------------------------------------
+| Routes de configuracao das Classes de viagens
+|--------------------------------------------------------------------------
+*/
+
+//mostrar rotas
+Route::get('/classe', [RotaController::class, 'index_classe'])->name('dashboard.classe');
+//store new classe
+Route::post('/store_classe', [RotaController::class, 'store_classe'])->name('classe.store');
+
+/*
+|--------------------------------------------------------------------------
+| Routes de configuracao das Viagem
+|--------------------------------------------------------------------------
+*/
+
+//mostrar rotas
+Route::get('/viagens', [ViagemController::class, 'index'])->name('dashboard.viagem');
+//store new classe
+Route::post('/store_viagem', [ViagemController::class, 'store'])->name('viagem.store');
+
 Route::get('/dashbord', function () {
     return view('dashboard.index');
 })->name('dashboard.index');
-
-Route::get('/rotas', function () {
-    return view('dashboard.rotas');
-})->name('dashboard.rotas');
 
 Route::get('/bilhetes', function () {
     return view('dashboard.bilhetes');
@@ -131,10 +151,6 @@ Route::get('/alugueres', function () {
 Route::get('/servicos', function () {
     return view('dashboard.servicos');
 })->name('dashboard.servicos');
-
-Route::get('/viagens', function () {
-    return view('dashboard.viagem');
-})->name('dashboard.viagem');
 
 Route::get('/map_viagens', function () {
     return view('dashboard.map_viagem');

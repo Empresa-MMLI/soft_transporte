@@ -167,7 +167,7 @@
                 </a></li>
                 <li class="Footer--footer__itemIcon--2uF-8"><a href="https://twitter.com/" title="Vê e interage com o Twitter da Agência SLA" target="_blank" rel="noopener noreferrer">
                   <img src="https://rnemedia.blob.core.windows.net/images/website/Twitter_Footer.png" alt="Vê e interage com o Twitter da Agência SLA" title="Vê e interage com o Twitter da Agência SLA" loading="lazy"></a>
-                </li>
+                </li>/map_viagens
                 <li class="Footer--footer__itemIcon--2uF-8"><a href="https://www.youtube.com/" title="Vê e interage com o Youtube da Agência SLA" target="_blank" rel="noopener noreferrer">
                   <img src="https://rnemedia.blob.core.windows.net/images/website/Youtube_Footer.png" alt="Vê e interage com o Youtube da Agência SLA" title="Vê e interage com o Youtube da Agência SLA" loading="lazy"></a>
                 </li>

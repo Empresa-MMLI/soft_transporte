@@ -16,6 +16,8 @@
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">		
 	<!-- fim Link dataTables -->
+
+	<link rel="stylesheet" href="{{ asset('assets/css/datatimepicker.min.css') }}">
   	<link href="{{ url('assets/css/app.css') }}" rel="stylesheet">
     <link href="{{ url('assets/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ url('assets/css/fontawesome.min.css') }}" rel="stylesheet">
@@ -40,6 +42,12 @@
               <i class="align-middle" data-feather="activity"></i> <span class="align-middle">Dashboard</span>
             </a>
 					</li>
+
+					<li class="sidebar-item">
+				<a class="sidebar-link" href="{{ route('dashboard.usuarios') }}">
+              	<i class="align-middle" data-feather="activity"></i> <span class="align-middle">Clientes</span>
+            	</a>
+				</li>
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="{{ route('dashboard.bilhetes') }}">
@@ -124,11 +132,6 @@
             	</a>
 				</li>
 				
-				<li class="sidebar-item">
-				<a class="sidebar-link" href="{{ route('dashboard.usuarios') }}">
-              	<i class="align-middle" data-feather="activity"></i> <span class="align-middle">Clientes</span>
-            	</a>
-				</li>
 				
 				<li class="sidebar-item">
 				<a class="sidebar-link" href="{{ route('dashboard.provincias') }}">
@@ -142,6 +145,11 @@
             	</a>
 				</li>
 
+				<li class="sidebar-item">
+				<a class="sidebar-link" href="{{ route('dashboard.classe') }}">
+              	<i class="align-middle" data-feather="activity"></i> <span class="align-middle">Classe de Viagens</span>
+            	</a>
+				</li>
 			</div>
 </ul>
 		</nav>
@@ -319,7 +327,7 @@
 					<div class="row text-muted">
 						<div class="col-6 text-start">
 							<p class="mb-0">
-								<a class="text-muted" href="https://mmlisolucoes.com/facilita" target="_blank"><strong>Faciltia</strong></a> &copy;
+								<a class="text-muted" href="https://mmlisolucoes.com/facilita" target="_blank"><strong>SLA - Agência de Turismo</strong></a> &copy;
 							</p>
 						</div>
 						<div class="col-6 text-end">
@@ -346,6 +354,7 @@
 	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+    <script src="{{ url('assets/js/datapicker.min.js') }}" ></script>
 	<script src="{{ url('assets/js/app.js') }}"></script>
 	<script src="{{ url('assets/js/popper.min.js') }}" ></script>	
 	<script src="{{ url('assets/js/bootstrap.min.js') }}" ></script>
@@ -386,6 +395,9 @@
     },
         }
     } );
+	//dataTimeTable
+	$data = new Date();
+    $('#datapicker, .datapicker').datetimepicker(); 
 } );
 </script>
 </body>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 09/05/2022 às 14:02
+-- Tempo de geração: 09/05/2022 às 17:11
 -- Versão do servidor: 10.4.24-MariaDB
 -- Versão do PHP: 7.4.28
 
@@ -20,31 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `db_sla_mmli`
 --
-CREATE DATABASE IF NOT EXISTS `db_sla_mmli` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `db_sla_mmli`;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `autocarros`
---
-
-DROP TABLE IF EXISTS `autocarros`;
-CREATE TABLE IF NOT EXISTS `autocarros` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `matricula` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `capacidade` mediumint(9) NOT NULL,
-  `marca_id` bigint(20) NOT NULL,
-  `modelo_id` bigint(20) NOT NULL,
-  `empresa_id` bigint(20) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `autocarros_matricula_unique` (`matricula`),
-  KEY `autocarros_empresa_id_foreign` (`empresa_id`),
-  KEY `autocarros_marca_id_foreign` (`marca_id`),
-  KEY `autocarros_modelo_id_foreign` (`modelo_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -52,14 +27,22 @@ CREATE TABLE IF NOT EXISTS `autocarros` (
 -- Estrutura para tabela `classes`
 --
 
-DROP TABLE IF EXISTS `classes`;
-CREATE TABLE IF NOT EXISTS `classes` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `classes` (
+  `id` bigint(20) NOT NULL,
   `classe` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Despejando dados para a tabela `classes`
+--
+
+INSERT INTO `classes` (`id`, `classe`, `created_at`, `updated_at`) VALUES
+(1, 'SEMI-LEITO', '2022-05-09 12:29:57', '2022-05-09 12:29:57'),
+(2, 'ECONóMICA', '2022-05-09 12:32:34', '2022-05-09 12:32:34'),
+(3, 'EXECUTIVO', '2022-05-09 12:32:47', '2022-05-09 12:32:47'),
+(4, 'CONVENCIONAL', '2022-05-09 12:32:56', '2022-05-09 12:32:56');
 
 -- --------------------------------------------------------
 
@@ -67,19 +50,16 @@ CREATE TABLE IF NOT EXISTS `classes` (
 -- Estrutura para tabela `clientes`
 --
 
-DROP TABLE IF EXISTS `clientes`;
-CREATE TABLE IF NOT EXISTS `clientes` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `clientes` (
+  `id` bigint(20) NOT NULL,
   `nome` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `telefone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tipo_doc` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'BI',
   `n_doc` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_usuario` bigint(20) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `clientes`
@@ -94,9 +74,8 @@ INSERT INTO `clientes` (`id`, `nome`, `telefone`, `tipo_doc`, `n_doc`, `id_usuar
 -- Estrutura para tabela `empresas`
 --
 
-DROP TABLE IF EXISTS `empresas`;
-CREATE TABLE IF NOT EXISTS `empresas` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `empresas` (
+  `id` bigint(20) NOT NULL,
   `nome` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nif` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `telefone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -104,10 +83,8 @@ CREATE TABLE IF NOT EXISTS `empresas` (
   `endereco_sede` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_usuario` bigint(20) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `empresas`
@@ -122,17 +99,14 @@ INSERT INTO `empresas` (`id`, `nome`, `nif`, `telefone`, `email`, `endereco_sede
 -- Estrutura para tabela `failed_jobs`
 --
 
-DROP TABLE IF EXISTS `failed_jobs`;
-CREATE TABLE IF NOT EXISTS `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -141,19 +115,15 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
 -- Estrutura para tabela `funcionarios`
 --
 
-DROP TABLE IF EXISTS `funcionarios`;
-CREATE TABLE IF NOT EXISTS `funcionarios` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `funcionarios` (
+  `id` bigint(20) NOT NULL,
   `nome` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `funcao` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `empresa_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `funcionarios_username_unique` (`username`),
-  KEY `funcionarios_empresa_id_foreign` (`empresa_id`)
+  `empresa_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -162,14 +132,19 @@ CREATE TABLE IF NOT EXISTS `funcionarios` (
 -- Estrutura para tabela `marcas`
 --
 
-DROP TABLE IF EXISTS `marcas`;
-CREATE TABLE IF NOT EXISTS `marcas` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `marcas` (
+  `id` bigint(20) NOT NULL,
   `marca` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Despejando dados para a tabela `marcas`
+--
+
+INSERT INTO `marcas` (`id`, `marca`, `created_at`, `updated_at`) VALUES
+(1, 'Nissan', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -177,13 +152,11 @@ CREATE TABLE IF NOT EXISTS `marcas` (
 -- Estrutura para tabela `migrations`
 --
 
-DROP TABLE IF EXISTS `migrations`;
-CREATE TABLE IF NOT EXISTS `migrations` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `migrations`
@@ -212,16 +185,20 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- Estrutura para tabela `modelos`
 --
 
-DROP TABLE IF EXISTS `modelos`;
-CREATE TABLE IF NOT EXISTS `modelos` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `modelos` (
+  `id` bigint(20) NOT NULL,
   `modelo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `marca_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `modelos_marca_id_foreign` (`marca_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Despejando dados para a tabela `modelos`
+--
+
+INSERT INTO `modelos` (`id`, `modelo`, `marca_id`, `created_at`, `updated_at`) VALUES
+(1, 'Nissan 2022', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -229,12 +206,10 @@ CREATE TABLE IF NOT EXISTS `modelos` (
 -- Estrutura para tabela `password_resets`
 --
 
-DROP TABLE IF EXISTS `password_resets`;
-CREATE TABLE IF NOT EXISTS `password_resets` (
+CREATE TABLE `password_resets` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  KEY `password_resets_email_index` (`email`)
+  `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -243,9 +218,8 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 -- Estrutura para tabela `personal_access_tokens`
 --
 
-DROP TABLE IF EXISTS `personal_access_tokens`;
-CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `personal_access_tokens` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -253,10 +227,7 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
   `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
-  KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -265,15 +236,12 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
 -- Estrutura para tabela `pontos_desembarque`
 --
 
-DROP TABLE IF EXISTS `pontos_desembarque`;
-CREATE TABLE IF NOT EXISTS `pontos_desembarque` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pontos_desembarque` (
+  `id` bigint(20) NOT NULL,
   `ponto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `provincia_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `pontos_desembarque_provincia_id_foreign` (`provincia_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -282,8 +250,7 @@ CREATE TABLE IF NOT EXISTS `pontos_desembarque` (
 -- Estrutura stand-in para view `pontos_detalhes`
 -- (Veja abaixo para a visão atual)
 --
-DROP VIEW IF EXISTS `pontos_detalhes`;
-CREATE TABLE IF NOT EXISTS `pontos_detalhes` (
+CREATE TABLE `pontos_detalhes` (
 `id` bigint(20)
 ,`ponto` varchar(150)
 ,`tipo_ponto` varchar(20)
@@ -300,16 +267,12 @@ CREATE TABLE IF NOT EXISTS `pontos_detalhes` (
 -- Estrutura para tabela `pontos_embarque`
 --
 
-DROP TABLE IF EXISTS `pontos_embarque`;
-CREATE TABLE IF NOT EXISTS `pontos_embarque` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pontos_embarque` (
+  `id` bigint(20) NOT NULL,
   `ponto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `provincia_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `pontos_embarque_ponto_unique` (`ponto`),
-  KEY `pontos_embarque_provincia_id_foreign` (`provincia_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -318,18 +281,14 @@ CREATE TABLE IF NOT EXISTS `pontos_embarque` (
 -- Estrutura para tabela `pontos_e_d`
 --
 
-DROP TABLE IF EXISTS `pontos_e_d`;
-CREATE TABLE IF NOT EXISTS `pontos_e_d` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pontos_e_d` (
+  `id` bigint(20) NOT NULL,
   `ponto` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tipo_ponto` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT 'Embarque',
   `provincia_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `pontos_embarque_ponto_unique` (`ponto`),
-  KEY `pontos_embarque_provincia_id_foreign` (`provincia_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `pontos_e_d`
@@ -345,15 +304,13 @@ INSERT INTO `pontos_e_d` (`id`, `ponto`, `tipo_ponto`, `provincia_id`, `created_
 -- Estrutura para tabela `provincias`
 --
 
-DROP TABLE IF EXISTS `provincias`;
-CREATE TABLE IF NOT EXISTS `provincias` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `provincias` (
+  `id` bigint(20) NOT NULL,
   `provincia` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pais` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT 'Angola',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `provincias`
@@ -374,17 +331,23 @@ INSERT INTO `provincias` (`id`, `provincia`, `pais`, `created_at`, `updated_at`)
 -- Estrutura para tabela `rotas`
 --
 
-DROP TABLE IF EXISTS `rotas`;
-CREATE TABLE IF NOT EXISTS `rotas` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rotas` (
+  `id` bigint(20) NOT NULL,
   `origem` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `destino` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `kilometros` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `preco` double NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Despejando dados para a tabela `rotas`
+--
+
+INSERT INTO `rotas` (`id`, `origem`, `destino`, `kilometros`, `preco`, `created_at`, `updated_at`) VALUES
+(1, 'Bengo', 'Luanda', '350', 2500, '2022-05-09 12:06:58', '2022-05-09 12:06:58'),
+(2, 'Luanda', 'Uíge', '5000', 16500, '2022-05-09 12:08:31', '2022-05-09 12:08:31');
 
 -- --------------------------------------------------------
 
@@ -392,9 +355,8 @@ CREATE TABLE IF NOT EXISTS `rotas` (
 -- Estrutura para tabela `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `id_tipo_user` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -402,11 +364,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`),
-  KEY `id_tipo_usuario` (`id_tipo_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `users`
@@ -423,14 +382,12 @@ INSERT INTO `users` (`id`, `id_tipo_user`, `name`, `email`, `email_verified_at`,
 -- Estrutura para tabela `user_roles`
 --
 
-DROP TABLE IF EXISTS `user_roles`;
-CREATE TABLE IF NOT EXISTS `user_roles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user_roles` (
+  `id` int(11) NOT NULL,
   `tipo_usuario` varchar(30) NOT NULL DEFAULT 'cliente',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Despejando dados para a tabela `user_roles`
@@ -444,12 +401,35 @@ INSERT INTO `user_roles` (`id`, `tipo_usuario`, `created_at`, `updated_at`) VALU
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `veiculos`
+--
+
+CREATE TABLE `veiculos` (
+  `id` bigint(20) NOT NULL,
+  `matricula` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `capacidade` mediumint(9) NOT NULL,
+  `marca_id` bigint(20) NOT NULL,
+  `modelo_id` bigint(20) NOT NULL,
+  `empresa_id` bigint(20) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Despejando dados para a tabela `veiculos`
+--
+
+INSERT INTO `veiculos` (`id`, `matricula`, `capacidade`, `marca_id`, `modelo_id`, `empresa_id`, `created_at`, `updated_at`) VALUES
+(1, 'LD-20-12-UI', 42, 1, 1, 1, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `viagens`
 --
 
-DROP TABLE IF EXISTS `viagens`;
-CREATE TABLE IF NOT EXISTS `viagens` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `viagens` (
+  `id` bigint(20) NOT NULL,
   `itnerario` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `data_partida` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `data_chegada` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -459,13 +439,7 @@ CREATE TABLE IF NOT EXISTS `viagens` (
   `rota_id` bigint(20) NOT NULL,
   `classe_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `viagens_embarque_id_foreign` (`embarque_id`),
-  KEY `viagens_desembarque_id_foreign` (`desembarque_id`),
-  KEY `viagens_autocarro_id_foreign` (`autocarro_id`),
-  KEY `viagens_rota_id_foreign` (`rota_id`),
-  KEY `viagens_classe_id_foreign` (`classe_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -475,20 +449,265 @@ CREATE TABLE IF NOT EXISTS `viagens` (
 --
 DROP TABLE IF EXISTS `pontos_detalhes`;
 
-DROP VIEW IF EXISTS `pontos_detalhes`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pontos_detalhes`  AS SELECT `pontos`.`id` AS `id`, `pontos`.`ponto` AS `ponto`, `pontos`.`tipo_ponto` AS `tipo_ponto`, `pontos`.`provincia_id` AS `provincia_id`, `pontos`.`created_at` AS `created_at`, `pontos`.`updated_at` AS `updated_at`, `provincia`.`provincia` AS `provincia`, `provincia`.`pais` AS `pais` FROM (`pontos_e_d` `pontos` join `provincias` `provincia` on(`pontos`.`provincia_id` = `provincia`.`id`))  ;
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices de tabela `classes`
+--
+ALTER TABLE `classes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `clientes`
+--
+ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
+-- Índices de tabela `empresas`
+--
+ALTER TABLE `empresas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
+-- Índices de tabela `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Índices de tabela `funcionarios`
+--
+ALTER TABLE `funcionarios`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `funcionarios_username_unique` (`username`),
+  ADD KEY `funcionarios_empresa_id_foreign` (`empresa_id`);
+
+--
+-- Índices de tabela `marcas`
+--
+ALTER TABLE `marcas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `modelos`
+--
+ALTER TABLE `modelos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `modelos_marca_id_foreign` (`marca_id`);
+
+--
+-- Índices de tabela `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Índices de tabela `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
+  ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
+
+--
+-- Índices de tabela `pontos_desembarque`
+--
+ALTER TABLE `pontos_desembarque`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pontos_desembarque_provincia_id_foreign` (`provincia_id`);
+
+--
+-- Índices de tabela `pontos_embarque`
+--
+ALTER TABLE `pontos_embarque`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `pontos_embarque_ponto_unique` (`ponto`),
+  ADD KEY `pontos_embarque_provincia_id_foreign` (`provincia_id`);
+
+--
+-- Índices de tabela `pontos_e_d`
+--
+ALTER TABLE `pontos_e_d`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `pontos_embarque_ponto_unique` (`ponto`),
+  ADD KEY `pontos_embarque_provincia_id_foreign` (`provincia_id`);
+
+--
+-- Índices de tabela `provincias`
+--
+ALTER TABLE `provincias`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `rotas`
+--
+ALTER TABLE `rotas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`),
+  ADD KEY `id_tipo_usuario` (`id_tipo_user`);
+
+--
+-- Índices de tabela `user_roles`
+--
+ALTER TABLE `user_roles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `veiculos`
+--
+ALTER TABLE `veiculos`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `autocarros_matricula_unique` (`matricula`),
+  ADD KEY `autocarros_empresa_id_foreign` (`empresa_id`),
+  ADD KEY `autocarros_marca_id_foreign` (`marca_id`),
+  ADD KEY `autocarros_modelo_id_foreign` (`modelo_id`);
+
+--
+-- Índices de tabela `viagens`
+--
+ALTER TABLE `viagens`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `viagens_embarque_id_foreign` (`embarque_id`),
+  ADD KEY `viagens_desembarque_id_foreign` (`desembarque_id`),
+  ADD KEY `viagens_autocarro_id_foreign` (`autocarro_id`),
+  ADD KEY `viagens_rota_id_foreign` (`rota_id`),
+  ADD KEY `viagens_classe_id_foreign` (`classe_id`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `classes`
+--
+ALTER TABLE `classes`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de tabela `clientes`
+--
+ALTER TABLE `clientes`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `empresas`
+--
+ALTER TABLE `empresas`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `funcionarios`
+--
+ALTER TABLE `funcionarios`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `marcas`
+--
+ALTER TABLE `marcas`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT de tabela `modelos`
+--
+ALTER TABLE `modelos`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `pontos_desembarque`
+--
+ALTER TABLE `pontos_desembarque`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `pontos_embarque`
+--
+ALTER TABLE `pontos_embarque`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `pontos_e_d`
+--
+ALTER TABLE `pontos_e_d`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de tabela `provincias`
+--
+ALTER TABLE `provincias`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de tabela `rotas`
+--
+ALTER TABLE `rotas`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de tabela `user_roles`
+--
+ALTER TABLE `user_roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `veiculos`
+--
+ALTER TABLE `veiculos`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `viagens`
+--
+ALTER TABLE `viagens`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restrições para tabelas despejadas
 --
-
---
--- Restrições para tabelas `autocarros`
---
-ALTER TABLE `autocarros`
-  ADD CONSTRAINT `autocarros_empresa_id_foreign` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`),
-  ADD CONSTRAINT `autocarros_marca_id_foreign` FOREIGN KEY (`marca_id`) REFERENCES `marcas` (`id`),
-  ADD CONSTRAINT `autocarros_modelo_id_foreign` FOREIGN KEY (`modelo_id`) REFERENCES `modelos` (`id`);
 
 --
 -- Restrições para tabelas `clientes`
@@ -533,10 +752,18 @@ ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_tipo_user`) REFERENCES `user_roles` (`id`);
 
 --
+-- Restrições para tabelas `veiculos`
+--
+ALTER TABLE `veiculos`
+  ADD CONSTRAINT `autocarros_empresa_id_foreign` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`),
+  ADD CONSTRAINT `autocarros_marca_id_foreign` FOREIGN KEY (`marca_id`) REFERENCES `marcas` (`id`),
+  ADD CONSTRAINT `autocarros_modelo_id_foreign` FOREIGN KEY (`modelo_id`) REFERENCES `modelos` (`id`);
+
+--
 -- Restrições para tabelas `viagens`
 --
 ALTER TABLE `viagens`
-  ADD CONSTRAINT `viagens_autocarro_id_foreign` FOREIGN KEY (`autocarro_id`) REFERENCES `autocarros` (`id`),
+  ADD CONSTRAINT `viagens_autocarro_id_foreign` FOREIGN KEY (`autocarro_id`) REFERENCES `veiculos` (`id`),
   ADD CONSTRAINT `viagens_classe_id_foreign` FOREIGN KEY (`classe_id`) REFERENCES `classes` (`id`),
   ADD CONSTRAINT `viagens_desembarque_id_foreign` FOREIGN KEY (`desembarque_id`) REFERENCES `pontos_desembarque` (`id`),
   ADD CONSTRAINT `viagens_embarque_id_foreign` FOREIGN KEY (`embarque_id`) REFERENCES `pontos_embarque` (`id`),
