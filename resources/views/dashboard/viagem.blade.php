@@ -16,7 +16,7 @@
                                 <hr>
                                 @include('inc.messages')       
                                 <!-- form de cadastro de provincias -->
-                                <form method="post" action="{{ route('rotas.store') }}">
+                                <form method="post" action="{{ route('viagem.store') }}">
                                     @csrf
                           
 
@@ -33,15 +33,15 @@
                             </select>
                             </div>
                             <div class="col">
-                                <label for="etinerario">Etinerário de viagem <code>(Comentário)</code>:</label>
-                                <textarea class="form-control" id="etinerario" name="etinerario" placeholder="Pontos de paradas obrigatórias..." required></textarea>
+                                <label for="itinerario">Etinerário de viagem <code>(Comentário)</code>:</label>
+                                <textarea class="form-control" id="itinerario" name="itinerario" placeholder="Pontos de paradas obrigatórias..." required></textarea>
                             </div>
                             </div>
 
                                     <div class="row my-4">
                             <div class="col">
                                 <label for="origem">Ponto de Embarque:</label>
-                                <select  class="form-control custom-select text-capitalize" name="id_veiculo" id="id_veiculo" aria-describedby="addon-wrapping" required>
+                                <select  class="form-control custom-select text-capitalize" name="id_ponto_e" id="id_ponto_e" aria-describedby="addon-wrapping" required>
                                 @if(isset($pontos_e[0]->id))
                                 <option value="" selected disabled>Selecionar...</option>
                                 @foreach($pontos_e as $item)
@@ -70,7 +70,7 @@
                                 @if(isset($veiculos[0]->id))
                                 <option value="" selected disabled>Selecionar...</option>
                                 @foreach($veiculos as $item)
-                                <option value="{{ $item->id }}">{{ $item->matricula }}</option>
+                                <option value="{{ $item->id }}">{{ $item->marca }} - {{ $item->modelo }} ({{ $item->matricula }})</option>
                                 @endforeach
                                 @endif
                             </select>
@@ -113,14 +113,21 @@
                             <hr>
                                <!-- tabela de provincias --> 
                                <div class="container">
+                               <div class="table-responsive">
                                <table id="dataTables" class="display nowrap" style="width:100%">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Origem</th>
-                <th>Destino</th>
-                <th>Kilómetros (km)</th>
-                <th>Preço (Akz)</th>
+                <th>Veículo</th>
+                <th>Rota</th>
+                <th>Itinerário</th>
+                <th>Kilómetros</th>
+                <th>Preço</th>
+                <th>Classe</th>
+                <th>Ponto de embarque</th>
+                <th>Ponto de desembarque</th>
+                <th>Data Partida</th>
+                <th>Data Chegada</th>
                 <th>Opções</th>
             </tr>
         </thead>
@@ -129,10 +136,16 @@
             @foreach($viagens as $item)
             <tr>
                 <td>{{ $item->id }}</td>
-                <td>{{ $item->origem }}</td>
-                <td>{{ $item->destino }}</td>
+                <td>{{ $item->marca }} - {{ $item->matricula }}</td>
+                <td>{{ $item->rota_origem }} - {{ $item->rota_destino }}</td>
+                <td>{{ $item->itinerario }}</td>
                 <td>{{ $item->kilometros }}</td>
                 <td>{{ $item->preco }}</td>
+                <td>{{ $item->classe }}</td>
+                <td>{{ $item->ponto_e }}</td>
+                <td>{{ $item->ponto_d }}</td>
+                <td>{{ $item->data_partida }}</td>
+                <td>{{ $item->data_chegada }}</td>
                 <td class="text-left">
 		        <a href="" class="btn btn-success btn-sm mb-1" data-toggle="tooltip" data-placement="left" title="Editar Rota"><i class="fa fa-edit" ></i></a>
                 <a href="" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes excluir Rota?');" data-toggle="tooltip" data-placement="right" title="Excluir Rota..."><i class="fa fa-trash"></i></a>
@@ -143,6 +156,7 @@
         </tbody>
         </table>
                                <!-- fim tabela de provincias --> 
+                            </div>
                             </div>
                         </div>
                             </div>

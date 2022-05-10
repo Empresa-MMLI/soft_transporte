@@ -373,6 +373,35 @@
         buttons: [
         'copy', 'csv', 'excel', 'pdf', 'print'
         ],
+        "buttons": 
+        [       
+            {
+                "extend": "copyHtml5",
+                "text": "COPIAR"
+            },          
+            {
+                "extend": "pdf",
+                "text": "PDF"
+            },
+            {
+                "extend": "excelHtml5",
+                "text": "EXCEL"
+            },
+            {
+                "extend": "print",
+                "text": "IMPRIMIR"
+            }
+        ],
+        language: {
+            buttons: {
+                copyTitle: 'Copiado para área de transferência',
+                copyKeys: 'Appuyez sur <i>ctrl</i> ou <i>\u2318</i> + <i>C</i> pour copier les données du tableau à votre presse-papiers. <br><br>Pour annuler, cliquez sur ce message ou appuyez sur Echap.',
+                copySuccess: {
+                    _: '%d linhas copiadas',
+                    1: '1 linha copiada'
+                }
+            }
+        },
         "order": [[ 3, "desc" ]],
         "language": {
           "decimal":        "",
