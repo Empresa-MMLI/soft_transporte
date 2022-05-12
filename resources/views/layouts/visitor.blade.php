@@ -38,18 +38,18 @@
     	<!-- header -->
         <nav class="navbar navbar-expand static-top p-1">
 <div class="container">
-<div class="col-4">
+<div class="col-sm-12 col-lg-4">
 <a class="navbar-brand " href="{{ route('index') }}">
     <img src="{{ url('assets/img/logo/logo.png') }}"  alt="logo" class="logotipo img-responsive">
     </a>
 </div>
 <div class="col-1"></div>
-<div class="col-3">
+<div class="col-sm-12 col-lg-3">
 <ul class="list-group list-group-horizontal timeTable text-right">
   <li class="list-group-items"><i class="fa fa-calendar"></i> Segunda - Sexta <i class="fa fa-clock"></i> 8:00 Am - 18:00 Pm</li>
 </ul>
 </div>
-<div class="col-4">
+<div class="col-sm-12 col-lg-4">
 <div class="header__action">
     <div class="header__action">
 								<a class="btn btn-outline-primary" href="{{ route('register') }}">
@@ -110,10 +110,10 @@
     </main>
     </div>
     
-    <footer class="footer">
+    <footer class="footer px-4">
      <div class="container"> 
       <div class="row">
-        <div class="col-4 p-0">
+        <div class="col-sm-12 col-md-3 col-lg-4 p-0">
         <ul class="Footer--footer__listVertical--2Hxvk">
           <li>
           <a href="#" title="SLA Agência - Logotipo" class="footer-img-logo" target="" rel="">
@@ -135,14 +135,14 @@
         </div>
 
 
-        <div class="col-3 p-0">
+        <div class="col-sm-12 col-md-3 col-lg-3 p-0">
         <ul class="Footer--footer__listVertical--2Hxvk">
         <li><p class="footer__title">Receba as nossas novidades</p></li>
         <li><a class="Footer--footer__subscribeLink--2HNIJ" href="#" target="_blank" rel="noopener noreferrer" title="Subscreva a nossa newsletter"><button class="footer__subscribeBtn">Registar</button></a></li>
         </ul>  
       </div>
 
-        <div class="col-2 p-0">
+        <div class="col-sm-12 col-md-3 col-lg-2 p-0">
         <ul class="Footer--footer__listVertical--2Hxvk">
           <li><p class="footer__title">Acesso rápido</p></li>
           <li class="footer__links"><a href="#" title="Pesquisa, reserva viagens e garante os teus bilhetes" target="" rel="">Bilhetes e horários</a></li>
@@ -152,7 +152,7 @@
         </ul>
         </div>
 
-        <div class="col-3 p-0">
+        <div class="col-sm-12 col-md-3 col-lg-3 p-0">
         <ul class="Footer--footer__listVertical--2Hxvk">
           <li><p class="footer__title">Siga as nossas novidades </p></li>
           <li><p class="footer__text">Veja as novidades no nosso feed do Instagram e conecte-se connosco no Facebook, Instagram, Twitter e muito mais</p></li>
@@ -167,7 +167,7 @@
                 </a></li>
                 <li class="Footer--footer__itemIcon--2uF-8"><a href="https://twitter.com/" title="Vê e interage com o Twitter da Agência SLA" target="_blank" rel="noopener noreferrer">
                   <img src="https://rnemedia.blob.core.windows.net/images/website/Twitter_Footer.png" alt="Vê e interage com o Twitter da Agência SLA" title="Vê e interage com o Twitter da Agência SLA" loading="lazy"></a>
-                </li>/map_viagens
+                </li>
                 <li class="Footer--footer__itemIcon--2uF-8"><a href="https://www.youtube.com/" title="Vê e interage com o Youtube da Agência SLA" target="_blank" rel="noopener noreferrer">
                   <img src="https://rnemedia.blob.core.windows.net/images/website/Youtube_Footer.png" alt="Vê e interage com o Youtube da Agência SLA" title="Vê e interage com o Youtube da Agência SLA" loading="lazy"></a>
                 </li>
@@ -185,14 +185,18 @@
     </div>
  
 	    <!-- Scripts -->
-    <script src="{{ url('assets/js/jquery.min.js') }}" ></script>
+  <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+  <script src="{{ url('assets/js/datapicker.min.js') }}" ></script>
+	<script src="{{ url('assets/js/app.js') }}"></script>
+	<script src="{{ url('assets/js/popper.min.js') }}" ></script>	
+	<script src="{{ url('assets/js/bootstrap.min.js') }}" ></script>
+	<script src="{{ url('assets/js/custom.js') }}" ></script>
     @yield('map_js')
-    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.easing.min.js') }}"></script>
-    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
-    <script src="{{ url('assets/js/app.js') }}"></script>
-    <script src="{{ url('assets/js/custom.js') }}" ></script>
-    <script src="{{ url('assets/js/datapicker.min.js') }}" ></script>
   <script>
     /*
     let box = $('#xp__guests__inputs-container');
@@ -201,9 +205,9 @@
       alert('ola')
     box.style.display = 'none';
     } */  
-    $(function () {
-  $('[data-toggle="tooltip-"]').tooltip()
-})
+  $(document).ready(function() {
+    $('[data-toggle="tooltip-"]').tooltip();
+
     $data = new Date();
     $('#picker, .picker').datetimepicker({
       timepicker:false,
@@ -211,6 +215,7 @@
       format: 'Y-m-d',
       locale:'pt-br'
     })
+  });
   </script>
     </body>
     

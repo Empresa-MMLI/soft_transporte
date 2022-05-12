@@ -9,7 +9,7 @@ $(document).on("click", function(e) {
 });*/
 
 $('#xp__guests__inputs-container, #list_origem, #list_destino').on("mouseleave", function(e) {
-$(this).css('display','none');
+$(this).css('display','nones');
 });
   //pontos ou terminais de embarque
   $('#list_origem li').click(function(){

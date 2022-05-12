@@ -92,19 +92,30 @@
             	</a>
 				</li>
 
-				<li class="sidebar-item">
-				<a class="sidebar-link" href="{{ route('dashboard.veiculos') }}">
+					<li class="sidebar-header text-normal" data-toggle="collapse" href="#marketing" role="button" aria-expanded="false" aria-controls="collapseExample" >
+			Meios de transportes <i class="fa fa-caret-down float-right"></i>
+		</li>
+		<div class="collapse" id="marketing">
+          <li class="sidebar-item">
+		  <a class="sidebar-link" href="{{ route('dashboard.veiculos') }}">
              	<i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Veículos</span>
-           		</a>
-				</li>
-				
+            </a>
+					</li>
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ route('dashboard.relatorios') }}">
-              <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Imprimir/Relatórios</span>
+						<a class="sidebar-link" href="{{ route('dashboard.marcas') }}">
+              <i class="align-middle" data-feather="message-square"></i> <span class="align-middle">Marcas</span>
             </a>
 					</li>
 
-					<li class="sidebar-header text-normal" data-toggle="collapse" href="#marketing" role="button" aria-expanded="false" aria-controls="collapseExample" >
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="{{ route('dashboard.modelos') }}">
+              <i class="align-middle" data-feather="message-square"></i> <span class="align-middle">Modelos</span>
+            </a>
+					</li>
+
+		</div>
+
+			<li class="sidebar-header text-normal" data-toggle="collapse" href="#marketing" role="button" aria-expanded="false" aria-controls="collapseExample" >
 			Dept. Comuinicação <i class="fa fa-caret-down float-right"></i>
 		</li>
 		<div class="collapse" id="marketing">
@@ -327,7 +338,7 @@
 					<div class="row text-muted">
 						<div class="col-6 text-start">
 							<p class="mb-0">
-								<a class="text-muted" href="https://mmlisolucoes.com/facilita" target="_blank"><strong>SLA - Agência de Turismo</strong></a> &copy;
+								<a class="text-muted" href="https://mmlisolucoes.com" target="_blank"><strong>MMLI - Soluções Tecnológicas</strong></a> &copy;
 							</p>
 						</div>
 						<div class="col-6 text-end">

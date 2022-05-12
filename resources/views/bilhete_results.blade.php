@@ -29,8 +29,8 @@
 <div class="
 sb-searchbox__outer
 " data-sb-outer="">
-<form id="frm" method="get" role="search" action="{{ route('res.bilhetes') }}" class="sb-searchbox sb-searchbox--painted sb-searchbox--xp js--sb-searchbox">
-
+<form id="frm" method="post" role="search" action="{{ route('search.bilhetes') }}" class="sb-searchbox sb-searchbox--painted sb-searchbox--xp js--sb-searchbox">
+@csrf
 <div class="xp__fieldset js--sb-fieldset accommodation " data-view="accommodation">
 <div data-visible="accommodation,flights,rentalcars" class="xp__input-group xp__search" data-destination-input="">
 <div data-component="search/destination/input" data-sb-id="main" data-gpf="1" data-required="1" data-flags="" data-open-focus="" data-minlength="1" data-focus-on-typing="1">
@@ -54,11 +54,11 @@ sb-searchbox__outer
                     </div>
                 </div>
             </li>
-        <li class="c-autocomplete__item sb-autocomplete__item sb-autocomplete__item-with_photo sb-autocomplete__item__item--elipsis sb-autocomplete__item--icon_revamp sb-autocomplete__item--city sb-autocomplete__item--with-title " role="option" data-list-item="" data-i="0" data-value="" data-label="Luanda"><span class="sb-autocomplete--photo"><svg fill="#6B6B6B" height="24" width="24" viewBox="0 0 24 24" class="bk-icon -streamline-geo_pin"><path d="M15 8.25a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm1.5 0a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0zM12 1.5a6.75 6.75 0 0 1 6.75 6.75c0 2.537-3.537 9.406-6.75 14.25-3.214-4.844-6.75-11.713-6.75-14.25A6.75 6.75 0 0 1 12 1.5zM12 0a8.25 8.25 0 0 0-8.25 8.25c0 2.965 3.594 9.945 7 15.08a1.5 1.5 0 0 0 2.5 0c3.406-5.135 7-12.115 7-15.08A8.25 8.25 0 0 0 12 0z"></path></svg></span><span><span class="search_hl_name">Luanda</span><br>Angola</span></li>
-        <li class="c-autocomplete__item sb-autocomplete__item sb-autocomplete__item-with_photo sb-autocomplete__item__item--elipsis sb-autocomplete__item--icon_revamp sb-autocomplete__item--city " role="option" data-list-item="" data-i="1" data-value="" data-label="Benguela"><span class="sb-autocomplete--photo"><svg fill="#6B6B6B" height="24" width="24" viewBox="0 0 24 24" class="bk-icon -streamline-geo_pin"><path d="M15 8.25a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm1.5 0a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0zM12 1.5a6.75 6.75 0 0 1 6.75 6.75c0 2.537-3.537 9.406-6.75 14.25-3.214-4.844-6.75-11.713-6.75-14.25A6.75 6.75 0 0 1 12 1.5zM12 0a8.25 8.25 0 0 0-8.25 8.25c0 2.965 3.594 9.945 7 15.08a1.5 1.5 0 0 0 2.5 0c3.406-5.135 7-12.115 7-15.08A8.25 8.25 0 0 0 12 0z"></path></svg></span><span><span class="search_hl_name">Benguela</span><br>Angola</span></li>
-        <li class="c-autocomplete__item sb-autocomplete__item sb-autocomplete__item-with_photo sb-autocomplete__item__item--elipsis sb-autocomplete__item--icon_revamp sb-autocomplete__item--city " role="option" data-list-item="" data-i="2" data-value="" data-label="Lubango"><span class="sb-autocomplete--photo"><svg fill="#6B6B6B" height="24" width="24" viewBox="0 0 24 24" class="bk-icon -streamline-geo_pin"><path d="M15 8.25a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm1.5 0a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0zM12 1.5a6.75 6.75 0 0 1 6.75 6.75c0 2.537-3.537 9.406-6.75 14.25-3.214-4.844-6.75-11.713-6.75-14.25A6.75 6.75 0 0 1 12 1.5zM12 0a8.25 8.25 0 0 0-8.25 8.25c0 2.965 3.594 9.945 7 15.08a1.5 1.5 0 0 0 2.5 0c3.406-5.135 7-12.115 7-15.08A8.25 8.25 0 0 0 12 0z"></path></svg></span><span><span class="search_hl_name">Lubango</span><br>Angola</span></li>
-        <li class="c-autocomplete__item sb-autocomplete__item sb-autocomplete__item-with_photo sb-autocomplete__item__item--elipsis sb-autocomplete__item--icon_revamp sb-autocomplete__item--city " role="option" data-list-item="" data-i="3" data-value="" data-label="Talatona"><span class="sb-autocomplete--photo"><svg fill="#6B6B6B" height="24" width="24" viewBox="0 0 24 24" class="bk-icon -streamline-geo_pin"><path d="M15 8.25a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm1.5 0a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0zM12 1.5a6.75 6.75 0 0 1 6.75 6.75c0 2.537-3.537 9.406-6.75 14.25-3.214-4.844-6.75-11.713-6.75-14.25A6.75 6.75 0 0 1 12 1.5zM12 0a8.25 8.25 0 0 0-8.25 8.25c0 2.965 3.594 9.945 7 15.08a1.5 1.5 0 0 0 2.5 0c3.406-5.135 7-12.115 7-15.08A8.25 8.25 0 0 0 12 0z"></path></svg></span><span><span class="search_hl_name">Talatona</span><br>Angola</span></li>
-        <li class="c-autocomplete__item sb-autocomplete__item sb-autocomplete__item-with_photo sb-autocomplete__item__item--elipsis sb-autocomplete__item--icon_revamp sb-autocomplete__item--city " role="option" data-list-item="" data-i="4" data-value="" data-label="Lobito"><span class="sb-autocomplete--photo"><svg fill="#6B6B6B" height="24" width="24" viewBox="0 0 24 24" class="bk-icon -streamline-geo_pin"><path d="M15 8.25a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm1.5 0a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0zM12 1.5a6.75 6.75 0 0 1 6.75 6.75c0 2.537-3.537 9.406-6.75 14.25-3.214-4.844-6.75-11.713-6.75-14.25A6.75 6.75 0 0 1 12 1.5zM12 0a8.25 8.25 0 0 0-8.25 8.25c0 2.965 3.594 9.945 7 15.08a1.5 1.5 0 0 0 2.5 0c3.406-5.135 7-12.115 7-15.08A8.25 8.25 0 0 0 12 0z"></path></svg></span><span><span class="search_hl_name">Lobito</span><br>Angola</span></li>
+            @if(isset($provincias[0]->id))
+            @foreach($provincias as $item)
+            <li class="c-autocomplete__item sb-autocomplete__item sb-autocomplete__item-with_photo sb-autocomplete__item__item--elipsis sb-autocomplete__item--icon_revamp sb-autocomplete__item--city sb-autocomplete__item--with-title " role="option" data-list-item="" data-i="0" data-value="" data-label="Luanda"><span class="sb-autocomplete--photo"><svg fill="#6B6B6B" height="24" width="24" viewBox="0 0 24 24" class="bk-icon -streamline-geo_pin"><path d="M15 8.25a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm1.5 0a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0zM12 1.5a6.75 6.75 0 0 1 6.75 6.75c0 2.537-3.537 9.406-6.75 14.25-3.214-4.844-6.75-11.713-6.75-14.25A6.75 6.75 0 0 1 12 1.5zM12 0a8.25 8.25 0 0 0-8.25 8.25c0 2.965 3.594 9.945 7 15.08a1.5 1.5 0 0 0 2.5 0c3.406-5.135 7-12.115 7-15.08A8.25 8.25 0 0 0 12 0z"></path></svg></span><span><span class="search_hl_name">{{ $item->provincia }}</span><br>{{ $item->pais }}</span></li>
+            @endforeach
+            @endif
     </ul>
   <!-- end bloco de origem --> 
   </div>
@@ -77,11 +77,11 @@ sb-searchbox__outer
                     </div>
                 </div>
             </li>
-        <li class="c-autocomplete__item sb-autocomplete__item sb-autocomplete__item-with_photo sb-autocomplete__item__item--elipsis sb-autocomplete__item--icon_revamp sb-autocomplete__item--city sb-autocomplete__item--with-title " role="option" data-list-item="" data-i="0" data-value="" data-label="Luanda"><span class="sb-autocomplete--photo"><svg fill="#6B6B6B" height="24" width="24" viewBox="0 0 24 24" class="bk-icon -streamline-geo_pin"><path d="M15 8.25a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm1.5 0a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0zM12 1.5a6.75 6.75 0 0 1 6.75 6.75c0 2.537-3.537 9.406-6.75 14.25-3.214-4.844-6.75-11.713-6.75-14.25A6.75 6.75 0 0 1 12 1.5zM12 0a8.25 8.25 0 0 0-8.25 8.25c0 2.965 3.594 9.945 7 15.08a1.5 1.5 0 0 0 2.5 0c3.406-5.135 7-12.115 7-15.08A8.25 8.25 0 0 0 12 0z"></path></svg></span><span><span class="search_hl_name">Luanda</span><br>Angola</span></li>
-        <li class="c-autocomplete__item sb-autocomplete__item sb-autocomplete__item-with_photo sb-autocomplete__item__item--elipsis sb-autocomplete__item--icon_revamp sb-autocomplete__item--city " role="option" data-list-item="" data-i="1" data-value="" data-label="Benguela"><span class="sb-autocomplete--photo"><svg fill="#6B6B6B" height="24" width="24" viewBox="0 0 24 24" class="bk-icon -streamline-geo_pin"><path d="M15 8.25a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm1.5 0a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0zM12 1.5a6.75 6.75 0 0 1 6.75 6.75c0 2.537-3.537 9.406-6.75 14.25-3.214-4.844-6.75-11.713-6.75-14.25A6.75 6.75 0 0 1 12 1.5zM12 0a8.25 8.25 0 0 0-8.25 8.25c0 2.965 3.594 9.945 7 15.08a1.5 1.5 0 0 0 2.5 0c3.406-5.135 7-12.115 7-15.08A8.25 8.25 0 0 0 12 0z"></path></svg></span><span><span class="search_hl_name">Benguela</span><br>Angola</span></li>
-        <li class="c-autocomplete__item sb-autocomplete__item sb-autocomplete__item-with_photo sb-autocomplete__item__item--elipsis sb-autocomplete__item--icon_revamp sb-autocomplete__item--city " role="option" data-list-item="" data-i="2" data-value="" data-label="Lubango"><span class="sb-autocomplete--photo"><svg fill="#6B6B6B" height="24" width="24" viewBox="0 0 24 24" class="bk-icon -streamline-geo_pin"><path d="M15 8.25a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm1.5 0a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0zM12 1.5a6.75 6.75 0 0 1 6.75 6.75c0 2.537-3.537 9.406-6.75 14.25-3.214-4.844-6.75-11.713-6.75-14.25A6.75 6.75 0 0 1 12 1.5zM12 0a8.25 8.25 0 0 0-8.25 8.25c0 2.965 3.594 9.945 7 15.08a1.5 1.5 0 0 0 2.5 0c3.406-5.135 7-12.115 7-15.08A8.25 8.25 0 0 0 12 0z"></path></svg></span><span><span class="search_hl_name">Lubango</span><br>Angola</span></li>
-        <li class="c-autocomplete__item sb-autocomplete__item sb-autocomplete__item-with_photo sb-autocomplete__item__item--elipsis sb-autocomplete__item--icon_revamp sb-autocomplete__item--city " role="option" data-list-item="" data-i="3" data-value="" data-label="Talatona"><span class="sb-autocomplete--photo"><svg fill="#6B6B6B" height="24" width="24" viewBox="0 0 24 24" class="bk-icon -streamline-geo_pin"><path d="M15 8.25a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm1.5 0a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0zM12 1.5a6.75 6.75 0 0 1 6.75 6.75c0 2.537-3.537 9.406-6.75 14.25-3.214-4.844-6.75-11.713-6.75-14.25A6.75 6.75 0 0 1 12 1.5zM12 0a8.25 8.25 0 0 0-8.25 8.25c0 2.965 3.594 9.945 7 15.08a1.5 1.5 0 0 0 2.5 0c3.406-5.135 7-12.115 7-15.08A8.25 8.25 0 0 0 12 0z"></path></svg></span><span><span class="search_hl_name">Talatona</span><br>Angola</span></li>
-        <li class="c-autocomplete__item sb-autocomplete__item sb-autocomplete__item-with_photo sb-autocomplete__item__item--elipsis sb-autocomplete__item--icon_revamp sb-autocomplete__item--city " role="option" data-list-item="" data-i="4" data-value="" data-label="Lobito"><span class="sb-autocomplete--photo"><svg fill="#6B6B6B" height="24" width="24" viewBox="0 0 24 24" class="bk-icon -streamline-geo_pin"><path d="M15 8.25a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm1.5 0a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0zM12 1.5a6.75 6.75 0 0 1 6.75 6.75c0 2.537-3.537 9.406-6.75 14.25-3.214-4.844-6.75-11.713-6.75-14.25A6.75 6.75 0 0 1 12 1.5zM12 0a8.25 8.25 0 0 0-8.25 8.25c0 2.965 3.594 9.945 7 15.08a1.5 1.5 0 0 0 2.5 0c3.406-5.135 7-12.115 7-15.08A8.25 8.25 0 0 0 12 0z"></path></svg></span><span><span class="search_hl_name">Lobito</span><br>Angola</span></li>
+            @if(isset($provincias[0]->id))
+            @foreach($provincias as $item)
+            <li class="c-autocomplete__item sb-autocomplete__item sb-autocomplete__item-with_photo sb-autocomplete__item__item--elipsis sb-autocomplete__item--icon_revamp sb-autocomplete__item--city sb-autocomplete__item--with-title " role="option" data-list-item="" data-i="0" data-value="" data-label="Luanda"><span class="sb-autocomplete--photo"><svg fill="#6B6B6B" height="24" width="24" viewBox="0 0 24 24" class="bk-icon -streamline-geo_pin"><path d="M15 8.25a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm1.5 0a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0zM12 1.5a6.75 6.75 0 0 1 6.75 6.75c0 2.537-3.537 9.406-6.75 14.25-3.214-4.844-6.75-11.713-6.75-14.25A6.75 6.75 0 0 1 12 1.5zM12 0a8.25 8.25 0 0 0-8.25 8.25c0 2.965 3.594 9.945 7 15.08a1.5 1.5 0 0 0 2.5 0c3.406-5.135 7-12.115 7-15.08A8.25 8.25 0 0 0 12 0z"></path></svg></span><span><span class="search_hl_name">{{ $item->provincia }}</span><br>{{ $item->pais }}</span></li>
+            @endforeach
+            @endif
     </ul>
   <!-- end bloco de destino --> 
   </div>
@@ -343,7 +343,7 @@ Pesquisar
 <div class="container">
 <div class="row">
 <!-- operadores --> 
-<div class="col-3">
+<div class="col-sm-12 col-md-12 col-lg-3">
   <h5 class="text-identity">Operadores</h5>
   <div class="row border-boottom-line p-4">
     <div class="col-10">
@@ -358,7 +358,7 @@ Pesquisar
   </div>
   </div>
 <!-- results --> 
-<div class="col-6">
+<div class="col-sm-12 col-md-12 col-lg-6">
 
 <!-- results -->
 <div class="container">
@@ -371,18 +371,21 @@ Pesquisar
 <!-- results da pesquisa --> 
 <!-- filtros --> 
 <div class="row">
+<div class="container-fluid">
+@include('inc.messages')  
+</div>
   <div class="col-6">
     <!-- numeros results --> 
-    <p class="my-3">{{ $n_res = 3 }} resultado(s)</p>
+    <p class="my-3">{{ $total_search }} resultado(s)</p>
+    
   </div>
   <div class="col-6">
   <form class="form-inline float-right">
   <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Ordenar por</label>
   <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-    <option selected>Hora de Partida</option>
-    <option value="1">Preço mais rápido</option>
-    <option value="2">Mais rápido</option>
-    <option value="3">Directo</option>
+    <option selected>Hora de Partida</option><!-- data partida viagem --> 
+    <option value="1">Preço mais rápido</option><!-- menor preco de viagem rota--> 
+    <option value="2">Mais rápido</option><!-- kilometragem menor order by km rota -->
   </select>
     </form>
   </div>
@@ -390,6 +393,8 @@ Pesquisar
 <!-- end filtros --> 
 
 <!-- card-bilhete -->
+@if($bilhetes[0]->id)
+@foreach($bilhetes as $item)
 <div class="card bilhete-card-radius mb-2">
   <div class="card-body">
 
@@ -405,7 +410,7 @@ Pesquisar
         </div>
         <div class="col-5">
           <h2 class="bilhete-preco">
-            15.599,00 kz
+            {{ number_format($item->preco,0,',','.') }} Kz
           </h2>
         </div>
        </div>
@@ -414,10 +419,10 @@ Pesquisar
          <div class="col-3">
          <div class="hora-local">
           <div class="hora">
-            <h5><strong>14:05</strong></h5>
+            <h5 data-toggle="tooltip" data-placement="top" title="Previsão de Partida: {{ date('d/m/Y', strtotime($item->data_partida)) }}"><strong>{{ date('H:i', strtotime($item->data_partida)) }}</strong></h5>
           </div>
           <div class="local">
-            Huambo
+            {{ $item->rota_origem }}
           </div>
         </div>
          </div>
@@ -425,10 +430,10 @@ Pesquisar
          <div class="col-4 text-right">
          <div class="hora-local">
           <div class="hora">
-            <h5><strong>14:05</strong></h5>
+            <h5 data-toggle="tooltip" data-placement="top" title="Previsão de chegada: {{ date('d/m/Y', strtotime($item->data_chegada)) }}"><strong>{{ date('H:i', strtotime($item->data_chegada)) }}</strong></h5>
           </div>
           <div class="local">
-            Lubango
+            {{ $item->rota_destino }}
           </div>
         </div>
          </div>
@@ -438,8 +443,8 @@ Pesquisar
           <div class="hora">
             <h5><strong>Tipo</strong></h5>
           </div>
-          <div class="local">
-            Executivo
+          <div class="local text-uppercase">
+            {{ $item->classe }}
           </div>
         </div>
           </div>
@@ -447,181 +452,42 @@ Pesquisar
 
 
        <div class="row mt-3">
-         <div class="col-3">
+         <div class="col-4">
          <div class="desc-duracao my-2">
-            <span class="text-muted">06h 40m, 387km</span>
+            <span class="text-muted">{{ $item->tempo }}, {{ number_format($item->kilometros,0,',','.')  }} km</span><br>
+            @if($item->total_passageiro >= ($item->capacidade - 5) )
+                <span class="text-danger"  data-toggle="tooltip" data-placement="right" title="Falta apenas ({{ ($item->capacidade - $item->total_passageiro) }}) passageiro(s)">Assentos livres {{ ($item->capacidade - $item->total_passageiro)  }}</span>
+                @else 
+                @if($item->total_passageiro >= ($item->capacidade - 15) )
+                <span class="text-info"  data-toggle="tooltip" data-placement="top" title="Falta apenas ({{ ($item->capacidade - $item->total_passageiro) }}) passageiro(s)">Assentos livres {{ ($item->capacidade - $item->total_passageiro)  }}</span>
+                @else
+                <span class="text-success"  data-toggle="tooltip" data-placement="bottom" title="Falta ({{ ($item->capacidade - $item->total_passageiro) }}) passageiro(s) para o embarque">Assentos livres {{ ($item->capacidade - $item->total_passageiro)  }}</span>
+                @endif
+                @endif
           </div>
          </div>
          <div class="col-4 text-right">
-           <a href="#" class="btn text-uppercase btn-sm" data-toggle="modal" data-target="#modalItinerario"><strong>Itinerário</strong></a>
+           <a href="#" viagem-value="{{ $item->itinerario }}" class="btn text-uppercase btn-sm" onclick="event.preventDefault(); $('#itinerario').text($(this).attr('viagem-value')); $('#modalItinerario').modal('show');"><strong>Itinerário</strong></a>
          </div>
-         <div class="col-5 text-right">
-           <button class="btn btn-add btn-danger btn-sm"  data-toggle="modal" data-target="#modalReserva">Reservar Lugar</button>
+         <div class="col-4 text-right">
+           <button reserva-value="{{ $item->id }}" class="btn btn-add btn-danger btn-sm" onclick="event.preventDefault(); $('#id_viagem').val($(this).attr('reserva-value')); $('#modalReserva').modal('show');">Reservar Lugar</button>
          </div>
        </div>
 
   </div>
 </div>
-
+@endforeach
+@endif
 <!-- end card-bilhete -->
 
-<div class="card bilhete-card-radius mb-2">
-  <div class="card-body">
-
-    <div class="row">
-        <div class="col-3 text-left">
-        <img src="http://localhost:8000/assets/img/logo/logo.png" alt="Operadora" class="operadora-ico mb-1">
-        </div>
-        <div class="col-4 text-right">
-        <img src="https://rnemedia.blob.core.windows.net/images/website/wifi.png" alt="Wifi" class="svg-ico" data-toggle="tooltip" data-placement="top" title="Wifi">
-        <img src="https://rnemedia.blob.core.windows.net/images/website/power_socket.png" alt="Tomadas" class="svg-ico" data-toggle="tooltip" data-placement="top" title="Tomadas">
-        <img src="https://rnemedia.blob.core.windows.net/images/website/comfort_seat.png" alt="Assento confortável" class="svg-ico" data-toggle="tooltip" data-placement="top" title="Assento Confortável">
-        <img src="https://rnemedia.blob.core.windows.net/images/website/active_cleaning.png" alt="Desinfeção" class="svg-ico" data-toggle="tooltip" data-placement="top" title="Desinfeção">
-        </div>
-        <div class="col-5">
-          <h2 class="bilhete-preco">
-            13.255,00 kz
-          </h2>
-        </div>
-       </div>
-
-       <div class="row">
-         <div class="col-3">
-         <div class="hora-local">
-          <div class="hora">
-            <h5><strong>4:05</strong></h5>
-          </div>
-          <div class="local">
-            Luanda - Viana
-          </div>
-        </div>
-         </div>
-
-         <div class="col-4 text-right">
-         <div class="hora-local">
-          <div class="hora">
-            <h5><strong>12:05</strong></h5>
-          </div>
-          <div class="local">
-            Uíge
-          </div>
-        </div>
-         </div>
-         <div class="col-5 text-right">
-          <div class="hora-local">
-          <div class="hora">
-            <h5><strong>Tipo</strong></h5>
-          </div>
-          <div class="local">
-            Económico
-          </div>
-        </div>
-          </div>
-       </div>
-
-
-       <div class="row mt-3">
-         <div class="col-3">
-         <div class="desc-duracao my-2">
-            <span class="text-muted">06h 40m, 387km</span>
-          </div>
-         </div>
-         <div class="col-4 text-right">
-           <a href="#" class="btn text-uppercase btn-sm" data-toggle="modal" data-target="#modalItinerario"><strong>Itinerário</strong></a>
-         </div>
-         <div class="col-5 text-right">
-           <button class="btn btn-add btn-danger btn-sm"   data-toggle="modal" data-target="#modalReserva">Reservar Lugar</button>
-         </div>
-       </div>
-
-  </div>
-
-</div>
-
-<!-- end card-bilhete -->
-
-<div class="card bilhete-card-radius mb-2">
-  <div class="card-body">
-
-    <div class="row">
-        <div class="col-3 text-left">
-        <img src="http://localhost:8000/assets/img/logo/logo.png" alt="Operadora" class="operadora-ico mb-1">
-        </div>
-        <div class="col-4 text-right">
-        <img src="https://rnemedia.blob.core.windows.net/images/website/wifi.png" alt="Wifi" class="svg-ico" data-toggle="tooltip" data-placement="top" title="Wifi">
-        <img src="https://rnemedia.blob.core.windows.net/images/website/power_socket.png" alt="Tomadas" class="svg-ico" data-toggle="tooltip" data-placement="top" title="Tomadas">
-        <img src="https://rnemedia.blob.core.windows.net/images/website/comfort_seat.png" alt="Assento confortável" class="svg-ico" data-toggle="tooltip" data-placement="top" title="Assento Confortável">
-        <img src="https://rnemedia.blob.core.windows.net/images/website/active_cleaning.png" alt="Desinfeção" class="svg-ico" data-toggle="tooltip" data-placement="top" title="Desinfeção">
-        </div>
-        <div class="col-5">
-          <h2 class="bilhete-preco">
-            12.199,00 kz
-          </h2>
-        </div>
-       </div>
-
-       <div class="row">
-         <div class="col-3">
-         <div class="hora-local">
-          <div class="hora">
-            <h5><strong>7:05</strong></h5>
-          </div>
-          <div class="local">
-            Bié
-          </div>
-        </div>
-         </div>
-
-         <div class="col-4 text-right">
-         <div class="hora-local">
-          <div class="hora">
-            <h5><strong>11:05</strong></h5>
-          </div>
-          <div class="local">
-            Benguela
-          </div>
-        </div>
-         </div>
-          <div class="col-5 text-right">
-          <div class="hora-local">
-          <div class="hora">
-            <h5><strong>Tipo</strong></h5>
-          </div>
-          <div class="local">
-            Clássico
-          </div>
-        </div>
-          </div>
-       </div>
-
-
-       <div class="row mt-3">
-         <div class="col-3">
-         <div class="desc-duracao my-2">
-            <span class="text-muted">06h 40m, 387km</span>
-          </div>
-         </div>
-         <div class="col-4 text-right">
-           <a href="#" class="btn text-uppercase btn-sm" data-toggle="modal" data-target="#modalItinerario"><strong>Itinerário</strong></a>
-         </div>
-         <div class="col-5 text-right">
-           <button class="btn btn-add btn-danger btn-sm"  data-toggle="modal" data-target="#modalReserva">Reservar Lugar</button>
-         </div>
-       </div>
-
-  </div>
-
-</div>
-
-<!-- end card-bilhete -->
 </div>
 
 <!-- carrinho de compra -->
-<div class="col-3">
+<div class="col-sm-12 col-md-12 col-lg-3">
 <div class="card text-center card-reserve">
   <h5 class="card-header bg-reserve text-left">Carrinho</h5>
   <div class="card-body">
-    <p class="card-text text-reserve">O seu carrinho está vazio. Por favor, adicione viagens e continue com a reserva.</p>
+    <p class="card-text text-reserve">O seu carrinho está vazio. Por favor, adicione bilhetes e continue com a reserva.</p>
     <a href="#" class="btn btn-reserve">Reservar</a>
   </div>
 </div>
@@ -637,13 +503,15 @@ Pesquisar
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-header-modal">
-        <h5 class="modal-title text-light text-center" id="exampleModalLabel">Itenerário</h5>
+        <h5 class="modal-title text-light text-center" id="exampleModalLabel">Itenerário de Viagem</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:12px">
-          <span class="text-white" aria-hidden="true">Fechar</span>
+          <span class="text-white" aria-hidden="true">X</span>
         </button>
       </div>
       <div class="modal-body">
-        <p class="p-2 alert alert-warning"> <i class="fa fa-info-circle"></i> Não foi encontrado nenhum Itenerário.</p>
+        <p class="p-2 alert alert-warning"> <i class="fa fa-info-circle"></i>
+          <strong><span class="text-dark" id="itinerario"></span></strong>
+        </p>
       </div>
      
     </div>
@@ -662,61 +530,55 @@ Pesquisar
       </div>
       <div class="modal-body">
       
-        <p class="p-2 alert alert-light"> <i class="fa fa-info-circle"></i> Preencha devidamente os campos abaixos.</p>
+        <p class="p-1 alert alert-info text-dark py-2"> <i class="fa fa-info-circle"></i> Preencha devidamente os campos abaixos.</p>
 
-        <form method="post" action="{{ route('user.store') }}">
+        <form method="post" action="{{ route('bilhete.store') }}">
             @csrf
     <div class="text-center">
     <span> <img src="{{ url('assets/img/logo/logo.png') }}"  alt="logo" class="d-none logo_auth_0 img-responsive"></span><br>
 </div>
-            <div class="dropdown-divider"></div>
-            <h2 class="text-left d-nones"><strong> Formulário de cadastro </strong></h2>
-            <br>
-            
-@include('inc.messages')  
+
+<div class="row">
+  <div class="col-6">
 <div class="form-group">
-    <label for="tipo">Tipo de conta:</label>
-    <select  class="form-control custom-select text-capitalize" name="tipo" id="tipo" aria-describedby="addon-wrapping" onchange=" criar_conta($(this).val());" required>
-    <option value="2" selected readonly>Cliente</option>
+    <label for="estado_cliente">Tipo de cliente:</label>
+    <select  class="form-control custom-select text-capitalize" name="estado_cliente" id="estado_cliente" aria-describedby="addon-wrapping" onchange=" criar_conta($(this).val());" required>
+    <option value="1">Novo cliente</option>
+    <option value="0" selected>Corrente</option>
   </select>
-  </div>          
+</div>
+</div>
+
+<div class="col-6">
 <div class="form-group">
-    <label for="nome">Nome:</label>
-    <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" required>
-  </div>
+    <label for="nome">ID cliente:</label>
+<div class="input-group">
+<div class="input-group-append">
+    <span class="input-group-text">Cliente nº</span>
+    </div>
+    <input type="number" class="form-control" id="nome" name="id_cliente" placeholder="211">
+   <input type="hidden" class="form-control" id="id_viagem" name="id_viagem" placeholder="ID viagem">
+</div>
+</div>
+</div>
+</div>
 
+<div class="row">
+  <div class="col-6">
+<div class="form-group">
+    <label for="t_adultos">Total adultos:</label>
+    <input type="number" class="form-control" min="0" id="t_adultos" name="t_adultos" value="{{ $total_adultos }}" placeholder="Total adultos" required>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+    <label for="t_criancas">Total crianças:</label>
+    <input type="number" class="form-control" min="0" id="t_criancas" name="t_criancas" value="{{ $total_criancas }}" placeholder="Total de crianças" required>
+</div>
+</div>
+</div>
   <!-- detalhes do cliente --> 
-
-  <div id="cliente_dados">
-
-  <div class="form-group">
-    <label for="telefone_cliente">Telefone:</label>
-    <input type="tel" class="form-control" id="telefone" name="telefone_cliente" value="932853283" placeholder="Telefone válido" required>
-  </div>
-  <div class="form-group">
-    <label for="tipo_doc">Tipo Documento:</label>
-    <select  class="form-control custom-select text-capitalize" name="tipo_doc" id="tipo_doc" aria-describedby="addon-wrapping">
-    <option value="" selected disabled>Selecionar...</option>
-    <option value="BI">Bilhete</option>
-    <option value="PP">Passa-porte</option>
-    <option value="Outro">Outro...</option>
-    </select>
-  </div>  
-  <div class="form-group">
-    <label for="n_doc">Nº Documento:</label>
-    <input type="text" class="form-control" id="n_doc" name="n_doc" value="00123456789"  placeholder="Nº Documento apresentado" required>
-  </div>
-  </div>
-  <!-- fim detalhes do cliente --> 
-  <div class="form-group">
-    <label for="usuario">Usuário:</label>
-    <input type="text" class="form-control" id="user" name="user" placeholder="Email ou Telefone" required>
-  </div>
-  <div class="form-group">
-    <label for="senha">Código de acesso:</label>
-    <input type="password" class="form-control" id="pass" name="pass" placeholder="Senha secreta" required>
-  </div>
-  <button type="submit" class="btn btn-submit btn-block">Criar conta</button>
+  <button type="submit" class="btn btn-submit btn-blocks float-right">Reservar assentos</button>
 </form>
       </div>
      

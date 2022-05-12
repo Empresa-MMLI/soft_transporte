@@ -6,6 +6,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\RotaController;
 use App\Http\Controllers\ViagemController;
+use App\Http\Controllers\VeiculoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,18 +29,13 @@ Route::get('/index', function () {
 Route::get('/search', function (Request $request) {
     //return view('aluguel_res');
     if($request->mySearch == "Comprar Bilhetes")
-    return view('bi_search');
+    return redirect()->route('compra.bilhetes');
     else if($request->mySearch == "Alugar Carro")
     return view('aluguer_search');
     else if($request->mySearch == "Comprar B.I e Aluguel Carro")
     return view('bi_search');
 
 })->name('search.res');
-
-
-Route::get('/results', function (Request $request) {
-    return view('bi_results');
-})->name('res.bilhetes');
 
 Route::get('/aluguer', function () {
     return view('aluguer_search');
@@ -113,7 +109,6 @@ Route::post('/store_pontos', [ProvinciaController::class, 'store_pontos'])->name
 Route::get('/rotas', [RotaController::class, 'index'])->name('dashboard.rotas');
 //store new rota
 Route::post('/store_rota', [ROtaController::class, 'store'])->name('rotas.store');
-
 /*
 |--------------------------------------------------------------------------
 | Routes de configuracao das Classes de viagens
@@ -131,10 +126,43 @@ Route::post('/store_classe', [RotaController::class, 'store_classe'])->name('cla
 |--------------------------------------------------------------------------
 */
 
-//mostrar rotas
+//mostrar viagem
 Route::get('/viagens', [ViagemController::class, 'index'])->name('dashboard.viagem');
-//store new classe
+//mostrar mapa de viagem
+Route::get('/map_viagens', [ViagemController::class, 'map_viagem'])->name('dashboard.map_viagem');
+//store new viagem
 Route::post('/store_viagem', [ViagemController::class, 'store'])->name('viagem.store');
+//mostrar itinerarios
+Route::get('/itinerarios', [viagemController::class, 'itinerarios'])->name('dashboard.itinerarios');
+//store new classe
+Route::post('/store_bilhete', [ViagemController::class, 'store_bilhete'])->name('bilhete.store');
+//buscar bilhetes de viagens
+Route::any('/compras_bi', [ViagemController::class, 'compra_bilhetes'])->name('compra.bilhetes');
+//resultado busca bilhetes de viagens
+Route::any('/search_bi', [ViagemController::class, 'bilhetes'])->name('search.bilhetes');
+
+/*
+|--------------------------------------------------------------------------
+| Routes de configuracao dos veiculos , marcas e modelos
+|--------------------------------------------------------------------------
+*/
+
+//mostrar veiculos
+Route::get('/veiculos', [VeiculoController::class, 'index'])->name('dashboard.veiculos');
+//store
+Route::get('/store_veiculos', [VeiculoController::class, 'store'])->name('veiculos.store');
+
+//mostrar marcas
+Route::get('/marcas', [VeiculoController::class, 'marcas'])->name('dashboard.marcas');
+//new marcas
+Route::post('/store_marca', [VeiculoController::class, 'store_marca'])->name('marca.store');
+
+//mostrar modelos
+Route::get('/modelos', [VeiculoController::class, 'modelos'])->name('dashboard.modelos');
+//new modelo
+Route::post('/store_modelo', [VeiculoController::class, 'store_modelo'])->name('modelo.store');
+
+//mostrar mapa de viagem
 
 Route::get('/dashbord', function () {
     return view('dashboard.index');
@@ -151,18 +179,6 @@ Route::get('/alugueres', function () {
 Route::get('/servicos', function () {
     return view('dashboard.servicos');
 })->name('dashboard.servicos');
-
-Route::get('/map_viagens', function () {
-    return view('dashboard.map_viagem');
-})->name('dashboard.map_viagem');
-
-Route::get('/itinerarios', function () {
-    return view('dashboard.itinerarios');
-})->name('dashboard.itinerarios');
-
-Route::get('/veiculos', function () {
-    return view('dashboard.veiculos');
-})->name('dashboard.veiculos');
 
 Route::get('/relatorios', function () {
     return view('dashboard.relatorios');

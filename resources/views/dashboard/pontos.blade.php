@@ -69,7 +69,7 @@
                         </div>
 
 
-  <div class="tab-pane fade" id="embarque" role="tabpanel" aria-labelledby="form-tab">
+  <div class="tab-pane fade" id="embarque" role="tabpanel" aria-labelledby="embarque-tab">
                             <div class="row">
                             <h3 class="my-4"> <i class="fa fa-list text-muted"></i>   Lista de Pontos de Embarques</h3>
                             <hr>
@@ -108,12 +108,12 @@
                             </div>
                             </div></div>
 
-<div class="tab-pane fade" id="desembarque" role="tabpanel" aria-labelledby="form-tab">
+<div class="tab-pane fade" id="desembarque" role="tabpanel" aria-labelledby="desembarque-tab">
                             <!-- tabela pontos de Desembarques --> 
                             <h3 class="my-4"> <i class="fa fa-list text-muted"></i>   Lista de Pontos de Desembarques</h3>
                             <hr>
                                <!-- tabela de provincias --> 
-                               <div class="container">
+                               <div class="containers">
                                <table class="display nowrap dataTables" style="width:100%">
         <thead>
             <tr>
