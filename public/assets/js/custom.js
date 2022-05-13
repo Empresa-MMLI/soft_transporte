@@ -7,7 +7,9 @@ $(document).on("click", function(e) {
   if (fora) $(divNome).css('display','none');
   console.log(fora ? 'Fora!' : 'Dentro!');
 });*/
-
+$('button.close').click(function(){
+  $('.modal').modal('hide');
+})
 $('#xp__guests__inputs-container, #list_origem, #list_destino').on("mouseleave", function(e) {
 $(this).css('display','nones');
 });

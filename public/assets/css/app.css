@@ -2659,6 +2659,11 @@ textarea.form-control-lg {
     width: 2em
 }
 
+.card-header.bg-reserve, .bg-header-modal{
+    background-color:  #4d689b;
+    color:#fff;
+  }
+  
 @media(prefers-reduced-motion:reduce) {
     .form-switch .form-check-input {
         transition: none

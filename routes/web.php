@@ -134,6 +134,8 @@ Route::get('/map_viagens', [ViagemController::class, 'map_viagem'])->name('dashb
 Route::post('/store_viagem', [ViagemController::class, 'store'])->name('viagem.store');
 //mostrar itinerarios
 Route::get('/itinerarios', [viagemController::class, 'itinerarios'])->name('dashboard.itinerarios');
+//Bilhetes emitidos
+Route::get('/bilhetes', [ViagemController::class, 'index_bilhetes'])->name('dashboard.bilhetes');
 //store new bilhete
 Route::post('/store_bilhete', [ViagemController::class, 'store_bilhete'])->name('bilhete.store');
 //store new reserva
@@ -169,10 +171,6 @@ Route::post('/store_modelo', [VeiculoController::class, 'store_modelo'])->name('
 Route::get('/dashbord', function () {
     return view('dashboard.index');
 })->name('dashboard.index');
-
-Route::get('/bilhetes', function () {
-    return view('dashboard.bilhetes');
-})->name('dashboard.bilhetes');
 
 Route::get('/alugueres', function () {
     return view('dashboard.alugueres');

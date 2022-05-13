@@ -11,6 +11,7 @@ use App\Models\Provincia;
 use App\Models\Classe;
 use App\Models\Viagem;
 use App\Models\Bilhete;
+use App\Models\BilheteDetalhes;
 use App\Models\Cliente;
 use App\Models\ViagemDetalhes;
 
@@ -74,6 +75,10 @@ class ViagemController extends Controller
     | Controller Bilhetes
     |--------------------------------------------------------------------------
     */
+    public function index_bilhetes(){
+        $bilhetes = BilheteDetalhes::orderBy('data_compra','desc')->get();
+        return view('dashboard.bilhetes', ['bilhetes'=>$bilhetes]);
+    }
     public function compra_bilhetes(Request $request){
         //buscar viagens 
         $provincias = Provincia::orderby('provincia','asc')->get();
@@ -132,6 +137,8 @@ class ViagemController extends Controller
             $upload = upload_file($request);
             if(isset($upload) && $upload['estado'] == 1){
                 $register->comprovativo_file  = $upload['url_file'];
+            }else{
+                return redirect()->back()->with(['estado'=>0,'warning'=>"O formato do comprovotivo anexado é inválido, suportamos apenas JPG, PNG e PDF"]);
             }
         }
         $register->estado = 0;
@@ -160,6 +167,7 @@ class ViagemController extends Controller
         }
 
         }catch(\Exception $e){
+            return $e;
         return redirect()->back()->with('error_compra','O sistema detectou uma compra de Bilhete efectuada hoje em seu Nome');
         }
     }  
@@ -167,6 +175,8 @@ class ViagemController extends Controller
 
 function upload_file($request){
       //upload file do comprovativo pagto
+      $estado_upload = 0;
+      $url_file = null;
       if(isset($request->comprovativo_url) && $request->file('comprovativo_url')->isValid()){
         $extensao = strtolower($request->file('comprovativo_url')->getClientOriginalExtension());
         $formatos = ['jpeg','png','jpg','pdf'];

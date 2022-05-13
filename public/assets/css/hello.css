@@ -50,6 +50,7 @@ html, body{width:100%; height:100%;}
   margin-top:-10%;
   width: 70%;
 }
+
 .icons{width:50%!important;height:90px;overflow: hidden;}
 
 .fa-lg{font-size: 1.6rem!important;}
@@ -115,6 +116,7 @@ html, body{width:100%; height:100%;}
 /*Fim - Config da Tela Welcome*/
 
 /*Config do form-login*/
+
 .container.form-login{
   margin-top:-5%;
 }
