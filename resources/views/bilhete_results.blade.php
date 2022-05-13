@@ -96,7 +96,7 @@ sb-searchbox__outer
 <div class="xp__dates-inner">
 
 
-<div class="row px-1 my-">
+<div class="row px-2 my-">
   <div class="col-6" >
   <div class="input-group flex-nowrap mb-1">
   <span class="input-group-text group-input" id="addon-wrapping"> <i class="fa fa-calendar fa-sm text-muted"></i> </span>
@@ -359,15 +359,6 @@ Pesquisar
   </div>
 <!-- results --> 
 <div class="col-sm-12 col-md-12 col-lg-6">
-
-<!-- results -->
-<div class="container">
-<div class="row">
-  <div class="alert alert-secondary text-success" role="alert">
-    <i class="fa fa-info-circle"></i> Pontos de Levantamento e compra do Bilhete de viagem.
-</div>
-</div>
-</div>
 <!-- results da pesquisa --> 
 <!-- filtros --> 
 <div class="row">
@@ -393,7 +384,32 @@ Pesquisar
 <!-- end filtros --> 
 
 <!-- card-bilhete -->
-@if($bilhetes[0]->id)
+@if(isset($bilhetes[0]->id))
+@if(isset($found) && $found>=0)
+<div class="container">
+<div class="row">
+  <div class="text-muted" role="alert">
+    <i class="fa fa-warning text-warning"></i> Nenhum Bilhete de Viagem disponível na Rota ou Data indicada, abaixo temos sugestões...
+</div></div>
+</div>
+@endif
+@if(!isset($error))
+<div class="container">
+<div class="row my-4">
+  <div class="text-dark" role="alert">
+    <i class="fa fa-info-circle text-info"></i> Possíveis Pontos de Levantamento e compra do Bilhete de viagem.
+</div>
+</div>
+</div>
+@else 
+<div class="container">
+<div class="row my-4">
+  <div class="text-danger" role="alert">
+    <i class="fa fa-info-circle"></i> {{ $error }}
+</div>
+</div>
+</div>
+@endif
 @foreach($bilhetes as $item)
 <div class="card bilhete-card-radius mb-2">
   <div class="card-body">
@@ -467,16 +483,23 @@ Pesquisar
           </div>
          </div>
          <div class="col-4 text-right">
-           <a href="#" viagem-value="{{ $item->itinerario }}" class="btn text-uppercase btn-sm" onclick="event.preventDefault(); $('#itinerario').text($(this).attr('viagem-value')); $('#modalItinerario').modal('show');"><strong>Itinerário</strong></a>
+           <a href="#" viagem-itinerario="{{ $item->itinerario }}" class="btn text-uppercase btn-sm" onclick="event.preventDefault(); $('#itinerario').text($(this).attr('viagem-itinerario')); $('#modalItinerario').modal('show');"><strong>Itinerário</strong></a>
          </div>
          <div class="col-4 text-right">
-           <button reserva-value="{{ $item->id }}" class="btn btn-add btn-danger btn-sm" onclick="event.preventDefault(); $('#id_viagem').val($(this).attr('reserva-value')); $('#modalReserva').modal('show');">Reservar Lugar</button>
+           <button viagem-id="{{ $item->id }}" class="btn btn-add btn-danger btn-sm" onclick="event.preventDefault(); $('#id_viagem').val($(this).attr('viagem-id')); $('#modalReserva').modal('show');">Reservar Lugar</button>
          </div>
        </div>
 
   </div>
 </div>
 @endforeach
+@else
+<div class="container">
+<div class="row">
+  <div class="text-muted" role="alert">
+    <i class="fa fa-info-circle text-danger"></i> Nenhum Bilhete de Viagem disponível na Rota ou Data indicada!
+</div></div>
+</div>
 @endif
 <!-- end card-bilhete -->
 
@@ -532,7 +555,7 @@ Pesquisar
       
         <p class="p-1 alert alert-info text-dark py-2"> <i class="fa fa-info-circle"></i> Preencha devidamente os campos abaixos.</p>
 
-        <form method="post" action="{{ route('bilhete.store') }}">
+        <form method="post" action="{{ route('bilhete.reservar') }}">
             @csrf
     <div class="text-center">
     <span> <img src="{{ url('assets/img/logo/logo.png') }}"  alt="logo" class="d-none logo_auth_0 img-responsive"></span><br>
@@ -551,14 +574,9 @@ Pesquisar
 
 <div class="col-6">
 <div class="form-group">
-    <label for="nome">ID cliente:</label>
-<div class="input-group">
-<div class="input-group-append">
-    <span class="input-group-text">Cliente nº</span>
-    </div>
-    <input type="number" class="form-control" id="nome" name="id_cliente" placeholder="211">
+    <label for="nome">Nº Documento apresentado:</label>
+    <input type="number" class="form-control" id="n_doc" name="n_doc" placeholder="Número documento" required>
    <input type="hidden" class="form-control" id="id_viagem" name="id_viagem" placeholder="ID viagem">
-</div>
 </div>
 </div>
 </div>
@@ -567,18 +585,18 @@ Pesquisar
   <div class="col-6">
 <div class="form-group">
     <label for="t_adultos">Total adultos:</label>
-    <input type="number" class="form-control" min="0" id="t_adultos" name="t_adultos" value="{{ $total_adultos }}" placeholder="Total adultos" required>
+    <input type="number" class="form-control" min="0" id="t_adultos" name="t_adultos" value="{{ isset($total_adultos)? $total_adultos:1 }}" placeholder="Total adultos" required>
 </div>
 </div>
 <div class="col-6">
 <div class="form-group">
     <label for="t_criancas">Total crianças:</label>
-    <input type="number" class="form-control" min="0" id="t_criancas" name="t_criancas" value="{{ $total_criancas }}" placeholder="Total de crianças" required>
+    <input type="number" class="form-control" min="0" id="t_criancas" name="t_criancas" value="{{ isset($total_criancas)? $total_criancas:0 }}" placeholder="Total de crianças" required>
 </div>
 </div>
 </div>
   <!-- detalhes do cliente --> 
-  <button type="submit" class="btn btn-submit btn-blocks float-right">Reservar assentos</button>
+  <button type="submit" class="btn btn-submit btn-blocks float-right">Reservar e Pagar</button>
 </form>
       </div>
      

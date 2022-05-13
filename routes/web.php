@@ -134,8 +134,10 @@ Route::get('/map_viagens', [ViagemController::class, 'map_viagem'])->name('dashb
 Route::post('/store_viagem', [ViagemController::class, 'store'])->name('viagem.store');
 //mostrar itinerarios
 Route::get('/itinerarios', [viagemController::class, 'itinerarios'])->name('dashboard.itinerarios');
-//store new classe
+//store new bilhete
 Route::post('/store_bilhete', [ViagemController::class, 'store_bilhete'])->name('bilhete.store');
+//store new reserva
+Route::any('/reservar_bilhete', [ViagemController::class, 'reservar_bilhetes'])->name('bilhete.reservar');
 //buscar bilhetes de viagens
 Route::any('/compras_bi', [ViagemController::class, 'compra_bilhetes'])->name('compra.bilhetes');
 //resultado busca bilhetes de viagens

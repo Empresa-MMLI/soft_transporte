@@ -35,3 +35,12 @@
     </button>
   </div>
 @endif
+
+@if(session('error_compra'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+<i class="fa fa-info-circle"></i> {{ session('error_compra') }} <a href="/sessao" class="text-dark">Verificar movimentos da Conta.</a>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+@endif

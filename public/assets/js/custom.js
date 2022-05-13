@@ -114,7 +114,7 @@ function myFunction() {
     }
   }
 }
-
+//criar conta
 function criar_conta($value){
   if($value == 2)
   {
@@ -123,5 +123,14 @@ function criar_conta($value){
   }else if($value == 3){
     $('#cliente_dados').fadeIn();
     $('#empresa_dados').fadeOut('fast');
+  }
+}
+//escolher forma_pagto
+function ativar_comprovativo($value){
+  if($value == 'PD')
+  {
+    $('#comprovativo_url').removeAttr('required');
+  }else{
+    $('#comprovativo_url').attr('required',true);
   }
 }
