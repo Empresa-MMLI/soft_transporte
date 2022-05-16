@@ -181,7 +181,7 @@
     </div>
     </footer>
     <div class="footer-copyright text-center">
-    <p class="color-padrao text-simples"><strong>SLA</strong> - A sua Agência de Turismo & Prestadora de Serviços</p>
+    <p class="color-padrao text-simples">Copyright &copy; 2021-{{ date('Y') }} <strong>MMLI</strong> - Soluções Tecnólogicas para todos Lda. Todos direitos reservados.</p>
     </div>
  
 	    <!-- Scripts -->

@@ -134,7 +134,7 @@ class ViagemController extends Controller
         $register->cliente_id = $request->id_cliente;
         $register->total_passageiro  = $t_passageiro;
         $register->forma_pagto  = $request->forma_pagto;
-        if($request->forma_pagto != 'PD'){
+        if($request->forma_pagto == 'ATM'){
             $upload = upload_file($request);
             if(isset($upload) && $upload['estado'] == 1){
                 $register->comprovativo_file  = $upload['url_file'];
@@ -155,7 +155,7 @@ class ViagemController extends Controller
         $t_p_viagem = $update->total_passageiro+$t_passageiro;
         $update->total_passageiro = $update->total_passageiro+$t_passageiro;
         if($t_p_viagem == $viagem->capacidade){
-            $update->estado = 0;
+            $update->estado = 0;//ja nao esta disponivel
         }
         $update->save();
         }

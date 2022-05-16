@@ -19,9 +19,13 @@
     <label for="tipo">Tipo de conta:</label>
     <select  class="form-control custom-select text-capitalize" name="tipo" id="tipo" aria-describedby="addon-wrapping" onchange=" criar_conta($(this).val());" required>
     @if(isset($tipo_users[0]->id))
-    <option value="" selected disabled>Selecionar...</option>
     @foreach($tipo_users as $tipo)
+    @if($tipo->id == 3)
+    <option value="{{ $tipo->id }}" selected>{{ $tipo->tipo_usuario }}</option>
+    @else
     <option value="{{ $tipo->id }}">{{ $tipo->tipo_usuario }}</option>
+    @endif
+
     @endforeach
     @endif
   </select>
@@ -38,27 +42,27 @@
   </div>
   <div class="form-group">
     <label for="email">Email:</label>
-    <input type="email" class="form-control" id="email" value="example@dominio.com" name="email" placeholder="Email" required>
+    <input type="email" class="form-control" id="email" value="example@dominio.com" name="email" onfocus="$(this).val('');" placeholder="Email" required>
   </div>
   <div class="form-group">
     <label for="telefone">Telefone:</label>
-    <input type="tel" class="form-control" id="telefone" name="telefone" value="932843283" placeholder="Telefone válido" required>
+    <input type="tel" class="form-control" id="telefone" name="telefone" value="9xxxxxxxx" onfocus="$(this).val('');" placeholder="Telefone válido" required>
   </div>
 
   <div class="form-group">
     <label for="telefone">Endereço físico:</label>
-    <textarea class="form-control" id="endereco" name="endereco" placeholder="Endereço sede..." required>Luanda-Angola</textarea>
+    <textarea class="form-control" id="endereco" name="endereco" placeholder="Endereço sede..." onfocus="$(this).val('');" required>Luanda-Angola</textarea>
   </div>
   </div>
   <!-- fim detalhes da empresa -->
 
   <!-- detalhes do cliente --> 
 
-  <div id="cliente_dados" style="display:none">
+  <div id="cliente_dados">
 
   <div class="form-group">
     <label for="telefone_cliente">Telefone:</label>
-    <input type="tel" class="form-control" id="telefone" name="telefone_cliente" value="932853283" placeholder="Telefone válido" required>
+    <input type="tel" class="form-control" id="telefone" name="telefone_cliente" value="9xxxxxxxx" onfocus="$(this).val('');" placeholder="Telefone válido" required>
   </div>
   <div class="form-group">
     <label for="tipo_doc">Tipo Documento:</label>
@@ -71,7 +75,7 @@
   </div>  
   <div class="form-group">
     <label for="n_doc">Nº Documento:</label>
-    <input type="text" class="form-control" id="n_doc" name="n_doc" value="00123456789"  placeholder="Nº Documento apresentado" required>
+    <input type="text" class="form-control" id="n_doc" name="n_doc" value="00" onfocus="$(this).val('');"  placeholder="Nº Documento apresentado" required>
   </div>
   </div>
   <!-- fim detalhes do cliente --> 
@@ -85,10 +89,9 @@
   </div>
   <button type="submit" class="btn btn-submit btn-block">Criar conta</button>
 </form>
-
-        </div> 
-        </div>
+<div class="text-center my-2">
         <a href="{{ route('sessao') }}" class="text-center" ><small class="small text-dark text-center"><i class="fa fa-globe"></i> SLA - Agência de Turismo | Login</small></a>
+    </div>
     </div>
 </div>
 @endsection

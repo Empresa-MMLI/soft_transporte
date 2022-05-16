@@ -27,7 +27,8 @@
 					</div>
                         <div class="col-sm-12 col-md-7">
                             <h3 class="my-4 text-info"> <i class="text-info fa fa-info-circle"></i> Estimado(a) Cliente  <u>{{ isset($cliente->nome)? $cliente->nome:'...'}}</u>, desde já agradecemos sua preferência!</h3>
-                            <p class="text-normal">Informamos que o seu Bilhete foi <span class="text-success"><strong>Comprado com sucesso!</strong></span></p>
+                            <p class="text-normal">Informamos que o seu Bilhete foi <span class="text-success"><strong>Comprado com sucesso!</strong></span><br>
+                            Aguarde confirmação da compra do seu Bilhete no seu perfil, email ou sms. Previsão de recepção 30 min.</p>
                             <p class="text-normal"><code>*</code> ID Bilhete: <strong>{{ isset($id_bilhete)? $id_bilhete:'xxx' }}</strong></p>
                            <p class="text-simples mb-2"><strong>Caso não receber o Nº do Bilhete por email, no seu Perfil de usuário ou outro meio de comunicação, faça-se apresentado com o seu <u>ID do Bilhete</u>.</strong>
                             </p>

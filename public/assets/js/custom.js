@@ -129,10 +129,18 @@ function criar_conta($value){
 }
 //escolher forma_pagto
 function ativar_comprovativo($value){
-  if($value == 'PD' || $value == "Ref")
+  if($value == 'PD')
   {
     $('#comprovativo_url').removeAttr('required');
+    $('#comprovativo_url').attr('disabled',true);
+  }else if($value == 'Ref'){
+    $('#comprovativo_url').removeAttr('required');
+    $('#comprovativo_url').attr('disabled',true);
+    $custo = $('#custo_viagem').val();
+    $('#valor_viagem').text($custo);
+    $('#modalReferencia').modal('show');
   }else{
     $('#comprovativo_url').attr('required',true);
+    $('#comprovativo_url').removeAttr('disabled');
   }
 }

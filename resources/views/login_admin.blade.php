@@ -5,12 +5,12 @@
  
         <div class="col-sm-12 col-md-8 col-lg-4">
         <div class="panel-login p-4">
-        <form method="post" action="{{ route('login') }}">
+        <form method="post" action="{{ route('login.root') }}">
             @csrf
-    <div class="text-center">
+    <div class="text-center mb-4">
     <span> <img src="{{ url('assets/img/logo/logo.png') }}"  alt="logo" class="logo_auth img-responsive"></span><br>
 </div>
-            <h3 class="text-center d-none">Iniciar Sessão</h3>
+            <h5 class="text-center d-nones">Acesso Restrito</h5>
             <div class="dropdown-divider"></div>
 
 @include('inc.messages')            
@@ -23,10 +23,6 @@
   <div class="form-group">
     <label for="senha">Código de acesso:</label>
     <input type="password" class="form-control" id="pass" name="pass" placeholder="Senha secreta" required>
-  </div>
-  <div class="form-group text-center">
-    <a href="{{ route('register') }}" class="text-left text-danger" ><i class="fa fa-lock"></i> Esqueceu </a> ou  
-    <a href="{{ route('register') }}" class="text-left text-dark" ><i class="fa fa-user"></i> Criar nova conta.</a>
   </div>
   <button type="submit" class="btn btn-submit btn-block">Entrar no Sistema</button>
 </form>

@@ -5,7 +5,8 @@
 <span> <img src="{{ url('assets/img/logo/logo.png') }}"  alt="logo" class="logo img-responsive"></span><br>
 </div>
 <div class="bg-content container text-center">
-
+<div class="row">
+<div class="col-sm-12">
 <form action="{{ route('search.res') }}">
 <div class="input-group flex-nowrap mb-1">
   <span class="input-group-text search-radius-input" id="addon-wrapping"> <i class="fa fa-search fa-sm text-muted"></i> </span>
@@ -13,7 +14,7 @@
   <option value="Selecionar uma opção" selected disabled>Selecionar uma opção</option>
     <option value="Comprar Bilhetes">Comprar Bilhetes</option>
     <option value="Alugar Carro">Alugar Carro</option>
-    <option value="Comprar B.I e Aluguel Carro">Comprar B.I e Aluguel Carro</option>
+    <option value="Comprar B.I e Aluguel Carro">Comprar B.I e Aluguer de Carros</option>
   </select>
 </div>
 
@@ -28,6 +29,8 @@
 --> 
     <button class="btn btn-submit btn-lg my-2 btn-search" ><i class="fa fa-search fa-sm"></i> Buscar Resultados </button>
     </form>
+</div>
+</div>
     <div class="text-center btn-session">
     <span class="small small-text text-dark my-2">Powered By MMLI Soluções, Lda</span>
 </div>

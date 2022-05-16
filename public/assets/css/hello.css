@@ -173,11 +173,13 @@ input.form-control.input-radius-md, select.form-control.input-radius-md{
   border-bottom-right-radius: 20px !important;
   height: 50px!important; 
   font-weight: 500!important;
-  font-size:20px;
+  font-size:1.1rem;
 }
 .search-radius-input{
   border:1px solid #ccc;
   border-right:none!important;
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
   border-top-left-radius: 20px !important;
   border-bottom-left-radius: 20px !important;
   height: 50px!important; 
@@ -248,7 +250,7 @@ input.form-control,textarea,.text_descricao{height:40px!important; min-height:30
 
   margin-bottom: 20px;
   background-color: #fff;
-  border: 1px solid transparent;
+  border: 3px solid rgba(0,0,0,.05);
   border-radius: 4px;
   -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
   box-shadow: 0 1px 1px rgba(0,0,0,.05);
@@ -291,6 +293,13 @@ input.form-control,textarea,.text_descricao{height:40px!important; min-height:30
 }
 .table_e.table thead th.line{
   border:1px solid #ccc;
+}
+.list-referencia{
+  list-style: circle;
+  padding-left:5%;
+}
+.list-referencia li{
+  margin-top:1%;
 }
 .panel-title{color:#373b45; font-weight: 400; text-transform: uppercase;}
 

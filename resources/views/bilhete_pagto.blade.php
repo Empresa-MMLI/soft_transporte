@@ -30,6 +30,7 @@
                             <p class="text-normal">Informamos que estão a pagamento os serviços indicados abaixo:</p>
                             <p class="text-normal"><code>*</code> Compra de Bilhetes: <strong>{{ isset($viagem->rota_origem)? $viagem->rota_origem.' - '.$viagem->rota_destino:'...' }}</strong></p>
                             <p class="text-normal"><code>*</code> Montante: <strong>{{ isset($viagem->preco)? number_format(($viagem->preco*$total_passageiros),2,',','.'):'0,00' }} Kz</strong></p>
+                            <input type="hidden" value="{{ isset($viagem->preco)? number_format(($viagem->preco*$total_passageiros),2,',','.'):'0,00' }}" id="custo_viagem" name="custo_viagem">
                             <p class="text-normal"><code>*</code> Total Passageiro(s): <strong>{{ isset($total_passageiros)? $total_passageiros:'1' }}</strong></p>
                             <h4 class="my-2">Meio de Pagamento: transferência Bancária</h4>
                             <p class="text-normal">Deve colocar na descrição da transferência o seguinte xxxx-xxx-xxx enviar o mesmo para comercial@mmlisolucoes.com</p>
@@ -92,13 +93,13 @@
     <option value="">Escolher...</option>
     <option value="PD">Pagamento Directo</option>
     <option value="Ref">Pagamento por Referência</option>
-    <option value="ATM">Transferência Bancária</option>
+    <option value="ATM" selected>Transferência Bancária</option>
   </select>
 </div>
 </div>
 <div class="col-6">
 <div class="form-groups">
-    <label for="nome">Comprovativo (<code>Foto PNG, JPG ou PDF</code>):</label>
+    <label for="nome">Comprovativo (<code>PNG, JPG ou PDF</code>):</label>
     <input type="file" class="form-control" id="comprovativo_url" name="comprovativo_url" placeholder="Foto do comprovativo" required>
 </div>
 </div>
@@ -112,4 +113,37 @@
 </div>
 				<!-- end title -->
 	
+        <!-- Modal -->
+<div class="modal fade" id="modalReferencia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-header-modal">
+        <h5 class="modal-title text-light text-center" id="exampleModalLabel">Pagamento por Referência</h5>
+        <button type="button" class="btn close" data-dismiss="modal" aria-label="Close" style="font-size:12px">
+          <span class="text-white" aria-hidden="true">X</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="row my-2 mx-1 alert alert-info p-1">
+          <span class="p-2 text-dark"><i class="fa fa-info-circle"></i> Leia atentamente os passos para fazer seu pagamento!</span>
+          </div>
+        <h3 class="my-2">Passo 1</h3>
+        <p class="mb-2">Teu ID de referência <strong>878928522</strong></p>
+        <h3 class="my-2">Passo 2</h3>
+        <p class="mb-2">
+          <ul class="list-referencia">
+            <li>Vá até uma multicaixa ou Serviço bancário na internet</li>
+            <li>Escolha pagamentos por referência</li>
+            <li>Introduza o código da entidade <strong>00266</strong></li>
+            <li>Introduza o número da referência gerada em cima</li>
+            <li>Introduza o valor total da viagem <strong><span id="valor_viagem">0,00</span> kz</strong></li>
+            <li>Confirmar pagamento</li>
+          </ul>
+        </p>
+
+      </div>
+     
+    </div>
+  </div>
+</div>
 @endsection

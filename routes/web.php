@@ -67,9 +67,15 @@ Route::get('/contactos', function () {
 Route::get('/sessao', function () {
     return view('login');
 })->name('sessao');
+//acesso root
+Route::get('/login_mmli', function () {
+    return view('login_admin');
+})->name('root');
 
 //login
 Route::post('/login', [UsuarioController::class, 'login'])->name('login');
+//login admin
+Route::post('/login_root', [UsuarioController::class, 'login_root'])->name('login.root');
 //logout
 Route::get('/logout', function () {
     //destrua todas sessions

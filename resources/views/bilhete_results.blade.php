@@ -415,16 +415,16 @@ Pesquisar
   <div class="card-body">
 
     <div class="row">
-        <div class="col-3 text-left">
+        <div class="col-5 text-left">
         <img src="{{ url('assets/img/logo/logo.png') }}" alt="Operadora" class="operadora-ico mb-1">
         </div>
-        <div class="col-4 text-right">
+        <div class="col-3 text-center">
         <img src="https://rnemedia.blob.core.windows.net/images/website/wifi.png" alt="Wifi"  class="svg-ico" data-toggle="tooltip" data-placement="top" title="Wifi">
         <img src="https://rnemedia.blob.core.windows.net/images/website/power_socket.png" alt="Tomadas"  class="svg-ico" data-toggle="tooltip" data-placement="top" title="Tomadas">
         <img src="https://rnemedia.blob.core.windows.net/images/website/comfort_seat.png" alt="Assento confortável"  class="svg-ico" data-toggle="tooltip" data-placement="top" title="Assento Confortável">
         <img src="https://rnemedia.blob.core.windows.net/images/website/active_cleaning.png" alt="Desinfeção" class="svg-ico" data-toggle="tooltip" data-placement="top" title="Desinfeção">
         </div>
-        <div class="col-5">
+        <div class="col-4">
           <h2 class="bilhete-preco">
             {{ number_format($item->preco,0,',','.') }} Kz
           </h2>
@@ -432,18 +432,19 @@ Pesquisar
        </div>
 
        <div class="row">
-         <div class="col-3">
+         <div class="col-5">
          <div class="hora-local">
           <div class="hora">
             <h5 data-toggle="tooltip" data-placement="top" title="Previsão de Partida: {{ date('d/m/Y', strtotime($item->data_partida)) }}"><strong>{{ date('H:i', strtotime($item->data_partida)) }}</strong></h5>
           </div>
           <div class="local">
-            {{ $item->rota_origem }}
+            {{ $item->rota_origem }}<br>
+            <i class="fa fa-map-marker text-danger"></i> {{ $item->ponto_e }}
           </div>
         </div>
          </div>
 
-         <div class="col-4 text-right">
+         <div class="col-3 text-center">
          <div class="hora-local">
           <div class="hora">
             <h5 data-toggle="tooltip" data-placement="top" title="Previsão de chegada: {{ date('d/m/Y', strtotime($item->data_chegada)) }}"><strong>{{ date('H:i', strtotime($item->data_chegada)) }}</strong></h5>
@@ -454,7 +455,7 @@ Pesquisar
         </div>
          </div>
 
-         <div class="col-5 text-right">
+         <div class="col-4 text-right">
           <div class="hora-local">
           <div class="hora">
             <h5><strong>Tipo</strong></h5>
@@ -468,21 +469,21 @@ Pesquisar
 
 
        <div class="row mt-3">
-         <div class="col-4">
+         <div class="col-5">
          <div class="desc-duracao my-2">
-            <span class="text-muted">{{ $item->tempo }}, {{ number_format($item->kilometros,0,',','.')  }} km</span><br>
+            <span class="text-muted"><i class="fa fa-clock"></i> {{ $item->tempo }}s, <i class="fa fa-road"></i> {{ number_format($item->kilometros,0,',','.')  }} km</span><br>
             @if($item->total_passageiro >= ($item->capacidade - 5) )
-                <span class="text-danger"  data-toggle="tooltip" data-placement="right" title="Falta apenas ({{ ($item->capacidade - $item->total_passageiro) }}) passageiro(s)">Assentos livres {{ ($item->capacidade - $item->total_passageiro)  }}</span>
+                <span class="text-danger"  data-toggle="tooltip" data-placement="right" title="Falta apenas ({{ ($item->capacidade - $item->total_passageiro) }}) passageiro(s)"><i class="fa fa-bus"></i> Assentos livres {{ ($item->capacidade - $item->total_passageiro)  }}</span>
                 @else 
                 @if($item->total_passageiro >= ($item->capacidade - 15) )
-                <span class="text-info"  data-toggle="tooltip" data-placement="top" title="Falta apenas ({{ ($item->capacidade - $item->total_passageiro) }}) passageiro(s)">Assentos livres {{ ($item->capacidade - $item->total_passageiro)  }}</span>
+                <span class="text-info"  data-toggle="tooltip" data-placement="top" title="Falta apenas ({{ ($item->capacidade - $item->total_passageiro) }}) passageiro(s)"><i class="fa fa-bus"></i> Assentos livres {{ ($item->capacidade - $item->total_passageiro)  }}</span>
                 @else
-                <span class="text-success"  data-toggle="tooltip" data-placement="bottom" title="Falta ({{ ($item->capacidade - $item->total_passageiro) }}) passageiro(s) para o embarque">Assentos livres {{ ($item->capacidade - $item->total_passageiro)  }}</span>
+                <span class="text-success"  data-toggle="tooltip" data-placement="bottom" title="Falta ({{ ($item->capacidade - $item->total_passageiro) }}) passageiro(s) para o embarque"><i class="fa fa-bus"></i> Assentos livres {{ ($item->capacidade - $item->total_passageiro)  }}</span>
                 @endif
                 @endif
           </div>
          </div>
-         <div class="col-4 text-right">
+         <div class="col-3 text-right float-right">
            <a href="#" viagem-itinerario="{{ $item->itinerario }}" class="btn text-uppercase btn-sm" onclick="event.preventDefault(); $('#itinerario').text($(this).attr('viagem-itinerario')); $('#modalItinerario').modal('show');"><strong>Itinerário</strong></a>
          </div>
          <div class="col-4 text-right">
@@ -506,7 +507,7 @@ Pesquisar
 </div>
 
 <!-- carrinho de compra -->
-<div class="col-sm-12 col-md-12 col-lg-3">
+<div class="col-sm-12 col-md-12 col-lg-3 mb-4">
 <div class="card text-center card-reserve">
   <h5 class="card-header bg-reserve text-left">Carrinho</h5>
   <div class="card-body">

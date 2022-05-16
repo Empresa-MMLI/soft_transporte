@@ -82,6 +82,7 @@
                             <hr>
                                <!-- tabela de provincias --> 
                                <div class="container">
+                               <div class="table-responsive">
                                <table id="dataTables" class="display nowrap" style="width:100%">
                                <thead>
             <tr>
@@ -128,6 +129,7 @@
         </tbody>
         </table>
                                <!-- fim tabela de provincias --> 
+                            </div>
                             </div>
                             </div>
                             <!-- fim tabela pontos de Desembarques --> 
@@ -190,9 +192,9 @@
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                <label for="n_bilhete">Nº Bilhete:</label>
+                                <label for="n_bilhete">Nº Bilhete de Viagem:</label>
                                 <input type="hidden" class="form-control" id="id_bilhete" name="id_bilhete" placeholder="ID de Bilhete" required>
-                                <input type="text" class="form-control" id="n_bilhete" name="n_bilhete" placeholder="Nº de Bilhete" required>
+                                <input type="text" class="form-control" id="n_bilhete" name="n_bilhete" placeholder="Nº de Bilhete de viagem" required>
   
                                 </div>
                             </div>

@@ -8,8 +8,7 @@
     <title>{{ config('app.name') }}</title>
     <!-- Styles -->
     <link href="{{ url('assets/css/bootstrap.min.css') }}" rel="stylesheet"> 
-    <link href="{{ url('assets/css/app.css') }}" rel="stylesheet"> 
-    <link href="{{ url('assets/css/hello.css') }}?r=<?php echo random_int(1,50); ?>" rel="stylesheet"> 
+<link href="{{ url('assets/css/hello.css') }}?r=<?php echo random_int(1,50); ?>" rel="stylesheet"> 
     <link href="{{ url('assets/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ url('assets/css/fontawesome.min.css') }}" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url('assets/img/logo/ico.png') }}">
@@ -20,7 +19,7 @@
    
     </style>
 </head>
-    <body style="overflow-x: hidden;overflow-y: auto!important;">
+    <body style="overflow-x: hidden;overflow-y: auto!important;background:#fff">
     <!-- Config da tela de boas vindas-->
     
     <div id='app'>
