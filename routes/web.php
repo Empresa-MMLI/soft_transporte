@@ -140,6 +140,8 @@ Route::get('/bilhetes', [ViagemController::class, 'index_bilhetes'])->name('dash
 Route::post('/store_bilhete', [ViagemController::class, 'store_bilhete'])->name('bilhete.store');
 //store new reserva
 Route::any('/reservar_bilhete', [ViagemController::class, 'reservar_bilhetes'])->name('bilhete.reservar');
+//validacao do bilhete comprado
+Route::any('/validacao_bi', [ViagemController::class, 'validacao_bilhete'])->name('bilhete.validacao');
 //buscar bilhetes de viagens
 Route::any('/compras_bi', [ViagemController::class, 'compra_bilhetes'])->name('compra.bilhetes');
 //resultado busca bilhetes de viagens

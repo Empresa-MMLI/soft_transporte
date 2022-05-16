@@ -76,8 +76,9 @@ class ViagemController extends Controller
     |--------------------------------------------------------------------------
     */
     public function index_bilhetes(){
-        $bilhetes = BilheteDetalhes::orderBy('data_compra','desc')->get();
-        return view('dashboard.bilhetes', ['bilhetes'=>$bilhetes]);
+        $bilhete_novos = BilheteDetalhes::where('estado',0)->orderBy('data_partida','asc')->get();
+        $bilhete_ativos = BilheteDetalhes::where('estado',1)->orderBy('data_partida','asc')->get();
+        return view('dashboard.bilhetes', ['bilhete_novos'=>$bilhete_novos,'bilhete_ativos'=>$bilhete_ativos]);
     }
     public function compra_bilhetes(Request $request){
         //buscar viagens 
@@ -167,9 +168,33 @@ class ViagemController extends Controller
         }
 
         }catch(\Exception $e){
-            return $e;
         return redirect()->back()->with('error_compra','O sistema detectou uma compra de Bilhete efectuada hoje em seu Nome');
         }
+    }
+    //validacao de compra de bilhete
+    public function validacao_bilhete(Request $request){
+        //buscar blhetes
+        try{
+        $bilhete = Bilhete::find($request->id_bilhete);
+        $bilhete->n_bilhete = $request->n_bilhete;
+        $bilhete->estado = 1;
+        $bilhete->save();
+        //envia no seu perfil
+        $cliente = Cliente::find($request->id_cliente);//pegar dados do cliente
+        //envia por email
+        $sms = 'Bom dia caro cliente '.$bilhete->cliente.' a SLA vem por meio desta agradecer e '.
+        'confirmar a compra do seu bilhete. abaixo vimos o nº do seu Bilhete, por favor faça-se'.
+        ' apresentado do mesmo no acto de levantamento do Bilhete físico ou Embarque.';
+
+        $email = enviar_email($cliente->email, $sms, $request->n_bilhete);
+        //envia por sms
+        if($bilhete)
+        return redirect()->back()->with('success','Nº de Bilhete atribuido com sucesso!');
+
+        }catch(\Exception $e){
+        return redirect()->back()->with('error','Falha ao atribuir nº do Bilhete, tente de novo!');
+        }
+    
     }  
 }
 
@@ -197,4 +222,9 @@ function upload_file($request){
     }
     $res = ['estado'=>$estado_upload,'url_file'=>$url_file];
     return $res;//retorna o estado upload e a URL file gerada
+}
+
+//funcao para enviar o email
+function enviar_email($destino, $sms, $n_bilhete){
+    return $n_bilhete;
 }

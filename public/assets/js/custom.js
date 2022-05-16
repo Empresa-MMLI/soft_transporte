@@ -129,7 +129,7 @@ function criar_conta($value){
 }
 //escolher forma_pagto
 function ativar_comprovativo($value){
-  if($value == 'PD')
+  if($value == 'PD' || $value == "Ref")
   {
     $('#comprovativo_url').removeAttr('required');
   }else{
