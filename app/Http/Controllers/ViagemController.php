@@ -12,8 +12,11 @@ use App\Models\Classe;
 use App\Models\Viagem;
 use App\Models\Bilhete;
 use App\Models\BilheteDetalhes;
+use App\Models\BilheteReservado;
+use App\Models\BilheteReservadoDetalhes;
 use App\Models\Cliente;
 use App\Models\ViagemDetalhes;
+Use Mail;
 
 class ViagemController extends Controller
 {
@@ -79,9 +82,9 @@ class ViagemController extends Controller
         $bilhete_novos = BilheteDetalhes::where('estado',0)->orderBy('data_partida','asc')->get();
         $bilhete_reservados = BilheteReservadoDetalhes::where('estado',0)->orderBy('data_partida','asc')->get();
         $bilhete_ativos = BilheteDetalhes::where('estado',1)->latest()->get();
-        return view('dashboard.bilhetes', ['bilhete_novos'=>$bilhete_novos,'bilhete_ativos'=>$bilhete_ativos]);
+        return view('dashboard.bilhetes', ['bilhete_novos'=>$bilhete_novos,'bilhete_ativos'=>$bilhete_ativos,'bi_reservados'=>$bilhete_reservados]);
     }
-    public function compra_bilhetes(Request $request){
+    public function comprar_bilhetes(Request $request){
         //buscar viagens 
         $provincias = Provincia::orderby('provincia','asc')->get();
         return view('bi_search', ['provincias'=>$provincias]);
@@ -130,6 +133,18 @@ class ViagemController extends Controller
         try{
         //buscar o total de assentos por veiculo
         $t_passageiro = ($request->t_passageiros);
+
+        if($request->forma_pagto == 'PD'){
+            $register = new BilheteReservado;
+            $register->viagem_id  = $request->id_viagem;
+            $register->cliente_id = $request->id_cliente;
+            $register->total_passageiro  = $t_passageiro;
+            $register->forma_pagto  = $request->forma_pagto;
+            $register->estado = 0;
+            $register->data_compra = date('Y-m-d');
+            $register->save();
+
+        }else{
         $register = new Bilhete;
         $register->viagem_id  = $request->id_viagem;
         $register->cliente_id = $request->id_cliente;
@@ -146,6 +161,7 @@ class ViagemController extends Controller
         $register->estado = 0;
         $register->data_compra = date('Y-m-d');
         $register->save();
+        }
         //update total de passageiro
         $viagem = ViagemDetalhes::find($request->id_viagem);
         $t_p_viagem = $viagem->total_passageiro+$t_passageiro;//buscar o total de passageiro atual
@@ -176,20 +192,40 @@ class ViagemController extends Controller
     public function validacao_bilhete(Request $request){
         //buscar blhetes
         try{
-        $bilhete = Bilhete::find($request->id_bilhete);
-        $bilhete->n_bilhete = $request->n_bilhete;
-        $bilhete->estado = 1;
-        $bilhete->save();
+            
+            //verificar a origem do BI (Bilhete ou Reserva)
+        if($request->origem_bilhete == 'bi'){
+            $bilhete = Bilhete::find($request->id_bilhete);
+            $bilhete->n_bilhete = $request->n_bilhete;
+            $bilhete->estado = 1;
+            $bilhete->save();
+        }else{
+            $reserva = $update = BilheteReservado::find($request->id_bilhete);
+            $update->estado = 1;
+            $update->save();
+            //apos ativacao da reserva regista-se a compra do bi
+            $register = new Bilhete;
+            $register->n_bilhete = $request->n_bilhete;
+            $register->viagem_id  = $reserva->viagem_id;
+            $register->cliente_id = $reserva->cliente_id;
+            $register->total_passageiro  = $reserva->total_passageiro;
+            $register->forma_pagto  = $reserva->forma_pagto;
+            $register->estado = 1;
+            $register->data_compra = $reserva->data_compra;
+            $register->save();
+        }
+        
         //envia no seu perfil
         $cliente = Cliente::find($request->id_cliente);//pegar dados do cliente
         //envia por email
-        $sms = 'Bom dia caro cliente '.$bilhete->cliente.' a SLA vem por meio desta agradecer e '.
+        $sms = 'Bom dia caro cliente '.$cliente->nome.' a SLA vem por meio desta agradecer e '.
         'confirmar a compra do seu bilhete. abaixo vimos o nº do seu Bilhete, por favor faça-se'.
         ' apresentado do mesmo no acto de levantamento do Bilhete físico ou Embarque.';
 
-        $email = enviar_email($cliente->email, $sms, $request->n_bilhete);
+        $email = enviar_email($cliente, $sms, $request->n_bilhete);
+        return $email;
         //envia por sms
-        if($bilhete)
+        if((isset($bilhete) && $bilhete) || (isset($register) && $register))
         return redirect()->back()->with('success','Nº de Bilhete atribuido com sucesso!');
 
         }catch(\Exception $e){
@@ -226,6 +262,25 @@ function upload_file($request){
 }
 
 //funcao para enviar o email
-function enviar_email($destino, $sms, $n_bilhete){
-    return $n_bilhete;
+function enviar_email($cliente, $sms, $n_bilhete){
+    try{
+        /*$path = public_path('/img/logo/insignea.png');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $img = 'data:image/'.$type.';base64,'.base64_encode($data);
+*/
+       Mail::send('report.mailSender', ['n_bilhete'=>$n_bilhete,'sms'=>$sms, 'cliente'=>$cliente], function($sm) use ($cliente){
+        
+        $sm->from('facilitammli@gmail.com', 'SLA - Agência de Turismo & Prestação de Serviços'); // Email da Clinica
+        //$sm->to('amoraospedacoss@gmail.com','Administrador(a) Facilita');//destino
+        $sm->to($cliente->email,'Consumidor Final');//destino
+        $sm->subject('Confirmação da compra do BIlhete'); // Conteudo da sms
+        
+        });
+
+        return 1;//response()->json(['sms'=>'O email foi enviado com sucesso ao Admin. do Sistema']);
+    
+        }catch(\Exception $error){
+        return -1;//falha no server
+        }
 }

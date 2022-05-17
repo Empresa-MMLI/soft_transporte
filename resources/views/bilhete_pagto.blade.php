@@ -45,7 +45,7 @@
                         </div>
                         <div class="col-sm-12 col-md-6">
                         <fieldset class="scheduler-border">
-    <legend class="scheduler-border">Formulário de Reserva</legend>
+    <legend class="scheduler-border"> Formulário de Reserva</legend>
     <form method="post" action="{{ route('bilhete.store') }}" enctype="multipart/form-data">
             @csrf
 <p class="my-1"><code>* Detalhes da viagem</code></p>
@@ -92,7 +92,7 @@
     <select  class="form-control custom-select" name="forma_pagto" id="forma_pagto" aria-describedby="addon-wrapping" onchange=" ativar_comprovativo($(this).val());" required>
     <option value="">Escolher...</option>
     <option value="PD">Pagamento Directo</option>
-    <option value="Ref">Pagamento por Referência</option>
+    <option value="REF">Pagamento por Referência</option>
     <option value="ATM" selected>Transferência Bancária</option>
   </select>
 </div>

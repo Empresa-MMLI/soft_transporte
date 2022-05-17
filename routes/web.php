@@ -41,10 +41,6 @@ Route::get('/aluguer', function () {
     return view('aluguer_search');
 })->name('aluguer.carro');
 
-Route::get('/comprar_bilhetes', function () {
-    return view('bi_search');
-})->name('comprar.bilhete');
-
 Route::get('/planos', function () {
     return view('planos');
 })->name('planos');
@@ -142,6 +138,8 @@ Route::post('/store_viagem', [ViagemController::class, 'store'])->name('viagem.s
 Route::get('/itinerarios', [viagemController::class, 'itinerarios'])->name('dashboard.itinerarios');
 //Bilhetes emitidos
 Route::get('/bilhetes', [ViagemController::class, 'index_bilhetes'])->name('dashboard.bilhetes');
+//compra de Bilhetes
+Route::get('/comprar_bilhetes', [ViagemController::class, 'comprar_bilhetes'])->name('comprar.bilhete');
 //store new bilhete
 Route::post('/store_bilhete', [ViagemController::class, 'store_bilhete'])->name('bilhete.store');
 //store new reserva
@@ -149,7 +147,7 @@ Route::any('/reservar_bilhete', [ViagemController::class, 'reservar_bilhetes'])-
 //validacao do bilhete comprado
 Route::any('/validacao_bi', [ViagemController::class, 'validacao_bilhete'])->name('bilhete.validacao');
 //buscar bilhetes de viagens
-Route::any('/compras_bi', [ViagemController::class, 'compra_bilhetes'])->name('compra.bilhetes');
+Route::any('/compras_bi', [ViagemController::class, 'comprar_bilhetes'])->name('compra.bilhetes');
 //resultado busca bilhetes de viagens
 Route::any('/search_bi', [ViagemController::class, 'bilhetes'])->name('search.bilhetes');
 

@@ -59,7 +59,10 @@
   <!-- detalhes do cliente --> 
 
   <div id="cliente_dados">
-
+  <div class="form-group">
+    <label for="email_cliente">Email:</label>
+    <input type="tel" class="form-control" id="telefone" name="email_cliente" value="example@sla.com" onfocus="$(this).val('');" placeholder="Email válido">
+  </div>
   <div class="form-group">
     <label for="telefone_cliente">Telefone:</label>
     <input type="tel" class="form-control" id="telefone" name="telefone_cliente" value="9xxxxxxxx" onfocus="$(this).val('');" placeholder="Telefone válido" required>

@@ -217,6 +217,15 @@
     })
   });
   </script>
+<!--
+<script type="text/javascript">
+    $(window).bind("beforeunload", function() {
+       if ($("#modalConfirmacao").is(":visible")) {
+           return "Você não salvou a sua tarefa, gostaria mesmo de sair?";
+       }
+    });
+    </script>
+-->
     </body>
     
 </html>

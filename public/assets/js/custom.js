@@ -133,7 +133,7 @@ function ativar_comprovativo($value){
   {
     $('#comprovativo_url').removeAttr('required');
     $('#comprovativo_url').attr('disabled',true);
-  }else if($value == 'Ref'){
+  }else if($value == 'REF'){
     $('#comprovativo_url').removeAttr('required');
     $('#comprovativo_url').attr('disabled',true);
     $custo = $('#custo_viagem').val();

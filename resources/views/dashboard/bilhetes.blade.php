@@ -25,12 +25,12 @@
 
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade show active" id="form" role="tabpanel" aria-labelledby="form-tab">
-
+  <div class="row">
                                 <h2 class="my-4"><i class="fa fa-edit text-muted"></i> Confirmar compras de Bilhetes</h2>
                                 <hr>
  <!-- tabela de bilhetes comprados --> 
 
- <div class="container-fluid">
+ <div class="container">
                                <div class="table-responsive">
  @include('inc.messages') 
                                <table id="dataTables" class="display nowrap" style="width:100%">
@@ -60,19 +60,24 @@
                 <td>{{ number_format($item->preco,2,',','.') }} Akz</td>
                 <td class="text-center">{{ $item->total_passageiro }}</td>
                 <td>{{ $item->ponto_e }}</td>
-                 <td>
-                @if(isset($item->comprovativo_file))	
-                <a href="{{ asset('storage/'.$item->comprovativo_file) }}" target="_blank" class="btn btn-warning btn-sm mb-1 text-dark" data-toggle="tooltip" data-placement="bottom" title="Mostrar comprovativo" onclick="event.preventDefault(); $('#comprovativo').attr('src', $(this).attr('href')); $('#modalComprovativo').modal('show');"><i class="fa fa-file-pdf"></i> Comprovativo</a>
+                <td>
+                @if(isset($item->comprovativo_file) && $item->forma_pagto == 'ATM')	
+                <a href="{{ asset('storage/'.$item->comprovativo_file) }}" target="_blank" class="btn btn-warning btn-sm mb-1 btn-block text-dark" data-toggle="tooltip" data-placement="bottom" title="Mostrar comprovativo" onclick="event.preventDefault(); $('#comprovativo').attr('src', $(this).attr('href')); $('#modalComprovativo').modal('show');"><i class="fa fa-file-pdf"></i> Comprovativo</a>
                 @else
-                <a href="#" class="btn btn-warning btn-sm mb-1 text-dark" data-toggle="tooltip" data-placement="bottom" title="Nenhum arquivo anexado" onclick=" alert('Nenhum arquivo anexado')"><i class="fa fa-eye-slash"></i> Sem  Comprovativo</a>
-            
+                @if($item->forma_pagto == 'REF')
+                <a href="#" class="btn btn-warning btn-sm btn-block mb-1 text-dark" data-toggle="tooltip" data-placement="bottom" title="Detalhes do Pagamento..." id-bi="{{ $item->id }}" onclick=" $('id_bi').val($(this).attr('id-bi')); $('#modalReferencia').modal('show');"><i class="fa fa-credit-card"></i> Referência</a>
+                @else
+                @if($item->forma_pagto == 'PD')
+                <a href="#" class="btn btn-warning btn-sm mb-1 btn-block text-dark" data-toggle="tooltip" data-placement="bottom" title="Nenhum arquivo anexado" onclick=" alert('Nenhum arquivo anexado')"><i class="fa fa-money"></i> Pagto à Cash</a>
+                @endif
+                @endif
                 @endif    
                 </td>
                 <td class="text-center">{{ date('d/m/Y', strtotime($item->data_compra)) }}</td>
                 <td class="text-center">{{ date('d/m/Y H:i', strtotime($item->data_partida)) }}</td>
                 <td class="text-left">
-		        <a href="#" class="btn btn-success btn-sm mb-1" title="Confirmar compra de Bilhete" nome_cliente="{{ $item->cliente }}" id_cliente="{{ $item->id_cliente }}" nome_rota="{{ $item->rota_origem }} - {{ $item->rota_destino }}" id_bilhete="{{ $item->id }}" onclick="event.preventDefault(); $('#id_cliente').val($(this).attr('id_cliente')); $('#nome_cliente').val($(this).attr('nome_cliente')); $('#nome_rota').val($(this).attr('nome_rota')); $('#id_bilhete').val($(this).attr('id_bilhete'));  $('#modalConfirmacao').modal('show');"><i class="fa fa-check" ></i></a>
-                <a href="" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes excluir Ponto?');" data-toggle="tooltip" data-placement="right" title="Cancelar Bilhete..."><i class="fa fa-trash"></i></a>
+		        <a href="#" class="btn btn-success btn-sm mb-1" data-toggle="tooltip" data-placement="bottom" title="Confirmar compra de Bilhete" nome_cliente="{{ $item->cliente }}" id_cliente="{{ $item->id_cliente }}" nome_rota="{{ $item->rota_origem }} - {{ $item->rota_destino }}" id_bilhete="{{ $item->id }}" onclick="event.preventDefault(); $('#id_cliente').val($(this).attr('id_cliente')); $('#nome_cliente').val($(this).attr('nome_cliente')); $('#nome_rota').val($(this).attr('nome_rota')); $('#id_bilhete').val($(this).attr('id_bilhete'));  $('#modalConfirmacao').modal('show');"><i class="fa fa-check" ></i></a>
+                <a href="" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes excluir Ponto?');" data-toggle="tooltip" data-placement="right" title="Cancelar compra Bilhete..."><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
             @endforeach
@@ -83,10 +88,64 @@
                             </div>
                         </div>
                         </div>
+                        </div>
 
 
-  <div class="tab-pane fade show active" id="reservados" role="tabpanel" aria-labelledby="reservados-tab">
-    Olá
+  <div class="tab-pane fade" id="reservados" role="tabpanel" aria-labelledby="reservados-tab">    
+  <div class="row">
+                            <h3 class="my-4"> <i class="fa fa-list text-muted"></i>   Lista de Bilhetes reservados</h3>
+                            <hr>
+                               <!-- tabela de provincias --> 
+                               <div class="container">
+                               <div class="table-responsive">
+                               <table class="display nowrap dataTables" style="width:100%">
+                               <thead>
+            <tr>
+                <th>ID</th>
+                <th class="text-left">Cliente</th>
+                <th>Rota</th>
+                <th>Classe</th>
+                <th>Preço</th>
+                <th>Passageiro(s)</th>
+                <th>Estado</th>
+                <th>Ponto Levant.</th>
+                <th>Data compra</th>
+                <th>Data viagem</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(isset($bi_reservados[0]->id))
+            @foreach($bi_reservados as $item)
+            <tr>
+                <td>{{ $item->id }}</td>
+                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->cliente }}</td>
+                <td>{{ $item->rota_origem }} - {{ $item->rota_destino }}</td>
+                <td>{{ $item->classe }}</td>
+                <td>{{ number_format($item->preco,2,',','.') }} Akz</td>
+                <td class="text-center">{{ $item->total_passageiro }}</td>
+                <td>
+                    <span class="alert alert-success p-1" data-toggle="tooltip" data-placement="top" title="Recebido {{ number_format($item->preco*$item->total_passageiro,2,',','.') }} kz"> <i class="fa fa-check-circle"></i> Pago</span>
+                </td>
+                <td>{{ $item->ponto_e }}</td>
+                <td class="text-center">{{ date('d/m/Y', strtotime($item->data_compra)) }}</td>
+                <td class="text-center">{{ date('d/m/Y H:i', strtotime($item->data_partida)) }}</td>
+               
+                <td class="text-center">
+                <a href="#" class="btn btn-success btn-sm mb-1" data-toggle="tooltip" data-placement="bottom" title="Confirmar compra de Bilhete" nome_cliente="{{ $item->cliente }}" id_cliente="{{ $item->id_cliente }}" nome_rota="{{ $item->rota_origem }} - {{ $item->rota_destino }}" id_bilhete="{{ $item->id }}" onclick="event.preventDefault(); $('#origem_bilhete').val('res'); $('#id_cliente').val($(this).attr('id_cliente')); $('#nome_cliente').val($(this).attr('nome_cliente')); $('#nome_rota').val($(this).attr('nome_rota')); $('#id_bilhete').val($(this).attr('id_bilhete'));  $('#modalConfirmacao').modal('show');"><i class="fa fa-check" ></i></a>
+                <a href="" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes excluir Ponto?');" data-toggle="tooltip" data-placement="right" title="Cancelar Bilhete..."><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+            @endforeach
+            @endif
+        </tbody>
+        </table>
+                               <!-- fim tabela de provincias --> 
+                            </div>
+                            </div>
+                            </div>
+                            <!-- fim tabela pontos de Desembarques --> 
+                        
   </div>
   <div class="tab-pane fade" id="vendidos" role="tabpanel" aria-labelledby="vendidos-tab">
                             <div class="row">
@@ -107,7 +166,7 @@
                 <th>Passageiro(s)</th>
                 <th>Estado</th>
                 <th>Ponto Levant.</th>
-                <th>Comprovativo</th>
+                <th class="text-center">Comprovativo</th>
                 <th>Data compra</th>
                 <th>Data viagem</th>
                 <th>Opções</th>
@@ -129,11 +188,16 @@
                 </td>
                 <td>{{ $item->ponto_e }}</td>
                 <td>
-                @if(isset($item->comprovativo_file))	
-                <a href="{{ asset('storage/'.$item->comprovativo_file) }}" target="_blank" class="btn btn-warning btn-sm mb-1 text-dark" data-toggle="tooltip" data-placement="bottom" title="Mostrar comprovativo" onclick="event.preventDefault(); $('#comprovativo').attr('src', $(this).attr('href')); $('#modalComprovativo').modal('show');"><i class="fa fa-file-pdf"></i> Comprovativo</a>
+                @if(isset($item->comprovativo_file) && $item->forma_pagto == 'ATM')	
+                <a href="{{ asset('storage/'.$item->comprovativo_file) }}" target="_blank" class="btn btn-warning btn-sm mb-1 btn-block text-dark" data-toggle="tooltip" data-placement="bottom" title="Mostrar comprovativo" onclick="event.preventDefault(); $('#comprovativo').attr('src', $(this).attr('href')); $('#modalComprovativo').modal('show');"><i class="fa fa-file-pdf"></i> Comprovativo</a>
                 @else
-                <a href="#" class="btn btn-warning btn-sm mb-1 text-dark" data-toggle="tooltip" data-placement="bottom" title="Nenhum arquivo anexado" onclick=" alert('Nenhum arquivo anexado')"><i class="fa fa-eye-slash"></i> Sem  Comprovativo</a>
-            
+                @if($item->forma_pagto == 'REF')
+                <a href="#" class="btn btn-warning btn-sm btn-block mb-1 text-dark" data-toggle="tooltip" data-placement="bottom" title="Detalhes do Pagamento..." id-bi="{{ $item->id }}" onclick=" $('id_bi').val($(this).attr('id-bi')); $('#modalReferencia').modal('show');"><i class="fa fa-credit-card"></i> Referência</a>
+                @else
+                @if($item->forma_pagto == 'PD')
+                <a href="#" class="btn btn-warning btn-sm mb-1 btn-block text-dark" data-toggle="tooltip" data-placement="bottom" title="Nenhum arquivo anexado" onclick=" alert('Nenhum arquivo anexado')"><i class="fa fa-money"></i> Pagto à Cash</a>
+                @endif
+                @endif
                 @endif    
                 </td>
                 <td class="text-center">{{ date('d/m/Y', strtotime($item->data_compra)) }}</td>
@@ -185,7 +249,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalConfirmacao" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalConfirmacao" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-header-modal">
@@ -213,6 +277,7 @@
                                 <div class="col-12">
                                 <label for="n_bilhete">Nº Bilhete de Viagem:</label>
                                 <input type="hidden" class="form-control" id="id_bilhete" name="id_bilhete" placeholder="ID de Bilhete" required>
+                                <input type="hidden" class="form-control" id="origem_bilhete" name="origem_bilhete" value="bi" placeholder="Origem Bilhete" required>
                                 <input type="text" class="form-control" id="n_bilhete" name="n_bilhete" placeholder="Nº de Bilhete de viagem" required>
   
                                 </div>
@@ -247,6 +312,43 @@
               <h5>Telefone: <span id="telef_cliente" class="text-muted"></span> </h5>
           </div>
         </div>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+	
+        <!-- Modal -->
+        <div class="modal fade" id="modalReferencia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-header-modal">
+        <h5 class="modal-title text-light text-center" id="exampleModalLabel">Pagamento por Referência</h5>
+        <button type="button" class="btn close" data-dismiss="modal" aria-label="Close" style="font-size:12px">
+          <span class="text-white" aria-hidden="true">X</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="row my-2 mx-1 alert alert-info p-1">
+          <span class="p-2 text-dark"><i class="fa fa-info-circle"></i> Abaixo temos as coordenadas do Pagamento</span>
+          </div>
+          <form>
+  <div class="form-group">
+    <label for="entidade_ref">Entidade</label>
+    <input type="text" class="form-control" id="entidade_ref" placeholder="Entidade" readonly>
+  </div>
+  <div class="form-group">
+    <label for="referencia_pagto">Referência</label>
+    <input type="text" class="form-control" id="referencia_pagto" placeholder="Referência" readonly>
+  </div>
+  <div class="form-group">
+    <label for="valor_ref">Valor</label>
+    <input type="text" class="form-control" id="valor_ref" placeholder="Valor" readonly>
+  </div>
+  
+  
+</form>
       </div>
      
     </div>

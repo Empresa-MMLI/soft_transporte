@@ -42,7 +42,7 @@
     
       <h6 class="text mx-4 px-4 mb-2 w-100">SLA - Agência de Turismo</h6>
       <div class=" w-100" style="border:1px solid #dadce2"></div>
-      <div class="col-sm-12 pb-0 mb-0 px-4">
+      <div class="col-sm-12 pb-0 mb-0 px-4 mx-2">
     <ul class="list-inline nav-list">
   <li class="list-inline-item">
   <a class="nav-link" href="{{ route('comprar.bilhete') }}"> Bilhetes e Horários</a>

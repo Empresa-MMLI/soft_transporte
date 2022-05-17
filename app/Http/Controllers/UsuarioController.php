@@ -56,7 +56,8 @@ class UsuarioController extends Controller
     $cliente->nome  = $request->nome;
     $cliente->tipo_doc  = $request->tipo_doc;
     $cliente->n_doc  = $request->n_doc;
-    $cliente->telefone  = $request->telefone;
+    $cliente->email  = $request->email_cliente;
+    $cliente->telefone  = $request->telefone_cliente;
     $cliente->id_usuario = $id_acesso;
     $cliente->save();
         
