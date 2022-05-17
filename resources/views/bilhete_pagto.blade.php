@@ -55,7 +55,7 @@
 <div class="form-groups">
     <label for="t_criancas">Rota:</label>
     <input type="text" class="form-control" min="0" id="rota" name="rota" value="{{ isset($viagem->rota_origem)? $viagem->rota_origem.' - '.$viagem->rota_destino:'Desconhecido' }}" placeholder="Total de crianças" readonly>
-    '<input type="hidden" class="form-control" value="{{ $viagem->id }}" id="id_viagem" name="id_viagem" placeholder="ID viagem">
+    <input type="hidden" class="form-control" value="{{ $viagem->id }}" id="id_viagem" name="id_viagem" placeholder="ID viagem">
 </div>
 </div>
   <div class="col-6">
@@ -65,7 +65,7 @@
 </div>
 </div>
 </div>
-<p class="mb-1"><code>* Detalhes do cliente</code></p>
+<p class="my-1"><code>* Detalhes do cliente</code></p>
 <div class="row mb-2">
   <div class="col-6">
 <div class="form-groups">
@@ -140,7 +140,7 @@
             <li>Confirmar pagamento</li>
           </ul>
         </p>
-
+        <p><strong class="text-danger">Nota:</strong> Após a Validação do pagamento do seu Bilhete de viagem receberá o número de Bilhete no seu perfil, email ou sms. Previsão de recepção 30 min.</span>
       </div>
      
     </div>

@@ -17,6 +17,7 @@
                             <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a class="nav-item nav-link active" id="nav-form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true"><i class="fa fa-edit text-muted"></i> Novos Bilhetes</a>
+    <a class="nav-item nav-link" id="nav-reservados-tab" data-toggle="tab" href="#reservados" role="tab" aria-controls="embarque" aria-selected="false"><i class="fa fa-cart-plus text-muted"></i> Reservados</a>
     <a class="nav-item nav-link" id="nav-vendidos-tab" data-toggle="tab" href="#vendidos" role="tab" aria-controls="embarque" aria-selected="false"><i class="fa fa-check-circle text-muted"></i> Bilhetes vendidos</a>
     <a class="nav-item nav-link" id="nav-report-tab" data-toggle="tab" href="#report" role="tab" aria-controls="desembarque" aria-selected="false"><i class="fa fa-line-chart text-muted"></i> Estatítiscas</a>
   </div>
@@ -30,17 +31,21 @@
  <!-- tabela de bilhetes comprados --> 
 
  <div class="container-fluid">
+                               <div class="table-responsive">
  @include('inc.messages') 
                                <table id="dataTables" class="display nowrap" style="width:100%">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Cliente</th>
+                <th class="text-center">Cliente</th>
                 <th>Rota</th>
                 <th>Classe</th>
                 <th>Preço</th>
+                <th>Passageiro(s)</th>
+                <th>Ponto Levant.</th>
                 <th>Comprovativo</th>
                 <th>Data compra</th>
+                <th>Data Viagem</th>
                 <th>Opções</th>
             </tr>
         </thead>
@@ -49,10 +54,12 @@
             @foreach($bilhete_novos as $item)
             <tr>
                 <td>{{ $item->id }}</td>
-                <td>{{ $item->cliente }}</td>
+                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->cliente }}</td>
                 <td>{{ $item->rota_origem }} - {{ $item->rota_destino }}</td>
                 <td>{{ $item->classe }}</td>
                 <td>{{ number_format($item->preco,2,',','.') }} Akz</td>
+                <td class="text-center">{{ $item->total_passageiro }}</td>
+                <td>{{ $item->ponto_e }}</td>
                  <td>
                 @if(isset($item->comprovativo_file))	
                 <a href="{{ asset('storage/'.$item->comprovativo_file) }}" target="_blank" class="btn btn-warning btn-sm mb-1 text-dark" data-toggle="tooltip" data-placement="bottom" title="Mostrar comprovativo" onclick="event.preventDefault(); $('#comprovativo').attr('src', $(this).attr('href')); $('#modalComprovativo').modal('show');"><i class="fa fa-file-pdf"></i> Comprovativo</a>
@@ -61,7 +68,8 @@
             
                 @endif    
                 </td>
-                <td>{{ date('d/m/Y', strtotime($item->data_compra)) }}</td>
+                <td class="text-center">{{ date('d/m/Y', strtotime($item->data_compra)) }}</td>
+                <td class="text-center">{{ date('d/m/Y H:i', strtotime($item->data_partida)) }}</td>
                 <td class="text-left">
 		        <a href="#" class="btn btn-success btn-sm mb-1" title="Confirmar compra de Bilhete" nome_cliente="{{ $item->cliente }}" id_cliente="{{ $item->id_cliente }}" nome_rota="{{ $item->rota_origem }} - {{ $item->rota_destino }}" id_bilhete="{{ $item->id }}" onclick="event.preventDefault(); $('#id_cliente').val($(this).attr('id_cliente')); $('#nome_cliente').val($(this).attr('nome_cliente')); $('#nome_rota').val($(this).attr('nome_rota')); $('#id_bilhete').val($(this).attr('id_bilhete'));  $('#modalConfirmacao').modal('show');"><i class="fa fa-check" ></i></a>
                 <a href="" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes excluir Ponto?');" data-toggle="tooltip" data-placement="right" title="Cancelar Bilhete..."><i class="fa fa-trash"></i></a>
@@ -74,8 +82,12 @@
                                <!-- fim tabela de bilhetes comprados --> 
                             </div>
                         </div>
+                        </div>
 
 
+  <div class="tab-pane fade show active" id="reservados" role="tabpanel" aria-labelledby="reservados-tab">
+    Olá
+  </div>
   <div class="tab-pane fade" id="vendidos" role="tabpanel" aria-labelledby="vendidos-tab">
                             <div class="row">
                             <h3 class="my-4"> <i class="fa fa-list text-muted"></i>   Lista de Bilhetes comprados</h3>
@@ -88,13 +100,16 @@
             <tr>
                 <th>ID</th>
                 <th>Nº Bilhete</th>
-                <th>Cliente</th>
+                <th class="text-left">Cliente</th>
                 <th>Rota</th>
                 <th>Classe</th>
                 <th>Preço</th>
+                <th>Passageiro(s)</th>
                 <th>Estado</th>
+                <th>Ponto Levant.</th>
                 <th>Comprovativo</th>
                 <th>Data compra</th>
+                <th>Data viagem</th>
                 <th>Opções</th>
             </tr>
         </thead>
@@ -104,13 +119,15 @@
             <tr>
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->n_bilhete }}</td>
-                <td>{{ $item->cliente }}</td>
+                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->cliente }}</td>
                 <td>{{ $item->rota_origem }} - {{ $item->rota_destino }}</td>
                 <td>{{ $item->classe }}</td>
                 <td>{{ number_format($item->preco,2,',','.') }} Akz</td>
+                <td class="text-center">{{ $item->total_passageiro }}</td>
                 <td>
-                    <span class="alert alert-success p-1"> <i class="fa fa-check-circle"></i> Pago</span>
+                    <span class="alert alert-success p-1" data-toggle="tooltip" data-placement="top" title="Recebido {{ number_format($item->preco*$item->total_passageiro,2,',','.') }} kz"> <i class="fa fa-check-circle"></i> Pago</span>
                 </td>
+                <td>{{ $item->ponto_e }}</td>
                 <td>
                 @if(isset($item->comprovativo_file))	
                 <a href="{{ asset('storage/'.$item->comprovativo_file) }}" target="_blank" class="btn btn-warning btn-sm mb-1 text-dark" data-toggle="tooltip" data-placement="bottom" title="Mostrar comprovativo" onclick="event.preventDefault(); $('#comprovativo').attr('src', $(this).attr('href')); $('#modalComprovativo').modal('show');"><i class="fa fa-file-pdf"></i> Comprovativo</a>
@@ -119,7 +136,9 @@
             
                 @endif    
                 </td>
-                <td>{{ date('d/m/Y', strtotime($item->data_compra)) }}</td>
+                <td class="text-center">{{ date('d/m/Y', strtotime($item->data_compra)) }}</td>
+                <td class="text-center">{{ date('d/m/Y H:i', strtotime($item->data_partida)) }}</td>
+               
                 <td class="text-center">
 		        <a href="" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes excluir Ponto?');" data-toggle="tooltip" data-placement="right" title="Cancelar Bilhete..."><i class="fa fa-trash"></i></a>
                 </td>
@@ -204,6 +223,30 @@
                                 </div>
                             </div>
                             </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalCliente" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-header-modal">
+        <h5 class="modal-title text-light" id="confirmModalLabel">Detalhes do Cliente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="text-light">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+              <h5>Nome completo: <span id="cliente" class="text-muted"></span> </h5>
+              <h5>Nº Documento: <span id="bi_cliente" class="text-muted"></span> </h5>
+              <h5>Telefone: <span id="telef_cliente" class="text-muted"></span> </h5>
+          </div>
+        </div>
       </div>
      
     </div>

@@ -24,8 +24,8 @@
     
     <div id='app'>
     <main>
-    <div class="bg-img">
-        <div class="bg-img-dark">
+    <div class="container">
+        <div class="bg-hello">
          @yield('content')
         </div>
         </div>

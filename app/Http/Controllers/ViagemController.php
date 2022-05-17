@@ -77,7 +77,8 @@ class ViagemController extends Controller
     */
     public function index_bilhetes(){
         $bilhete_novos = BilheteDetalhes::where('estado',0)->orderBy('data_partida','asc')->get();
-        $bilhete_ativos = BilheteDetalhes::where('estado',1)->orderBy('data_partida','asc')->get();
+        $bilhete_reservados = BilheteReservadoDetalhes::where('estado',0)->orderBy('data_partida','asc')->get();
+        $bilhete_ativos = BilheteDetalhes::where('estado',1)->latest()->get();
         return view('dashboard.bilhetes', ['bilhete_novos'=>$bilhete_novos,'bilhete_ativos'=>$bilhete_ativos]);
     }
     public function compra_bilhetes(Request $request){
