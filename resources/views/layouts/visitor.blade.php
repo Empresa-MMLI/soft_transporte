@@ -46,7 +46,7 @@
 <div class="col-1"></div>
 <div class="col-sm-12 col-lg-3">
 <ul class="list-group list-group-horizontal timeTable text-right">
-  <li class="list-group-items"><i class="fa fa-calendar"></i> Segunda - Sexta <i class="fa fa-clock"></i> 8:00 Am - 18:00 Pm</li>
+  <li class="list-group-items"><i class="fa fa-calendar"></i> Segunda - Domingo <i class="fa fa-clock"></i> 8:00 Am - 10:00 Pm</li>
 </ul>
 </div>
 <div class="col-sm-12 col-lg-4">
@@ -87,7 +87,7 @@
       <a class="nav-link" href="{{ route('pontos') }}"><i class="fa fa-map-marker"></i> Pontos de Venda e Embarque</a>
       </li>
       <li class="nav-item">
-      <a class="nav-link" href="{{ route('aluguer.carro') }}"><i class="fa fa-car"></i> Alugueres de Carros</a>
+      <a class="nav-link" href="{{ route('aluguer.carro') }}"><i class="fa fa-bus"> </i> Alugueres de Carros</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('planos') }}"><i class="fa fa-list"></i> Planos e Preçários</a>

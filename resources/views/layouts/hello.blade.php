@@ -18,10 +18,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@600;&display=swap" rel="stylesheet">
     <style>
-   
+        html{
+            font-family: 'Source Sans Pro','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size:1.1rem;
+        }
     </style>
 </head>
-    <body style="overflow-x: hidden;overflow-y: auto!important;background:#fff">
+    <body style="overflow-x: hidden;overflow-y: hidden!important;background:#fff">
     <!-- Config da tela de boas vindas-->
     
     <div id='app'>

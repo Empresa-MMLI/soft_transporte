@@ -15,6 +15,8 @@ use App\Models\BilheteDetalhes;
 use App\Models\BilheteReservado;
 use App\Models\BilheteReservadoDetalhes;
 use App\Models\Cliente;
+use App\Models\Usuario;
+use Illuminate\Support\Facades\Hash;
 use App\Models\ViagemDetalhes;
 Use Mail;
 
@@ -113,8 +115,32 @@ class ViagemController extends Controller
     //reservar bilhete
     public function reservar_bilhetes(Request $request){
         //dados recolhidos
+        try{
+        if(isset($request->estado_cliente) && $request->estado_cliente == 1){//cliente novo
+                                
+            $register = new Usuario;
+            $register->name  = $request->nome_cliente;
+            $register->email  = $request->user;
+            $register->password  = Hash::make($request->pass);
+            $register->id_tipo_user = 3;
+            $register->save();
+
+            //pega o ult registro
+            $dados_acesso = Usuario::latest()->first();
+            $id_acesso = $dados_acesso->id;
+            
+            $cliente = new Cliente;
+            $cliente->nome  = $request->nome_cliente;
+            $cliente->tipo_doc  = $request->tipo_doc_cliente;
+            $cliente->n_doc  = $request->n_doc_cliente;
+            $cliente->email  = $request->email_cliente;
+            $cliente->telefone  = $request->telef_cliente;
+            $cliente->id_usuario = $id_acesso;
+            $cliente->save();
+        }
+
         $empresa = null;//$empresa::first();
-        $cliente = Cliente::where('n_doc',$request->n_doc)->first();
+        $cliente = Cliente::where('n_doc',$request->n_doc_cliente)->orwhere('n_doc',$request->n_doc)->first();
         if(!isset($cliente)){
         //buscar viagens 
         $provincias = Provincia::orderby('provincia','asc')->get();
@@ -122,11 +148,14 @@ class ViagemController extends Controller
         $total_search = $bilhetes->count();    
         return view('bilhete_results', ['bilhetes'=>$bilhetes,'provincias'=>$provincias,'total_search'=>$total_search,'total_adultos'=>$request->group_adults,'total_criancas'=>$request->group_children,'error'=>"Nº de Documento não encontrado."]);
         }
-   
+      
         $viagem = ViagemDetalhes::find($request->id_viagem);
         $total_p = ($request->t_adultos+$request->t_criancas);
         $total_p = (isset($total_p) && $total_p>0)? $total_p:1;
         return view('bilhete_pagto', ['cliente'=>$cliente,'empresa'=>$empresa,'total_passageiros'=>$total_p,'viagem'=>$viagem]);
+     }catch(\Exception $e){
+        return redirect()->back()->with('error','Não foi possível efectuar a Compra do Bilhete, tente novamente!');
+    }
     }
      //store
      public function store_bilhete(Request $request){
@@ -200,9 +229,10 @@ class ViagemController extends Controller
             $bilhete->estado = 1;
             $bilhete->save();
         }else{
-            $reserva = $update = BilheteReservado::find($request->id_bilhete);
+            $update = BilheteReservado::find($request->id_bilhete);
             $update->estado = 1;
             $update->save();
+            $reserva = BilheteReservado::find($request->id_bilhete);
             //apos ativacao da reserva regista-se a compra do bi
             $register = new Bilhete;
             $register->n_bilhete = $request->n_bilhete;
@@ -223,7 +253,6 @@ class ViagemController extends Controller
         ' apresentado do mesmo no acto de levantamento do Bilhete físico ou Embarque.';
 
         $email = enviar_email($cliente, $sms, $request->n_bilhete);
-        return $email;
         //envia por sms
         if((isset($bilhete) && $bilhete) || (isset($register) && $register))
         return redirect()->back()->with('success','Nº de Bilhete atribuido com sucesso!');

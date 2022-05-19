@@ -127,6 +127,24 @@ function criar_conta($value){
     $('#empresa_dados').fadeOut('fast');
   }
 }
+//selecionar conta
+function selecionar_conta($value){
+  if($value == 0)
+  {
+    $('#cliente_dados').fadeOut('fast');
+    $('.tipo_cliente_div').removeClass('col-12');
+    $('.tipo_cliente_div').addClass('col-6');
+    $('.n_doc_div').fadeIn('fast');
+    $('#n_doc').val('');
+  }else if($value == 1){
+    $('#cliente_dados').fadeIn();
+    $('.tipo_cliente_div').removeClass('col-6');
+    $('.tipo_cliente_div').addClass('col-12');
+    $('.n_doc_div').fadeOut('fast');
+    $('#n_doc').val('00');
+
+  }
+}
 //escolher forma_pagto
 function ativar_comprovativo($value){
   if($value == 'PD')

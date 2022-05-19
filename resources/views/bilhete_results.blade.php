@@ -563,26 +563,65 @@ Pesquisar
 </div>
 
 <div class="row">
-  <div class="col-6">
+  <div class="col-6 tipo_cliente_div">
 <div class="form-group">
     <label for="estado_cliente">Tipo de cliente:</label>
-    <select  class="form-control custom-select text-capitalize" name="estado_cliente" id="estado_cliente" aria-describedby="addon-wrapping" onchange=" criar_conta($(this).val());" required>
+    <select  class="form-control custom-select text-capitalize" name="estado_cliente" id="estado_cliente" aria-describedby="addon-wrapping" onchange=" selecionar_conta($(this).val());" required>
     <option value="1">Novo cliente</option>
     <option value="0" selected>Corrente</option>
   </select>
 </div>
 </div>
 
-<div class="col-6">
+<div class="col-6 n_doc_div">
 <div class="form-group">
     <label for="nome">Nº Documento apresentado:</label>
-    <input type="number" class="form-control" id="n_doc" name="n_doc" placeholder="Número documento" required>
+    <input type="text" class="form-control" id="n_doc" name="n_doc" placeholder="Número documento" required>
    <input type="hidden" class="form-control" id="id_viagem" name="id_viagem" placeholder="ID viagem">
 </div>
 </div>
 </div>
 
-<div class="row">
+  <!-- detalhes do cliente --> 
+
+  <div id="cliente_dados" style="display:none">
+  <div class="form-group">
+    <label for="nome">Nome:</label>
+    <input type="text" class="form-control" id="nome_cliente" name="nome_cliente" value="Nome" placeholder="Nome" onfocus="$(this).val('');"  required>
+  </div>
+  <div class="form-group">
+    <label for="email_cliente">Email:</label>
+    <input type="email" class="form-control" id="email_cliente" name="email_cliente" value="example@sla.com" onfocus="$(this).val('');" placeholder="Email válido">
+  </div>
+  <div class="form-group">
+    <label for="telefone_cliente">Telefone:</label>
+    <input type="tel" class="form-control" id="telef_cliente" name="telef_cliente" value="9xxxxxxxx" onfocus="$(this).val('');" placeholder="Telefone válido" required>
+  </div>
+  <div class="form-group">
+    <label for="tipo_doc_cliente">Tipo Documento:</label>
+    <select  class="form-control custom-select text-capitalize" name="tipo_doc_cliente" id="tipo_doc_cliente" aria-describedby="addon-wrapping">
+    <option value="" selected disabled>Selecionar...</option>
+    <option value="BI">Bilhete de Identidade</option>
+    <option value="PP">Passaporte</option>
+    <option value="Outro">Outro...</option>
+    </select>
+  </div>  
+  <div class="form-group">
+    <label for="n_doc">Nº Documento:</label>
+    <input type="text" class="form-control" id="n_doc_cliente" name="n_doc_cliente" value="00" onfocus="$(this).val('');"  placeholder="Nº Documento apresentado" required>
+  </div>
+  <div class="form-group">
+    <label for="usuario">Usuário:</label>
+    <input type="text" class="form-control" id="user" name="user" value="example@sla.com" onfocus="$(this).val('');"  placeholder="Email ou Telefone" required>
+  </div>
+  <div class="form-group">
+    <label for="senha">Código de acesso:</label>
+    <input type="password" class="form-control" id="pass" name="pass" value="Cógido" onfocus="$(this).val('');"  placeholder="Senha secreta" required>
+  </div>  
+</div>
+  <!-- fim detalhes do cliente --> 
+  <!-- detalhes passageiros-->
+  <div class="row">
   <div class="col-6">
 <div class="form-group">
     <label for="t_adultos">Total adultos:</label>
@@ -596,7 +635,7 @@ Pesquisar
 </div>
 </div>
 </div>
-  <!-- detalhes do cliente --> 
+  <!-- fimm detalhes passageiros --> 
   <button type="submit" class="btn btn-submit btn-blocks float-right">Reservar e Pagar</button>
 </form>
       </div>

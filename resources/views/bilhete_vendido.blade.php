@@ -32,7 +32,7 @@
                             <p class="text-normal"><code>*</code> ID Bilhete: <strong>{{ isset($id_bilhete)? $id_bilhete:'xxx' }}</strong></p>
                            <p class="text-simples mb-2"><strong>Caso não receber o Nº do Bilhete por email, no seu Perfil de usuário ou outro meio de comunicação, faça-se apresentado com o seu <u>ID do Bilhete</u>.</strong>
                             </p>
-                            <a href="{{ route('index') }}" class="text-dark float-lefts"><i class="fa fa-home text-info"></i> Voltar à Página inicial</a>
+                            <a href="{{ route('comprar.bilhete') }}" class="text-dark float-lefts"><i class="fa fa-home text-info"></i> Voltar à Página inicial</a>
                         </div>
                         <div class="col-sm-12 col-md-5 text-center">
                                 <img src="{{ asset('assets/resources/checkout.gif') }}" class="resources-img" alt="Comprovativo de Pagto...">

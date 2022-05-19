@@ -3,7 +3,7 @@
 <div class="container form-login">
     <div class="row justify-content-center">
  
-        <div class="col-sm-12 col-md-8 col-lg-4">
+        <div class="col-sm-12 col-md-8 col-lg-6">
         <div class="panel-login p-4">
         <form method="post" action="{{ route('login') }}">
             @csrf

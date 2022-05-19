@@ -28,7 +28,7 @@
 <div class="
 sb-searchbox__outer
 " data-sb-outer="">
-<form id="frm" method="get" role="search" action="{{ route('res.bilhetes') }}" class="sb-searchbox sb-searchbox--painted sb-searchbox--xp js--sb-searchbox">
+<form id="frm" method="get" role="search" action="" class="sb-searchbox sb-searchbox--painted sb-searchbox--xp js--sb-searchbox">
 
 <div class="xp__fieldset js--sb-fieldset accommodation " data-view="accommodation">
 <div data-visible="accommodation,flights,rentalcars" class="xp__input-group xp__search" data-destination-input="">

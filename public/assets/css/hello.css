@@ -17,7 +17,7 @@
 */
 
 
-*{margin:0;padding: 0; font-family: 'Source Sans Pro','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size:1rem;}  
+*{margin:0;padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}  
 
 html, body{width:100%; height:100%;}
 .welcome .logo{
@@ -36,6 +36,26 @@ html, body{width:100%; height:100%;}
   margin:0;
 }
 
+.logo_mmli{
+  width:80%!important;
+  margin:0 auto;
+  float:right;
+  overflow: hidden;
+  padding:1%;
+}
+
+#desconhecido:hover {
+  animation: treme 0.6s;
+  animation-iteration-count: 3;
+}
+
+@keyframes treme {
+  0% {margin-top: 0;}
+  25% {margin-top: 5px;}
+  50% {margin-top: 0;}
+  75% {margin-top: -5px;}
+  100% {margin-top: 0;}
+}
 .logo_auth_0{
   width:35%!important;
   padding:0;
@@ -77,7 +97,8 @@ html, body{width:100%; height:100%;}
 .navbar-nav .nav-item .nav-link:hover{color:#fff;}
 
 .bg-img, .bg-hello{
-  padding:15%;
+  padding:12%;
+  padding-top:6%;
   width: 100%;
   height: 100%;
  /* background-image: url("../img/bg/banner.png");*/
@@ -176,8 +197,8 @@ input.form-control.input-radius-md, select.form-control.input-radius-md{
   border: 1px solid #dfe1e5;
   border-left:none!important;
   box-shadow: none;
-  border-top-right-radius: 20px !important;
-  border-bottom-right-radius: 20px !important;
+  border-top-right-radius: 50px !important;
+  border-bottom-right-radius: 50px !important;
   height: 50px!important; 
 }
 .search-radius-input{
@@ -185,8 +206,8 @@ input.form-control.input-radius-md, select.form-control.input-radius-md{
   border-right:none!important;
   border-top-right-radius: 0px !important;
   border-bottom-right-radius: 0px !important;
-  border-top-left-radius: 20px !important;
-  border-bottom-left-radius: 20px !important;
+  border-top-left-radius: 50px !important;
+  border-bottom-left-radius: 50px !important;
   height: 50px!important; 
   font-weight: 500!important;
   font-size:20px;
@@ -576,6 +597,8 @@ input.form-control,textarea,.text_descricao{height:40px!important; min-height:30
 .bg-footer{background-color: #f2f2f2;position:fixed;bottom:0;width:110%;}
 .bg-footer .text, .bg-footer ul.nav-list li a{color:#70757a;font-size:0.9rem;}
 .text-hello{font-size: 0.8rem;}
+.btn-search.text-hello{letter-spacing: 1.5px;}
+.text-padrao{color:#122f63;}
 .bg-footer ul.nav-list li a:hover{color: #122f63;text-decoration: underline;}
 
 .form-control{border-radius: 0px !important;}
@@ -585,7 +608,7 @@ input.form-control,textarea,.text_descricao{height:40px!important; min-height:30
   background-color:#122f63 /*#0f468f*/;
   font-size: 0.8rem;
   font-weight: 500;
-  opacity: 0.7;
+  opacity: 0.8;
   border-bottom:3px solid transparent;
 }
 .btn,.btn-submit{

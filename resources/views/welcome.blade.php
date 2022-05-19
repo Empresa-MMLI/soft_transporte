@@ -1,4 +1,13 @@
+
 @extends ('layouts.hello') <!--Call of template welcome-->
+<div class="raw bg-light">
+  <div class="col-sm-10"></div>
+  <div class="col-sm-1 float-right m-3">
+    <a href="https://mmlisolucoes.com/" class="float-right" target="_blank" id="link_mmli">
+    <img src="{{ url('assets/resources/logo_mmli.png') }}"  class="logo_mmli img-responsive">
+    </a>
+  </div>
+</div>
 @section('content')  <!--Sectino to show content to yield -->
 
 
@@ -29,35 +38,35 @@
   <li><a href="#">Comprar B.I e Aluguel Carro</a></li>
 </ul>
 --> 
-    <button class="btn btn-submit btn-lg my-2 btn-search text-hello" ><i class="fa fa-search fa-sm"></i> Buscar Resultados </button>
+    <button class="btn btn-submit btn-lg my-2 btn-search text-hello" > Avançar <i class="fa fa-arrow-right fa-sm"></i> </button>
     </form>
 </div>
 </div>
-    <div class="text-center btn-session">
-    <p class="text-dark my-2 text-hello"><strong>Últimas novidades</strong>  <span class="text-small text-info">"Novo Ponto de Embarque adicionada a Plataforma..."</span> </p>
+    <div class="text-center btn-session d-none">
+    <p class="text-dark my-2 text-hello"><strong class="text-padrao">Últimas novidades</strong>  <span class="text-small text-muted">"Novo Ponto de Embarque adicionada a Plataforma..."</span> </p>
 </div>
 </div></div></div>
 
   <div class="row px-4s pt-3 bg-footer">
     
-      <h6 class="text mx-4 px-4 mb-2 w-100">SLA - Agência de Turismo</h6>
+      <h6 class="text mx-4 px-3 mb-2 w-100 pb-2">SLA - Agência de Turismo</h6>
       <div class=" w-100" style="border:1px solid #dadce2"></div>
-      <div class="col-sm-12 pb-0 mb-0 px-4 mx-2">
-    <ul class="list-inline nav-list">
+      <div class="col-sm-12 pb-0 mb-0 px-3 mx-2 pt-2">
+    <ul class="list-inline nav-list px-3">
   <li class="list-inline-item">
-  <a class="nav-link" href="{{ route('comprar.bilhete') }}"> Bilhetes e Horários</a>
+  <a class="nav-links" href="{{ route('comprar.bilhete') }}"> Bilhetes e Horários</a>
   </li>
   <li class="list-inline-item">
-  <a class="nav-link" href="{{ route('pontos') }}"> Pontos de Venda e Embarque</a>
+  <a class="nav-links" href="{{ route('pontos') }}"> Pontos de Venda e Embarque</a>
   </li>
   <li class="list-inline-item">
-  <a class="nav-link" href="{{ route('aluguer.carro') }}"> Aluguer de Carro</a>
+  <a class="nav-links" href="{{ route('aluguer.carro') }}"> Aluguer de Carro</a>
   </li>
   <li class="list-inline-item">
-  <a class="nav-link" href="{{ route('planos') }}"> Planos e Preçários</a>
+  <a class="nav-links" href="{{ route('planos') }}"> Planos e Preçários</a>
   </li>
   <li class="list-inline-item">
-  <a class="nav-link" href="{{ route('contacts') }}"> Contactos</a>
+  <a class="nav-links" href="{{ route('contacts') }}"> Contactos</a>
   </li>
   </ul>
   </div>

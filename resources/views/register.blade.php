@@ -3,7 +3,7 @@
 <div class="container form-login">
     <div class="row justify-content-center">
  
-        <div class="col-sm-12 col-md-8 col-lg-6">
+        <div class="col-sm-12 col-md-8 col-lg-10">
         <div class="panel-login p-4">
         <form method="post" action="{{ route('user.store') }}">
             @csrf
@@ -61,7 +61,7 @@
   <div id="cliente_dados">
   <div class="form-group">
     <label for="email_cliente">Email:</label>
-    <input type="tel" class="form-control" id="telefone" name="email_cliente" value="example@sla.com" onfocus="$(this).val('');" placeholder="Email válido">
+    <input type="email" class="form-control" id="email_cliente" name="email_cliente" value="example@sla.com" onfocus="$(this).val('');" placeholder="Email válido">
   </div>
   <div class="form-group">
     <label for="telefone_cliente">Telefone:</label>
@@ -71,8 +71,8 @@
     <label for="tipo_doc">Tipo Documento:</label>
     <select  class="form-control custom-select text-capitalize" name="tipo_doc" id="tipo_doc" aria-describedby="addon-wrapping">
     <option value="" selected disabled>Selecionar...</option>
-    <option value="BI">Bilhete</option>
-    <option value="PP">Passa-porte</option>
+    <option value="BI">Bilhete de Identidade</option>
+    <option value="PP">Passaporte</option>
     <option value="Outro">Outro...</option>
     </select>
   </div>  
