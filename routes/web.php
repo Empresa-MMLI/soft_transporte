@@ -138,6 +138,8 @@ Route::post('/store_viagem', [ViagemController::class, 'store'])->name('viagem.s
 Route::get('/itinerarios', [viagemController::class, 'itinerarios'])->name('dashboard.itinerarios');
 //Bilhetes emitidos
 Route::get('/bilhetes', [ViagemController::class, 'index_bilhetes'])->name('dashboard.bilhetes');
+//Bilhetes comprados pelos clientes
+Route::get('/bilhetes', [ViagemController::class, 'cliente_bilhetes'])->name('cliente.bilhetes');
 //compra de Bilhetes
 Route::get('/comprar_bilhetes', [ViagemController::class, 'comprar_bilhetes'])->name('comprar.bilhete');
 //store new bilhete

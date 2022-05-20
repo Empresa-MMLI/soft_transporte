@@ -2,7 +2,14 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <meta name="description" content="SLA - Agência de Turismo & Prestação de Serviços Lda. Somos responsável por garantir segurança e conforto em suas viagens.">
+	  <meta name="author" content="M.M.L.I.- SOLUCÕES COMÉRCIO E P. DE SERVICOS LDA">
+	  <meta name="keywords" content="Facilita, Gestão, Software de Gestão de Empresas, Empresa, mmlisoluções, mmlisolucoes,soluões">
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name') }}</title>
@@ -38,18 +45,17 @@
     	<!-- header -->
         <nav class="navbar navbar-expand static-top p-1">
 <div class="container">
-<div class="col-sm-12 col-lg-4">
+<div class="col-sm-12 col-md-12 col-lg-4">
 <a class="navbar-brand " href="{{ route('index') }}">
     <img src="{{ url('assets/img/logo/logo.png') }}"  alt="logo" class="logotipo img-responsive">
     </a>
 </div>
-<div class="col-1"></div>
-<div class="col-sm-12 col-lg-3">
+<div class="col-sm-12 col-md-12 col-lg-4">
 <ul class="list-group list-group-horizontal timeTable text-right">
   <li class="list-group-items"><i class="fa fa-calendar"></i> Segunda - Domingo <i class="fa fa-clock"></i> 8:00 Am - 10:00 Pm</li>
 </ul>
 </div>
-<div class="col-sm-12 col-lg-4">
+<div class="col-sm-12 col-md-12 col-lg-4">
 <div class="header__action">
     <div class="header__action">
 								<a class="btn btn-outline-primary" href="{{ route('register') }}">

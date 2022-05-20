@@ -19,6 +19,7 @@ use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
 use App\Models\ViagemDetalhes;
 Use Mail;
+use Session;
 
 class ViagemController extends Controller
 {
@@ -85,6 +86,14 @@ class ViagemController extends Controller
         $bilhete_reservados = BilheteReservadoDetalhes::where('estado',0)->orderBy('data_partida','asc')->get();
         $bilhete_ativos = BilheteDetalhes::where('estado',1)->latest()->get();
         return view('dashboard.bilhetes', ['bilhete_novos'=>$bilhete_novos,'bilhete_ativos'=>$bilhete_ativos,'bi_reservados'=>$bilhete_reservados]);
+    }
+    public function cliente_bilhetes(){
+        $cliente = Cliente::where('id_usuario', Session::get('usuario.id'))->first();
+       
+        $bilhete_novos = BilheteDetalhes::where('estado',0)->orderBy('data_partida','asc')->where('id_cliente',$cliente->id)->get();
+        $bilhete_reservados = BilheteReservadoDetalhes::where('estado',0)->orderBy('data_partida','asc')->where('id_cliente',$cliente->id)->get();
+        $bilhete_ativos = BilheteDetalhes::where('estado',1)->latest()->where('id_cliente',$cliente->id)->get();
+        return view('dashboard.cliente_bilhetes', ['bilhete_novos'=>$bilhete_novos,'bilhete_ativos'=>$bilhete_ativos,'bi_reservados'=>$bilhete_reservados]);
     }
     public function comprar_bilhetes(Request $request){
         //buscar viagens 
@@ -248,14 +257,14 @@ class ViagemController extends Controller
         //envia no seu perfil
         $cliente = Cliente::find($request->id_cliente);//pegar dados do cliente
         //envia por email
-        $sms = 'Bom dia caro cliente '.$cliente->nome.' a SLA vem por meio desta agradecer e '.
-        'confirmar a compra do seu bilhete. abaixo vimos o nº do seu Bilhete, por favor faça-se'.
-        ' apresentado do mesmo no acto de levantamento do Bilhete físico ou Embarque.';
+        $sms = 'Bom dia caro cliente '.$cliente->nome.', a SLA vem por meio desta agradecer e '.
+        'confirmar a compra do seu bilhete. abaixo temos o nº do seu Bilhete, por favor faça-se'.
+        ' apresentado do mesmo nos pontos de Levantamento.';
 
         $email = enviar_email($cliente, $sms, $request->n_bilhete);
         //envia por sms
         if((isset($bilhete) && $bilhete) || (isset($register) && $register))
-        return redirect()->back()->with('success','Nº de Bilhete atribuido com sucesso!');
+        return redirect()->back()->with('success','Nº de Bilhete atribuido e enviado com sucesso!');
 
         }catch(\Exception $e){
         return redirect()->back()->with('error','Falha ao atribuir nº do Bilhete, tente de novo!');
@@ -293,19 +302,17 @@ function upload_file($request){
 //funcao para enviar o email
 function enviar_email($cliente, $sms, $n_bilhete){
     try{
-        /*$path = public_path('/img/logo/insignea.png');
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data = file_get_contents($path);
-        $img = 'data:image/'.$type.';base64,'.base64_encode($data);
-*/
-       Mail::send('report.mailSender', ['n_bilhete'=>$n_bilhete,'sms'=>$sms, 'cliente'=>$cliente], function($sm) use ($cliente){
-        
-        $sm->from('facilitammli@gmail.com', 'SLA - Agência de Turismo & Prestação de Serviços'); // Email da Clinica
-        //$sm->to('amoraospedacoss@gmail.com','Administrador(a) Facilita');//destino
-        $sm->to($cliente->email,'Consumidor Final');//destino
-        $sm->subject('Confirmação da compra do BIlhete'); // Conteudo da sms
-        
-        });
+     
+        $info = [
+            'titulo'=> 'Compra efectuada com sucesso!',
+            'sms'=>$sms,
+            'n_bilhete'=>$n_bilhete
+        ];
+        //enviando email
+        \Mail::to($cliente)
+        ->cc(['mmligeral@mmlisolucoes.com','josekinanga@mmlisolucoes.com'],'MMLI - Soluções Comércio & Prestação de Serviços')
+        ->bcc('jose922884206@gmail.com','MMLI - Team Devs')//trocar com o da SLA
+        ->send(new \App\Mail\NumeroBilheteMail($info));
 
         return 1;//response()->json(['sms'=>'O email foi enviado com sucesso ao Admin. do Sistema']);
     

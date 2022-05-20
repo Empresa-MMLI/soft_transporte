@@ -8,6 +8,7 @@ use App\Models\Usuario;
 use App\Models\Tipo_usuario;
 use App\Models\Cliente;
 use App\Models\Empresa;
+use Session;
 
 class UsuarioController extends Controller
 {
@@ -75,15 +76,19 @@ class UsuarioController extends Controller
     }
     //login
     public function login(Request $request){
-        //$hash_password = Hash::make($request->pass);
-        $existe = Usuario::where('email',$request->user)->where('id_tipo_user',2)->orwhere('id_tipo_user',3)->first();
-        
-        if(isset($existe->id) && Hash::check($request->pass, $existe->password)){
-            return view('dashboard.cliente');
-        }else{
-            return redirect()->back()->with('error','Autenticação inválida!');
-        }
-        //faltando apenas as migrations para restringir acesos
+      try{
+  //$hash_password = Hash::make($request->pass);
+  $existe = Usuario::where('email',$request->user)->whereBetween('id_tipo_user',[2,3])->first();
+  if(isset($existe->id) && Hash::check($request->pass, $existe->password)){
+      Session::put('usuario.id',$existe->id);
+      return view('dashboard.cliente');
+  }else{
+      return redirect()->back()->with('error','Autenticação inválida!');
+  }
+  //faltando apenas as migrations para restringir acesos
+      }catch(\Exception $e){
+        return redirect()->back()->with('error','Falha ao iniciar sessão...');
+      }
     } 
     //login admin
     public function login_root(Request $request){

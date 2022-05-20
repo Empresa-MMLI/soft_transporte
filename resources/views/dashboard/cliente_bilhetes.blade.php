@@ -1,4 +1,4 @@
-@extends ('layouts.app')
+@extends ('layouts.app_cliente')
 @section('html_title','SLA Dashboard | Bilhetes emitidos')
 <!--Call of template welcome-->
 @section('content')

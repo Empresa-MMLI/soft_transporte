@@ -45,124 +45,22 @@
 					</li>
 
 					<li class="sidebar-item">
-				<a class="sidebar-link" href="{{ route('dashboard.usuarios') }}">
-              	<i class="align-middle" data-feather="activity"></i> <span class="align-middle">Clientes</span>
+				<a class="sidebar-link" href="#">
+              	<i class="align-middle" data-feather="user"></i> <span class="align-middle">Meu Perfil</span>
             	</a>
 				</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ route('dashboard.bilhetes') }}">
-              <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Bilhetes</span>
+						<a class="sidebar-link" href="{{ route('cliente.bilhetes') }}">
+              <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Bilhetes comprados</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ route('dashboard.alugueres') }}">
-              <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Alugueres de carros</span>
+						<a class="sidebar-link" href="#">
+              <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Veículos alugados</span>
             </a>
 					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ route('dashboard.servicos') }}">
-              <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Serviços</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ route('dashboard.rotas') }}">
-              <i class="align-middle" data-feather="users"></i> <span class="align-middle">Rotas</span>
-            </a>
-					</li>
-
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ route('dashboard.viagem') }}">
-              <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Viagens</span>
-            </a>
-					</li>
-
-				<li class="sidebar-item">
-				<a class="sidebar-link" href="{{ route('dashboard.map_viagem') }}">
-              	<i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Mapa de Viagens</span>
-            	</a>
-				</li>
-					
-				<li class="sidebar-item">
-				<a class="sidebar-link" href="{{ route('dashboard.itinerarios') }}">
-              	<i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Itinerários</span>
-            	</a>
-				</li>
-
-					<li class="sidebar-header text-normal" data-toggle="collapse" href="#marketing" role="button" aria-expanded="false" aria-controls="collapseExample" >
-			Meios de transportes <i class="fa fa-caret-down float-right"></i>
-		</li>
-		<div class="collapse" id="marketing">
-          <li class="sidebar-item">
-		  <a class="sidebar-link" href="{{ route('dashboard.veiculos') }}">
-             	<i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Veículos</span>
-            </a>
-					</li>
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ route('dashboard.marcas') }}">
-              <i class="align-middle" data-feather="message-square"></i> <span class="align-middle">Marcas</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ route('dashboard.modelos') }}">
-              <i class="align-middle" data-feather="message-square"></i> <span class="align-middle">Modelos</span>
-            </a>
-					</li>
-
-		</div>
-
-			<li class="sidebar-header text-normal" data-toggle="collapse" href="#marketing" role="button" aria-expanded="false" aria-controls="collapseExample" >
-			Dept. Comuinicação <i class="fa fa-caret-down float-right"></i>
-		</li>
-		<div class="collapse" id="marketing">
-          <li class="sidebar-item">
-						<a class="sidebar-link" href="{{ route('dashboard.notificacoes') }}">
-              <i class="align-middle" data-feather="bell"></i> <span class="align-middle">Notificações</span>
-            </a>
-					</li>
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="{{ route('dashboard.mensagens') }}">
-              <i class="align-middle" data-feather="message-square"></i> <span class="align-middle">Mensagens</span>
-            </a>
-					</li>
-</div>
-
-					<li class="sidebar-header text-normal" data-toggle="collapse" href="#configuracoes" role="button" aria-expanded="false" aria-controls="collapseExample" >
-						Configurações <i class="fa fa-caret-down float-right"></i>
-					</li>
-
-				<div class="collapse" id="configuracoes">
-
-				<li class="sidebar-item">
-				<a class="sidebar-link" href="{{ route('dashboard.empresa') }}">
-             	<i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Empresa</span>
-            	</a>
-				</li>
-				
-				
-				<li class="sidebar-item">
-				<a class="sidebar-link" href="{{ route('dashboard.provincias') }}">
-              	<i class="align-middle" data-feather="activity"></i> <span class="align-middle">Províncias</span>
-            	</a>
-				</li>
-
-				<li class="sidebar-item">
-				<a class="sidebar-link" href="{{ route('dashboard.pontos') }}" title="Pontos de Embarque e Desembarque">
-                <i class="align-middle" data-feather="users"></i> <span class="align-middle">Pontos de E & D</span>
-            	</a>
-				</li>
-
-				<li class="sidebar-item">
-				<a class="sidebar-link" href="{{ route('dashboard.classe') }}">
-              	<i class="align-middle" data-feather="activity"></i> <span class="align-middle">Classe de Viagens</span>
-            	</a>
-				</li>
-			</div>
 </ul>
 		</nav>
 
