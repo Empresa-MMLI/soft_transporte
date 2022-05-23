@@ -93,7 +93,7 @@ class ViagemController extends Controller
         $bilhete_novos = BilheteDetalhes::where('estado',0)->orderBy('data_partida','asc')->where('id_cliente',$cliente->id)->get();
         $bilhete_reservados = BilheteReservadoDetalhes::where('estado',0)->orderBy('data_partida','asc')->where('id_cliente',$cliente->id)->get();
         $bilhete_ativos = BilheteDetalhes::where('estado',1)->latest()->where('id_cliente',$cliente->id)->get();
-        return view('dashboard.cliente_bilhetes', ['bilhete_novos'=>$bilhete_novos,'bilhete_ativos'=>$bilhete_ativos,'bi_reservados'=>$bilhete_reservados]);
+        return view('dashboard.cliente.bilhetes', ['bilhete_novos'=>$bilhete_novos,'bilhete_ativos'=>$bilhete_ativos,'bi_reservados'=>$bilhete_reservados]);
     }
     public function comprar_bilhetes(Request $request){
         //buscar viagens 
@@ -226,6 +226,17 @@ class ViagemController extends Controller
         return redirect()->back()->with('error_compra','O sistema detectou uma compra de Bilhete efectuada hoje em seu Nome');
         }
     }
+    //apagar bilhete indicado
+    public function delete_bilhete($id){
+        try{
+        $bilhete = Bilhete::find($id)->delete();
+        if($bilhete)
+        return redirect()->back()->with('success','Bilhete de viagem cancelado com sucesso!');
+    }catch(\Exception $e){
+        return redirect()->back()->with('error','Não foi possível cancelar seu Bilhete de viagem!');
+        }
+    }
+
     //validacao de compra de bilhete
     public function validacao_bilhete(Request $request){
         //buscar blhetes
@@ -262,6 +273,7 @@ class ViagemController extends Controller
         ' apresentado do mesmo nos pontos de Levantamento.';
 
         $email = enviar_email($cliente, $sms, $request->n_bilhete);
+        $whatsapp = enviar_sms_ws($cliente, $sms, $request->n_bilhete);
         //envia por sms
         if((isset($bilhete) && $bilhete) || (isset($register) && $register))
         return redirect()->back()->with('success','Nº de Bilhete atribuido e enviado com sucesso!');
@@ -319,4 +331,8 @@ function enviar_email($cliente, $sms, $n_bilhete){
         }catch(\Exception $error){
         return -1;//falha no server
         }
+}
+
+function enviar_sms_ws(){
+
 }

@@ -39,13 +39,13 @@
 				<ul class="sidebar-nav">
 				
 					<li class="sidebar-item  active">
-						<a class="sidebar-link" href="{{ route('dashboard.index') }}">
+						<a class="sidebar-link" href="{{ route('cliente.index') }}">
               <i class="align-middle" data-feather="activity"></i> <span class="align-middle">Dashboard</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-				<a class="sidebar-link" href="#">
+				<a class="sidebar-link" href="{{ route('cliente.perfil') }}">
               	<i class="align-middle" data-feather="user"></i> <span class="align-middle">Meu Perfil</span>
             	</a>
 				</li>

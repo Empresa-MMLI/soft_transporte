@@ -1,4 +1,4 @@
-@extends ('layouts.app')
+@extends ('layouts.app_cliente')
 @section('html_title','SLA Dashboard | Bilhetes emitidos')
 <!--Call of template welcome-->
 @section('content')
@@ -75,10 +75,9 @@
                 @endif    
                 </td>
                 <td class="text-center">{{ date('d/m/Y', strtotime($item->data_compra)) }}</td>
-                <td class="text-left">
-		        <a href="#" class="btn btn-success btn-sm mb-1" data-toggle="tooltip" data-placement="bottom" title="Confirmar compra de Bilhete" nome_cliente="{{ $item->cliente }}" id_cliente="{{ $item->id_cliente }}" nome_rota="{{ $item->rota_origem }} - {{ $item->rota_destino }}" id_bilhete="{{ $item->id }}" onclick="event.preventDefault(); $('#origem_bilhete').val('bi'); $('#id_cliente').val($(this).attr('id_cliente')); $('#nome_cliente').val($(this).attr('nome_cliente')); $('#nome_rota').val($(this).attr('nome_rota')); $('#id_bilhete').val($(this).attr('id_bilhete'));  $('#modalConfirmacao').modal('show');"><i class="fa fa-check" ></i></a>
-            <a href="{{ route('bilhete.delete', $item->id) }}" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes cancelar a compra deste Bilhete?');" data-toggle="tooltip" data-placement="right" title="cancelar a compra do Bilhete indicado..."><i class="fa fa-trash"></i></a>
-                 </td>
+                <td class="text-center">
+		            <a href="{{ route('bilhete.delete', $item->id) }}" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes cancelar compra do seu Bilhete?');" data-toggle="tooltip" data-placement="right" title="Cancelar compra do Bilhete indicado..."><i class="fa fa-trash"></i></a>
+                </td>
             </tr>
             @endforeach
             @endif
@@ -132,8 +131,7 @@
                 <td class="text-center">{{ date('d/m/Y', strtotime($item->data_compra)) }}</td>
               
                 <td class="text-center">
-                <a href="#" class="btn btn-success btn-sm mb-1" data-toggle="tooltip" data-placement="bottom" title="Confirmar compra de Bilhete" nome_cliente="{{ $item->cliente }}" id_cliente="{{ $item->id_cliente }}" nome_rota="{{ $item->rota_origem }} - {{ $item->rota_destino }}" id_bilhete="{{ $item->id }}" onclick="event.preventDefault(); $('#origem_bilhete').val('res'); $('#id_cliente').val($(this).attr('id_cliente')); $('#nome_cliente').val($(this).attr('nome_cliente')); $('#nome_rota').val($(this).attr('nome_rota')); $('#id_bilhete').val($(this).attr('id_bilhete'));  $('#modalConfirmacao').modal('show');"><i class="fa fa-check" ></i></a>
-                <a href="{{ route('bilhete.delete', $item->id) }}" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes cancelar a compra deste Bilhete?');" data-toggle="tooltip" data-placement="right" title="cancelar a compra do Bilhete indicado..."><i class="fa fa-trash"></i></a>
+		            <a href="{{ route('bilhete.delete', $item->id) }}" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes cancelar compra do seu Bilhete?');" data-toggle="tooltip" data-placement="right" title="Cancelar compra do Bilhete indicado..."><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
             @endforeach
@@ -169,7 +167,7 @@
                 <th>Estado</th>
                 <th class="text-center">Comprovativo</th>
                 <th>Data compra</th>
-                <th>Opções</th>
+                <th class="d-none">Opções</th>
             </tr>
         </thead>
         <tbody>
@@ -204,8 +202,8 @@
                 </td>
                 <td class="text-center">{{ date('d/m/Y', strtotime($item->data_compra)) }}</td>
                 
-                <td class="text-center">
-                <a href="{{ route('bilhete.delete', $item->id) }}" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes cancelar a compra deste Bilhete?');" data-toggle="tooltip" data-placement="right" title="cancelar a compra do Bilhete indicado..."><i class="fa fa-trash"></i></a>
+                <td class="text-center d-none">
+		            <a href="{{ route('bilhete.delete', $item->id) }}" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes cancelar compra do seu Bilhete?');" data-toggle="tooltip" data-placement="right" title="Cancelar compra do Bilhete indicado..."><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
             @endforeach
@@ -229,137 +227,4 @@
 </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="modalComprovativo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-md" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-header-modal">
-        <h5 class="modal-title text-light text-center" id="exampleModalLabel">Comprovativo anexado</h5>
-        <button type="button" class="btn close" data-dismiss="modal" aria-label="Close" style="font-size:12px">
-          <span class="text-white" aria-hidden="true">X</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <div class="embed-responsives embed-responsive-16by9s">
-  <iframe class="embed-responsive-item" id="comprovativo" src="#" width="100%" height="500" ></iframe>
-</div>
-      </div>
-     
-    </div>
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="modalConfirmacao" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-header-modal">
-        <h5 class="modal-title text-light" id="confirmModalLabel">Confirmar compra de Bilhete</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" class="text-light">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <form method="post" action="{{ route('bilhete.validacao') }}">
-                                    @csrf
-                            <div class="row mb-2">
-                            <div class="col-12">
-                                <label for="id_provincia">Cliente:</label>
-                                <input  type="text" class="form-control text-capitalize" name="nome_cliente" id="nome_cliente" placeholder="Nome cliente" required>
-                                <input type="hidden" class="form-control" name="id_cliente" id="id_cliente" placeholder="ID cliente" required>
-                            </div></div>
-                            <div class="row mb-2">
-                            <div class="col-12">
-                            <label for="nome_rota">Rota:</label>
-                                <input type="text" class="form-control text-capitalize" name="nome_rota" id="nome_rota" placeholder="Rota" required>
-                            </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                <label for="n_bilhete">Nº Bilhete de Viagem:</label>
-                                <input type="hidden" class="form-control" id="id_bilhete" name="id_bilhete" placeholder="ID de Bilhete" required>
-                                <input type="hidden" class="form-control" id="origem_bilhete" name="origem_bilhete" value="bi" placeholder="Origem Bilhete" required>
-                                <input type="text" class="form-control" id="n_bilhete" name="n_bilhete" placeholder="Nº de Bilhete de viagem" required>
-  
-                                </div>
-                            </div>
-                            <div class="row my-2">
-                              <div class="col-12" id="spinner" style="display:none">
-                              <button class="btn btn-secondarys btn-sm text-info text-capitalize" type="button" disabled>
-                              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-  Validando detalhes do Bilhete de Viagem comprado...
-</button>
-                              </div>
-                              
-                                <div class="col-12">
-                                <button type="submit" class="btn btn-submit float-right" onclick=" var n_bi = $('#n_bilhete').val(); if(n_bi != null){ $('#spinner').fadeIn(); }"> <i class="fa fa-check"></i> Confirmar</button>
-                                </div>
-                            </div>
-                            </form>
-      </div>
-     
-    </div>
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="modalCliente" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-header-modal">
-        <h5 class="modal-title text-light" id="confirmModalLabel">Detalhes do Cliente</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" class="text-light">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-sm-12">
-              <h5>Nome completo: <span id="cliente" class="text-muted"></span> </h5>
-              <h5>Nº Documento: <span id="bi_cliente" class="text-muted"></span> </h5>
-              <h5>Telefone: <span id="telef_cliente" class="text-muted"></span> </h5>
-          </div>
-        </div>
-      </div>
-     
-    </div>
-  </div>
-</div>
-
-	
-        <!-- Modal -->
-        <div class="modal fade" id="modalReferencia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-md" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-header-modal">
-        <h5 class="modal-title text-light text-center" id="exampleModalLabel">Pagamento por Referência</h5>
-        <button type="button" class="btn close" data-dismiss="modal" aria-label="Close" style="font-size:12px">
-          <span class="text-white" aria-hidden="true">X</span>
-        </button>
-      </div>
-      <div class="modal-body">
-          <div class="row my-2 mx-1 alert alert-info p-1">
-          <span class="p-2 text-dark"><i class="fa fa-info-circle"></i> Abaixo temos as coordenadas do Pagamento</span>
-          </div>
-          <form>
-  <div class="form-group">
-    <label for="entidade_ref">Entidade</label>
-    <input type="text" class="form-control" id="entidade_ref" placeholder="Entidade" readonly>
-  </div>
-  <div class="form-group">
-    <label for="referencia_pagto">Referência</label>
-    <input type="text" class="form-control" id="referencia_pagto" placeholder="Referência" readonly>
-  </div>
-  <div class="form-group">
-    <label for="valor_ref">Valor</label>
-    <input type="text" class="form-control" id="valor_ref" placeholder="Valor" readonly>
-  </div>
-  
-  
-</form>
-      </div>
-     
-    </div>
-  </div>
-</div>
 @endsection

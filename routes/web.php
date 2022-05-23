@@ -84,6 +84,8 @@ Route::get('/register', [UsuarioController::class, 'register'])->name('register'
 //store register user
 Route::post('/store_user', [UsuarioController::class, 'store'])->name('user.store');
 
+Route::get('/cliente/pefil', [UsuarioController::class, 'cliente_perfil'])->name('cliente.perfil');
+Route::post('/cliente/update', [UsuarioController::class, 'cliente_update'])->name('cliente.update');
 /*
 |--------------------------------------------------------------------------
 | Routes de configuracao de provincia e pontos de E e D
@@ -144,6 +146,9 @@ Route::get('/bilhetes', [ViagemController::class, 'cliente_bilhetes'])->name('cl
 Route::get('/comprar_bilhetes', [ViagemController::class, 'comprar_bilhetes'])->name('comprar.bilhete');
 //store new bilhete
 Route::post('/store_bilhete', [ViagemController::class, 'store_bilhete'])->name('bilhete.store');
+//delete bilhete
+Route::get('/delete_bilhete/{id}', [ViagemController::class, 'delete_bilhete'])->name('bilhete.delete');
+
 //store new reserva
 Route::any('/reservar_bilhete', [ViagemController::class, 'reservar_bilhetes'])->name('bilhete.reservar');
 //validacao do bilhete comprado
@@ -179,6 +184,12 @@ Route::post('/store_modelo', [VeiculoController::class, 'store_modelo'])->name('
 Route::get('/dashbord', function () {
     return view('dashboard.index');
 })->name('dashboard.index');
+
+
+Route::get('/dashbord/cliente', function () {
+    return view('dashboard.cliente.index');
+})->name('cliente.index');
+
 
 Route::get('/alugueres', function () {
     return view('dashboard.alugueres');
