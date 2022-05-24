@@ -7,6 +7,7 @@ use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\RotaController;
 use App\Http\Controllers\ViagemController;
 use App\Http\Controllers\VeiculoController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,9 +77,14 @@ Route::post('/login_root', [UsuarioController::class, 'login_root'])->name('logi
 Route::get('/logout', function () {
     //destrua todas sessions
     Session::flush();
-    return view('login');
+    return redirect()->route('sessao');
 })->name('logout');
-
+//logout admin
+Route::get('/logout_admin', function () {
+    //destrua todas sessions
+    Session::flush();
+    return redirect()->route('root');
+})->name('logout.admin');
 //register
 Route::get('/register', [UsuarioController::class, 'register'])->name('register');
 //store register user
@@ -141,7 +147,7 @@ Route::get('/itinerarios', [viagemController::class, 'itinerarios'])->name('dash
 //Bilhetes emitidos
 Route::get('/bilhetes', [ViagemController::class, 'index_bilhetes'])->name('dashboard.bilhetes');
 //Bilhetes comprados pelos clientes
-Route::get('/bilhetes', [ViagemController::class, 'cliente_bilhetes'])->name('cliente.bilhetes');
+Route::get('/bilhete_clientes', [ViagemController::class, 'cliente_bilhetes'])->name('cliente.bilhetes');
 //compra de Bilhetes
 Route::get('/comprar_bilhetes', [ViagemController::class, 'comprar_bilhetes'])->name('comprar.bilhete');
 //store new bilhete
@@ -181,14 +187,10 @@ Route::post('/store_modelo', [VeiculoController::class, 'store_modelo'])->name('
 
 //mostrar mapa de viagem
 
-Route::get('/dashbord', function () {
-    return view('dashboard.index');
-})->name('dashboard.index');
-
-
-Route::get('/dashbord/cliente', function () {
-    return view('dashboard.cliente.index');
-})->name('cliente.index');
+//dashboard admin
+Route::get('/dashbord', [DashboardController::class, 'index'])->name('dashboard.index');
+//dashboard cliente
+Route::get('/dashbord/cliente', [DashboardController::class, 'index_cliente'])->name('cliente.index');
 
 
 Route::get('/alugueres', function () {

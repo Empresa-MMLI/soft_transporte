@@ -132,15 +132,13 @@ function selecionar_conta($value){
   if($value == 0)
   {
     $('#cliente_dados').fadeOut('fast');
-    $('.tipo_cliente_div').removeClass('col-12');
-    $('.tipo_cliente_div').addClass('col-6');
-    $('.n_doc_div').fadeIn('fast');
+    $('#nome_customer').fadeOut('fast');
+    $('#n_documento').fadeIn('fast');
     $('#n_doc').val('');
   }else if($value == 1){
     $('#cliente_dados').fadeIn();
-    $('.tipo_cliente_div').removeClass('col-6');
-    $('.tipo_cliente_div').addClass('col-12');
-    $('.n_doc_div').fadeOut('fast');
+    $('#n_documento').fadeOut('fast');
+    $('#nome_customer').fadeIn('fast');
     $('#n_doc').val('00');
 
   }

@@ -30,7 +30,7 @@
         }
     </style>
 </head>
-    <body style="overflow-x: hidden;overflow-y: hidden!important;background:#fff">
+    <body style="overflow-y: auto!important;background:#fff">
     <!-- Config da tela de boas vindas-->
     
     <div id='app'>

@@ -8,10 +8,10 @@
         <form method="post" action="{{ route('login') }}">
             @csrf
     <div class="text-center">
-    <span> <img src="{{ url('assets/img/logo/logo.png') }}"  alt="logo" class="logo_auth img-responsive"></span><br>
+    <a href="{{ route('index') }}"> <img src="{{ url('assets/img/logo/logo.png') }}"  alt="logo" class="logo_auth img-responsive"></a><br>
 </div>
-            <h3 class="text-center d-none">Iniciar Sessão</h3>
-            <div class="dropdown-divider"></div>
+            <h6 class="text-center d-nones mt-4"><i class="fa fa-lock"></i>  Iniciar Sessão</h6>
+            <div class="dropdown-divider mb-3"></div>
 
 @include('inc.messages')            
 

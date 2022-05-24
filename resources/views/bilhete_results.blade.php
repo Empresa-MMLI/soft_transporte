@@ -39,7 +39,7 @@ sb-searchbox__outer
 <svg aria-hidden="true" class="bk-icon -streamline-close sb-destination__clear-icon" fill="#333333" focusable="false" height="20" role="presentation" width="20" viewBox="0 0 24 24"><path d="M13.31 12l6.89-6.89a.93.93 0 1 0-1.31-1.31L12 10.69 5.11 3.8A.93.93 0 0 0 3.8 5.11L10.69 12 3.8 18.89a.93.93 0 0 0 1.31 1.31L12 13.31l6.89 6.89a.93.93 0 1 0 1.31-1.31z"></path></svg>
 </button>
 <div class="row mr-1">
-  <div class="col-6 pr-1">
+  <div class="col-sm-12 col-md-6  pr-1">
   <div class="input-group flex-nowrap mb-1">
   <span class="input-group-text group-input" id="addon-wrapping"> <i class="fa fa-map-marker fa-sm text-muted"></i> </span>
   <input type="search" name="origem" id="origem" class="c-autocomplete__input sb-searchbox__input sb-destination__input w-100" placeholder="Origem" value="" autocomplete="off" data-component="search/destination/input-placeholder" data-sb-id="main" data-input="" aria-autocomplete="both" aria-label="Por favor, insira sua origem" onclick="$('#list_destino').css('display','none');$('#list_origem').css('display','block');" required>
@@ -62,7 +62,7 @@ sb-searchbox__outer
     </ul>
   <!-- end bloco de origem --> 
   </div>
-  <div class="col-6 px-0">
+  <div class="col-sm-12 col-md-6  px-0">
   <div class="input-group flex-nowrap mb-1">
   <span class="input-group-text group-input" id="addon-wrapping"> <i class="fa fa-map-marker fa-sm text-muted"></i> </span>
   <input type="search" name="destino" id="destino" class="c-autocomplete__input sb-searchbox__input sb-destination__input w-100" placeholder="Destino" value="" autocomplete="off" data-component="search/destination/input-placeholder" data-sb-id="main" data-input="" aria-autocomplete="both" aria-label="Por favor, insira seu destino"  onclick="$('#list_origem').css('display','none');$('#list_destino').css('display','block');" required>
@@ -97,13 +97,13 @@ sb-searchbox__outer
 
 
 <div class="row px-2 my-">
-  <div class="col-6" >
+  <div class="col-sm-12 col-md-6 " >
   <div class="input-group flex-nowrap mb-1">
   <span class="input-group-text group-input" id="addon-wrapping"> <i class="fa fa-calendar fa-sm text-muted"></i> </span>
   <input type="text" class="picker c-autocomplete__input sb-searchbox__input sb-destination__input w-100" id="xp__calendar" name="checkin" value="{{ date('Y-m-d') }}" required>
 </div>
   </div>
-  <div class="col-6">
+  <div class="col-sm-12 col-md-6 ">
   <div class="input-group flex-nowrap mb-1">
   <span class="input-group-text group-input" id="addon-wrapping"> <i class="fa fa-calendar fa-sm text-muted"></i> </span>
   <input type="text" class="picker c-autocomplete__input sb-searchbox__input sb-destination__input w-100" id="xp__calendar" name="checkout" value="Data de regresso" required>
@@ -183,10 +183,10 @@ sb-searchbox__outer
   
       <div class="sb-group__children__field clearfix mt-2">
       <div class="row  px-3">
-        <div class="col-6">
+        <div class="col-sm-12 col-md-6 ">
         <label class="bui-stepper__title pt-4" for="group_children">Idade máxima</label>
         </div>
-        <div class="col-5">
+        <div class="col-sm-12 col-md-5 ">
     <select name="age" data-group-child-age="0" aria-label="Criança 1: idade" class="sb-group-field-has-error">
       <option class="sb_child_ages_empty_zero" value="">
           
@@ -346,10 +346,10 @@ Pesquisar
 <div class="col-sm-12 col-md-12 col-lg-3">
   <h5 class="text-identity">Operadores</h5>
   <div class="row border-boottom-line p-4">
-    <div class="col-10">
+    <div class="col-sm-12 col-md-10 ">
       <p style="font-size:14px;">Rede SLA</p>
     </div>
-    <div class="col-2">
+    <div class="col-sm-12 col-md-2 ">
     <div class="form-check">
   <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
 </div>
@@ -365,12 +365,12 @@ Pesquisar
 <div class="container-fluid">
 @include('inc.messages')  
 </div>
-  <div class="col-6">
+  <div class="col-sm-12 col-md-6 ">
     <!-- numeros results --> 
     <p class="my-3">{{ $total_search }} resultado(s)</p>
     
   </div>
-  <div class="col-6">
+  <div class="col-sm-12 col-md-6 ">
   <form class="form-inline float-right">
   <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Ordenar por</label>
   <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
@@ -415,16 +415,16 @@ Pesquisar
   <div class="card-body">
 
     <div class="row">
-        <div class="col-5 text-left">
+        <div class="col-sm-12 col-md-5  text-left">
         <img src="{{ url('assets/img/logo/logo.png') }}" alt="Operadora" class="operadora-ico mb-1">
         </div>
-        <div class="col-3 text-center">
+        <div class="col-sm-12 col-md-3  text-center">
         <img src="https://rnemedia.blob.core.windows.net/images/website/wifi.png" alt="Wifi"  class="svg-ico" data-toggle="tooltip" data-placement="top" title="Wifi">
         <img src="https://rnemedia.blob.core.windows.net/images/website/power_socket.png" alt="Tomadas"  class="svg-ico" data-toggle="tooltip" data-placement="top" title="Tomadas">
         <img src="https://rnemedia.blob.core.windows.net/images/website/comfort_seat.png" alt="Assento confortável"  class="svg-ico" data-toggle="tooltip" data-placement="top" title="Assento Confortável">
         <img src="https://rnemedia.blob.core.windows.net/images/website/active_cleaning.png" alt="Desinfeção" class="svg-ico" data-toggle="tooltip" data-placement="top" title="Desinfeção">
         </div>
-        <div class="col-4">
+        <div class="col-sm-12 col-md-4 ">
           <h2 class="bilhete-preco">
             {{ number_format($item->preco,0,',','.') }} Kz
           </h2>
@@ -432,7 +432,7 @@ Pesquisar
        </div>
 
        <div class="row">
-         <div class="col-5">
+         <div class="col-sm-12 col-md-5 ">
          <div class="hora-local">
           <div class="hora">
             <h5 data-toggle="tooltip" data-placement="top" title="Previsão de Partida: {{ date('d/m/Y', strtotime($item->data_partida)) }}"><strong>{{ date('H:i', strtotime($item->data_partida)) }}</strong></h5>
@@ -444,7 +444,7 @@ Pesquisar
         </div>
          </div>
 
-         <div class="col-3 text-center">
+         <div class="col-sm-12 col-md-3  text-center">
          <div class="hora-local">
           <div class="hora">
             <h5 data-toggle="tooltip" data-placement="top" title="Previsão de chegada: {{ date('d/m/Y', strtotime($item->data_chegada)) }}"><strong>{{ date('H:i', strtotime($item->data_chegada)) }}</strong></h5>
@@ -455,7 +455,7 @@ Pesquisar
         </div>
          </div>
 
-         <div class="col-4 text-right">
+         <div class="col-sm-12 col-md-4  text-right">
           <div class="hora-local">
           <div class="hora">
             <h5><strong>Tipo</strong></h5>
@@ -469,7 +469,7 @@ Pesquisar
 
 
        <div class="row mt-3">
-         <div class="col-5">
+         <div class="col-sm-12 col-md-5 ">
          <div class="desc-duracao my-2">
             <span class="text-muted"><i class="fa fa-clock"></i> {{ $item->tempo }}s, <i class="fa fa-road"></i> {{ number_format($item->kilometros,0,',','.')  }} km</span><br>
             @if($item->total_passageiro >= ($item->capacidade - 5) )
@@ -483,10 +483,10 @@ Pesquisar
                 @endif
           </div>
          </div>
-         <div class="col-3 text-right float-right">
+         <div class="col-sm-12 col-md-3  text-right float-right">
            <a href="#" viagem-itinerario="{{ $item->itinerario }}" class="btn text-uppercase btn-sm" onclick="event.preventDefault(); $('#itinerario').text($(this).attr('viagem-itinerario')); $('#modalItinerario').modal('show');"><strong>Itinerário</strong></a>
          </div>
-         <div class="col-4 text-right">
+         <div class="col-sm-12 col-md-4  text-right">
            <button viagem-id="{{ $item->id }}" class="btn btn-add btn-danger btn-sm" onclick="event.preventDefault(); $('#id_viagem').val($(this).attr('viagem-id')); $('#modalReserva').modal('show');">Reservar Lugar</button>
          </div>
        </div>
@@ -563,7 +563,7 @@ Pesquisar
 </div>
 
 <div class="row">
-  <div class="col-6 tipo_cliente_div">
+  <div class="col-sm-12 col-md-6  tipo_cliente_div">
 <div class="form-group">
     <label for="estado_cliente">Tipo de cliente:</label>
     <select  class="form-control custom-select text-capitalize" name="estado_cliente" id="estado_cliente" aria-describedby="addon-wrapping" onchange=" selecionar_conta($(this).val());" required>
@@ -573,10 +573,16 @@ Pesquisar
 </div>
 </div>
 
-<div class="col-6 n_doc_div">
+<div class="col-sm-12 col-md-6  n_doc_div">
 <div class="form-group">
+    <div id="n_documento">
     <label for="nome">Nº Documento apresentado:</label>
     <input type="text" class="form-control" id="n_doc" name="n_doc" placeholder="Número documento" required>
+    </div>
+    <div id="nome_customer" style="display:none">
+    <label for="nome">Nome:</label>
+    <input type="text" class="form-control" id="nome_cliente" name="nome_cliente" value="Nome" placeholder="Nome" onfocus="$(this).val('');"  required>  
+  </div>
    <input type="hidden" class="form-control" id="id_viagem" name="id_viagem" placeholder="ID viagem">
 </div>
 </div>
@@ -585,18 +591,25 @@ Pesquisar
   <!-- detalhes do cliente --> 
 
   <div id="cliente_dados" style="display:none">
-  <div class="form-group">
-    <label for="nome">Nome:</label>
-    <input type="text" class="form-control" id="nome_cliente" name="nome_cliente" value="Nome" placeholder="Nome" onfocus="$(this).val('');"  required>
-  </div>
+
+  <div class="row">
+  <div class="col-sm-12 col-md-6 ">
   <div class="form-group">
     <label for="email_cliente">Email:</label>
     <input type="email" class="form-control" id="email_cliente" name="email_cliente" value="example@sla.com" onfocus="$(this).val('');" placeholder="Email válido">
   </div>
+</div>
+
+<div class="col-sm-12 col-md-6 ">
   <div class="form-group">
     <label for="telefone_cliente">Telefone:</label>
     <input type="tel" class="form-control" id="telef_cliente" name="telef_cliente" value="9xxxxxxxx" onfocus="$(this).val('');" placeholder="Telefone válido" required>
   </div>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-md-6 ">
   <div class="form-group">
     <label for="tipo_doc_cliente">Tipo Documento:</label>
     <select  class="form-control custom-select text-capitalize" name="tipo_doc_cliente" id="tipo_doc_cliente" aria-describedby="addon-wrapping">
@@ -606,29 +619,43 @@ Pesquisar
     <option value="Outro">Outro...</option>
     </select>
   </div>  
+</div>
+
+<div class="col-sm-12 col-md-6 ">
   <div class="form-group">
     <label for="n_doc">Nº Documento:</label>
     <input type="text" class="form-control" id="n_doc_cliente" name="n_doc_cliente" value="00" onfocus="$(this).val('');"  placeholder="Nº Documento apresentado" required>
   </div>
+</div>
+</div>
+
+
+<div class="row">
+  <div class="col-sm-12 col-md-6 ">
   <div class="form-group">
     <label for="usuario">Usuário:</label>
     <input type="text" class="form-control" id="user" name="user" value="example@sla.com" onfocus="$(this).val('');"  placeholder="Email ou Telefone" required>
   </div>
+</div>
+
+  <div class="col-sm-12 col-md-6 ">
   <div class="form-group">
     <label for="senha">Código de acesso:</label>
     <input type="password" class="form-control" id="pass" name="pass" value="Cógido" onfocus="$(this).val('');"  placeholder="Senha secreta" required>
   </div>  
 </div>
+</div>
+</div>
   <!-- fim detalhes do cliente --> 
   <!-- detalhes passageiros-->
   <div class="row">
-  <div class="col-6">
+  <div class="col-sm-12 col-md-6 ">
 <div class="form-group">
     <label for="t_adultos">Total adultos:</label>
     <input type="number" class="form-control" min="0" id="t_adultos" name="t_adultos" value="{{ isset($total_adultos)? $total_adultos:1 }}" placeholder="Total adultos" required>
 </div>
 </div>
-<div class="col-6">
+<div class="col-sm-12 col-md-6 ">
 <div class="form-group">
     <label for="t_criancas">Total crianças:</label>
     <input type="number" class="form-control" min="0" id="t_criancas" name="t_criancas" value="{{ isset($total_criancas)? $total_criancas:0 }}" placeholder="Total de crianças" required>

@@ -118,7 +118,7 @@ class UsuarioController extends Controller
   $existe = Usuario::where('email',$request->user)->whereBetween('id_tipo_user',[2,3])->first();
   if(isset($existe->id) && Hash::check($request->pass, $existe->password)){
       Session::put('usuario.id',$existe->id);
-      return view('dashboard.cliente.index');
+      return redirect()->route('cliente.index');
   }else{
       return redirect()->back()->with('error','Autenticação inválida!');
   }
@@ -133,7 +133,7 @@ class UsuarioController extends Controller
         $existe = Usuario::where('email',$request->user)->where('id_tipo_user',1)->first();
         
         if(isset($existe->id) && Hash::check($request->pass, $existe->password)){
-            return view('dashboard.index');
+            return redirect()->route('dashboard.index');
         }else{
             return redirect()->back()->with('error','Autenticação inválida!');
         }

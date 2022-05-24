@@ -146,7 +146,7 @@ html, body{width:100%; height:100%;}
 /*Config do form-login*/
 
 .container.form-login{
-  margin-top:-5%;
+  margin-top:5%;
 }
 .card-header-title, .modal-title{color:#5a5a5a; font-weight: 400;margin-left:0;}
 .modal-title{font-size: 16px;}
@@ -165,7 +165,8 @@ html, body{width:100%; height:100%;}
 .dropdown-divider{border-color: #e2e2e2!important;margin-bottom:2%;}
 
 form  label, form span{
-  font-weight: 600!important;
+  font-size:0.9rem;
+  font-weight: 500!important;
 }
 .total_pedido{
   font-weight: 600;
@@ -191,6 +192,7 @@ input.form-control, textarea, select {
   border: 1px solid #ddd;
   box-shadow: none;
   height: 46px; 
+  font-size:0.9rem!important;
   font-weight: 400!important;
 }
 input.form-control.input-radius-md, select.form-control.input-radius-md{
@@ -210,7 +212,7 @@ input.form-control.input-radius-md, select.form-control.input-radius-md{
   border-bottom-left-radius: 50px !important;
   height: 50px!important; 
   font-weight: 500!important;
-  font-size:20px;
+  font-size:20px!important;
   background-color: #fff;
 }
 .group-input{

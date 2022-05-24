@@ -7,11 +7,11 @@
         <div class="panel-login p-4">
         <form method="post" action="{{ route('login.root') }}">
             @csrf
-    <div class="text-center mb-4">
-    <span> <img src="{{ url('assets/img/logo/logo.png') }}"  alt="logo" class="logo_auth img-responsive"></span><br>
+            <div class="text-center">
+    <a href="{{ route('index') }}"> <img src="{{ url('assets/img/logo/logo.png') }}"  alt="logo" class="logo_auth img-responsive"></a><br>
 </div>
-            <h5 class="text-center d-nones">Acesso Restrito</h5>
-            <div class="dropdown-divider"></div>
+            <h5 class="text-center text-danger d-nones mt-4"><i class="fa fa-lock"></i> Acesso Restrito</h5>
+            <div class="dropdown-divider mb-4"></div>
 
 @include('inc.messages')            
 

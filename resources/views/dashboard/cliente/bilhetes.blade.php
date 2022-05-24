@@ -17,8 +17,8 @@
                             <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a class="nav-item nav-link active" id="nav-form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true"><i class="fa fa-edit text-muted"></i> Novos Bilhetes</a>
-    <a class="nav-item nav-link" id="nav-reservados-tab" data-toggle="tab" href="#reservados" role="tab" aria-controls="embarque" aria-selected="false"><i class="fa fa-cart-plus text-muted"></i> Reservados</a>
-    <a class="nav-item nav-link" id="nav-vendidos-tab" data-toggle="tab" href="#vendidos" role="tab" aria-controls="embarque" aria-selected="false"><i class="fa fa-check-circle text-muted"></i> Bilhetes vendidos</a>
+    <a class="nav-item nav-link" id="nav-reservados-tab" data-toggle="tab" href="#reservados" role="tab" aria-controls="embarque" aria-selected="false"><i class="fa fa-cart-plus text-muted"></i> Bilhetes Reservados</a>
+    <a class="nav-item nav-link" id="nav-vendidos-tab" data-toggle="tab" href="#vendidos" role="tab" aria-controls="embarque" aria-selected="false"><i class="fa fa-check-circle text-muted"></i> Bilhetes Comprados</a>
     <a class="nav-item nav-link" id="nav-report-tab" data-toggle="tab" href="#report" role="tab" aria-controls="desembarque" aria-selected="false"><i class="fa fa-line-chart text-muted"></i> Estatítiscas</a>
   </div>
 </nav>

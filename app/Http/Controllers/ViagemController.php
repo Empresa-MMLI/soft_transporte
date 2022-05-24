@@ -17,7 +17,9 @@ use App\Models\BilheteReservadoDetalhes;
 use App\Models\Cliente;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
+use Twilio\Rest\Client;
 use App\Models\ViagemDetalhes;
+//use Twilio\Rest\Client;
 Use Mail;
 use Session;
 
@@ -83,17 +85,25 @@ class ViagemController extends Controller
     */
     public function index_bilhetes(){
         $bilhete_novos = BilheteDetalhes::where('estado',0)->orderBy('data_partida','asc')->get();
+        $total_bi_novo = $bilhete_novos->count();
         $bilhete_reservados = BilheteReservadoDetalhes::where('estado',0)->orderBy('data_partida','asc')->get();
+        $total_bi_res = $bilhete_reservados->count();
+        //total dos bi comprados e reservados
+        $total_bi = $total_bi_novo+$total_bi_res;
         $bilhete_ativos = BilheteDetalhes::where('estado',1)->latest()->get();
-        return view('dashboard.bilhetes', ['bilhete_novos'=>$bilhete_novos,'bilhete_ativos'=>$bilhete_ativos,'bi_reservados'=>$bilhete_reservados]);
+        return view('dashboard.bilhetes', ['bilhete_novos'=>$bilhete_novos,'bilhete_ativos'=>$bilhete_ativos,'bilhete_reservados'=>$bilhete_reservados,'bi_reservados'=>$bilhete_reservados,'total_bi'=>$total_bi]);
     }
     public function cliente_bilhetes(){
         $cliente = Cliente::where('id_usuario', Session::get('usuario.id'))->first();
-       
         $bilhete_novos = BilheteDetalhes::where('estado',0)->orderBy('data_partida','asc')->where('id_cliente',$cliente->id)->get();
+        $total_bi_novo = $bilhete_novos->count();
         $bilhete_reservados = BilheteReservadoDetalhes::where('estado',0)->orderBy('data_partida','asc')->where('id_cliente',$cliente->id)->get();
+        $total_bi_res = $bilhete_reservados->count();
+        //total dos bi comprados e reservados
+        $total_bi = $total_bi_novo+$total_bi_res;
         $bilhete_ativos = BilheteDetalhes::where('estado',1)->latest()->where('id_cliente',$cliente->id)->get();
-        return view('dashboard.cliente.bilhetes', ['bilhete_novos'=>$bilhete_novos,'bilhete_ativos'=>$bilhete_ativos,'bi_reservados'=>$bilhete_reservados]);
+        return view('dashboard.cliente.bilhetes', ['bilhete_novos'=>$bilhete_novos,'bilhete_ativos'=>$bilhete_ativos,'bilhete_reservados'=>$bilhete_reservados,'bi_reservados'=>$bilhete_reservados,'total_bi'=>$total_bi]);
+    
     }
     public function comprar_bilhetes(Request $request){
         //buscar viagens 
@@ -103,16 +113,15 @@ class ViagemController extends Controller
 
     public function bilhetes(Request $request){ 
         //buscar viagens 
-        
         $provincias = Provincia::orderby('provincia','asc')->get();
         if(isset($request->origem)){
-        $bilhetes = ViagemDetalhes::where('estado',1)->where('total_passageiro','>=',0)->where('rota_origem',$request->origem)->where('rota_destino',$request->destino)->where('data_partida','>=',$request->checkin)->latest()->get();
+        $bilhetes = ViagemDetalhes::where('estado',1)->where('total_passageiro','>=',0)->where('rota_origem',$request->origem)->where('rota_destino',$request->destino)->where('data_partida','>=',$request->checkin)->orderBy('data_partida','asc')->get();
         $total_search = $bilhetes->count();
 
         if(!isset($bilhetes->id)){
-            $bilhetes = ViagemDetalhes::where('estado',1)->where('total_passageiro','>=',0)->where('rota_origem',$request->origem)->where('rota_destino',$request->destino)->where('data_chegada','>=',$request->checkin)->latest()->get();
+            $bilhetes = ViagemDetalhes::where('estado',1)->where('total_passageiro','>=',0)->where('rota_origem',$request->origem)->where('rota_destino',$request->destino)->where('data_chegada','>=',$request->checkin)->orderBy('data_partida','asc')->get();
             $total_search = $bilhetes->count();  
-            return view('bilhete_results', ['bilhetes'=>$bilhetes,'provincias'=>$provincias,'total_search'=>$total_search,'total_adultos'=>$request->group_adults,'total_criancas'=>$request->group_children,'found'=>$total_search]);
+            return view('bilhete_results', ['bilhetes'=>$bilhetes,'provincias'=>$provincias,'total_search'=>$total_search,'total_adultos'=>$request->group_adults,'total_criancas'=>$request->group_children,'founds'=>$total_search]);
         }
         }
         else{
@@ -274,11 +283,14 @@ class ViagemController extends Controller
 
         $email = enviar_email($cliente, $sms, $request->n_bilhete);
         $whatsapp = enviar_sms_ws($cliente, $sms, $request->n_bilhete);
+        //$sms = enviar_sms($cliente, $sms, $request->n_bilhete);
+        
         //envia por sms
         if((isset($bilhete) && $bilhete) || (isset($register) && $register))
         return redirect()->back()->with('success','Nº de Bilhete atribuido e enviado com sucesso!');
 
         }catch(\Exception $e){
+            return $e;
         return redirect()->back()->with('error','Falha ao atribuir nº do Bilhete, tente de novo!');
         }
     
@@ -333,6 +345,48 @@ function enviar_email($cliente, $sms, $n_bilhete){
         }
 }
 
-function enviar_sms_ws(){
+function enviar_sms_ws($cliente, $sms, $n_bilhete){
+   
+    $whatsapp = $sms.'\n\n'.'Segue-se o nº do Bilhete comprado B.I nº _'.$n_bilhete.'_';
+    $curl = curl_init();
+
+    $telef =  '+244'.$cliente->telefone;
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => "https://api.positus.global/v2/sandbox/whatsapp/numbers/6334ea09-d3fe-4689-8acb-684eb0d0ec78/messages",
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "POST",
+      CURLOPT_POSTFIELDS =>"{\r\n  \"to\": \"$telef\",\r\n  \"type\": \"text\",\r\n  \"text\": {\r\n      \"body\": \"$whatsapp\"\r\n  }\r\n}",
+      CURLOPT_HTTPHEADER => array(
+        "Content-Type: application/json",
+        "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYzNjM2M1YTNjMWYzNGY5NGE4NDI4NWUwNDJjNWRmYTM3MWUwMzY0ZjY3NzY3YzhiZjY4YmI0MTgxMGNkMDdiZTU5Mjg1MmE5NDg0MmUzMTIiLCJpYXQiOjE2NTMzMDQwMzEuODg5NzgsIm5iZiI6MTY1MzMwNDAzMS44ODk3ODMsImV4cCI6MTY4NDg0MDAzMS44ODc5OTQsInN1YiI6IjUyMDEiLCJzY29wZXMiOltdfQ.INU1lepOUANODgy7vvKE_LvtWt8bzF59ZLWso3AfULjQHTCVhVbXMmpVW082BsJmUC_TefCZmel-wH5parbcTJQ3fTrIAnBOBYMC--Z6b-zKwJvvKx2lYIAK5Zu-oBQ3oBg9RGsUeAu9QRWzmp1RbJ1Ixw_1NrpFRpCt9k0uaCRilm97wzbaN6Gefmjxw5gvSJz-eANjwZXYBNhvKc8Sx2URdtGJw0wuIn4niuBuwMpaw4dKWARD5oS35ccYA9BVpecxWe9lV1eQOTYvNh4BPMqcGf4TvVYwaWRlP3kpI59kdWH2ulV2UdHxsEox3YjZ20v4vP97HIqcRYryrb8R2id5oJRIviQIEVd7WriQRCCY69ETGxLQFpKwvF0ozd-fbIS-UTud-cB8EYLZTBrTxAmbg65URgyC3SN2nvUG1aT8Dwx1RELj5HTlSw2j297KSmr3i86oSSslk3UN9u93xm3hqnWeGuOTSsBiFbuDabNuTzhelXPXpHNurueCpyAYAMbktw5HkhXlY_BtXlgBcSSKP3UjmACNlFLodmTbgbywt8QA1rG5n5WbtXIsKFgIwBFXb_d3p0ak2VsC_MdlyVGVbi-wM2PL7FtvzBxddjO3G_KcZtLBoIDz_9cMqR6WK0lm0NmgBawj4yPojiaOAKGMF-gfw8G_5Ufj64FZhTs"
+      ),
+    ));
+    
+    $response = curl_exec($curl);
+    
+    curl_close($curl);
+    return $response;
+
+}
+
+function enviar_sms($cliente, $sms, $n_bilhete){
+    $content = $sms.'\n\n'.'Segue-se o nº do Bilhete comprado B.I nº _'.$n_bilhete.'_';
+    $telef =  '+244'.$cliente->telefone;
+ // Sending simple message using PHP
+// http://jasminsms.com
+
+$baseurl = 'http://127.0.0.1:1401/send';
+
+$params = '?username=foo';
+$params.= '&password=bar';
+$params.= '&to='.urlencode('+336222172');
+$params.= '&content='.urlencode('Hello world !');
+
+$response = file_get_contents($baseurl.$params);
 
 }
