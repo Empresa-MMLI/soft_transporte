@@ -5,7 +5,7 @@
 <div class="banner-escuro-img">
     <div class="container">
            <div class="row">
-               <div class="col-8">
+               <div class="col-sm-12 col-md-6 col-lg-8">
                <h1 class="header-title padding-top">
             Transporte seguro? É SLA. 
             </h1>
@@ -343,7 +343,7 @@ Pesquisar
 <div class="container my-2">
 <div class="row pt-4">
 
-  <div class="col-4">
+  <div class="col-sm-12 col-md-6 col-lg-4">
   <div class="card text-center no-border-card" style="border:none">
   <div class="card-body">
     <div class="img-svg">
@@ -355,7 +355,7 @@ Pesquisar
 </div>
 </div>
 
-<div class="col-4">
+<div class="col-sm-12 col-md-6 col-lg-4">
   <div class="card text-center no-border-card" style="border:none">
   <div class="card-body">
     <div class="img-svg">
@@ -367,7 +367,7 @@ Pesquisar
 </div>
 </div>
 
-<div class="col-4">
+<div class="col-sm-12 col-md-6 col-lg-4">
   <div class="card text-center no-border-card" style="border:none">
   <div class="card-body">
     <div class="img-svg">
@@ -384,7 +384,7 @@ Pesquisar
   <!-- 2º linha cards --> 
   <div class="row pt-1">
 
-  <div class="col-4">
+  <div class="col-sm-12 col-md-6 col-lg-4">
   <div class="card text-center no-border-card" style="border:none">
   <div class="card-body">
     <div class="img-svg">
@@ -396,7 +396,7 @@ Pesquisar
 </div>
 </div>
 
-<div class="col-4">
+<div class="col-sm-12 col-md-6 col-lg-4">
   <div class="card text-center no-border-card" style="border:none">
   <div class="card-body">
     <div class="img-svg">
@@ -410,7 +410,7 @@ Pesquisar
 </div>
 </div>
 
-<div class="col-4">
+<div class="col-sm-12 col-md-6 col-lg-4">
   <div class="card text-center no-border-card" style="border:none">
   <div class="card-body">
     <div class="img-svg">

@@ -690,60 +690,43 @@ border-bottom:3px solid #e3a112;
             font-size:50px;
         }
         .header-title{
-            font-size:3rem!important;
+            font-size:3rem;
             letter-spacing: 1.5px;
         }
        
         .small-text{
             font-size:12px!important;
         }
-         
-@media (max-width:1024px){
-  /*Config do content da tela de welcome*/
-  body{overflow-y: auto;}
-   .header-title, h1{font-size:2.5rem !important;}
-   
-}      
-@media (max-width:768px){
-  /*Config do content da tela de welcome*/
-  body{overflow-y: auto;}
-   .header-title, h1{font-size:2rem !important;}
-   
-}
-@media (max-width:610px){
-  /*Config do content da tela de welcome*/
-  .bg-img .bg-content span{font-size:1rem;}
-  .header-title, h1{font-size:1.5rem!important;}
-  .btn{
-            border-radius:5px;
-            font-size:16px;
+
+        /*
+        * btn responsive
+        *
+        */
+        .navbar-toggler {
+          background-color: transparent;
+          border: 1px solid #fff;
+          border-radius: .2rem;
+          font-size: .925rem;
+          line-height: 1;
+          padding: .25rem .75rem;
+          transition: box-shadow .15s ease-in-out
         }
-  /*Fim da config*/
-}
 
-@media (max-width:1300px){
-  /*Config do content da tela de welcome*/
-  body{overflow-y: auto;}
-    .bg-img .bg-content h1,h1{font-size:2.3rem;}
-    .bg-img .bg-content{
-      width: 70%;
-      clear:both;
-      box-sizing: border-box;
-     /*Fim da config*/
-    }
-}
+        /*
+        **
+        ** Responsividade do site
+        */
+        @media screen and (max-width: 768px) {
+          body {
+            overflow-y: auto!important;
+            overflow-x: hidden!important;
+          }
+          .bg-footer .text, .bg-footer ul.nav-list li a{
+            font-size: 0.8rem;
+          }
+          .header-title{
+            font-size: 2rem;
+            margin-bottom: 5%!important;
+          }
+        }
 
-@media (max-width:1000px){
-  .content-info{display: none;}
-  .fa-xl{font-size:1.5em;}
-  .large, .panel-widget .large {font-size: 1.2em;}
-}
-@media (max-width:968px){
-  .navbar-nav .nav-item .nav-link{padding-left:4%;}
-}
-@media (max-width:610px){
-  /*Config do content da tela de welcome*/
-  .bg-img .bg-content span{font-size:1rem;}
-  .header-title, h1{font-size:1.5rem;}
-  /*Fim da config*/
-}

@@ -30,7 +30,11 @@
         }
     </style>
 </head>
-    <body style="overflow-y: auto!important;background:#fff">
+    @if(isset($no_overflow) && $no_overflow)
+    <body style="overflow-x:hidden;overflow:hidden;background:#fff" class="overflow-body">
+    @else
+    <body style="overflow-x:hidden;overflow-y: auto;background:#fff">
+    @endif
     <!-- Config da tela de boas vindas-->
     
     <div id='app'>
