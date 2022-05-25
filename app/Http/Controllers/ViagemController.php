@@ -252,6 +252,7 @@ class ViagemController extends Controller
         try{
             
             //verificar a origem do BI (Bilhete ou Reserva)
+        
         if($request->origem_bilhete == 'bi'){
             $bilhete = Bilhete::find($request->id_bilhete);
             $bilhete->n_bilhete = $request->n_bilhete;
@@ -274,23 +275,23 @@ class ViagemController extends Controller
             $register->save();
         }
         
+        
         //envia no seu perfil
         $cliente = Cliente::find($request->id_cliente);//pegar dados do cliente
         //envia por email
         $sms = 'Bom dia caro cliente '.$cliente->nome.', a SLA vem por meio desta agradecer e '.
         'confirmar a compra do seu bilhete. abaixo temos o nº do seu Bilhete, por favor faça-se'.
         ' apresentado do mesmo nos pontos de Levantamento.';
-
+       
         $email = enviar_email($cliente, $sms, $request->n_bilhete);
         $whatsapp = enviar_sms_ws($cliente, $sms, $request->n_bilhete);
-        //$sms = enviar_sms($cliente, $sms, $request->n_bilhete);
-        
+        $sms = enviar_sms($cliente, $sms, $request->n_bilhete);
+        //return $sms;
         //envia por sms
         if((isset($bilhete) && $bilhete) || (isset($register) && $register))
         return redirect()->back()->with('success','Nº de Bilhete atribuido e enviado com sucesso!');
 
         }catch(\Exception $e){
-            return $e;
         return redirect()->back()->with('error','Falha ao atribuir nº do Bilhete, tente de novo!');
         }
     
@@ -348,9 +349,38 @@ function enviar_email($cliente, $sms, $n_bilhete){
 function enviar_sms_ws($cliente, $sms, $n_bilhete){
    
     $whatsapp = $sms.'\n\n'.'Segue-se o nº do Bilhete comprado B.I nº _'.$n_bilhete.'_';
-    $curl = curl_init();
+
+    //$curl = curl_init();
 
     $telef =  '+244'.$cliente->telefone;
+
+    $url = "https://api.twilio.com/2010-04-01/Accounts/AC7987914196473b0e11ab10200f9cc1df/Messages.json";
+    $from = "whatsapp:+14155238886";
+    //$to = "whatsapp:+244932853283";
+    $to = "whatsapp:".$telef;
+    $body = $whatsapp;
+    $id = "AC7987914196473b0e11ab10200f9cc1df";
+    $token = "2b037f653818e5df0262f1c6706807ce";
+    $data = array(
+        'From' => $from,
+        'To' => $to,
+        'Body' => $body
+    );
+
+    $post = http_build_query($data);
+    $x = curl_init($url);
+    curl_setopt($x, CURLOPT_POST, true);
+    curl_setopt($x, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($x, CURLOPT_USERPWD, "$id:$token");
+    curl_setopt($x, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($x, CURLOPT_POSTFIELDS, $post);
+    // var_dump($post);
+    $y = curl_exec($x);
+    //var_dump($y);
+    curl_close($x);
+
+    return var_dump($y);
+    /*
     curl_setopt_array($curl, array(
       CURLOPT_URL => "https://api.positus.global/v2/sandbox/whatsapp/numbers/6334ea09-d3fe-4689-8acb-684eb0d0ec78/messages",
       CURLOPT_RETURNTRANSFER => true,
@@ -370,23 +400,36 @@ function enviar_sms_ws($cliente, $sms, $n_bilhete){
     $response = curl_exec($curl);
     
     curl_close($curl);
-    return $response;
+    return $response;*/
 
 }
 
 function enviar_sms($cliente, $sms, $n_bilhete){
-    $content = $sms.'\n\n'.'Segue-se o nº do Bilhete comprado B.I nº _'.$n_bilhete.'_';
+    $content = $sms.'%0'.'Segue-se o nº do Bilhete comprado B.I nº '.$n_bilhete;
     $telef =  '+244'.$cliente->telefone;
- // Sending simple message using PHP
-// http://jasminsms.com
+ 
+    $url = "https://api.twilio.com/2010-04-01/Accounts/AC7987914196473b0e11ab10200f9cc1df/Messages.json";
+    $from = "+19403985137";
+    $to = $telef;
+    $body = $content;
+    $id = "AC7987914196473b0e11ab10200f9cc1df";
+    $token = "2b037f653818e5df0262f1c6706807ce";
+    $data = array(
+        'From' => $from,
+        'To' => $to,
+        'Body' => $body
+    );
 
-$baseurl = 'http://127.0.0.1:1401/send';
-
-$params = '?username=foo';
-$params.= '&password=bar';
-$params.= '&to='.urlencode('+336222172');
-$params.= '&content='.urlencode('Hello world !');
-
-$response = file_get_contents($baseurl.$params);
+    $post = http_build_query($data);
+    $x = curl_init($url);
+    curl_setopt($x, CURLOPT_POST, true);
+    curl_setopt($x, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($x, CURLOPT_USERPWD, "$id:$token");
+    curl_setopt($x, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($x, CURLOPT_POSTFIELDS, $post);
+    //var_dump($post);
+    $y = curl_exec($x);
+    //var_dump($y);
+    curl_close($x);
 
 }
