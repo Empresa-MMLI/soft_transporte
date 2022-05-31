@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('classes', function (Blueprint $table) {
+        Schema::create('carros_alugados', function (Blueprint $table) {
             $table->bigInteger('id')->autoIncrement();
-            $table->string('classe');
-            
+            $table->string('matricula')->unique();
+            $table->bigInteger('veiculos_id');
+            $table->bigInteger('aluguer_id');
+            $table->foreign('veiculos_id')->references('id')->on('veiculos');
+            $table->foreign('aluguer_id')->references('id')->on('aluguer');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('classes_');
+        Schema::dropIfExists('carros_alugados');
     }
 };

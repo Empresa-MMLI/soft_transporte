@@ -13,21 +13,25 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('classes', function (Blueprint $table) {
-            $table->bigInteger('id')->autoIncrement();
-            $table->string('classe');
-            
+        Schema::create('precos_carros', function (Blueprint $table) {
+            $table->bigInteger('id');
+            $table->decimal('preco',10,2);
+            $table->foreign('marca_id')->references('id')->on('marcas');
+            $table->foreign('modelo_id')->references('i
+            3d')->on('modelos');
             $table->timestamps();
+
+
         });
     }
 
     /**
      * Reverse the migrations.
-     *
+     *------
      * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('classes_');
+        Schema::dropIfExists('precos_carros_');
     }
 };

@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('classes', function (Blueprint $table) {
-            $table->bigInteger('id')->autoIncrement();
-            $table->string('classe');
-            
+        Schema::create('pagamento', function (Blueprint $table) {
+            $table->bigInteger('id');
+            $table->decimal('total',10,2);
+            $table->string('forma_pagamento');
+            $table->bigInteger('aluguer_id');
+            $table->foreign('aluguer_id')->references('id')->on('aluguer');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('classes_');
+        Schema::dropIfExists('pagamento');
     }
 };

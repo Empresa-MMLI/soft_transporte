@@ -13,10 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('classes', function (Blueprint $table) {
-            $table->bigInteger('id')->autoIncrement();
-            $table->string('classe');
-            
+        Schema::create('alter_veiculos', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('classes_');
+        Schema::dropIfExists('alter_veiculos');
     }
 };

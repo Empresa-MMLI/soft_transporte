@@ -13,11 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('classes', function (Blueprint $table) {
+        Schema::create('aluguer', function (Blueprint $table) {
             $table->bigInteger('id')->autoIncrement();
-            $table->string('classe');
-            
+            $table->decimal('preco',10,2);
+            $table->integer('qtd_carros');
+            $table->date('data_entrega');
+            $table->date('data_prev_devol');
+            $table->date('data_devolucao');
+            $table->bigInteger('pedido_id');
             $table->timestamps();
+
+            $table->foreign('pedido_id')->references('id')->on('pedidos');
+
         });
     }
 
@@ -28,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('classes_');
+        Schema::dropIfExists('aluguer');
     }
 };
