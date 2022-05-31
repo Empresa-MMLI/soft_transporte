@@ -145,7 +145,7 @@ Route::post('/store_viagem', [ViagemController::class, 'store'])->name('viagem.s
 //mostrar itinerarios
 Route::get('/itinerarios', [viagemController::class, 'itinerarios'])->name('dashboard.itinerarios');
 //Bilhetes emitidos
-Route::get('/bilhetes', [ViagemController::class, 'index_bilhetes'])->name('dashboard.bilhetes');
+Route::any('/bilhetes', [ViagemController::class, 'index_bilhetes'])->name('dashboard.bilhetes');
 //Bilhetes comprados pelos clientes
 Route::get('/bilhete_clientes', [ViagemController::class, 'cliente_bilhetes'])->name('cliente.bilhetes');
 //compra de Bilhetes
@@ -159,6 +159,9 @@ Route::get('/delete_bilhete/{id}', [ViagemController::class, 'delete_bilhete'])-
 Route::any('/reservar_bilhete', [ViagemController::class, 'reservar_bilhetes'])->name('bilhete.reservar');
 //validacao do bilhete comprado
 Route::any('/validacao_bi', [ViagemController::class, 'validacao_bilhete'])->name('bilhete.validacao');
+//Envio de email, sms e whatsapp para o cliente e admin
+Route::any('/send_sms', [ViagemController::class, 'send_sms_cliente'])->name('bilhete.send_sms');
+
 //buscar bilhetes de viagens
 Route::any('/compras_bi', [ViagemController::class, 'comprar_bilhetes'])->name('compra.bilhetes');
 //resultado busca bilhetes de viagens

@@ -27,13 +27,14 @@
   <div class="tab-pane fade show active" id="form" role="tabpanel" aria-labelledby="form-tab">
   <div class="row">
                                 <h2 class="my-4"><i class="fa fa-edit text-muted"></i> Confirmar compras de Bilhetes</h2>
+ <a href="{{ route('bilhete.send_sms') }}" id="link_send_sms" class="btn btn-submit d-none">Enviar sms</a>
                                 <hr>
  <!-- tabela de bilhetes comprados --> 
 
  <div class="container">
                                <div class="table-responsive">
  @include('inc.messages') 
-                               <table id="dataTables" class="display nowrap" style="width:100%">
+      <table  id="dataTables" class="display nowrap" style="width:100%">
         <thead>
             <tr>
                 <th>ID</th>
@@ -54,7 +55,7 @@
             @foreach($bilhete_novos as $item)
             <tr>
                 <td>{{ $item->id }}</td>
-                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->cliente }}</td>
+                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" email_cliente="{{ $item->email }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#email_cliente').text($(this).attr('email_cliente')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->cliente }}</td>
                 <td>{{ $item->rota_origem }} - {{ $item->rota_destino }}</td>
                 <td>{{ $item->ponto_e }}</td>
                 <td class="text-center">{{ date('d/m/Y H:i', strtotime($item->data_partida)) }}</td>
@@ -98,7 +99,7 @@
                                <!-- tabela de provincias --> 
                                <div class="container">
                                <div class="table-responsive">
-                               <table class="display nowrap dataTables" style="width:100%">
+                               <table id="dataTables2" class="display nowrap dataTables" style="width:100%">
                                <thead>
             <tr>
                 <th>ID</th>
@@ -119,7 +120,7 @@
             @foreach($bi_reservados as $item)
             <tr>
                 <td>{{ $item->id }}</td>
-                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->cliente }}</td>
+                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" email_cliente="{{ $item->email }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#email_cliente').text($(this).attr('email_cliente')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->cliente }}</td>
                 <td>{{ $item->rota_origem }} - {{ $item->rota_destino }}</td>
                 <td>{{ $item->ponto_e }}</td>
                 <td class="text-center">{{ date('d/m/Y H:i', strtotime($item->data_partida)) }}</td>
@@ -154,7 +155,7 @@
                                <!-- tabela de provincias --> 
                                <div class="container">
                                <div class="table-responsive">
-                               <table id="dataTables" class="display nowrap" style="width:100%">
+                               <table id="dataTables3" class="display nowrap dataTables" style="width:100%">
                                <thead>
             <tr>
                 <th>ID</th>
@@ -178,7 +179,7 @@
             <tr>
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->n_bilhete }}</td>
-                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->cliente }}</td>
+                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" email_cliente="{{ $item->email }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#email_cliente').text($(this).attr('email_cliente')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->cliente }}</td>
                 <td>{{ $item->rota_origem }} - {{ $item->rota_destino }}</td>
                 <td>{{ $item->ponto_e }}</td>
                 <td class="text-center">{{ date('d/m/Y H:i', strtotime($item->data_partida)) }}</td>
@@ -260,18 +261,18 @@
         </button>
       </div>
       <div class="modal-body">
-      <form method="post" action="{{ route('bilhete.validacao') }}">
+      <form method="post" action="{{ route('bilhete.validacao') }}" id="form_validacao_bi">
                                     @csrf
                             <div class="row mb-2">
                             <div class="col-12">
                                 <label for="id_provincia">Cliente:</label>
-                                <input  type="text" class="form-control text-capitalize" name="nome_cliente" id="nome_cliente" placeholder="Nome cliente" required>
+                                <input  type="text" class="form-control text-capitalize" name="nome_cliente" id="nome_cliente" placeholder="Nome cliente" required readonly>
                                 <input type="hidden" class="form-control" name="id_cliente" id="id_cliente" placeholder="ID cliente" required>
                             </div></div>
                             <div class="row mb-2">
                             <div class="col-12">
                             <label for="nome_rota">Rota:</label>
-                                <input type="text" class="form-control text-capitalize" name="nome_rota" id="nome_rota" placeholder="Rota" required>
+                                <input type="text" class="form-control text-capitalize" name="nome_rota" id="nome_rota" placeholder="Rota" required readonly>
                             </div>
                             </div>
                             <div class="row">
@@ -279,7 +280,7 @@
                                 <label for="n_bilhete">Nº Bilhete de Viagem:</label>
                                 <input type="hidden" class="form-control" id="id_bilhete" name="id_bilhete" placeholder="ID de Bilhete" required>
                                 <input type="hidden" class="form-control" id="origem_bilhete" name="origem_bilhete" value="bi" placeholder="Origem Bilhete" required>
-                                <input type="text" class="form-control" id="n_bilhete" name="n_bilhete" placeholder="Nº de Bilhete de viagem" required>
+                                <input type="text" class="form-control" id="n_bilhete" name="n_bilhete" placeholder="Nº de Bilhete de viagem" required >
   
                                 </div>
                             </div>
@@ -317,6 +318,7 @@
           <div class="col-sm-12">
               <h5>Nome completo: <span id="cliente" class="text-muted"></span> </h5>
               <h5>Nº Documento: <span id="bi_cliente" class="text-muted"></span> </h5>
+              <h5>Endereço electrónico(E-mail): <span id="email_cliente" class="text-muted"></span></h5>
               <h5>Telefone: <span id="telef_cliente" class="text-muted"></span> </h5>
           </div>
         </div>
@@ -359,6 +361,23 @@
 </form>
       </div>
      
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalOperacao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Mensagem de Confirmação</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="text-normal"> <i class="fa fa-check-circle fa-lg text-success" id="icon_sms"></i>  <span id="text_sms">Compra de Bilhete validado com sucesso!</span></p>
+      </div>
     </div>
   </div>
 </div>

@@ -180,6 +180,11 @@ class ViagemController extends Controller
         try{
         //buscar o total de assentos por veiculo
         $t_passageiro = ($request->t_passageiros);
+        $viagem = ViagemDetalhes::find($request->id_viagem);
+        $cliente = Cliente::find($request->id_cliente);
+        //$empresa = Empresa::find(Session::get('usuario.id'));
+        //$telef_admin = '+244'.$empresa->telefone;
+        $telef_admin = '+244933902741';//contato SLA - Constantino Dias
 
         if($request->forma_pagto == 'PD'){
             $register = new BilheteReservado;
@@ -190,6 +195,12 @@ class ViagemController extends Controller
             $register->estado = 0;
             $register->data_compra = date('Y-m-d');
             $register->save();
+
+            $sms = 'Nova reserva de Bilhete detectado na plataforma, o(a) cliente '.$cliente->nome.' comprou '.$t_passageiro.' bilhete(s) para '.$viagem->rota_origem.' - '.$viagem->rota_destino;
+           
+            // $email = enviar_email($cliente, $sms, $request->n_bilhete);
+           // $telegram = enviar_telegram($telef_admin, $sms);
+           // $sms = enviar_sms($telef_admin, $sms, $request->n_bilhete, 0);
 
         }else{
         $register = new Bilhete;
@@ -226,7 +237,7 @@ class ViagemController extends Controller
 
         $bilhete = Bilhete::latest()->first();
         $id_bilhete = $bilhete->id;
-        $cliente = Cliente::find($request->id_cliente);
+
         if($register && $update){
             return view('bilhete_vendido', ['estado'=>1,'id_bilhete'=>$id_bilhete,'cliente'=>$cliente]);
         }
@@ -252,18 +263,24 @@ class ViagemController extends Controller
         try{
             
             //verificar a origem do BI (Bilhete ou Reserva)
-        
+        if(1 == 1 || $request->ajax()){
         if($request->origem_bilhete == 'bi'){
+            
             $bilhete = Bilhete::find($request->id_bilhete);
             $bilhete->n_bilhete = $request->n_bilhete;
             $bilhete->estado = 1;
             $bilhete->save();
+            
+            $id_viagem = Bilhete::find($request->id_bilhete);
+            $id_viagem = $id_viagem->viagem_id;
+
         }else{
             $update = BilheteReservado::find($request->id_bilhete);
             $update->estado = 1;
             $update->save();
             $reserva = BilheteReservado::find($request->id_bilhete);
             //apos ativacao da reserva regista-se a compra do bi
+            
             $register = new Bilhete;
             $register->n_bilhete = $request->n_bilhete;
             $register->viagem_id  = $reserva->viagem_id;
@@ -273,29 +290,47 @@ class ViagemController extends Controller
             $register->estado = 1;
             $register->data_compra = $reserva->data_compra;
             $register->save();
+            
+
+            $id_viagem = BilheteReservado::find($request->id_bilhete);
+            $id_viagem = $id_viagem->viagem_id;
         }
         
-        
-        //envia no seu perfil
+        //envia no seu perfil 
         $cliente = Cliente::find($request->id_cliente);//pegar dados do cliente
+        $viagem = ViagemDetalhes::find($id_viagem);//pegar dados da viagem
+        
         //envia por email
-        $sms = 'Bom dia caro cliente '.$cliente->nome.', a SLA vem por meio desta agradecer e '.
+        $sms = 'Bom dia prezado(a) cliente '.$cliente->nome.', a SLA vem por meio desta agradecer e '.
         'confirmar a compra do seu bilhete. abaixo temos o nº do seu Bilhete, por favor faça-se'.
-        ' apresentado do mesmo nos pontos de Levantamento.';
-       
-        $email = enviar_email($cliente, $sms, $request->n_bilhete);
-        $whatsapp = enviar_sms_ws($cliente, $sms, $request->n_bilhete);
-        $sms = enviar_sms($cliente, $sms, $request->n_bilhete);
+        'apresentado do mesmo no Pontos de Levant. do(a) "'.$viagem->ponto_e.'" no dia '.date('d/m/Y', strtotime($viagem->data_partida));
+        $n_bilhete = $request->n_bilhete;
+        
+       // $email = enviar_email($cliente, $sms, $request->n_bilhete);
+       // $whatsapp = enviar_sms_ws($cliente, $sms, $request->n_bilhete);
+       // $sms = enviar_sms($cliente, $sms, $request->n_bilhete, 1);
         //return $sms;
         //envia por sms
         if((isset($bilhete) && $bilhete) || (isset($register) && $register))
-        return redirect()->back()->with('success','Nº de Bilhete atribuido e enviado com sucesso!');
-
+        return response()->json(['estado'=>1,'success'=>'Nº de Bilhete atribuido e enviado com sucesso!','telef'=>$cliente->telefone,'sms'=>$sms,'n_bilhete'=>$n_bilhete,'destino'=>1]);
+    
+    }else{
+        return redirect()->back()->with('error','Falha ao validar o Bilhete de Viagem, tente novamente!');
+    }
         }catch(\Exception $e){
-        return redirect()->back()->with('error','Falha ao atribuir nº do Bilhete, tente de novo!');
+        return response()->json(['error'=>'Falha ao atribuir nº do Bilhete, tente de novo!']);
         }
     
     }  
+    //envio de sms para o cliente
+    public function send_sms_cliente(Request $request){
+
+       // $email = enviar_email($request);
+       // $whatsapp = enviar_sms_ws($request);
+        $sms = enviar_sms($request);
+        //return response()->json(['estado'=>1,'email'=>$email,'sms'=>$sms,'whatsapp'=>$whatsapp]);
+        return response()->json(['estado'=>1,'sms'=>$sms]);
+    }
 }
 
 function upload_file($request){
@@ -347,12 +382,14 @@ function enviar_email($cliente, $sms, $n_bilhete){
 }
 
 function enviar_sms_ws($cliente, $sms, $n_bilhete){
-   
+    $telefone =  $request->telef;//cliente telef
+    $sms = $request->sms;
+    $n_bilhete = $request->n_bilhete;
+
     $whatsapp = $sms.'\n\n'.'Segue-se o nº do Bilhete comprado B.I nº _'.$n_bilhete.'_';
-
     //$curl = curl_init();
-
-    $telef =  '+244'.$cliente->telefone;
+    $telef =  $telefone;
+    
 
     $url = "https://api.twilio.com/2010-04-01/Accounts/AC7987914196473b0e11ab10200f9cc1df/Messages.json";
     $from = "whatsapp:+14155238886";
@@ -403,10 +440,50 @@ function enviar_sms_ws($cliente, $sms, $n_bilhete){
     return $response;*/
 
 }
+//function to send Telegram
+function enviar_telegram($telefone, $msg) {
+    $id = ''; 
+    $token = ''; 
+    $silent = false;
 
-function enviar_sms($cliente, $sms, $n_bilhete){
+    $data = array(
+        'chat_id' => $id,
+        'text' => $msg,
+        'parse_mode' => 'html',
+        'disable_web_page_preview' => true,
+        'disable_notification' => $silent
+    );
+    if($token != '') {
+      $ch = curl_init('https://api.telegram.org/bot'.$token.'/sendMessage');
+      curl_setopt_array($ch, array(
+          CURLOPT_HEADER => 0,
+          CURLOPT_RETURNTRANSFER => 1,
+          CURLOPT_POST => 1,
+          CURLOPT_POSTFIELDS => $data
+      ));
+      curl_exec($ch);
+      curl_close($ch);
+    }
+}
+
+//function para enviar sms
+function enviar_sms($request){
+    //pegando os dados
+    $telefone =  $request->telef;//cliente telef
+    $sms = $request->sms;
+    $n_bilhete = $request->n_bilhete;
+    $destino = $request->destino;
+
+    return response()->json(['detalhes'=>$request]);
+
     $content = $sms.'%0'.'Segue-se o nº do Bilhete comprado B.I nº '.$n_bilhete;
-    $telef =  '+244'.$cliente->telefone;
+    $telef =  '+244'.$telefone;
+
+    if($destino == 0)//administrador sla - interno
+    {
+        $content = $sms;
+        $telef =  $telef; //telef do admin neste caso
+    }
  
     $url = "https://api.twilio.com/2010-04-01/Accounts/AC7987914196473b0e11ab10200f9cc1df/Messages.json";
     $from = "+19403985137";
@@ -431,5 +508,5 @@ function enviar_sms($cliente, $sms, $n_bilhete){
     $y = curl_exec($x);
     //var_dump($y);
     curl_close($x);
-
+    return $request;
 }

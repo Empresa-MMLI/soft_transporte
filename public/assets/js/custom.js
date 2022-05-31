@@ -95,6 +95,57 @@ $(this).css('display','nones');
     $('#group_childrens').val($qtd-1);
   
   });
+
+  $('#form_validacao_bi').submit(function(e){
+    e.preventDefault();
+    $dados = $(this).serialize();
+    $url  = $(this).attr('action');
+
+    $.post($url, $dados, function(response){
+      if(response.estado !== undefined){
+
+        $('#modalConfirmacao').modal('hide');
+
+        $('#modalOperacao span#text_sms').text(response.success);
+        $('#modalOperacao #icon_sms').removeClass('fa-info-circle');
+        $('#modalOperacao #icon_sms').removeClass('text-danger');
+
+        $('#modalOperacao #icon_sms').addClass('fa-check-circle');
+        $('#modalOperacao #icon_sms').addClass('text-success');
+        $('#dataTables').load(window.location.href + " #dataTables");
+        $('#dataTables1').load(window.location.href + " #dataTables1");
+        $('#dataTables2').load(window.location.href + " #dataTables2");
+
+        $('#modalOperacao').modal('show');
+        $link_sms = $('#link_send_sms').attr('href');
+        $dados = {'telef':response.telef,'sms':response.sms,'n_bilhete':response.n_bilhete,'destino':response.destino};
+        console.log($link_sms);
+        $.get($link_sms, $dados, function(data){
+          if(data.estado !== undefined){
+            console.log(data)
+            console.log('Mensagem enviada com sucesso ao cliente referenciado...');
+          }
+          
+          else
+          console.log('Mensagem não enviada com sucesso ao cliente...');
+        });
+
+      }else{
+
+        $('#modalConfirmacao').modal('hide');
+        
+        $('#modalOperacao span#text_sms').text(response.error);
+        $('#modalOperacao #icon_sms').addClass('fa-info-circle');
+        $('#modalOperacao #icon_sms').addClass('text-danger');
+        $('#modalOperacao #icon_sms').removeClass('fa-check-circle');
+        $('#modalOperacao #icon_sms').removeClass('text-success');
+
+        $('#modalOperacao span#text_sms').text(response.error);
+        $('#modalOperacao').modal('show');
+      }
+    });
+
+  });
 });
 
 function myFunction() {

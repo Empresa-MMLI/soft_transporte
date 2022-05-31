@@ -1,7 +1,7 @@
 @extends ('layouts.visitor') <!--Call of template welcome-->
 @section('content')  <!--Sectino to show content to yield -->
 <!-- banner principal -->
-<div class="banner-box-img2">
+<div class="banner-box-img2 d-none">
 <div class="banner-escuro-img">
     <div class="container">
            <div class="row">
@@ -17,6 +17,55 @@
     </div>
 </div>
 </div>
+
+<!--  Carousell das 7 Maravilhas de Angola --> 
+<div class="carousels">
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner carousel-fotos">
+  <div class="carousel-item active">
+<img class="d-block w-100" data-src="holder.js/800x400?auto=yes&amp;bg=555&amp;fg=333&amp;text=Banner" alt="Banner01" src="{{ asset('assets/img/bg/banner.jpg') }}" data-holder-rendered="true">
+  <div class="carousel-caption d-none d-md-block">
+    <h2 class="carousel-title">Quer conhecer Angola inteira agora?</h2>
+    <p class="carousel-text">Então viaje com a <u><strong>SLA</strong></u> navegando pelas 7 Maravilhas de Angola</p>
+  </div>
+</div>
+<div class="carousel-item">
+<img class="d-block w-100" data-src="holder.js/800x400?auto=yes&amp;bg=555&amp;fg=333&amp;text=Banner" alt="Banner03" src="{{ asset('assets/img/bg/banner5.jpg') }}" data-holder-rendered="true">
+  <div class="carousel-caption d-none d-md-block">
+    <h2 class="carousel-title">Quer conhecer a Fenda da Tundavala?</h2>
+    <p class="carousel-text">Então viaje com a <u><strong>SLA</strong></u> e venha conhecer a Província da Huíla</p>
+  </div>
+</div>
+<div class="carousel-item">
+<img class="d-block w-100" data-src="holder.js/800x400?auto=yes&amp;bg=555&amp;fg=333&amp;text=Banner" alt="Banner02" src="{{ asset('assets/img/bg/uige.jpg') }}" data-holder-rendered="true">
+  <div class="carousel-caption d-none d-md-block">
+    <h2 class="carousel-title">Venha conhecer as Grutas do Nzengo - Uíge</h2>
+    <p class="carousel-text">A <u><strong>SLA</strong></u> vai proporcionar uma viagem sem igual, tanto para ti como os membros de tua família.</p>
+  </div>
+</div>
+<div class="carousel-item">
+<img class="d-block w-100" data-src="holder.js/800x400?auto=yes&amp;bg=555&amp;fg=333&amp;text=Banner" alt="Banner03" src="{{ asset('assets/img/bg/banner7.jpg') }}" data-holder-rendered="true">
+  <div class="carousel-caption d-none d-md-block">
+    <h2 class="carousel-title">Venha conhecer com Província de Malange?</h2>
+    <p class="carousel-text">Não hesite em contactar-nos, a <u><strong>SLA</strong></u> - Agência de Viagem & Prestadora de Serviços oferece o melhor.</p>
+  </div>
+</div>
+  </div>
+  </div>
+  </div>
+  <div class="controll d-none">
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Anterior</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Próximo</span>
+  </a>
+</div>
+</div>
+<!--  fim do carousel --> 
+
 <!-- end banner --> 
 
 

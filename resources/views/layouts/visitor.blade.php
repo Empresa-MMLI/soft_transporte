@@ -46,17 +46,18 @@
         <nav class="navbar navbar-expand static-top p-1">
 <div class="container">
   <div class="row">
-<div class="col-sm-12 col-md-12 col-lg-4 text-center mb-4">
+<div class="col-sm-8 col-md-6 col-lg-4 text-left">
 <a class="navbar-brand " href="{{ route('index') }}">
     <img src="{{ url('assets/img/logo/logo.png') }}"  alt="logo" class="logotipo img-responsive">
     </a>
 </div>
-<div class=".d-none .d-sm-block col-sm-12 col-sm col-md-12 col-lg-4 mb-4">
-<ul class="list-group list-group-horizontal timeTable text-center">
+<div class="d-none d-sm-none d-md-block col-sm-6 col-sm col-md-6 col-lg-4 mt-4">
+<ul class="list-group list-group-horizontal timeTable text-center p-2">
   <li class="list-group-items"><i class="fa fa-calendar"></i> Segunda - Domingo <i class="fa fa-clock"></i> 8:00 Am - 10:00 Pm</li>
 </ul>
 </div>
-<div class="col-sm-12 col-md-12 col-lg-4 text-center mb-2">
+
+<div class="d-none d-sm-none d-md-block col-sm-6 col-md-6 col-lg-4 text-center">
 <div class="header__action">
     <div class="header__action">
 								<a class="btn btn-outline-primary" href="{{ route('register') }}">
@@ -77,11 +78,12 @@
   </nav>
 	<header class="header">
         <div class="container">
-
         <nav class="navbar navbar-expand-lg">
 <!--  <a class="navbar-brand" href="#">Página inicial</a>-->
-  <button class="navbar-toggler btn-light text-dark" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon text-dark"></span>
+  <button class="navbar-toggler text-dark" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="text-light">
+      <i class="fa fa-bars"></i>
+    </span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">

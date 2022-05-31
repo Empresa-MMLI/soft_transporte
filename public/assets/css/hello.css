@@ -701,15 +701,16 @@ border-bottom:3px solid #e3a112;
         /*
         * btn responsive
         *
-        */
+        */eµknjbhxcvfbgj
         .navbar-toggler {
-          background-color: transparent;
-          border: 1px solid #fff;
           border-radius: .2rem;
           font-size: .925rem;
           line-height: 1;
           padding: .25rem .75rem;
           transition: box-shadow .15s ease-in-out
+        }
+        .navbar-toggler:hover{
+          background-color: #0d9e44;
         }
 
         /*
@@ -728,5 +729,14 @@ border-bottom:3px solid #e3a112;
             font-size: 2rem;
             margin-bottom: 5%!important;
           }
+          .navbar-collapse{
+            margin-top:6%;
+            border-radius: 0 0% 5% 5%;
+          }
+          .navbar-collapse .navbar-nav, .navbar-collapse .navbar-nav .nav-item .nav-link{
+            padding:2% 3%;
+            margin-top:1%;
+          }
+
         }
 

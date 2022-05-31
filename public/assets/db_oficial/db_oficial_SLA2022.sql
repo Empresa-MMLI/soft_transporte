@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 20/05/2022 às 17:14
+-- Tempo de geração: 25/05/2022 às 15:53
 -- Versão do servidor: 10.4.24-MariaDB
 -- Versão do PHP: 7.4.28
 
@@ -44,8 +44,9 @@ CREATE TABLE IF NOT EXISTS `bilhetes` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `viagem_id` (`viagem_id`,`cliente_id`,`data_compra`),
-  UNIQUE KEY `n_bilhete` (`n_bilhete`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4;
+  UNIQUE KEY `n_bilhete` (`n_bilhete`),
+  KEY `cliente_id` (`cliente_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Despejando dados para a tabela `bilhetes`
@@ -59,7 +60,11 @@ INSERT INTO `bilhetes` (`id`, `n_bilhete`, `viagem_id`, `cliente_id`, `total_pas
 (48, '1234567LA0912aaa', 6, 3, 1, 'ATM', 'Comprovativos/19-May-2022/abast_62860dcd9fce6.png', b'1', '2022-05-19', '2022-05-19 08:28:45.0', '2022-05-20 13:07:07'),
 (49, 'dfg', 6, 5, 1, 'ATM', 'Comprovativos/19-May-2022/abast_62860dfe17c59.png', b'1', '2022-05-19', '2022-05-19 08:29:34.0', '2022-05-20 13:09:01'),
 (57, 'sdf', 5, 3, 2, 'PD', NULL, b'1', '2022-05-18', '2022-05-20 12:22:59.0', '2022-05-20 13:14:36'),
-(60, 'dsfd', 6, 5, 1, 'PD', NULL, b'0', '2022-05-20', '2022-05-20 12:37:43.0', '2022-05-20 13:10:14');
+(60, '1234567LA09124SLA202200', 6, 5, 1, 'PD', NULL, b'1', '2022-05-20', '2022-05-20 12:37:43.0', '2022-05-25 09:04:36'),
+(61, '1234567LA0912sss', 7, 5, 1, 'ATM', 'Comprovativos/24-May-2022/abast_628cc4c8c6613.png', b'1', '2022-05-20', '2022-05-24 10:43:06.0', '2022-05-24 10:43:45'),
+(62, '1234567LA09124SLA', 7, 5, 1, 'ATM', 'Comprovativos/24-May-2022/abast_628ccb39077e7.png', b'1', '2022-05-24', '2022-05-24 11:10:33.0', '2022-05-24 11:15:27'),
+(63, NULL, 7, 5, 1, 'REF', NULL, b'0', '2022-05-25', '2022-05-25 06:38:55.0', '2022-05-25 06:38:55'),
+(66, '1234567LA0912SLA2022', 5, 3, 2, 'PD', NULL, b'1', '2022-05-24', '2022-05-25 08:07:55.0', '2022-05-25 08:12:57');
 
 -- --------------------------------------------------------
 
@@ -114,16 +119,18 @@ CREATE TABLE IF NOT EXISTS `bi_reservados` (
   `created_at` timestamp(1) NOT NULL DEFAULT current_timestamp(1),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
-  UNIQUE KEY `viagem_id` (`viagem_id`,`cliente_id`,`data_compra`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+  UNIQUE KEY `viagem_id` (`viagem_id`,`cliente_id`,`data_compra`),
+  KEY `cliente_id` (`cliente_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Despejando dados para a tabela `bi_reservados`
 --
 
 INSERT INTO `bi_reservados` (`id`, `viagem_id`, `cliente_id`, `total_passageiro`, `forma_pagto`, `estado`, `data_compra`, `created_at`, `updated_at`) VALUES
-(1, 5, 3, 2, 'PD', b'1', '2022-05-18', '2022-05-17 10:31:57.0', '2022-05-20 12:15:45'),
-(2, 6, 5, 1, 'PD', b'1', '2022-05-20', '2022-05-20 12:14:12.0', '2022-05-20 12:37:43');
+(1, 5, 3, 2, 'PD', b'1', '2022-05-24', '2022-05-17 10:31:57.0', '2022-05-25 08:07:55'),
+(2, 6, 5, 1, 'PD', b'1', '2022-05-20', '2022-05-20 12:14:12.0', '2022-05-20 12:37:43'),
+(3, 7, 5, 1, 'PD', b'1', '2022-05-24', '2022-05-25 07:54:06.0', '2022-05-25 08:04:08');
 
 -- --------------------------------------------------------
 
@@ -212,9 +219,9 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 
 INSERT INTO `clientes` (`id`, `nome`, `email`, `telefone`, `tipo_doc`, `n_doc`, `id_usuario`, `created_at`, `updated_at`) VALUES
 (2, 'Jorge Costa', 'josekinanga@mmlisolucoes.com', '932843283', 'PP', '00123456789', 5, '2022-05-09 01:09:23', '2022-05-09 01:09:23'),
-(3, 'José Quinanga', 'developerjose2@gmail.com', '922884287', 'BI', '01234567890', 5, '2022-05-09 01:09:23', '2022-05-09 01:09:23'),
-(4, 'João Tito', 'josekinanga@mmlisolucoes.com', '922884287', 'BI', '012345678910', 5, '2022-05-09 01:09:23', '2022-05-09 01:09:23'),
-(5, 'Sia Pinto', 'developerjose2@gmail.com', '932853283', 'BI', '001234LA012', 7, '2022-05-19 08:09:53', '2022-05-19 08:09:53');
+(3, 'José Quinanga', 'developerjose2@gmail.com', '932853283', 'BI', '01234567890', 5, '2022-05-09 01:09:23', '2022-05-09 01:09:23'),
+(4, 'Benilson Garcia', 'josekinanga@mmlisolucoes.com', '922884287', 'BI', '012345678910', 5, '2022-05-09 01:09:23', '2022-05-09 01:09:23'),
+(5, 'Sia Pinto', 'josekinanga@mmlisolucoes.com', '942523364', 'BI', '001234LA012', 7, '2022-05-19 08:09:53', '2022-05-19 08:09:53');
 
 -- --------------------------------------------------------
 
@@ -548,7 +555,7 @@ CREATE TABLE IF NOT EXISTS `pontos_e_d` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `pontos_embarque_ponto_unique` (`ponto`),
   KEY `pontos_embarque_provincia_id_foreign` (`provincia_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `pontos_e_d`
@@ -558,7 +565,17 @@ INSERT INTO `pontos_e_d` (`id`, `ponto`, `tipo_ponto`, `provincia_id`, `created_
 (3, 'Luanda - Gamek', 'Embarque', 1, '2022-05-09 08:41:38', '2022-05-09 08:41:38'),
 (4, 'Bengo - Paragem dos Rastas', 'Desembarque', 3, '2022-05-09 08:42:04', '2022-05-09 08:42:04'),
 (5, 'Cuanza Norte - Gabela', 'Embarque', 7, '2022-05-17 12:21:49', '2022-05-17 12:21:49'),
-(6, 'Cuanza Sul - Motoqueiros', 'Desembarque', 6, '2022-05-17 12:22:22', '2022-05-17 12:22:22');
+(6, 'Cuanza Sul - Motoqueiros', 'Desembarque', 6, '2022-05-17 12:22:22', '2022-05-17 12:22:22'),
+(7, 'Benguela - Lobito', 'Desembarque', 2, '2022-05-24 10:20:09', '2022-05-24 10:20:09'),
+(10, 'Benguela - Catumbela', 'Desembarque', 2, '2022-05-24 10:21:07', '2022-05-24 10:21:07'),
+(11, 'Benguela - Cabal', 'Desembarque', 2, '2022-05-24 10:21:34', '2022-05-24 10:21:34'),
+(12, 'Luanda - Cacuaco', 'Embarque', 1, '2022-05-24 10:22:50', '2022-05-24 10:22:50'),
+(13, 'Luanda - Belas', 'Embarque', 1, '2022-05-24 10:23:03', '2022-05-24 10:23:03'),
+(14, 'Cunene - Ondjiva', 'Embarque', 8, '2022-05-24 10:29:05', '2022-05-24 10:29:05'),
+(15, 'Cunene - Cuanhama', 'Embarque', 8, '2022-05-24 10:29:21', '2022-05-24 10:29:21'),
+(16, 'Huambo - Bailundo', 'Desembarque', 4, '2022-05-24 10:30:00', '2022-05-24 10:30:00'),
+(17, 'Huambo - Tchicala', 'Desembarque', 4, '2022-05-24 10:30:16', '2022-05-24 10:30:16'),
+(18, 'Huambo - Catchiungo', 'Desembarque', 4, '2022-05-24 10:30:33', '2022-05-24 10:30:33');
 
 -- --------------------------------------------------------
 
@@ -607,7 +624,7 @@ CREATE TABLE IF NOT EXISTS `rotas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `rotas`
@@ -616,7 +633,9 @@ CREATE TABLE IF NOT EXISTS `rotas` (
 INSERT INTO `rotas` (`id`, `origem`, `destino`, `kilometros`, `preco`, `created_at`, `updated_at`) VALUES
 (1, 'Bengo', 'Luanda', '350', 2500, '2022-05-09 12:06:58', '2022-05-09 12:06:58'),
 (2, 'Luanda', 'Uíge', '5000', 16500, '2022-05-09 12:08:31', '2022-05-09 12:08:31'),
-(3, 'Cuanza Norte', 'Cuanza Sul', '300', 5000, '2022-05-09 14:17:36', '2022-05-09 14:17:36');
+(3, 'Cuanza Norte', 'Cuanza Sul', '300', 5000, '2022-05-09 14:17:36', '2022-05-09 14:17:36'),
+(4, 'Luanda', 'Benguela', '4500', 17000, '2022-05-24 10:14:33', '2022-05-24 10:14:33'),
+(5, 'Cunene', 'Huambo', '5300', 3600, '2022-05-24 10:15:28', '2022-05-24 10:15:28');
 
 -- --------------------------------------------------------
 
@@ -647,7 +666,7 @@ INSERT INTO `users` (`id`, `id_tipo_user`, `name`, `email`, `email_verified_at`,
 (1, 1, 'MMLI - Team', 'mmligeral@mmlisolucoes.com', NULL, '$2y$10$./TF3NAFUCkpgqbaN22F9OtG67tvaHsWcQqYI204MvOSsQ7WSwJ9.', NULL, '2022-05-08 23:29:39', '2022-05-08 23:29:39'),
 (5, 3, 'Jorge Costa', 'geral@mmlisolucoes.com', NULL, '$2y$10$CSLoBvg/dJR4tyqs8yGEc.x72nj5iHZJOAicfLpUtJJjg963yrEL.', NULL, '2022-05-09 01:09:23', '2022-05-09 01:09:23'),
 (6, 2, 'MMLI', 'geral22@mmlisolucoes.com', NULL, '$2y$10$em/NVNCFG5KIBIyek.I7o.HjxlPZ/ZZ8zQ6BQY8HBo7lxymi89A3u', NULL, '2022-05-09 01:17:06', '2022-05-09 01:17:06'),
-(7, 3, 'Sia Pinto', 'sia@mmlisolucoes.com', NULL, '$2y$10$./TF3NAFUCkpgqbaN22F9OtG67tvaHsWcQqYI204MvOSsQ7WSwJ9.', NULL, '2022-05-19 08:09:53', '2022-05-19 08:09:53');
+(7, 3, 'Sia Pinto', 'sia@mmlisolucoes.com', NULL, '$2y$10$./TF3NAFUCkpgqbaN22F9OtG67tvaHsWcQqYI204MvOSsQ7WSwJ9.', NULL, '2022-05-19 08:09:53', '2022-05-24 09:01:55');
 
 -- --------------------------------------------------------
 
@@ -782,7 +801,7 @@ CREATE TABLE IF NOT EXISTS `viagens` (
   KEY `viagens_autocarro_id_foreign` (`veiculo_id`),
   KEY `viagens_rota_id_foreign` (`rota_id`),
   KEY `viagens_classe_id_foreign` (`classe_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `viagens`
@@ -790,8 +809,13 @@ CREATE TABLE IF NOT EXISTS `viagens` (
 
 INSERT INTO `viagens` (`id`, `itinerario`, `data_partida`, `data_chegada`, `embarque_id`, `desembarque_id`, `veiculo_id`, `rota_id`, `classe_id`, `total_passageiro`, `estado`, `created_at`, `updated_at`) VALUES
 (3, 'kikolo, cacuaco', '2022-05-17 09:41:30', '2022-05-18 10:00:00', 3, 4, 1, 2, 4, 30, b'1', '2022-05-10 04:20:43', '2022-05-16 08:41:30'),
-(5, 'Gabela, Negage, Cuando cubango', '2022-05-17 09:27:43', '2022-05-17 18:00:00', 3, 4, 1, 1, 4, 22, b'1', '2022-05-10 09:26:02', '2022-05-17 10:31:57'),
-(6, 'KIbabo, Shoprite', '2022-05-17 13:23:02', '2022-05-17 18:00:00', 5, 4, 2, 3, 2, 3, b'1', '2022-05-17 12:23:02', '2022-05-20 12:14:12');
+(5, 'Gabela, Negage, Cuando cubango', '2022-05-17 09:27:43', '2022-05-17 18:00:00', 12, 4, 1, 1, 4, 22, b'1', '2022-05-10 09:26:02', '2022-05-17 10:31:57'),
+(6, 'KIbabo, Shoprite', '2022-05-17 13:23:02', '2022-05-17 18:00:00', 5, 4, 2, 3, 2, 3, b'1', '2022-05-17 12:23:02', '2022-05-20 12:14:12'),
+(7, 'Cacuaco, Icolo e Bengo, Cabal, Caimbambo, Catumbela, Lobito', '2022-05-24 11:24:35', '2022-05-25 08:00:00', 3, 7, 2, 4, 2, 4, b'1', '2022-05-24 10:24:35', '2022-05-25 07:54:07'),
+(8, 'Cacuaco, Icolo e Bengo, Cabal, Caimbambo, Catumbela, Lobito', '2022-05-24 11:25:25', '2022-05-25 14:00:00', 12, 10, 1, 4, 4, 0, b'1', '2022-05-24 10:25:25', '2022-05-24 10:25:25'),
+(9, 'Ondjiva, Cuanhama, Bailundo, Tchicala, Catchiungo', '2022-05-24 11:31:40', '2022-05-26 11:31:00', 14, 17, 2, 5, 2, 0, b'1', '2022-05-24 10:31:40', '2022-05-24 10:31:40'),
+(10, 'Ondjiva, Cuanhama, Bailundo, Tchicala, Catchiungo', '2022-05-24 11:32:17', '2022-05-26 11:32:00', 15, 16, 2, 5, 1, 0, b'1', '2022-05-24 10:32:17', '2022-05-24 10:32:17'),
+(11, 'Ondjiva, Cuanhama, Bailundo, Tchicala, Catchiungo', '2022-05-24 11:33:07', '2022-08-26 04:00:00', 14, 18, 1, 5, 3, 0, b'1', '2022-05-24 10:33:07', '2022-05-24 10:33:07');
 
 -- --------------------------------------------------------
 
@@ -856,6 +880,19 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 -- Restrições para tabelas despejadas
 --
+
+--
+-- Restrições para tabelas `bilhetes`
+--
+ALTER TABLE `bilhetes`
+  ADD CONSTRAINT `bilhetes_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`),
+  ADD CONSTRAINT `bilhetes_ibfk_2` FOREIGN KEY (`viagem_id`) REFERENCES `viagens` (`id`);
+
+--
+-- Restrições para tabelas `bi_reservados`
+--
+ALTER TABLE `bi_reservados`
+  ADD CONSTRAINT `bi_reservados_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`);
 
 --
 -- Restrições para tabelas `clientes`
