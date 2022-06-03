@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 25/05/2022 às 15:53
+-- Tempo de geração: 03/06/2022 às 15:34
 -- Versão do servidor: 10.4.24-MariaDB
 -- Versão do PHP: 7.4.28
 
@@ -22,6 +22,27 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `db_sla_mmli` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `db_sla_mmli`;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `aluguer`
+--
+
+DROP TABLE IF EXISTS `aluguer`;
+CREATE TABLE IF NOT EXISTS `aluguer` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `pedido_id` bigint(20) NOT NULL,
+  `preco` decimal(10,2) NOT NULL,
+  `qtd_carros` int(11) NOT NULL,
+  `data_entrega` date NOT NULL,
+  `data_prev_devolucao` date NOT NULL,
+  `data_devolucao` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `aluguer_pedido_id_foreign` (`pedido_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -46,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `bilhetes` (
   UNIQUE KEY `viagem_id` (`viagem_id`,`cliente_id`,`data_compra`),
   UNIQUE KEY `n_bilhete` (`n_bilhete`),
   KEY `cliente_id` (`cliente_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Despejando dados para a tabela `bilhetes`
@@ -60,11 +81,22 @@ INSERT INTO `bilhetes` (`id`, `n_bilhete`, `viagem_id`, `cliente_id`, `total_pas
 (48, '1234567LA0912aaa', 6, 3, 1, 'ATM', 'Comprovativos/19-May-2022/abast_62860dcd9fce6.png', b'1', '2022-05-19', '2022-05-19 08:28:45.0', '2022-05-20 13:07:07'),
 (49, 'dfg', 6, 5, 1, 'ATM', 'Comprovativos/19-May-2022/abast_62860dfe17c59.png', b'1', '2022-05-19', '2022-05-19 08:29:34.0', '2022-05-20 13:09:01'),
 (57, 'sdf', 5, 3, 2, 'PD', NULL, b'1', '2022-05-18', '2022-05-20 12:22:59.0', '2022-05-20 13:14:36'),
-(60, '1234567LA09124SLA202200', 6, 5, 1, 'PD', NULL, b'1', '2022-05-20', '2022-05-20 12:37:43.0', '2022-05-25 09:04:36'),
-(61, '1234567LA0912sss', 7, 5, 1, 'ATM', 'Comprovativos/24-May-2022/abast_628cc4c8c6613.png', b'1', '2022-05-20', '2022-05-24 10:43:06.0', '2022-05-24 10:43:45'),
+(60, '1234567LA09124SLA202200', 6, 5, 1, 'PD', NULL, b'1', '2022-05-18', '2022-05-20 12:37:43.0', '2022-05-25 09:04:36'),
+(61, '1234567LA0912sss', 7, 5, 1, 'ATM', 'Comprovativos/24-May-2022/abast_628cc4c8c6613.png', b'1', '2022-05-10', '2022-05-24 10:43:06.0', '2022-05-24 10:43:45'),
 (62, '1234567LA09124SLA', 7, 5, 1, 'ATM', 'Comprovativos/24-May-2022/abast_628ccb39077e7.png', b'1', '2022-05-24', '2022-05-24 11:10:33.0', '2022-05-24 11:15:27'),
-(63, NULL, 7, 5, 1, 'REF', NULL, b'0', '2022-05-25', '2022-05-25 06:38:55.0', '2022-05-25 06:38:55'),
-(66, '1234567LA0912SLA2022', 5, 3, 2, 'PD', NULL, b'1', '2022-05-24', '2022-05-25 08:07:55.0', '2022-05-25 08:12:57');
+(63, '1234567LA091212312323123SDFSD', 7, 5, 1, 'REF', NULL, b'1', '2022-05-25', '2022-05-25 06:38:55.0', '2022-05-31 12:11:56'),
+(66, '1234567LA0912SLA2022', 5, 3, 2, 'PD', NULL, b'1', '2022-05-24', '2022-05-25 08:07:55.0', '2022-05-25 08:12:57'),
+(67, '1234567LA0912123123SLA2022', 9, 3, 1, 'ATM', 'Comprovativos/26-May-2022/abast_628f8fe08065b.png', b'1', '2022-05-26', '2022-05-26 13:34:08.0', '2022-05-26 13:36:39'),
+(68, 'ADRDRFTG5868788989', 10, 5, 1, 'ATM', 'Comprovativos/29-May-2022/abast_629385323455d.png', b'1', '2022-05-27', '2022-05-29 13:37:38.0', '2022-05-29 13:43:34'),
+(69, 'DFTGHJMKM,K,L3545', 10, 5, 1, 'ATM', 'Comprovativos/29-May-2022/abast_6293900c22724.png', b'1', '2022-05-29', '2022-05-29 14:23:56.0', '2022-05-29 14:28:30'),
+(70, '1234567LA0912sdfs', 7, 5, 1, 'PD', NULL, b'1', '2022-05-31', '2022-05-31 10:11:48.0', '2022-05-31 10:11:48'),
+(71, '1234567LA0912123123ds', 5, 3, 2, 'PD', NULL, b'1', '2022-05-28', '2022-05-31 10:19:51.0', '2022-05-31 10:19:51'),
+(84, '1234567LA0912ASDF', 7, 5, 1, 'PD', NULL, b'1', '2022-05-30', '2022-05-31 11:04:51.0', '2022-05-31 11:04:51'),
+(88, '1234567LA0912aaasdf', 7, 5, 1, 'PD', NULL, b'1', '2022-05-20', '2022-05-31 11:11:46.0', '2022-05-31 11:11:46'),
+(89, '1234567LA091211sssss', 6, 5, 1, 'PD', NULL, b'1', '2022-05-29', '2022-05-31 11:13:32.0', '2022-05-31 13:36:50'),
+(90, '1234567LA0912123123SDFS', 6, 5, 1, 'PD', NULL, b'0', '2022-06-02', '2022-05-31 11:34:50.0', '2022-05-31 13:14:27'),
+(91, '1234567LA0912123123sdf', 5, 3, 2, 'PD', NULL, b'0', '2022-06-01', '2022-05-31 11:52:24.0', '2022-05-31 13:30:24'),
+(93, '1234567LA0912123123sdf888', 7, 5, 1, 'PD', NULL, b'1', '2022-06-01', '2022-05-31 12:02:56.0', '2022-05-31 13:35:05');
 
 -- --------------------------------------------------------
 
@@ -94,6 +126,7 @@ CREATE TABLE IF NOT EXISTS `bilhete_detalhes` (
 ,`id_cliente` bigint(20)
 ,`cliente` varchar(255)
 ,`telefone` varchar(255)
+,`email` varchar(172)
 ,`tipo_doc` varchar(100)
 ,`n_doc` varchar(150)
 ,`id_usuario` bigint(20) unsigned
@@ -121,16 +154,19 @@ CREATE TABLE IF NOT EXISTS `bi_reservados` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `viagem_id` (`viagem_id`,`cliente_id`,`data_compra`),
   KEY `cliente_id` (`cliente_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Despejando dados para a tabela `bi_reservados`
 --
 
 INSERT INTO `bi_reservados` (`id`, `viagem_id`, `cliente_id`, `total_passageiro`, `forma_pagto`, `estado`, `data_compra`, `created_at`, `updated_at`) VALUES
-(1, 5, 3, 2, 'PD', b'1', '2022-05-24', '2022-05-17 10:31:57.0', '2022-05-25 08:07:55'),
-(2, 6, 5, 1, 'PD', b'1', '2022-05-20', '2022-05-20 12:14:12.0', '2022-05-20 12:37:43'),
-(3, 7, 5, 1, 'PD', b'1', '2022-05-24', '2022-05-25 07:54:06.0', '2022-05-25 08:04:08');
+(1, 5, 3, 2, 'PD', b'1', '2022-06-01', '2022-05-17 10:31:57.0', '2022-05-31 11:52:24'),
+(2, 6, 5, 1, 'PD', b'1', '2022-06-02', '2022-05-20 12:14:12.0', '2022-05-31 11:34:50'),
+(3, 7, 5, 1, 'PD', b'1', '2022-06-01', '2022-05-25 07:54:06.0', '2022-05-31 12:02:56'),
+(4, 10, 5, 1, 'PD', b'0', '2022-06-02', '2022-06-02 13:22:59.0', '2022-06-02 13:22:59'),
+(5, 10, 3, 1, 'PD', b'0', '2022-06-02', '2022-06-03 07:32:07.0', '2022-06-03 07:32:07'),
+(7, 10, 3, 1, 'PD', b'0', '2022-06-03', '2022-06-03 09:34:04.0', '2022-06-03 09:34:04');
 
 -- --------------------------------------------------------
 
@@ -164,6 +200,26 @@ CREATE TABLE IF NOT EXISTS `bi_reservado_detalhes` (
 ,`created_at` timestamp(1)
 ,`updated_at` timestamp
 );
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `carros_alugados`
+--
+
+DROP TABLE IF EXISTS `carros_alugados`;
+CREATE TABLE IF NOT EXISTS `carros_alugados` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `matricula` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `veiculos_id` bigint(20) NOT NULL,
+  `aluguer_id` bigint(20) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `carros_alugados_matricula_unique` (`matricula`),
+  KEY `carros_alugados_veiculos_id_foreign` (`veiculos_id`),
+  KEY `carros_alugados_aluguer_id_foreign` (`aluguer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -221,7 +277,7 @@ INSERT INTO `clientes` (`id`, `nome`, `email`, `telefone`, `tipo_doc`, `n_doc`, 
 (2, 'Jorge Costa', 'josekinanga@mmlisolucoes.com', '932843283', 'PP', '00123456789', 5, '2022-05-09 01:09:23', '2022-05-09 01:09:23'),
 (3, 'José Quinanga', 'developerjose2@gmail.com', '932853283', 'BI', '01234567890', 5, '2022-05-09 01:09:23', '2022-05-09 01:09:23'),
 (4, 'Benilson Garcia', 'josekinanga@mmlisolucoes.com', '922884287', 'BI', '012345678910', 5, '2022-05-09 01:09:23', '2022-05-09 01:09:23'),
-(5, 'Sia Pinto', 'josekinanga@mmlisolucoes.com', '942523364', 'BI', '001234LA012', 7, '2022-05-19 08:09:53', '2022-05-19 08:09:53');
+(5, 'Sia Pinto', 'josekinanga@mmlisolucoes.com', '932853283', 'BI', '001234LA012', 7, '2022-05-19 08:09:53', '2022-05-19 08:09:53');
 
 -- --------------------------------------------------------
 
@@ -354,7 +410,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `migrations`
@@ -375,7 +431,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (17, '2014_10_12_000000_create_users_table', 14),
 (18, '2014_10_12_100000_create_password_resets_table', 14),
 (19, '2019_08_19_000000_create_failed_jobs_table', 14),
-(20, '2019_12_14_000001_create_personal_access_tokens_table', 14);
+(20, '2019_12_14_000001_create_personal_access_tokens_table', 14),
+(21, '2022_05_31_112602_create_pedidos_table', 15),
+(22, '2022_05_31_112711_create_aluguer_table', 16),
+(23, '2022_05_31_112632_create_pagamento_table', 17),
+(24, '2022_05_31_121158_create_carros_alugados_table', 18),
+(25, '2022_05_31_123145_create_precos_carros__table', 19);
 
 -- --------------------------------------------------------
 
@@ -452,6 +513,23 @@ INSERT INTO `modelos` (`id`, `modelo`, `marca_id`, `created_at`, `updated_at`) V
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `pagamento`
+--
+
+DROP TABLE IF EXISTS `pagamento`;
+CREATE TABLE IF NOT EXISTS `pagamento` (
+  `id` bigint(20) NOT NULL,
+  `aluguer_id` bigint(20) NOT NULL,
+  `total` decimal(10,2) NOT NULL,
+  `forma_pagto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  KEY `pagamento_aluguer_id_foreign` (`aluguer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `password_resets`
 --
 
@@ -461,6 +539,27 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   KEY `password_resets_email_index` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `pedidos`
+--
+
+DROP TABLE IF EXISTS `pedidos`;
+CREATE TABLE IF NOT EXISTS `pedidos` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `veiculo_id` bigint(20) NOT NULL,
+  `cliente_id` bigint(20) NOT NULL,
+  `qtd_carros` int(11) NOT NULL,
+  `data_inicio` date NOT NULL,
+  `data_fim` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `pedidos_veiculo_id_foreign` (`veiculo_id`),
+  KEY `pedidos_cliente_id_foreign` (`cliente_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -576,6 +675,22 @@ INSERT INTO `pontos_e_d` (`id`, `ponto`, `tipo_ponto`, `provincia_id`, `created_
 (16, 'Huambo - Bailundo', 'Desembarque', 4, '2022-05-24 10:30:00', '2022-05-24 10:30:00'),
 (17, 'Huambo - Tchicala', 'Desembarque', 4, '2022-05-24 10:30:16', '2022-05-24 10:30:16'),
 (18, 'Huambo - Catchiungo', 'Desembarque', 4, '2022-05-24 10:30:33', '2022-05-24 10:30:33');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `precos_carros`
+--
+
+DROP TABLE IF EXISTS `precos_carros`;
+CREATE TABLE IF NOT EXISTS `precos_carros` (
+  `id` bigint(20) NOT NULL,
+  `veiculo_id` bigint(20) NOT NULL,
+  `preco` decimal(10,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  KEY `precos_carros_veiculo_id_foreign` (`veiculo_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -808,14 +923,14 @@ CREATE TABLE IF NOT EXISTS `viagens` (
 --
 
 INSERT INTO `viagens` (`id`, `itinerario`, `data_partida`, `data_chegada`, `embarque_id`, `desembarque_id`, `veiculo_id`, `rota_id`, `classe_id`, `total_passageiro`, `estado`, `created_at`, `updated_at`) VALUES
-(3, 'kikolo, cacuaco', '2022-05-17 09:41:30', '2022-05-18 10:00:00', 3, 4, 1, 2, 4, 30, b'1', '2022-05-10 04:20:43', '2022-05-16 08:41:30'),
-(5, 'Gabela, Negage, Cuando cubango', '2022-05-17 09:27:43', '2022-05-17 18:00:00', 12, 4, 1, 1, 4, 22, b'1', '2022-05-10 09:26:02', '2022-05-17 10:31:57'),
-(6, 'KIbabo, Shoprite', '2022-05-17 13:23:02', '2022-05-17 18:00:00', 5, 4, 2, 3, 2, 3, b'1', '2022-05-17 12:23:02', '2022-05-20 12:14:12'),
-(7, 'Cacuaco, Icolo e Bengo, Cabal, Caimbambo, Catumbela, Lobito', '2022-05-24 11:24:35', '2022-05-25 08:00:00', 3, 7, 2, 4, 2, 4, b'1', '2022-05-24 10:24:35', '2022-05-25 07:54:07'),
-(8, 'Cacuaco, Icolo e Bengo, Cabal, Caimbambo, Catumbela, Lobito', '2022-05-24 11:25:25', '2022-05-25 14:00:00', 12, 10, 1, 4, 4, 0, b'1', '2022-05-24 10:25:25', '2022-05-24 10:25:25'),
-(9, 'Ondjiva, Cuanhama, Bailundo, Tchicala, Catchiungo', '2022-05-24 11:31:40', '2022-05-26 11:31:00', 14, 17, 2, 5, 2, 0, b'1', '2022-05-24 10:31:40', '2022-05-24 10:31:40'),
-(10, 'Ondjiva, Cuanhama, Bailundo, Tchicala, Catchiungo', '2022-05-24 11:32:17', '2022-05-26 11:32:00', 15, 16, 2, 5, 1, 0, b'1', '2022-05-24 10:32:17', '2022-05-24 10:32:17'),
-(11, 'Ondjiva, Cuanhama, Bailundo, Tchicala, Catchiungo', '2022-05-24 11:33:07', '2022-08-26 04:00:00', 14, 18, 1, 5, 3, 0, b'1', '2022-05-24 10:33:07', '2022-05-24 10:33:07');
+(3, 'kikolo, cacuaco', '2022-05-29 09:41:30', '2022-05-30 10:00:00', 3, 4, 1, 2, 4, 30, b'1', '2022-05-10 04:20:43', '2022-05-16 08:41:30'),
+(5, 'Gabela, Negage, Cuando cubango', '2022-05-29 09:27:43', '2022-05-30 18:00:00', 12, 4, 1, 1, 4, 22, b'1', '2022-05-10 09:26:02', '2022-05-17 10:31:57'),
+(6, 'KIbabo, Shoprite', '2022-05-29 13:27:43', '2022-05-31 18:00:00', 5, 4, 2, 3, 2, 3, b'1', '2022-05-17 12:23:02', '2022-05-20 12:14:12'),
+(7, 'Cacuaco, Icolo e Bengo, Cabal, Caimbambo, Catumbela, Lobito', '2022-05-28 23:00:00', '2022-05-31 08:00:00', 3, 7, 2, 4, 2, 4, b'1', '2022-05-24 10:24:35', '2022-05-25 07:54:07'),
+(8, 'Cacuaco, Icolo e Bengo, Cabal, Caimbambo, Catumbela, Lobito', '2022-05-29 11:25:25', '2022-05-30 14:00:00', 12, 10, 1, 4, 4, 0, b'1', '2022-05-24 10:25:25', '2022-05-24 10:25:25'),
+(9, 'Ondjiva, Cuanhama, Bailundo, Tchicala, Catchiungo', '2022-05-29 11:31:40', '2022-05-31 17:31:00', 14, 17, 2, 5, 2, 1, b'1', '2022-05-24 10:31:40', '2022-05-26 13:34:08'),
+(10, 'Ondjiva, Cuanhama, Bailundo, Tchicala, Catchiungo', '2022-05-26 11:32:17', '2022-05-31 19:32:00', 15, 16, 2, 5, 1, 5, b'1', '2022-05-24 10:32:17', '2022-06-03 09:34:11'),
+(11, 'Ondjiva, Cuanhama, Bailundo, Tchicala, Catchiungo', '2022-05-29 11:33:07', '2022-05-30 04:00:00', 16, 18, 1, 5, 3, 0, b'1', '2022-05-24 10:33:07', '2022-05-24 10:33:07');
 
 -- --------------------------------------------------------
 
@@ -825,7 +940,7 @@ INSERT INTO `viagens` (`id`, `itinerario`, `data_partida`, `data_chegada`, `emba
 DROP TABLE IF EXISTS `bilhete_detalhes`;
 
 DROP VIEW IF EXISTS `bilhete_detalhes`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bilhete_detalhes`  AS SELECT `bilhete`.`id` AS `id`, `bilhete`.`n_bilhete` AS `n_bilhete`, `bilhete`.`total_passageiro` AS `total_passageiro`, `bilhete`.`forma_pagto` AS `forma_pagto`, `bilhete`.`comprovativo_file` AS `comprovativo_file`, `bilhete`.`estado` AS `estado`, `bilhete`.`data_compra` AS `data_compra`, `viagem`.`id` AS `id_viagem`, `viagem`.`rota_origem` AS `rota_origem`, `viagem`.`rota_destino` AS `rota_destino`, `viagem`.`ponto_e` AS `ponto_e`, `viagem`.`ponto_d` AS `ponto_d`, `viagem`.`kilometros` AS `kilometros`, `viagem`.`preco` AS `preco`, `viagem`.`classe` AS `classe`, `viagem`.`data_partida` AS `data_partida`, `viagem`.`data_chegada` AS `data_chegada`, `cliente`.`id` AS `id_cliente`, `cliente`.`nome` AS `cliente`, `cliente`.`telefone` AS `telefone`, `cliente`.`tipo_doc` AS `tipo_doc`, `cliente`.`n_doc` AS `n_doc`, `cliente`.`id_usuario` AS `id_usuario`, `bilhete`.`created_at` AS `created_at`, `bilhete`.`updated_at` AS `updated_at` FROM ((`bilhetes` `bilhete` join `viagem_detalhes` `viagem` on(`bilhete`.`viagem_id` = `viagem`.`id`)) join `clientes` `cliente` on(`bilhete`.`cliente_id` = `cliente`.`id`))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bilhete_detalhes`  AS SELECT `bilhete`.`id` AS `id`, `bilhete`.`n_bilhete` AS `n_bilhete`, `bilhete`.`total_passageiro` AS `total_passageiro`, `bilhete`.`forma_pagto` AS `forma_pagto`, `bilhete`.`comprovativo_file` AS `comprovativo_file`, `bilhete`.`estado` AS `estado`, `bilhete`.`data_compra` AS `data_compra`, `viagem`.`id` AS `id_viagem`, `viagem`.`rota_origem` AS `rota_origem`, `viagem`.`rota_destino` AS `rota_destino`, `viagem`.`ponto_e` AS `ponto_e`, `viagem`.`ponto_d` AS `ponto_d`, `viagem`.`kilometros` AS `kilometros`, `viagem`.`preco` AS `preco`, `viagem`.`classe` AS `classe`, `viagem`.`data_partida` AS `data_partida`, `viagem`.`data_chegada` AS `data_chegada`, `cliente`.`id` AS `id_cliente`, `cliente`.`nome` AS `cliente`, `cliente`.`telefone` AS `telefone`, `cliente`.`email` AS `email`, `cliente`.`tipo_doc` AS `tipo_doc`, `cliente`.`n_doc` AS `n_doc`, `cliente`.`id_usuario` AS `id_usuario`, `bilhete`.`created_at` AS `created_at`, `bilhete`.`updated_at` AS `updated_at` FROM ((`bilhetes` `bilhete` join `viagem_detalhes` `viagem` on(`bilhete`.`viagem_id` = `viagem`.`id`)) join `clientes` `cliente` on(`bilhete`.`cliente_id` = `cliente`.`id`))  ;
 
 -- --------------------------------------------------------
 
@@ -882,6 +997,12 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 
 --
+-- Restrições para tabelas `aluguer`
+--
+ALTER TABLE `aluguer`
+  ADD CONSTRAINT `aluguer_pedido_id_foreign` FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`id`);
+
+--
 -- Restrições para tabelas `bilhetes`
 --
 ALTER TABLE `bilhetes`
@@ -893,6 +1014,13 @@ ALTER TABLE `bilhetes`
 --
 ALTER TABLE `bi_reservados`
   ADD CONSTRAINT `bi_reservados_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`);
+
+--
+-- Restrições para tabelas `carros_alugados`
+--
+ALTER TABLE `carros_alugados`
+  ADD CONSTRAINT `carros_alugados_aluguer_id_foreign` FOREIGN KEY (`aluguer_id`) REFERENCES `aluguer` (`id`),
+  ADD CONSTRAINT `carros_alugados_veiculos_id_foreign` FOREIGN KEY (`veiculos_id`) REFERENCES `veiculos` (`id`);
 
 --
 -- Restrições para tabelas `clientes`
@@ -919,6 +1047,19 @@ ALTER TABLE `modelos`
   ADD CONSTRAINT `modelos_marca_id_foreign` FOREIGN KEY (`marca_id`) REFERENCES `marcas` (`id`);
 
 --
+-- Restrições para tabelas `pagamento`
+--
+ALTER TABLE `pagamento`
+  ADD CONSTRAINT `pagamento_aluguer_id_foreign` FOREIGN KEY (`aluguer_id`) REFERENCES `aluguer` (`id`);
+
+--
+-- Restrições para tabelas `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD CONSTRAINT `pedidos_cliente_id_foreign` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`),
+  ADD CONSTRAINT `pedidos_veiculo_id_foreign` FOREIGN KEY (`veiculo_id`) REFERENCES `veiculos` (`id`);
+
+--
 -- Restrições para tabelas `pontos_desembarque`
 --
 ALTER TABLE `pontos_desembarque`
@@ -929,6 +1070,12 @@ ALTER TABLE `pontos_desembarque`
 --
 ALTER TABLE `pontos_embarque`
   ADD CONSTRAINT `pontos_embarque_provincia_id_foreign` FOREIGN KEY (`provincia_id`) REFERENCES `provincias` (`id`);
+
+--
+-- Restrições para tabelas `precos_carros`
+--
+ALTER TABLE `precos_carros`
+  ADD CONSTRAINT `precos_carros_veiculo_id_foreign` FOREIGN KEY (`veiculo_id`) REFERENCES `veiculos` (`id`);
 
 --
 -- Restrições para tabelas `users`
