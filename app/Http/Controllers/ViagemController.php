@@ -183,9 +183,8 @@ class ViagemController extends Controller
         $viagem = ViagemDetalhes::find($request->id_viagem);
         $cliente = Cliente::find($request->id_cliente);
         //$empresa = Empresa::find(Session::get('usuario.id'));
-        //$telef_admin = '+244'.$empresa->telefone;
-        $telef_admin = '+244933902741';//contato SLA - Constantino Dias
-
+        $telef_admin = '+244932853283';
+        
         if($request->forma_pagto == 'PD'){
             $register = new BilheteReservado;
             $register->viagem_id  = $request->id_viagem;
@@ -195,13 +194,8 @@ class ViagemController extends Controller
             $register->estado = 0;
             $register->data_compra = date('Y-m-d');
             $register->save();
-
-            $sms = 'Nova reserva de Bilhete detectado na plataforma, o(a) cliente '.$cliente->nome.' comprou '.$t_passageiro.' bilhete(s) para '.$viagem->rota_origem.' - '.$viagem->rota_destino;
-           
-            // $email = enviar_email($cliente, $sms, $request->n_bilhete);
-           // $telegram = enviar_telegram($telef_admin, $sms);
-           // $sms = enviar_sms($telef_admin, $sms, $request->n_bilhete, 0);
-
+            $sms = 'Nova reserva de Bilhete detectado na plataforma, o(a) cliente '.$cliente->nome.' comprou '.$t_passageiro.' bilhete(s) para '.$viagem->rota_origem.' - '.$viagem->rota_destino.' pretende viajar no dia '.date('d/m/Y',strtotime($viagem->data_partida));
+        
         }else{
         $register = new Bilhete;
         $register->viagem_id  = $request->id_viagem;
@@ -219,9 +213,16 @@ class ViagemController extends Controller
         $register->estado = 0;
         $register->data_compra = date('Y-m-d');
         $register->save();
+        $sms = 'Nova compra de Bilhete detectado na plataforma, o(a) cliente '.$cliente->nome.' comprou '.$t_passageiro.' bilhete(s) para '.$viagem->rota_origem.' - '.$viagem->rota_destino.' pretende viajar no dia '.date('d/m/Y',strtotime($viagem->data_partida));
+        
         }
+        //NOTIFICAR O ADMIN SLA sobre nova compra
+        $telegram = enviar_telegram($sms);
+        //pegando os dados
+        $dados = ["telef"=>$telef_admin,"sms"=>$sms,"n_bilhete"=>null,"destino"=>0];
+        $send_sms = enviar_sms($dados);
         //update total de passageiro
-        $viagem = ViagemDetalhes::find($request->id_viagem);
+       // $viagem = ViagemDetalhes::find($request->id_viagem);
         $t_p_viagem = $viagem->total_passageiro+$t_passageiro;//buscar o total de passageiro atual
         if($t_p_viagem > $viagem->capacidade){
             return redirect()->back()->with(['estado'=>0,'warning'=>"Bilhete de viagem esgotado"]);
@@ -243,6 +244,7 @@ class ViagemController extends Controller
         }
 
         }catch(\Exception $e){
+            return $e;
         return redirect()->back()->with('error_compra','O sistema detectou uma compra de Bilhete efectuada hoje em seu Nome');
         }
     }
@@ -441,17 +443,17 @@ function enviar_sms_ws($cliente, $sms, $n_bilhete){
 
 }
 //function to send Telegram
-function enviar_telegram($telefone, $msg) {
-    $id = ''; 
-    $token = ''; 
+function enviar_telegram($msg) {
+    $id = '-655285160'; 
+    $token = '5475892163:AAEJ1cHob6So7235lEYOTzc16qENUcDINTE'; 
     $silent = false;
 
     $data = array(
         'chat_id' => $id,
         'text' => $msg,
-        'parse_mode' => 'html',
-        'disable_web_page_preview' => true,
-        'disable_notification' => $silent
+        //'parse_mode' => 'html',
+        //'disable_web_page_preview' => true,
+        //'disable_notification' => $silent
     );
     if($token != '') {
       $ch = curl_init('https://api.telegram.org/bot'.$token.'/sendMessage');
@@ -461,28 +463,33 @@ function enviar_telegram($telefone, $msg) {
           CURLOPT_POST => 1,
           CURLOPT_POSTFIELDS => $data
       ));
-      curl_exec($ch);
+     $res = curl_exec($ch);
       curl_close($ch);
     }
+    return $res;
 }
 
 //function para enviar sms
 function enviar_sms($request){
     //pegando os dados
-    $telefone =  $request->telef;//cliente telef
-    $sms = $request->sms;
-    $n_bilhete = $request->n_bilhete;
-    $destino = $request->destino;
-
-    return response()->json(['detalhes'=>$request]);
-
-    $content = $sms.'%0'.'Segue-se o nº do Bilhete comprado B.I nº '.$n_bilhete;
-    $telef =  '+244'.$telefone;
-
-    if($destino == 0)//administrador sla - interno
+    if((isset($request->destino) || isset($request['destino'])) && ($request['destino'] == 0 || $request->destino == 0))
     {
+        $telefone =  $request['telef'];//cliente telef
+        $sms = $request['sms'];
+        $n_bilhete = $request['n_bilhete'];
+        $destino = $request['destino'];
+
+        //administrador sla - interno
         $content = $sms;
-        $telef =  $telef; //telef do admin neste caso
+        $telef =  $telefone; //telef do admin neste caso
+    }else{
+        //trata-se do cliente
+        $telefone =  $request->telef;//cliente telef
+        $sms = $request->sms;
+        $n_bilhete = $request->n_bilhete;
+        $destino = $request->destino;
+        $content = $sms.'%0'.'Segue-se o nº do Bilhete comprado B.I nº '.$n_bilhete;
+        $telef =  '+244'.$telefone;
     }
  
     $url = "https://api.twilio.com/2010-04-01/Accounts/AC7987914196473b0e11ab10200f9cc1df/Messages.json";
@@ -508,5 +515,6 @@ function enviar_sms($request){
     $y = curl_exec($x);
     //var_dump($y);
     curl_close($x);
-    return $request;
+
+    return $y;
 }
