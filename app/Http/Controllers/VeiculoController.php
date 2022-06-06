@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Empresa;
 use App\Models\Veiculo;
 use App\Models\Marca;
 use App\Models\MarcaDetalhes;
 use App\Models\Modelo;
+use Session;
+
 class VeiculoController extends Controller
 {
     /*
@@ -15,9 +18,12 @@ class VeiculoController extends Controller
     |--------------------------------------------------------------------------
     */
     public function index(){
-
         $veiculos = Veiculo::latest()->get();
-        return view('dashboard.veiculos', ['veiculos'=>$veiculos]);
+        $empresas = Empresa::latest()->get();
+        $marcas = Marca::orderBy('marca')->get();
+        $modelos = Modelo::orderBy('modelo')->get();
+        $fluidos = FLuido::orderBy('fluido')->get();
+        return view('dashboard.veiculos', ['empresas'=>$empresas,'veiculos'=>$veiculos,'marcas'=>$marcas,'modelos'=>$modelos,'fluidos'=>$fluidos]);
     }
     /*
     |--------------------------------------------------------------------------

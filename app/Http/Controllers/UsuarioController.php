@@ -131,7 +131,8 @@ class UsuarioController extends Controller
     public function login_root(Request $request){
         //$hash_password = Hash::make($request->pass);
         $existe = Usuario::where('email',$request->user)->where('id_tipo_user',1)->first();
-        
+        Session::put('usuario.id',$existe->id);
+
         if(isset($existe->id) && Hash::check($request->pass, $existe->password)){
             return redirect()->route('dashboard.index');
         }else{

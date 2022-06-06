@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Empresa;
 use App\Models\PontosDetalhes;
 use App\Models\Veiculo;
 use App\Models\VeiculoDetalhes;
@@ -63,7 +64,8 @@ class ViagemController extends Controller
         $register->itinerario = $request->itinerario;
         $register->embarque_id  = $request->id_ponto_e;
         $register->desembarque_id  = $request->id_ponto_d;
-        $register->veiculo_id  = $request->id_veiculo;
+        $register->ref_autocarro  = $request->ref_autocarro;
+        $register->capacidade = $request->capacidade;
         $register->classe_id  = $request->id_classe;
         $register->total_passageiro = 0;
         $register->data_partida  = $request->data_partida;
@@ -182,8 +184,10 @@ class ViagemController extends Controller
         $t_passageiro = ($request->t_passageiros);
         $viagem = ViagemDetalhes::find($request->id_viagem);
         $cliente = Cliente::find($request->id_cliente);
-        //$empresa = Empresa::find(Session::get('usuario.id'));
-        $telef_admin = '+244932853283';
+        //pega dados da operadora
+        $empresa = Empresa::find(2);//2 Referece-se 
+        $telef_admin = '+244'.$empresa->telefone;
+        //$telef_admin = '+244932853283';
         
         if($request->forma_pagto == 'PD'){
             $register = new BilheteReservado;
@@ -216,7 +220,7 @@ class ViagemController extends Controller
         $sms = 'Nova compra de Bilhete detectado na plataforma, o(a) cliente '.$cliente->nome.' comprou '.$t_passageiro.' bilhete(s) para '.$viagem->rota_origem.' - '.$viagem->rota_destino.' pretende viajar no dia '.date('d/m/Y',strtotime($viagem->data_partida));
         
         }
-        //NOTIFICAR O ADMIN SLA sobre nova compra
+        //NOTIFICAR O ADMIN SLA sobre nova compra 
         $telegram = enviar_telegram($sms);
         //pegando os dados
         $dados = ["telef"=>$telef_admin,"sms"=>$sms,"n_bilhete"=>null,"destino"=>0];

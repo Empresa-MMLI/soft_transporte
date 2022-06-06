@@ -43,7 +43,7 @@
             @foreach($viagens as $item)
             <tr>
                 <td>{{ $item->id }}</td>
-                <td>{{ $item->marca }} - {{ $item->matricula }}</td>
+                <td>{{ $item->ref_autocarro }}</td>
                 <td class="text-uppercase">{{ $item->rota_origem }} - {{ $item->rota_destino }}</td>
                 <td class="text-left  text-uppercase">
                 @if(strlen($item->itinerario) > 16)

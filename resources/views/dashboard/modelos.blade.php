@@ -34,7 +34,7 @@
                                 </div>
                             <div class="col-6">
                                 <label for="classe">Nome do Modelo</label>
-                                <input type="text" class="form-control text-uppercase" name="modelo"  id="modelo" placeholder="Exemplo de marca - Toyota" required>
+                                <input type="text" class="form-control text-uppercase" name="modelo"  id="modelo" placeholder="Exemplo de modelo - L200" required>
                             </div>
                             </div>
                             <div class="row my-2">

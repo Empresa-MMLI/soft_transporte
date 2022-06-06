@@ -12,6 +12,16 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
+                            <nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true"><i class="fa fa-edit text-muted"></i> Anunciar nova Viagem</a>
+    <a class="nav-item nav-link" id="nav-viagem-tab" data-toggle="tab" href="#viagem" role="tab" aria-controls="embarque" aria-selected="false"><i class="fa fa-list text-muted"></i> Últimas Viagens</a>
+  </div>
+</nav>
+
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="form" role="tabpanel" aria-labelledby="form-tab">
+
                                 <h2 class="my-4"><i class="fa fa-edit text-muted"></i> Nova viagem</h2>
                                 <hr>
                                 @include('inc.messages')       
@@ -65,15 +75,16 @@
 
                             <div class="row my-4">
                             <div class="col">
-                                <label for="origem">Meio de Transporte:</label>
-                                <select  class="form-control custom-select text-capitalize" name="id_veiculo" id="id_veiculo" aria-describedby="addon-wrapping" required>
-                                @if(isset($veiculos[0]->id))
-                                <option value="" selected disabled>Selecionar...</option>
-                                @foreach($veiculos as $item)
-                                <option value="{{ $item->id }}">{{ $item->marca }} - {{ $item->modelo }} ({{ $item->matricula }})</option>
-                                @endforeach
-                                @endif
-                            </select>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                    <label for="ref_autocarro">Autocarro:</label>
+                                    <input type="text" class="form-control" name="ref_autocarro" id="ref_autocarro" placeholder="Código do autocarro">
+                                    </div>
+                                    <div class="col-sm-6">
+                                    <label for="capacidade">Nº Assento:</label>
+                                    <input type="number" class="form-control" name="capacidade" id="capacidade" min="1" placeholder="Total de passageiros">
+                                    </div>
+                                </div>
                             </div>
                             <div class="col">
                                 <label for="classe">Tipo de classe:</label>
@@ -92,12 +103,12 @@
                             <div class="row my-4">
                             <div class="col">
                                 <label for="data_chegada">Data e Hora <code>(Partida)</code>:</label>
-                                <input type="text" class="form-control datapicker" name="partida" id="data_partida"  value="{{ date('Y-m-d H:i:s') }}" placeholder="Data Partida">
+                                <input type="text" class="form-control datapicker" name="partida" id="data_partida"  value="{{ date('Y-m-d H:i:s') }}" placeholder="Data Partida" required>
                                 </div>
 
                             <div class="col">
                             <label for="data_chegada">Data e Hora <code>(Chegada)</code>:</label>
-                            <input type="text" class="form-control datapicker" name="data_chegada" id="data_chegada" min="{{ date('Y-m-d H:i:s') }}" placeholder="Data de chegada">
+                            <input type="text" class="form-control datapicker" name="data_chegada" id="data_chegada" min="{{ date('Y-m-d H:i:s') }}" placeholder="Data de chegada" required>
                             </div>
 
                             </div>
@@ -108,6 +119,10 @@
                                 </div>
                             </div>
                             </form>
+</div>
+
+  <div class="tab-pane fade" id="viagem" role="tabpanel" aria-labelledby="viagem-tab">
+
                             <div class="row">
                             <h3 class="my-4"> <i class="fa fa-list text-muted"></i>   Últimas viagens</h3>
                             <hr>
@@ -118,7 +133,7 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Veículo</th>
+                <th>Autocarro</th>
                 <th>Rota</th>
                 <th>Itinerário</th>
                 <th>Kilómetros</th>
@@ -138,7 +153,7 @@
             @foreach($viagens as $item)
             <tr>
                 <td>{{ $item->id }}</td>
-                <td>{{ $item->marca }} - {{ $item->matricula }}</td>
+                <td>{{ $item->ref_autocarro }}</td>
                 <td class="text-uppercase">{{ $item->rota_origem }} - {{ $item->rota_destino }}</td>
                 <td class="text-left  text-uppercase">
                 @if(strlen($item->itinerario) > 16)
@@ -180,6 +195,8 @@
                             </div>
                         </div>
                             </div>
+                        </div>
+                    </div>
                         </div>
                     </div>
 
