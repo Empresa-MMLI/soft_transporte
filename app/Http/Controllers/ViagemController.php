@@ -248,7 +248,6 @@ class ViagemController extends Controller
         }
 
         }catch(\Exception $e){
-            return $e;
         return redirect()->back()->with('error_compra','O sistema detectou uma compra de Bilhete efectuada hoje em seu Nome');
         }
     }
@@ -339,6 +338,7 @@ class ViagemController extends Controller
     }
 }
 
+//upload ficheiro
 function upload_file($request){
       //upload file do comprovativo pagto
       $estado_upload = 0;

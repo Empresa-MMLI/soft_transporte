@@ -28,7 +28,7 @@
   <hr>
                                 @include('inc.messages')       
                                 <!-- form de cadastro de provincias -->
-                                <form method="post" action="{{ route('veiculos.store') }}">
+                                <form method="post" action="{{ route('veiculos.store') }}" enctype="multipart/form-data">
                                     @csrf
                           
 
@@ -45,7 +45,7 @@
                             </select>
                             </div>
                             <div class="col">
-                                <label for="">Etinerário de viagem <code>(Comentário)</code>:</label>
+                                <label for="">Modelos <code>(Selecione 1º uma marca de veículo)</code>:</label>
                                 <select  class="form-control custom-select text-uppercase" name="id_modelo" id="id_modelo" aria-describedby="addon-wrapping" required>
                                 @if(isset($modelos[0]->id))
                                 <option value="" selected disabled>Selecionar...</option>
@@ -60,11 +60,11 @@
                                     <div class="row my-4">
                             <div class="col">
                                 <label for="capacidade">Nº Assento:</label>
-                                <input type="number" class="form-control" name="capacidade" id="capacidade" min="1" placeholder="Total de passageiros">
+                                <input type="number" class="form-control" name="capacidade" id="capacidade" min="1" value="4" placeholder="Total de passageiros">
                             </div>
                             <div class="col">
                                 <label for="transmissao">Transmissão:</label>
-                                <select  class="form-control custom-select text-capitalize" name="transmissao" id="transmissao" aria-describedby="addon-wrapping" required>
+                                <select  class="form-control custom-select text-uppercase" name="transmissao" id="transmissao" aria-describedby="addon-wrapping" required>
                                 <option value="0">Manual</option>
                                 <option value="1" selected>Automático</option>
                             </select>
@@ -74,7 +74,7 @@
                             <div class="row my-4">
                             <div class="col">
                                     <label for="km">kilometragem:</label>
-                                    <input type="number" class="form-control" name="km" id="km" min="1" placeholder="Km já percorridos">
+                                    <input type="number" class="form-control" name="km" id="km" min="1" value="1" placeholder="Informe a Kilometragem...">
                             </div>
                             <div class="col">
                                 <label for="fluido">Fluído:</label>
@@ -89,16 +89,40 @@
                             </div>
                             </div>
                             
+                            <div class="row my-4">
+                            <div class="col">
+                                <label for="ano_lancamento">Ano de Lançamento:</label>
+                                <input type="number" class="form-control" name="ano_lancamento" id="ano_lancamento" min="1999" value="date('Y')" placeholder="Ano de Lançamento" list="anos_lancamentos">
+                                <datalist id="anos_lancamentos">
+                                    @php $anos = range(1999, strftime('%Y', time()));  @endphp
+                                    @foreach($anos as $ano)
+                                    <option value="{{ $ano }}" selected>{{ $ano }}</option>
+                                    @endforeach
+                                <option value=""></option>
+                                </datalist>
+                            </div>
+                            <div class="col">
+                                <label for="operadora">Operadora <code>(Titular do Veículo)</code>:</label>
+                                <select  class="form-control custom-select text-uppercase" name="operadora" id="operadora" aria-describedby="addon-wrapping" required>
+                                @if(isset($empresas[0]->id))
+                                <option value="" selected disabled>Selecionar...</option>
+                                @foreach($empresas as $item)
+                                <option value="{{ $item->id }}">{{ $item->nome }}</option>
+                                @endforeach
+                                @endif
+                            </select>
+                            </div>
+                            </div>
 
                             <div class="row my-4">
                             <div class="col">
-                                <label for="data_chegada">Data e Hora <code>(Partida)</code>:</label>
-                                <input type="text" class="form-control datapicker" name="partida" id="data_partida"  value="{{ date('Y-m-d H:i:s') }}" placeholder="Data Partida" required>
+                                <label for="litros">Litros <code>(Capacidade máxima)</code>:</label>
+                                <input type="number" class="form-control" name="litros" id="litros"  value="1" placeholder="Litros de combustível" required>
                                 </div>
 
                             <div class="col">
-                            <label for="data_chegada">Data e Hora <code>(Chegada)</code>:</label>
-                            <input type="text" class="form-control datapicker" name="data_chegada" id="data_chegada" min="{{ date('Y-m-d H:i:s') }}" placeholder="Data de chegada" required>
+                            <label for="foto_url">Carregar Imagem (<code>PNG, JPG</code>):</label>
+                            <input type="file" class="form-control" id="foto_url" name="foto_url" placeholder="Foto do veículo" required>
                             </div>
 
                             </div>

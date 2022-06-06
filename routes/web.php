@@ -176,7 +176,7 @@ Route::any('/search_bi', [ViagemController::class, 'bilhetes'])->name('search.bi
 //mostrar veiculos
 Route::get('/veiculos', [VeiculoController::class, 'index'])->name('dashboard.veiculos');
 //store
-Route::get('/store_veiculos', [VeiculoController::class, 'store'])->name('veiculos.store');
+Route::post('/store_veiculos', [VeiculoController::class, 'store'])->name('veiculos.store');
 
 //mostrar marcas
 Route::get('/marcas', [VeiculoController::class, 'marcas'])->name('dashboard.marcas');
