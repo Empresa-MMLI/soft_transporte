@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 03/06/2022 às 15:34
+-- Tempo de geração: 06/06/2022 às 17:10
 -- Versão do servidor: 10.4.24-MariaDB
 -- Versão do PHP: 7.4.28
 
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `bilhetes` (
   UNIQUE KEY `viagem_id` (`viagem_id`,`cliente_id`,`data_compra`),
   UNIQUE KEY `n_bilhete` (`n_bilhete`),
   KEY `cliente_id` (`cliente_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Despejando dados para a tabela `bilhetes`
@@ -96,7 +96,8 @@ INSERT INTO `bilhetes` (`id`, `n_bilhete`, `viagem_id`, `cliente_id`, `total_pas
 (89, '1234567LA091211sssss', 6, 5, 1, 'PD', NULL, b'1', '2022-05-29', '2022-05-31 11:13:32.0', '2022-05-31 13:36:50'),
 (90, '1234567LA0912123123SDFS', 6, 5, 1, 'PD', NULL, b'0', '2022-06-02', '2022-05-31 11:34:50.0', '2022-05-31 13:14:27'),
 (91, '1234567LA0912123123sdf', 5, 3, 2, 'PD', NULL, b'0', '2022-06-01', '2022-05-31 11:52:24.0', '2022-05-31 13:30:24'),
-(93, '1234567LA0912123123sdf888', 7, 5, 1, 'PD', NULL, b'1', '2022-06-01', '2022-05-31 12:02:56.0', '2022-05-31 13:35:05');
+(93, '1234567LA0912123123sdf888', 7, 5, 1, 'PD', NULL, b'1', '2022-06-01', '2022-05-31 12:02:56.0', '2022-05-31 13:35:05'),
+(94, NULL, 12, 5, 5, 'REF', NULL, b'0', '2022-06-06', '2022-06-06 09:13:16.0', '2022-06-06 09:13:16');
 
 -- --------------------------------------------------------
 
@@ -193,6 +194,7 @@ CREATE TABLE IF NOT EXISTS `bi_reservado_detalhes` (
 ,`data_chegada` timestamp
 ,`id_cliente` bigint(20)
 ,`cliente` varchar(255)
+,`email` varchar(172)
 ,`telefone` varchar(255)
 ,`tipo_doc` varchar(100)
 ,`n_doc` varchar(150)
@@ -298,14 +300,15 @@ CREATE TABLE IF NOT EXISTS `empresas` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `empresas`
 --
 
 INSERT INTO `empresas` (`id`, `nome`, `nif`, `telefone`, `email`, `endereco_sede`, `id_usuario`, `created_at`, `updated_at`) VALUES
-(1, 'MMLI', '123213123', '932843283', 'example@dominio.com', 'Luanda-Angola', 6, '2022-05-09 01:17:06', '2022-05-09 01:17:06');
+(1, 'MMLI-Soluções, Prestação de Serviços', '123213123', '932853283', 'josekinanga@mmlisolucoes.com', 'Luanda-Angola', 1, '2022-05-09 01:17:06', '2022-05-09 01:17:06'),
+(2, 'SLA - Agência de Turismo & Prestação de Serviços', '999999999', '932853283', 'mmligeral@mmlisolucoes.com', 'Luanda-Angola', 2, '2022-05-09 01:17:06', '2022-05-09 01:17:06');
 
 -- --------------------------------------------------------
 
@@ -325,6 +328,57 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `fluidos`
+--
+
+DROP TABLE IF EXISTS `fluidos`;
+CREATE TABLE IF NOT EXISTS `fluidos` (
+  `id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `fluido` varchar(30) NOT NULL DEFAULT 'Gasolina',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Despejando dados para a tabela `fluidos`
+--
+
+INSERT INTO `fluidos` (`id`, `fluido`, `created_at`, `updated_at`) VALUES
+(1, 'Gasolina', '2022-06-06 11:56:40', '2022-06-06 11:56:40'),
+(2, 'Gasóleo', '2022-06-06 11:56:40', '2022-06-06 11:56:40'),
+(3, 'Gás', '2022-06-06 11:58:33', '2022-06-06 11:58:33'),
+(4, 'Diesel', '2022-06-06 11:58:33', '2022-06-06 11:58:33'),
+(5, 'Híbrido', '2022-06-06 11:58:56', '2022-06-06 11:58:56'),
+(6, 'Eléctrico', '2022-06-06 11:58:56', '2022-06-06 11:58:56');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `foto_veiculos`
+--
+
+DROP TABLE IF EXISTS `foto_veiculos`;
+CREATE TABLE IF NOT EXISTS `foto_veiculos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `veiculo_id` bigint(20) NOT NULL,
+  `foto_url` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `veiculo_id` (`veiculo_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Despejando dados para a tabela `foto_veiculos`
+--
+
+INSERT INTO `foto_veiculos` (`id`, `veiculo_id`, `foto_url`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Veiculos/06-Jun-2022/sla_car_0606220150629e06119e384.png', '2022-06-06 12:50:09', '2022-06-06 12:50:09');
 
 -- --------------------------------------------------------
 
@@ -361,7 +415,7 @@ CREATE TABLE IF NOT EXISTS `marcas` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `marca` (`marca`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `marcas`
@@ -381,7 +435,8 @@ INSERT INTO `marcas` (`id`, `marca`, `created_at`, `updated_at`) VALUES
 (12, 'Mercedes-Benz', '2022-04-21 09:34:23', '2022-04-21 09:34:23'),
 (13, 'IVECO', '2022-04-21 09:34:41', '2022-04-21 09:34:41'),
 (14, 'DAF', '2022-04-21 09:35:56', '2022-04-21 09:35:56'),
-(15, 'VOLVO', '2022-04-21 09:36:10', '2022-04-21 09:36:10');
+(15, 'VOLVO', '2022-04-21 09:36:10', '2022-04-21 09:36:10'),
+(17, 'MITSUBISHI', '2022-06-06 07:07:29', '2022-06-06 07:07:29');
 
 -- --------------------------------------------------------
 
@@ -454,7 +509,7 @@ CREATE TABLE IF NOT EXISTS `modelos` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `modelo` (`modelo`),
   KEY `modelos_marca_id_foreign` (`marca_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `modelos`
@@ -508,7 +563,15 @@ INSERT INTO `modelos` (`id`, `modelo`, `marca_id`, `created_at`, `updated_at`) V
 (52, 'ATEGO 1719', 12, '2022-04-21 09:34:23', '2022-04-21 09:34:23'),
 (53, 'TECTOR 11-90', 13, '2022-04-21 09:34:41', '2022-04-21 09:34:41'),
 (54, 'XF105', 14, '2022-04-21 09:35:56', '2022-04-21 09:35:56'),
-(55, 'FH540', 15, '2022-04-21 09:36:10', '2022-04-21 09:36:10');
+(55, 'FH540', 15, '2022-04-21 09:36:10', '2022-04-21 09:36:10'),
+(57, 'L200', 17, '2022-06-06 07:08:20', '2022-06-06 07:08:20'),
+(58, 'PAJERO FULL', 17, '2022-06-06 07:09:19', '2022-06-06 07:09:19'),
+(59, 'PAJERO SPORT', 17, '2022-06-06 07:09:33', '2022-06-06 07:09:33'),
+(60, 'L200 OUTDOOR', 17, '2022-06-06 07:09:45', '2022-06-06 07:09:45'),
+(61, 'ECLIPSE CROSS', 17, '2022-06-06 07:09:58', '2022-06-06 07:09:58'),
+(62, 'OUTLANDER', 17, '2022-06-06 07:10:13', '2022-06-06 07:10:13'),
+(63, 'ASX', 17, '2022-06-06 07:10:41', '2022-06-06 07:10:41'),
+(64, 'PRADO', 1, '2022-06-06 07:11:59', '2022-06-06 07:11:59');
 
 -- --------------------------------------------------------
 
@@ -778,7 +841,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `id_tipo_user`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'MMLI - Team', 'mmligeral@mmlisolucoes.com', NULL, '$2y$10$./TF3NAFUCkpgqbaN22F9OtG67tvaHsWcQqYI204MvOSsQ7WSwJ9.', NULL, '2022-05-08 23:29:39', '2022-05-08 23:29:39'),
+(1, 1, 'MMLI Soluções & Prestação de Serviços', 'mmligeral@mmlisolucoes.com', NULL, '$2y$10$./TF3NAFUCkpgqbaN22F9OtG67tvaHsWcQqYI204MvOSsQ7WSwJ9.', NULL, '2022-05-08 23:29:39', '2022-05-08 23:29:39'),
+(2, 2, 'SLA - Agência de Turismo & Prestação de Serviços', 'mmligeral@mmlisolucoes.com', NULL, '$2y$10$./TF3NAFUCkpgqbaN22F9OtG67tvaHsWcQqYI204MvOSsQ7WSwJ9.', NULL, '2022-06-06 10:38:09', '2022-06-06 10:38:09'),
 (5, 3, 'Jorge Costa', 'geral@mmlisolucoes.com', NULL, '$2y$10$CSLoBvg/dJR4tyqs8yGEc.x72nj5iHZJOAicfLpUtJJjg963yrEL.', NULL, '2022-05-09 01:09:23', '2022-05-09 01:09:23'),
 (6, 2, 'MMLI', 'geral22@mmlisolucoes.com', NULL, '$2y$10$em/NVNCFG5KIBIyek.I7o.HjxlPZ/ZZ8zQ6BQY8HBo7lxymi89A3u', NULL, '2022-05-09 01:17:06', '2022-05-09 01:17:06'),
 (7, 3, 'Sia Pinto', 'sia@mmlisolucoes.com', NULL, '$2y$10$./TF3NAFUCkpgqbaN22F9OtG67tvaHsWcQqYI204MvOSsQ7WSwJ9.', NULL, '2022-05-19 08:09:53', '2022-05-24 09:01:55');
@@ -816,28 +880,30 @@ INSERT INTO `user_roles` (`id`, `tipo_usuario`, `created_at`, `updated_at`) VALU
 DROP TABLE IF EXISTS `veiculos`;
 CREATE TABLE IF NOT EXISTS `veiculos` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `matricula` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `capacidade` mediumint(9) NOT NULL,
   `marca_id` bigint(20) NOT NULL,
   `modelo_id` bigint(20) NOT NULL,
+  `n_assentos` int(11) NOT NULL,
+  `transmissao` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Automático',
+  `fluido` tinyint(4) NOT NULL,
+  `ano` int(4) DEFAULT NULL,
+  `km` int(11) NOT NULL DEFAULT 10,
+  `litros` tinyint(4) NOT NULL DEFAULT 3,
   `empresa_id` bigint(20) NOT NULL,
-  `url_foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `autocarros_matricula_unique` (`matricula`),
   KEY `autocarros_empresa_id_foreign` (`empresa_id`),
   KEY `autocarros_marca_id_foreign` (`marca_id`),
-  KEY `autocarros_modelo_id_foreign` (`modelo_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `autocarros_modelo_id_foreign` (`modelo_id`),
+  KEY `fluido` (`fluido`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `veiculos`
 --
 
-INSERT INTO `veiculos` (`id`, `matricula`, `capacidade`, `marca_id`, `modelo_id`, `empresa_id`, `url_foto`, `created_at`, `updated_at`) VALUES
-(1, 'LD-20-12-UI', 42, 1, 1, 1, NULL, NULL, NULL),
-(2, 'LD-12-12-HB', 30, 1, 1, 1, NULL, '2022-05-10 10:12:15', '2022-05-10 10:12:15');
+INSERT INTO `veiculos` (`id`, `marca_id`, `modelo_id`, `n_assentos`, `transmissao`, `fluido`, `ano`, `km`, `litros`, `empresa_id`, `created_at`, `updated_at`) VALUES
+(1, 10, 62, 4, 'Automático', 2, 2022, 1, 1, 1, '2022-06-06 12:50:09', '2022-06-06 12:50:09');
 
 -- --------------------------------------------------------
 
@@ -848,15 +914,15 @@ INSERT INTO `veiculos` (`id`, `matricula`, `capacidade`, `marca_id`, `modelo_id`
 DROP VIEW IF EXISTS `veiculo_detalhes`;
 CREATE TABLE IF NOT EXISTS `veiculo_detalhes` (
 `id` bigint(20)
-,`matricula` varchar(255)
-,`capacidade` mediumint(9)
+,`n_assentos` int(11)
 ,`marca_id` bigint(20)
 ,`marca` varchar(255)
 ,`modelo_id` bigint(20)
 ,`modelo` varchar(255)
-,`url_foto` varchar(255)
 ,`empresa_id` bigint(20)
-,`nome` varchar(255)
+,`nome_empresa` varchar(255)
+,`created_at` timestamp
+,`updated_at` timestamp
 );
 
 -- --------------------------------------------------------
@@ -877,10 +943,8 @@ CREATE TABLE IF NOT EXISTS `viagem_detalhes` (
 ,`total_passageiro` smallint(6)
 ,`ponto_e` varchar(150)
 ,`ponto_d` varchar(150)
-,`matricula` varchar(255)
-,`marca` varchar(255)
-,`modelo` varchar(255)
-,`capacidade` mediumint(9)
+,`ref_autocarro` varchar(30)
+,`capacidade` tinyint(4)
 ,`data_partida` timestamp
 ,`data_chegada` timestamp
 ,`tempo` time
@@ -903,7 +967,8 @@ CREATE TABLE IF NOT EXISTS `viagens` (
   `data_chegada` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `embarque_id` bigint(20) NOT NULL,
   `desembarque_id` bigint(20) NOT NULL,
-  `veiculo_id` bigint(20) NOT NULL,
+  `ref_autocarro` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT 'TCUL 2022',
+  `capacidade` tinyint(4) NOT NULL DEFAULT 55,
   `rota_id` bigint(20) NOT NULL,
   `classe_id` bigint(20) NOT NULL,
   `total_passageiro` smallint(6) NOT NULL DEFAULT 42,
@@ -913,24 +978,24 @@ CREATE TABLE IF NOT EXISTS `viagens` (
   PRIMARY KEY (`id`),
   KEY `viagens_embarque_id_foreign` (`embarque_id`),
   KEY `viagens_desembarque_id_foreign` (`desembarque_id`),
-  KEY `viagens_autocarro_id_foreign` (`veiculo_id`),
   KEY `viagens_rota_id_foreign` (`rota_id`),
   KEY `viagens_classe_id_foreign` (`classe_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `viagens`
 --
 
-INSERT INTO `viagens` (`id`, `itinerario`, `data_partida`, `data_chegada`, `embarque_id`, `desembarque_id`, `veiculo_id`, `rota_id`, `classe_id`, `total_passageiro`, `estado`, `created_at`, `updated_at`) VALUES
-(3, 'kikolo, cacuaco', '2022-05-29 09:41:30', '2022-05-30 10:00:00', 3, 4, 1, 2, 4, 30, b'1', '2022-05-10 04:20:43', '2022-05-16 08:41:30'),
-(5, 'Gabela, Negage, Cuando cubango', '2022-05-29 09:27:43', '2022-05-30 18:00:00', 12, 4, 1, 1, 4, 22, b'1', '2022-05-10 09:26:02', '2022-05-17 10:31:57'),
-(6, 'KIbabo, Shoprite', '2022-05-29 13:27:43', '2022-05-31 18:00:00', 5, 4, 2, 3, 2, 3, b'1', '2022-05-17 12:23:02', '2022-05-20 12:14:12'),
-(7, 'Cacuaco, Icolo e Bengo, Cabal, Caimbambo, Catumbela, Lobito', '2022-05-28 23:00:00', '2022-05-31 08:00:00', 3, 7, 2, 4, 2, 4, b'1', '2022-05-24 10:24:35', '2022-05-25 07:54:07'),
-(8, 'Cacuaco, Icolo e Bengo, Cabal, Caimbambo, Catumbela, Lobito', '2022-05-29 11:25:25', '2022-05-30 14:00:00', 12, 10, 1, 4, 4, 0, b'1', '2022-05-24 10:25:25', '2022-05-24 10:25:25'),
-(9, 'Ondjiva, Cuanhama, Bailundo, Tchicala, Catchiungo', '2022-05-29 11:31:40', '2022-05-31 17:31:00', 14, 17, 2, 5, 2, 1, b'1', '2022-05-24 10:31:40', '2022-05-26 13:34:08'),
-(10, 'Ondjiva, Cuanhama, Bailundo, Tchicala, Catchiungo', '2022-05-26 11:32:17', '2022-05-31 19:32:00', 15, 16, 2, 5, 1, 5, b'1', '2022-05-24 10:32:17', '2022-06-03 09:34:11'),
-(11, 'Ondjiva, Cuanhama, Bailundo, Tchicala, Catchiungo', '2022-05-29 11:33:07', '2022-05-30 04:00:00', 16, 18, 1, 5, 3, 0, b'1', '2022-05-24 10:33:07', '2022-05-24 10:33:07');
+INSERT INTO `viagens` (`id`, `itinerario`, `data_partida`, `data_chegada`, `embarque_id`, `desembarque_id`, `ref_autocarro`, `capacidade`, `rota_id`, `classe_id`, `total_passageiro`, `estado`, `created_at`, `updated_at`) VALUES
+(3, 'kikolo, cacuaco', '2022-05-29 09:41:30', '2022-05-30 10:00:00', 3, 4, 'TCUL 2022', 30, 2, 4, 30, b'1', '2022-05-10 04:20:43', '2022-05-16 08:41:30'),
+(5, 'Gabela, Negage, Cuando cubango', '2022-05-29 09:27:43', '2022-05-30 18:00:00', 12, 4, 'TCUL 2022', 30, 1, 4, 22, b'1', '2022-05-10 09:26:02', '2022-05-17 10:31:57'),
+(6, 'KIbabo, Shoprite', '2022-05-29 13:27:43', '2022-05-31 18:00:00', 5, 4, 'TCUL 2022', 30, 3, 2, 3, b'1', '2022-05-17 12:23:02', '2022-05-20 12:14:12'),
+(7, 'Cacuaco, Icolo e Bengo, Cabal, Caimbambo, Catumbela, Lobito', '2022-05-28 23:00:00', '2022-05-31 08:00:00', 3, 7, 'TCUL 2022', 30, 4, 2, 4, b'1', '2022-05-24 10:24:35', '2022-05-25 07:54:07'),
+(8, 'Cacuaco, Icolo e Bengo, Cabal, Caimbambo, Catumbela, Lobito', '2022-05-29 11:25:25', '2022-05-30 14:00:00', 12, 10, 'TCUL 2022', 30, 4, 4, 0, b'1', '2022-05-24 10:25:25', '2022-05-24 10:25:25'),
+(9, 'Ondjiva, Cuanhama, Bailundo, Tchicala, Catchiungo', '2022-05-29 11:31:40', '2022-05-31 17:31:00', 14, 17, 'TCUL 2022', 30, 5, 2, 1, b'1', '2022-05-24 10:31:40', '2022-05-26 13:34:08'),
+(10, 'Ondjiva, Cuanhama, Bailundo, Tchicala, Catchiungo', '2022-05-26 11:32:17', '2022-05-31 19:32:00', 15, 16, 'TCUL 2022', 30, 5, 1, 5, b'1', '2022-05-24 10:32:17', '2022-06-03 09:34:11'),
+(11, 'Ondjiva, Cuanhama, Bailundo, Tchicala, Catchiungo', '2022-05-29 11:33:07', '2022-05-30 04:00:00', 16, 18, 'TCUL 2022', 30, 5, 3, 0, b'1', '2022-05-24 10:33:07', '2022-05-24 10:33:07'),
+(12, 'Viana, Gamek', '2022-06-06 10:11:37', '2022-06-06 14:00:00', 3, 4, 'TCUL 56', 30, 1, 4, 5, b'1', '2022-06-06 09:11:37', '2022-06-06 09:13:23');
 
 -- --------------------------------------------------------
 
@@ -950,7 +1015,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `bi_reservado_detalhes`;
 
 DROP VIEW IF EXISTS `bi_reservado_detalhes`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bi_reservado_detalhes`  AS SELECT `bilhete`.`id` AS `id`, `bilhete`.`total_passageiro` AS `total_passageiro`, `bilhete`.`forma_pagto` AS `forma_pagto`, `bilhete`.`estado` AS `estado`, `bilhete`.`data_compra` AS `data_compra`, `viagem`.`id` AS `id_viagem`, `viagem`.`rota_origem` AS `rota_origem`, `viagem`.`rota_destino` AS `rota_destino`, `viagem`.`ponto_e` AS `ponto_e`, `viagem`.`ponto_d` AS `ponto_d`, `viagem`.`kilometros` AS `kilometros`, `viagem`.`preco` AS `preco`, `viagem`.`classe` AS `classe`, `viagem`.`data_partida` AS `data_partida`, `viagem`.`data_chegada` AS `data_chegada`, `cliente`.`id` AS `id_cliente`, `cliente`.`nome` AS `cliente`, `cliente`.`telefone` AS `telefone`, `cliente`.`tipo_doc` AS `tipo_doc`, `cliente`.`n_doc` AS `n_doc`, `cliente`.`id_usuario` AS `id_usuario`, `bilhete`.`created_at` AS `created_at`, `bilhete`.`updated_at` AS `updated_at` FROM ((`bi_reservados` `bilhete` join `viagem_detalhes` `viagem` on(`bilhete`.`viagem_id` = `viagem`.`id`)) join `clientes` `cliente` on(`bilhete`.`cliente_id` = `cliente`.`id`))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bi_reservado_detalhes`  AS SELECT `bilhete`.`id` AS `id`, `bilhete`.`total_passageiro` AS `total_passageiro`, `bilhete`.`forma_pagto` AS `forma_pagto`, `bilhete`.`estado` AS `estado`, `bilhete`.`data_compra` AS `data_compra`, `viagem`.`id` AS `id_viagem`, `viagem`.`rota_origem` AS `rota_origem`, `viagem`.`rota_destino` AS `rota_destino`, `viagem`.`ponto_e` AS `ponto_e`, `viagem`.`ponto_d` AS `ponto_d`, `viagem`.`kilometros` AS `kilometros`, `viagem`.`preco` AS `preco`, `viagem`.`classe` AS `classe`, `viagem`.`data_partida` AS `data_partida`, `viagem`.`data_chegada` AS `data_chegada`, `cliente`.`id` AS `id_cliente`, `cliente`.`nome` AS `cliente`, `cliente`.`email` AS `email`, `cliente`.`telefone` AS `telefone`, `cliente`.`tipo_doc` AS `tipo_doc`, `cliente`.`n_doc` AS `n_doc`, `cliente`.`id_usuario` AS `id_usuario`, `bilhete`.`created_at` AS `created_at`, `bilhete`.`updated_at` AS `updated_at` FROM ((`bi_reservados` `bilhete` join `viagem_detalhes` `viagem` on(`bilhete`.`viagem_id` = `viagem`.`id`)) join `clientes` `cliente` on(`bilhete`.`cliente_id` = `cliente`.`id`))  ;
 
 -- --------------------------------------------------------
 
@@ -980,7 +1045,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `veiculo_detalhes`;
 
 DROP VIEW IF EXISTS `veiculo_detalhes`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `veiculo_detalhes`  AS SELECT `frota`.`id` AS `id`, `frota`.`matricula` AS `matricula`, `frota`.`capacidade` AS `capacidade`, `frota`.`marca_id` AS `marca_id`, `marca`.`marca` AS `marca`, `frota`.`modelo_id` AS `modelo_id`, `marca`.`modelo` AS `modelo`, `frota`.`url_foto` AS `url_foto`, `frota`.`empresa_id` AS `empresa_id`, `empresa`.`nome` AS `nome` FROM ((`veiculos` `frota` join `marca_modelos` `marca` on(`frota`.`marca_id` = `marca`.`marca_id` and `frota`.`marca_id` = `marca`.`modelo_id`)) join `empresas` `empresa` on(`frota`.`empresa_id` = `empresa`.`id`))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `veiculo_detalhes`  AS SELECT `frota`.`id` AS `id`, `frota`.`n_assentos` AS `n_assentos`, `frota`.`marca_id` AS `marca_id`, `marca`.`marca` AS `marca`, `frota`.`modelo_id` AS `modelo_id`, `marca`.`modelo` AS `modelo`, `frota`.`empresa_id` AS `empresa_id`, `empresa`.`nome` AS `nome_empresa`, `frota`.`created_at` AS `created_at`, `frota`.`updated_at` AS `updated_at` FROM ((`veiculos` `frota` join `marca_modelos` `marca` on(`frota`.`marca_id` = `marca`.`marca_id` and `frota`.`marca_id` = `marca`.`modelo_id`)) join `empresas` `empresa` on(`frota`.`empresa_id` = `empresa`.`id`))  ;
 
 -- --------------------------------------------------------
 
@@ -990,7 +1055,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `viagem_detalhes`;
 
 DROP VIEW IF EXISTS `viagem_detalhes`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `viagem_detalhes`  AS SELECT `viagem`.`id` AS `id`, `rota`.`origem` AS `rota_origem`, `rota`.`destino` AS `rota_destino`, `rota`.`kilometros` AS `kilometros`, `rota`.`preco` AS `preco`, `viagem`.`itinerario` AS `itinerario`, `classes`.`classe` AS `classe`, `viagem`.`total_passageiro` AS `total_passageiro`, `pontos_e`.`ponto` AS `ponto_e`, `pontos_d`.`ponto` AS `ponto_d`, `veiculo`.`matricula` AS `matricula`, `veiculo`.`marca` AS `marca`, `veiculo`.`modelo` AS `modelo`, `veiculo`.`capacidade` AS `capacidade`, `viagem`.`data_partida` AS `data_partida`, `viagem`.`data_chegada` AS `data_chegada`, timediff(`viagem`.`data_chegada`,`viagem`.`data_partida`) AS `tempo`, `viagem`.`estado` AS `estado`, `viagem`.`created_at` AS `created_at`, `viagem`.`updated_at` AS `updated_at` FROM (((((`viagens` `viagem` join `pontos_detalhes` `pontos_e` on(`viagem`.`embarque_id` = `pontos_e`.`id`)) join `pontos_detalhes` `pontos_d` on(`viagem`.`desembarque_id` = `pontos_d`.`id`)) join `veiculo_detalhes` `veiculo` on(`viagem`.`veiculo_id` = `veiculo`.`id`)) join `rotas` `rota` on(`rota`.`id` = `viagem`.`rota_id`)) join `classes` on(`viagem`.`classe_id` = `classes`.`id`))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `viagem_detalhes`  AS SELECT `viagem`.`id` AS `id`, `rota`.`origem` AS `rota_origem`, `rota`.`destino` AS `rota_destino`, `rota`.`kilometros` AS `kilometros`, `rota`.`preco` AS `preco`, `viagem`.`itinerario` AS `itinerario`, `classes`.`classe` AS `classe`, `viagem`.`total_passageiro` AS `total_passageiro`, `pontos_e`.`ponto` AS `ponto_e`, `pontos_d`.`ponto` AS `ponto_d`, `viagem`.`ref_autocarro` AS `ref_autocarro`, `viagem`.`capacidade` AS `capacidade`, `viagem`.`data_partida` AS `data_partida`, `viagem`.`data_chegada` AS `data_chegada`, timediff(`viagem`.`data_chegada`,`viagem`.`data_partida`) AS `tempo`, `viagem`.`estado` AS `estado`, `viagem`.`created_at` AS `created_at`, `viagem`.`updated_at` AS `updated_at` FROM ((((`viagens` `viagem` join `pontos_detalhes` `pontos_e` on(`viagem`.`embarque_id` = `pontos_e`.`id`)) join `pontos_detalhes` `pontos_d` on(`viagem`.`desembarque_id` = `pontos_d`.`id`)) join `rotas` `rota` on(`rota`.`id` = `viagem`.`rota_id`)) join `classes` on(`viagem`.`classe_id` = `classes`.`id`))  ;
 
 --
 -- Restrições para tabelas despejadas
@@ -1033,6 +1098,12 @@ ALTER TABLE `clientes`
 --
 ALTER TABLE `empresas`
   ADD CONSTRAINT `empresas_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id`);
+
+--
+-- Restrições para tabelas `foto_veiculos`
+--
+ALTER TABLE `foto_veiculos`
+  ADD CONSTRAINT `foto_veiculos_ibfk_1` FOREIGN KEY (`veiculo_id`) REFERENCES `veiculos` (`id`);
 
 --
 -- Restrições para tabelas `funcionarios`
@@ -1089,13 +1160,13 @@ ALTER TABLE `users`
 ALTER TABLE `veiculos`
   ADD CONSTRAINT `autocarros_empresa_id_foreign` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`),
   ADD CONSTRAINT `autocarros_marca_id_foreign` FOREIGN KEY (`marca_id`) REFERENCES `marcas` (`id`),
-  ADD CONSTRAINT `autocarros_modelo_id_foreign` FOREIGN KEY (`modelo_id`) REFERENCES `modelos` (`id`);
+  ADD CONSTRAINT `autocarros_modelo_id_foreign` FOREIGN KEY (`modelo_id`) REFERENCES `modelos` (`id`),
+  ADD CONSTRAINT `veiculos_ibfk_1` FOREIGN KEY (`fluido`) REFERENCES `fluidos` (`id`);
 
 --
 -- Restrições para tabelas `viagens`
 --
 ALTER TABLE `viagens`
-  ADD CONSTRAINT `viagens_autocarro_id_foreign` FOREIGN KEY (`veiculo_id`) REFERENCES `veiculos` (`id`),
   ADD CONSTRAINT `viagens_classe_id_foreign` FOREIGN KEY (`classe_id`) REFERENCES `classes` (`id`),
   ADD CONSTRAINT `viagens_desembarque_id_foreign` FOREIGN KEY (`desembarque_id`) REFERENCES `pontos_e_d` (`id`),
   ADD CONSTRAINT `viagens_embarque_id_foreign` FOREIGN KEY (`embarque_id`) REFERENCES `pontos_e_d` (`id`),

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Empresa;
 use App\Models\Veiculo;
+use App\Models\VeiculoDetalhes;
 use App\Models\FotoVeiculo;
 use App\Models\Marca;
 use App\Models\Modelo;
@@ -20,7 +21,7 @@ class VeiculoController extends Controller
     |--------------------------------------------------------------------------
     */
     public function index(){
-        $veiculos = Veiculo::latest()->get();
+        $veiculos = VeiculoDetalhes::latest()->get();
         $empresas = Empresa::latest()->get();
         $marcas = Marca::orderBy('marca')->get();
         $modelos = Modelo::orderBy('modelo')->get();
@@ -38,7 +39,7 @@ class VeiculoController extends Controller
             $register->n_assentos = $request->capacidade;
             $register->transmissao = (isset($request->transmissao) && $request->transmissao == 1)? 'Automático':'Manual';
             $register->fluido = $request->fluido;
-            $register->kilometragem = $request->km;
+            $register->km = $request->km;
             $register->litros = $request->litros;
             $register->ano = $request->ano_lancamento;
             $register->empresa_id = $request->operadora;

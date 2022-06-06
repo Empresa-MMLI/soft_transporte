@@ -102,7 +102,7 @@
                                 </datalist>
                             </div>
                             <div class="col">
-                                <label for="operadora">Operadora <code>(Titular do Veículo)</code>:</label>
+                                <label for="operadora">Operadora <code>(Proprietário do Veículo)</code>:</label>
                                 <select  class="form-control custom-select text-uppercase" name="operadora" id="operadora" aria-describedby="addon-wrapping" required>
                                 @if(isset($empresas[0]->id))
                                 <option value="" selected disabled>Selecionar...</option>
@@ -136,7 +136,48 @@
 </div>
 <div class="tab-pane" id="veiculos" role="tabpanel" aria-labelledby="veiculos-tab">
 <h2 class="my-4"><i class="fa fa-list text-muted"></i> Lista de Veículos</h2>
-
+<div class="container">
+                               <table id="dataTables" class="display nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Veículo</th>
+                <th>Proprietário</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Nº Assentos</th>
+                <th>Transmissão</th>
+                <th>Combustível</th>
+                <th>Kilometragem (Km)</th>
+                <th>Litros (L)</th>
+                <th>Ano</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(isset($veiculos[0]->id))
+            @foreach($veiculos as $item)
+            <tr>
+                <td>{{ $item->id }}</td>
+                <td>{{ $item->nome_empresa }}</td>
+                <td>{{ $item->marca }} {{ $item->modelo }}</td>
+                <td>{{ $item->marca }}</td>
+                <td>{{ $item->modelo }}</td>
+                <td>{{ $item->n_assentos }}</td>
+                <td>{{ $item->transmissao }}</td>
+                <td>{{ $item->combustivel }}</td>
+                <td>{{ $item->km }}</td>
+                <td>{{ $item->litros }}</td>
+                <td class="text-left">
+		        <a href="" class="btn btn-success btn-sm mb-1" data-toggle="tooltip" data-placement="left" title="Editar Veículo"><i class="fa fa-edit" ></i></a>
+                <a href="" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes excluir Veículo?');" data-toggle="tooltip" data-placement="right" title="Excluir Veículo..."><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+            @endforeach
+            @endif
+        </tbody>
+        </table>
+                               <!-- fim tabela de provincias --> 
+                            </div>
 </div>
 </div>
                             </div>
