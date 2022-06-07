@@ -146,6 +146,26 @@ $(this).css('display','nones');
     });
 
   });
+
+   //buscar_modelos
+   $('#id_marca').change(function(){
+    //processando a info
+    $('#modal_carregamento').modal('show');
+    $id_marca = $(this).val();
+    $url = $('#url_modelos').attr('href');
+    $('#id_modelo').empty();
+    $.get($url,{'id_marca':$id_marca}, function(response){
+        $(response.dados).each(function(index, item){
+        $options = '<option value="'+item.id+'">'+item.modelo+'</option>';
+        $('#id_modelo').append($options);
+        });
+    });
+
+    setTimeout(function(){
+        $('#modal_carregamento').modal('hide'); 
+          },1000);
+});
+
 });
 
 function myFunction() {

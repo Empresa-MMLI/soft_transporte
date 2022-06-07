@@ -7,6 +7,7 @@ use App\Models\Empresa;
 use App\Models\Veiculo;
 use App\Models\VeiculoDetalhes;
 use App\Models\FotoVeiculo;
+use App\Models\FotoVeiculoDetalhes;
 use App\Models\Marca;
 use App\Models\Modelo;
 use App\Models\Fluido;
@@ -22,11 +23,20 @@ class VeiculoController extends Controller
     */
     public function index(){
         $veiculos = VeiculoDetalhes::latest()->get();
+        $foto_veiculos = FotoVeiculoDetalhes::latest()->get();
         $empresas = Empresa::latest()->get();
         $marcas = Marca::orderBy('marca')->get();
         $modelos = Modelo::orderBy('modelo')->get();
         $fluidos = FLuido::orderBy('fluido')->get();
-        return view('dashboard.veiculos', ['empresas'=>$empresas,'veiculos'=>$veiculos,'marcas'=>$marcas,'modelos'=>$modelos,'fluidos'=>$fluidos]);
+        return view('dashboard.veiculos', ['empresas'=>$empresas,'veiculos'=>$veiculos,'marcas'=>$marcas,'modelos'=>$modelos,'fluidos'=>$fluidos,'foto_veiculos'=>$foto_veiculos]);
+    }
+    //area de aluguer de veiculos
+    public function aluguer_veiculos(){
+        $veiculos = VeiculoDetalhes::latest()->get();
+        $foto_veiculos = FotoVeiculoDetalhes::latest()->get();
+        $marcas = MarcaDetalhes::orderBy('marca')->get();
+        $fluidos = FLuido::orderBy('fluido')->get();
+        return view('aluguer_search', ['veiculos'=>$veiculos,'foto_veiculos'=>$foto_veiculos,'marcas'=>$marcas,'fluidos'=>$fluidos]);
     }
     //store
     public function store(Request $request){
@@ -38,7 +48,7 @@ class VeiculoController extends Controller
             $register->modelo_id = $request->id_modelo;
             $register->n_assentos = $request->capacidade;
             $register->transmissao = (isset($request->transmissao) && $request->transmissao == 1)? 'Automático':'Manual';
-            $register->fluido = $request->fluido;
+            $register->fluido_id = $request->fluido;
             $register->km = $request->km;
             $register->litros = $request->litros;
             $register->ano = $request->ano_lancamento;
@@ -54,10 +64,16 @@ class VeiculoController extends Controller
             if(isset($upload) && $upload['estado'] == 1){
                 $imagem = new FotoVeiculo;
                 $imagem->veiculo_id = $veiculo->id;
+                $imagem->tem_foto = 1;
                 $imagem->foto_url  = $upload['url_file'];
                 $imagem->save();
             }else{
-                return redirect()->back()->with(['estado'=>0,'warning'=>"O formato do ficheiro anexado é inválido, suportamos apenas JPG, PNG e PDF"]);
+                $imagem = new FotoVeiculo;
+                $imagem->veiculo_id = $veiculo->id;
+                $imagem->tem_foto = 0;
+             //   $imagem->foto_url  = $upload['url_file'];
+                $imagem->save();
+                //return redirect()->back()->with(['estado'=>0,'warning'=>"Veículo foi cadastrado, mas sem Imagem porque O Formato/Tamanho do ficheiro anexado é inválido, suportamos apenas JPG e PNG no máximo de 2Mb"]);
             }
     
             if(isset($register)){
@@ -106,6 +122,13 @@ public function modelos(){
     $marcas = Marca::orderBy('marca','asc')->get();
     $modelos = MarcaDetalhes::orderBy('marca','asc')->get();
     return view('dashboard.modelos', ['marcas'=>$marcas,'modelos'=>$modelos]);
+}
+//pesquisar ou buscar veiculo modelos
+public function url_modelos(Request $request)
+{
+    $id = $request->id_marca;
+    $modelos = Modelo::where('marca_id',$id)->get();
+    return response()->json(['dados'=>$modelos]);
 }
 //store marca
 public function store_modelo(Request $request){

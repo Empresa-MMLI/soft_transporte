@@ -18,8 +18,12 @@
 
 *{margin:0;padding: 0;}  
 /*Config do logo*/
-.logo_ {
+.logo_, img.foto_veiculo {
     width: 80%;
+}
+a img.foto_veiculo:hover{
+    transform: translateY(-10px);
+    transition:0.5s;
 }
 
 .img-box {

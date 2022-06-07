@@ -32,15 +32,12 @@ Route::get('/search', function (Request $request) {
     if($request->mySearch == "Comprar Bilhetes")
     return redirect()->route('compra.bilhetes');
     else if($request->mySearch == "Alugar Carro")
-    return view('aluguer_search');
+    //return view('aluguer_search');
+    return redirect()->route('aluguer.veiculos');
     else if($request->mySearch == "Comprar B.I e Aluguel Carro")
     return view('bi_search');
 
 })->name('search.res');
-
-Route::get('/aluguer', function () {
-    return view('aluguer_search');
-})->name('aluguer.carro');
 
 Route::get('/planos', function () {
     return view('planos');
@@ -164,6 +161,9 @@ Route::any('/send_sms', [ViagemController::class, 'send_sms_cliente'])->name('bi
 
 //buscar bilhetes de viagens
 Route::any('/compras_bi', [ViagemController::class, 'comprar_bilhetes'])->name('compra.bilhetes');
+
+//buscar veiculos
+Route::any('/veiculos_search', [VeiculoController::class, 'aluguer_veiculos'])->name('aluguer.veiculos');
 //resultado busca bilhetes de viagens
 Route::any('/search_bi', [ViagemController::class, 'bilhetes'])->name('search.bilhetes');
 
@@ -183,6 +183,8 @@ Route::get('/marcas', [VeiculoController::class, 'marcas'])->name('dashboard.mar
 //new marcas
 Route::post('/store_marca', [VeiculoController::class, 'store_marca'])->name('marca.store');
 
+//mostrar modelos
+Route::get('/url_modelos', [VeiculoController::class, 'url_modelos'])->name('veiculo.modelos');
 //mostrar modelos
 Route::get('/modelos', [VeiculoController::class, 'modelos'])->name('dashboard.modelos');
 //new modelo

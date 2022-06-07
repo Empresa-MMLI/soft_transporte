@@ -318,7 +318,7 @@
           <div class="col-sm-12">
               <h5>Nome completo: <span id="cliente" class="text-muted"></span> </h5>
               <h5>Nº Documento: <span id="bi_cliente" class="text-muted"></span> </h5>
-              <h5>Endereço electrónico(E-mail): <span id="email_cliente" class="text-muted"></span></h5>
+              <h5>E-mail: <span id="email_cliente" class="text-muted"></span></h5>
               <h5>Telefone: <span id="telef_cliente" class="text-muted"></span> </h5>
           </div>
         </div>

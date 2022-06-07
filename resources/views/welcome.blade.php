@@ -62,7 +62,7 @@
   <a class="nav-links" href="{{ route('pontos') }}"> Pontos de Venda e Embarque</a>
   </li>
   <li class="list-inline-item">
-  <a class="nav-links" href="{{ route('aluguer.carro') }}"> Aluguer de Carro</a>
+  <a class="nav-links" href="{{ route('aluguer.veiculos') }}"> Aluguer de Carro</a>
   </li>
   <li class="list-inline-item">
   <a class="nav-links" href="{{ route('planos') }}"> Planos e Preçários</a>

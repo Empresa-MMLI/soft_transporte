@@ -312,6 +312,20 @@
 		</div>
 	</div>
 
+	<!-- modal operacao-->
+<div class="modal fade" id="modal_carregamento" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+    <button class="btn btn-padrao" type="button" disabled>
+  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+  Buscando resultados...
+</button>
+    </div>
+  </div>
+</div>
+<!-- fim do modal operacao-->
+
+
 	<!--<script src="{{ url('assets/js/jquery.min.js') }}" ></script>-->
 	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
