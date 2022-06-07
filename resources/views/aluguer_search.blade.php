@@ -102,7 +102,6 @@
 <div class="col-12 col-xl-9 order-xl-2 mb-4" id="veiculos">
 					<div class="row row--grid">
 						<!-- car -->
-						@php $tem_imagem = 0; @endphp
             @if(isset($veiculos[0]->id))
             @foreach($veiculos as $item)
             			<div class="col-sm-12 col-md-6 col-lg-6">
@@ -118,13 +117,11 @@
 											<li class="splide__slide">
 											@if(isset($foto_veiculos[0]->veiculo_id))
                     @foreach($foto_veiculos as $foto)
-                    @if($foto->veiculo_id == $item->id)
+					@if($foto->veiculo_id == $item->id && $foto->tem_foto)
                     <a href="#" foto_veiculo="{{ asset('storage/'.$foto->foto_url) }}" foto_nome="{{ $item->marca.' '.$item->modelo }}"  onclick="event.preventDefault(); $('#foto_veiculo').attr('src', $(this).attr('foto_veiculo')); $('#foto_detalhes').text($(this).attr('foto_nome')); $('#modalImagem').modal('show'); " > <img src="{{ asset('storage/'.$foto->foto_url) }}" alt="Imagem{{ $foto->veiculo_id }}"  class="foto_veiculo"></a>
-                    @php $tem_imagem = 1; @endphp
                     @else
-                    @if(isset($tem_imagem) && $tem_imagem == 0)
-                    <img src="{{ asset('assets/resources/sem_foto.jpg') }}" alt="Imagem00" class="foto_veiculo">
-                    @php echo $tem_imagem = 0; @endphp
+                    @if($foto->veiculo_id == $item->id && $foto->tem_foto == 0)
+                    <span><img src="{{ asset('assets/'.$foto->foto_url) }}" alt="Imagem00" class="foto_veiculo"></span>
                     @endif
                      @endif
                     @endforeach
@@ -134,7 +131,7 @@
 									</div>
 								</div>
 								<div class="car__title">
-									<h5 class="car__name"><a href="#" class="p-0 m-0" data-toggle="tooltip" data-placement="top" title="Informações do Proprietário do Veículo..."  titular="{{ $item->nome_empresa }}" nif_empresa="{{ $item->nif_empresa }}" telef_empresa="{{ $item->telef_empresa }}" email_empresa="{{ $item->email_empresa }}" onclick="event.preventDefault(); $('#titular').text($(this).attr('titular')); $('#nif_empresa').text($(this).attr('nif_empresa')); $('#telef_empresa').text($(this).attr('telef_empresa')); $('#email_empresa').text($(this).attr('email_empresa')); $('#modalEmpresa').modal('show');"><i class="fa fa-sm fa-info-circle"></i> {{ $item->marca.' '.$item->modelo }} </a></h5>
+									<h5 class="car__name"><a href="#" class="p-0 m-0" data-toggle="tooltip" data-placement="top" title="Informações do Proprietário do Veículo..."  titular="{{ $item->nome_empresa }}" nif_empresa="{{ $item->nif_empresa }}" telef_empresa="{{ $item->telef_empresa }}" email_empresa="{{ $item->email_empresa }}" onclick="event.preventDefault(); $('#titular').text($(this).attr('titular')); $('#nif_empresa').text($(this).attr('nif_empresa')); $('#telef_empresa').text($(this).attr('telef_empresa')); $('#email_empresa').text($(this).attr('email_empresa')); $('#modalEmpresa').modal('show');"><small><i class="fa fa-sm fa-info-circle"></i></small> {{ $item->marca.' '.$item->modelo }} </a></h5>
 									<span class="car__year">{{ $item->ano }}</span>
 								</div>
 								<ul class="car__list">
@@ -194,10 +191,10 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-sm-12">
-              <h5>Nome completo: <span id="titular" class="text-muted"></span> </h5>
-              <h5>Nº de Contribuinte: <span id="nif_empresa" class="text-muted"></span> </h5>
-              <h5>E-mail: <span id="email_empresa" class="text-muted"></span></h5>
-              <h5>Telefone: <span id="telef_empresa" class="text-muted"></span> </h5>
+              <h6>Nome completo: <span id="titular" class="text-muted"></span> </h6>
+              <h6>Nº de Contribuinte: <span id="nif_empresa" class="text-muted"></span> </h6>
+              <h6>E-mail: <span id="email_empresa" class="text-muted"></span></h6>
+              <h6>Telefone: <span id="telef_empresa" class="text-muted"></span> </h6>
           </div>
         </div>
       </div>

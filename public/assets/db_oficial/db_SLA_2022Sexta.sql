@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 06/06/2022 às 17:10
+-- Tempo de geração: 07/06/2022 às 17:35
 -- Versão do servidor: 10.4.24-MariaDB
 -- Versão do PHP: 7.4.28
 
@@ -30,8 +30,8 @@ USE `db_sla_mmli`;
 --
 
 DROP TABLE IF EXISTS `aluguer`;
-CREATE TABLE IF NOT EXISTS `aluguer` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `aluguer` (
+  `id` bigint(20) NOT NULL,
   `pedido_id` bigint(20) NOT NULL,
   `preco` decimal(10,2) NOT NULL,
   `qtd_carros` int(11) NOT NULL,
@@ -39,9 +39,7 @@ CREATE TABLE IF NOT EXISTS `aluguer` (
   `data_prev_devolucao` date NOT NULL,
   `data_devolucao` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `aluguer_pedido_id_foreign` (`pedido_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -51,8 +49,8 @@ CREATE TABLE IF NOT EXISTS `aluguer` (
 --
 
 DROP TABLE IF EXISTS `bilhetes`;
-CREATE TABLE IF NOT EXISTS `bilhetes` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `bilhetes` (
+  `id` bigint(20) NOT NULL,
   `n_bilhete` varchar(172) DEFAULT NULL,
   `viagem_id` bigint(20) NOT NULL,
   `cliente_id` bigint(20) NOT NULL,
@@ -62,12 +60,8 @@ CREATE TABLE IF NOT EXISTS `bilhetes` (
   `estado` bit(1) NOT NULL DEFAULT b'0',
   `data_compra` date NOT NULL,
   `created_at` timestamp(1) NOT NULL DEFAULT current_timestamp(1),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `viagem_id` (`viagem_id`,`cliente_id`,`data_compra`),
-  UNIQUE KEY `n_bilhete` (`n_bilhete`),
-  KEY `cliente_id` (`cliente_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4;
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Despejando dados para a tabela `bilhetes`
@@ -106,7 +100,7 @@ INSERT INTO `bilhetes` (`id`, `n_bilhete`, `viagem_id`, `cliente_id`, `total_pas
 -- (Veja abaixo para a visão atual)
 --
 DROP VIEW IF EXISTS `bilhete_detalhes`;
-CREATE TABLE IF NOT EXISTS `bilhete_detalhes` (
+CREATE TABLE `bilhete_detalhes` (
 `id` bigint(20)
 ,`n_bilhete` varchar(172)
 ,`total_passageiro` tinyint(4)
@@ -142,8 +136,8 @@ CREATE TABLE IF NOT EXISTS `bilhete_detalhes` (
 --
 
 DROP TABLE IF EXISTS `bi_reservados`;
-CREATE TABLE IF NOT EXISTS `bi_reservados` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `bi_reservados` (
+  `id` bigint(20) NOT NULL,
   `viagem_id` bigint(20) NOT NULL,
   `cliente_id` bigint(20) NOT NULL,
   `total_passageiro` tinyint(4) NOT NULL,
@@ -151,11 +145,8 @@ CREATE TABLE IF NOT EXISTS `bi_reservados` (
   `estado` bit(1) NOT NULL DEFAULT b'0',
   `data_compra` date NOT NULL,
   `created_at` timestamp(1) NOT NULL DEFAULT current_timestamp(1),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `viagem_id` (`viagem_id`,`cliente_id`,`data_compra`),
-  KEY `cliente_id` (`cliente_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Despejando dados para a tabela `bi_reservados`
@@ -176,7 +167,7 @@ INSERT INTO `bi_reservados` (`id`, `viagem_id`, `cliente_id`, `total_passageiro`
 -- (Veja abaixo para a visão atual)
 --
 DROP VIEW IF EXISTS `bi_reservado_detalhes`;
-CREATE TABLE IF NOT EXISTS `bi_reservado_detalhes` (
+CREATE TABLE `bi_reservado_detalhes` (
 `id` bigint(20)
 ,`total_passageiro` tinyint(4)
 ,`forma_pagto` varchar(30)
@@ -210,17 +201,13 @@ CREATE TABLE IF NOT EXISTS `bi_reservado_detalhes` (
 --
 
 DROP TABLE IF EXISTS `carros_alugados`;
-CREATE TABLE IF NOT EXISTS `carros_alugados` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `carros_alugados` (
+  `id` bigint(20) NOT NULL,
   `matricula` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `veiculos_id` bigint(20) NOT NULL,
   `aluguer_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `carros_alugados_matricula_unique` (`matricula`),
-  KEY `carros_alugados_veiculos_id_foreign` (`veiculos_id`),
-  KEY `carros_alugados_aluguer_id_foreign` (`aluguer_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -230,14 +217,12 @@ CREATE TABLE IF NOT EXISTS `carros_alugados` (
 --
 
 DROP TABLE IF EXISTS `classes`;
-CREATE TABLE IF NOT EXISTS `classes` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `classes` (
+  `id` bigint(20) NOT NULL,
   `classe` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `classe` (`classe`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `classes`
@@ -256,8 +241,8 @@ INSERT INTO `classes` (`id`, `classe`, `created_at`, `updated_at`) VALUES
 --
 
 DROP TABLE IF EXISTS `clientes`;
-CREATE TABLE IF NOT EXISTS `clientes` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `clientes` (
+  `id` bigint(20) NOT NULL,
   `nome` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(172) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'example@mmlisolucoes.com',
   `telefone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -265,11 +250,8 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `n_doc` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_usuario` bigint(20) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `tipo_doc` (`tipo_doc`,`n_doc`),
-  KEY `id_usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `clientes`
@@ -288,8 +270,8 @@ INSERT INTO `clientes` (`id`, `nome`, `email`, `telefone`, `tipo_doc`, `n_doc`, 
 --
 
 DROP TABLE IF EXISTS `empresas`;
-CREATE TABLE IF NOT EXISTS `empresas` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `empresas` (
+  `id` bigint(20) NOT NULL,
   `nome` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nif` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `telefone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -297,10 +279,8 @@ CREATE TABLE IF NOT EXISTS `empresas` (
   `endereco_sede` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_usuario` bigint(20) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `empresas`
@@ -317,16 +297,14 @@ INSERT INTO `empresas` (`id`, `nome`, `nif`, `telefone`, `email`, `endereco_sede
 --
 
 DROP TABLE IF EXISTS `failed_jobs`;
-CREATE TABLE IF NOT EXISTS `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -336,13 +314,12 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
 --
 
 DROP TABLE IF EXISTS `fluidos`;
-CREATE TABLE IF NOT EXISTS `fluidos` (
-  `id` tinyint(4) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `fluidos` (
+  `id` tinyint(4) NOT NULL,
   `fluido` varchar(30) NOT NULL DEFAULT 'Gasolina',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Despejando dados para a tabela `fluidos`
@@ -363,22 +340,58 @@ INSERT INTO `fluidos` (`id`, `fluido`, `created_at`, `updated_at`) VALUES
 --
 
 DROP TABLE IF EXISTS `foto_veiculos`;
-CREATE TABLE IF NOT EXISTS `foto_veiculos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `foto_veiculos` (
+  `id` int(11) NOT NULL,
   `veiculo_id` bigint(20) NOT NULL,
-  `foto_url` varchar(255) NOT NULL,
+  `tem_foto` bit(1) NOT NULL DEFAULT b'0',
+  `foto_url` varchar(255) NOT NULL DEFAULT 'resources/sem_foto.png',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `veiculo_id` (`veiculo_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Despejando dados para a tabela `foto_veiculos`
 --
 
-INSERT INTO `foto_veiculos` (`id`, `veiculo_id`, `foto_url`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Veiculos/06-Jun-2022/sla_car_0606220150629e06119e384.png', '2022-06-06 12:50:09', '2022-06-06 12:50:09');
+INSERT INTO `foto_veiculos` (`id`, `veiculo_id`, `tem_foto`, `foto_url`, `created_at`, `updated_at`) VALUES
+(1, 1, b'1', 'Veiculos/06-Jun-2022/sla_car_0606220150629e06119e384.png', '2022-06-06 12:50:09', '2022-06-06 12:50:09'),
+(2, 2, b'1', 'Veiculos/07-Jun-2022/sla_car_0706221032629f294759baf.png', '2022-06-07 09:32:39', '2022-06-07 09:32:39'),
+(3, 4, b'1', 'Veiculos/07-Jun-2022/sla_car_0706220126629f52203cab7.jpg', '2022-06-07 12:26:56', '2022-06-07 12:26:56'),
+(4, 5, b'1', 'Veiculos/07-Jun-2022/sla_car_0706220230629f60f4efec8.png', '2022-06-07 13:30:13', '2022-06-07 13:30:13'),
+(6, 3, b'0', 'resources/sem_foto.png', '2022-06-07 15:18:32', '2022-06-07 15:18:32');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura stand-in para view `foto_veiculo_detalhes`
+-- (Veja abaixo para a visão atual)
+--
+DROP VIEW IF EXISTS `foto_veiculo_detalhes`;
+CREATE TABLE `foto_veiculo_detalhes` (
+`id` bigint(20)
+,`n_assentos` int(11)
+,`marca_id` bigint(20)
+,`marca` varchar(255)
+,`modelo_id` bigint(20)
+,`modelo` varchar(255)
+,`transmissao` varchar(30)
+,`fluido_id` tinyint(4)
+,`fluido` varchar(30)
+,`km` int(11)
+,`litros` tinyint(4)
+,`ano` int(4)
+,`empresa_id` bigint(20)
+,`nome_empresa` varchar(255)
+,`nif_empresa` varchar(255)
+,`telef_empresa` varchar(255)
+,`email_empresa` varchar(255)
+,`endereco_empresa` varchar(255)
+,`created_at` timestamp
+,`updated_at` timestamp
+,`veiculo_id` bigint(20)
+,`tem_foto` bit(1)
+,`foto_url` varchar(255)
+);
 
 -- --------------------------------------------------------
 
@@ -387,18 +400,15 @@ INSERT INTO `foto_veiculos` (`id`, `veiculo_id`, `foto_url`, `created_at`, `upda
 --
 
 DROP TABLE IF EXISTS `funcionarios`;
-CREATE TABLE IF NOT EXISTS `funcionarios` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `funcionarios` (
+  `id` bigint(20) NOT NULL,
   `nome` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `funcao` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `empresa_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `funcionarios_username_unique` (`username`),
-  KEY `funcionarios_empresa_id_foreign` (`empresa_id`)
+  `empresa_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -408,14 +418,12 @@ CREATE TABLE IF NOT EXISTS `funcionarios` (
 --
 
 DROP TABLE IF EXISTS `marcas`;
-CREATE TABLE IF NOT EXISTS `marcas` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `marcas` (
+  `id` bigint(20) NOT NULL,
   `marca` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `marca` (`marca`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `marcas`
@@ -445,7 +453,7 @@ INSERT INTO `marcas` (`id`, `marca`, `created_at`, `updated_at`) VALUES
 -- (Veja abaixo para a visão atual)
 --
 DROP VIEW IF EXISTS `marca_modelos`;
-CREATE TABLE IF NOT EXISTS `marca_modelos` (
+CREATE TABLE `marca_modelos` (
 `id` bigint(20)
 ,`marca_id` bigint(20)
 ,`marca` varchar(255)
@@ -460,12 +468,11 @@ CREATE TABLE IF NOT EXISTS `marca_modelos` (
 --
 
 DROP TABLE IF EXISTS `migrations`;
-CREATE TABLE IF NOT EXISTS `migrations` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `migrations`
@@ -500,16 +507,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 DROP TABLE IF EXISTS `modelos`;
-CREATE TABLE IF NOT EXISTS `modelos` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `modelos` (
+  `id` bigint(20) NOT NULL,
   `modelo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `marca_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `modelo` (`modelo`),
-  KEY `modelos_marca_id_foreign` (`marca_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `modelos`
@@ -580,14 +584,13 @@ INSERT INTO `modelos` (`id`, `modelo`, `marca_id`, `created_at`, `updated_at`) V
 --
 
 DROP TABLE IF EXISTS `pagamento`;
-CREATE TABLE IF NOT EXISTS `pagamento` (
+CREATE TABLE `pagamento` (
   `id` bigint(20) NOT NULL,
   `aluguer_id` bigint(20) NOT NULL,
   `total` decimal(10,2) NOT NULL,
   `forma_pagto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  KEY `pagamento_aluguer_id_foreign` (`aluguer_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -597,11 +600,10 @@ CREATE TABLE IF NOT EXISTS `pagamento` (
 --
 
 DROP TABLE IF EXISTS `password_resets`;
-CREATE TABLE IF NOT EXISTS `password_resets` (
+CREATE TABLE `password_resets` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  KEY `password_resets_email_index` (`email`)
+  `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -611,18 +613,15 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 --
 
 DROP TABLE IF EXISTS `pedidos`;
-CREATE TABLE IF NOT EXISTS `pedidos` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pedidos` (
+  `id` bigint(20) NOT NULL,
   `veiculo_id` bigint(20) NOT NULL,
   `cliente_id` bigint(20) NOT NULL,
   `qtd_carros` int(11) NOT NULL,
   `data_inicio` date NOT NULL,
   `data_fim` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `pedidos_veiculo_id_foreign` (`veiculo_id`),
-  KEY `pedidos_cliente_id_foreign` (`cliente_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -632,8 +631,8 @@ CREATE TABLE IF NOT EXISTS `pedidos` (
 --
 
 DROP TABLE IF EXISTS `personal_access_tokens`;
-CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `personal_access_tokens` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -641,10 +640,7 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
   `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
-  KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -654,14 +650,12 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
 --
 
 DROP TABLE IF EXISTS `pontos_desembarque`;
-CREATE TABLE IF NOT EXISTS `pontos_desembarque` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pontos_desembarque` (
+  `id` bigint(20) NOT NULL,
   `ponto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `provincia_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `pontos_desembarque_provincia_id_foreign` (`provincia_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -671,7 +665,7 @@ CREATE TABLE IF NOT EXISTS `pontos_desembarque` (
 -- (Veja abaixo para a visão atual)
 --
 DROP VIEW IF EXISTS `pontos_detalhes`;
-CREATE TABLE IF NOT EXISTS `pontos_detalhes` (
+CREATE TABLE `pontos_detalhes` (
 `id` bigint(20)
 ,`ponto` varchar(150)
 ,`tipo_ponto` varchar(20)
@@ -689,15 +683,12 @@ CREATE TABLE IF NOT EXISTS `pontos_detalhes` (
 --
 
 DROP TABLE IF EXISTS `pontos_embarque`;
-CREATE TABLE IF NOT EXISTS `pontos_embarque` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pontos_embarque` (
+  `id` bigint(20) NOT NULL,
   `ponto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `provincia_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `pontos_embarque_ponto_unique` (`ponto`),
-  KEY `pontos_embarque_provincia_id_foreign` (`provincia_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -707,17 +698,14 @@ CREATE TABLE IF NOT EXISTS `pontos_embarque` (
 --
 
 DROP TABLE IF EXISTS `pontos_e_d`;
-CREATE TABLE IF NOT EXISTS `pontos_e_d` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pontos_e_d` (
+  `id` bigint(20) NOT NULL,
   `ponto` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tipo_ponto` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT 'Embarque',
   `provincia_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `pontos_embarque_ponto_unique` (`ponto`),
-  KEY `pontos_embarque_provincia_id_foreign` (`provincia_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `pontos_e_d`
@@ -746,13 +734,12 @@ INSERT INTO `pontos_e_d` (`id`, `ponto`, `tipo_ponto`, `provincia_id`, `created_
 --
 
 DROP TABLE IF EXISTS `precos_carros`;
-CREATE TABLE IF NOT EXISTS `precos_carros` (
+CREATE TABLE `precos_carros` (
   `id` bigint(20) NOT NULL,
   `veiculo_id` bigint(20) NOT NULL,
   `preco` decimal(10,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  KEY `precos_carros_veiculo_id_foreign` (`veiculo_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -762,15 +749,13 @@ CREATE TABLE IF NOT EXISTS `precos_carros` (
 --
 
 DROP TABLE IF EXISTS `provincias`;
-CREATE TABLE IF NOT EXISTS `provincias` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `provincias` (
+  `id` bigint(20) NOT NULL,
   `provincia` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pais` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT 'Angola',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `provincia` (`provincia`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `provincias`
@@ -793,16 +778,15 @@ INSERT INTO `provincias` (`id`, `provincia`, `pais`, `created_at`, `updated_at`)
 --
 
 DROP TABLE IF EXISTS `rotas`;
-CREATE TABLE IF NOT EXISTS `rotas` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rotas` (
+  `id` bigint(20) NOT NULL,
   `origem` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `destino` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `kilometros` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `preco` double NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `rotas`
@@ -822,8 +806,8 @@ INSERT INTO `rotas` (`id`, `origem`, `destino`, `kilometros`, `preco`, `created_
 --
 
 DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `id_tipo_user` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -831,10 +815,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `id_tipo_usuario` (`id_tipo_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `users`
@@ -854,13 +836,12 @@ INSERT INTO `users` (`id`, `id_tipo_user`, `name`, `email`, `email_verified_at`,
 --
 
 DROP TABLE IF EXISTS `user_roles`;
-CREATE TABLE IF NOT EXISTS `user_roles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user_roles` (
+  `id` int(11) NOT NULL,
   `tipo_usuario` varchar(30) NOT NULL DEFAULT 'cliente',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Despejando dados para a tabela `user_roles`
@@ -878,32 +859,31 @@ INSERT INTO `user_roles` (`id`, `tipo_usuario`, `created_at`, `updated_at`) VALU
 --
 
 DROP TABLE IF EXISTS `veiculos`;
-CREATE TABLE IF NOT EXISTS `veiculos` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `veiculos` (
+  `id` bigint(20) NOT NULL,
   `marca_id` bigint(20) NOT NULL,
   `modelo_id` bigint(20) NOT NULL,
   `n_assentos` int(11) NOT NULL,
   `transmissao` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Automático',
-  `fluido` tinyint(4) NOT NULL,
+  `fluido_id` tinyint(4) NOT NULL,
   `ano` int(4) DEFAULT NULL,
   `km` int(11) NOT NULL DEFAULT 10,
   `litros` tinyint(4) NOT NULL DEFAULT 3,
   `empresa_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `autocarros_empresa_id_foreign` (`empresa_id`),
-  KEY `autocarros_marca_id_foreign` (`marca_id`),
-  KEY `autocarros_modelo_id_foreign` (`modelo_id`),
-  KEY `fluido` (`fluido`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `veiculos`
 --
 
-INSERT INTO `veiculos` (`id`, `marca_id`, `modelo_id`, `n_assentos`, `transmissao`, `fluido`, `ano`, `km`, `litros`, `empresa_id`, `created_at`, `updated_at`) VALUES
-(1, 10, 62, 4, 'Automático', 2, 2022, 1, 1, 1, '2022-06-06 12:50:09', '2022-06-06 12:50:09');
+INSERT INTO `veiculos` (`id`, `marca_id`, `modelo_id`, `n_assentos`, `transmissao`, `fluido_id`, `ano`, `km`, `litros`, `empresa_id`, `created_at`, `updated_at`) VALUES
+(1, 10, 44, 4, 'Automático', 2, 2022, 1, 1, 1, '2022-06-06 12:50:09', '2022-06-06 12:50:09'),
+(2, 17, 57, 4, 'Manual', 2, 2022, 5, 3, 2, '2022-06-07 09:32:39', '2022-06-07 09:32:39'),
+(3, 1, 2, 4, 'Automático', 1, 2022, 100, 10, 2, '2022-06-07 10:21:27', '2022-06-07 10:21:27'),
+(4, 17, 57, 4, 'Automático', 2, 2010, 10, 5, 2, '2022-06-07 12:26:56', '2022-06-07 12:26:56'),
+(5, 8, 35, 4, 'Manual', 5, 2018, 6, 4, 2, '2022-06-07 13:30:12', '2022-06-07 13:30:12');
 
 -- --------------------------------------------------------
 
@@ -912,15 +892,25 @@ INSERT INTO `veiculos` (`id`, `marca_id`, `modelo_id`, `n_assentos`, `transmissa
 -- (Veja abaixo para a visão atual)
 --
 DROP VIEW IF EXISTS `veiculo_detalhes`;
-CREATE TABLE IF NOT EXISTS `veiculo_detalhes` (
+CREATE TABLE `veiculo_detalhes` (
 `id` bigint(20)
 ,`n_assentos` int(11)
 ,`marca_id` bigint(20)
 ,`marca` varchar(255)
 ,`modelo_id` bigint(20)
 ,`modelo` varchar(255)
+,`transmissao` varchar(30)
+,`fluido_id` tinyint(4)
+,`fluido` varchar(30)
+,`km` int(11)
+,`litros` tinyint(4)
+,`ano` int(4)
 ,`empresa_id` bigint(20)
 ,`nome_empresa` varchar(255)
+,`nif_empresa` varchar(255)
+,`telef_empresa` varchar(255)
+,`email_empresa` varchar(255)
+,`endereco_empresa` varchar(255)
 ,`created_at` timestamp
 ,`updated_at` timestamp
 );
@@ -932,7 +922,7 @@ CREATE TABLE IF NOT EXISTS `veiculo_detalhes` (
 -- (Veja abaixo para a visão atual)
 --
 DROP VIEW IF EXISTS `viagem_detalhes`;
-CREATE TABLE IF NOT EXISTS `viagem_detalhes` (
+CREATE TABLE `viagem_detalhes` (
 `id` bigint(20)
 ,`rota_origem` varchar(255)
 ,`rota_destino` varchar(255)
@@ -960,8 +950,8 @@ CREATE TABLE IF NOT EXISTS `viagem_detalhes` (
 --
 
 DROP TABLE IF EXISTS `viagens`;
-CREATE TABLE IF NOT EXISTS `viagens` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `viagens` (
+  `id` bigint(20) NOT NULL,
   `itinerario` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `data_partida` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `data_chegada` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -974,13 +964,8 @@ CREATE TABLE IF NOT EXISTS `viagens` (
   `total_passageiro` smallint(6) NOT NULL DEFAULT 42,
   `estado` bit(1) NOT NULL DEFAULT b'1',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `viagens_embarque_id_foreign` (`embarque_id`),
-  KEY `viagens_desembarque_id_foreign` (`desembarque_id`),
-  KEY `viagens_rota_id_foreign` (`rota_id`),
-  KEY `viagens_classe_id_foreign` (`classe_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `viagens`
@@ -1020,6 +1005,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
+-- Estrutura para view `foto_veiculo_detalhes`
+--
+DROP TABLE IF EXISTS `foto_veiculo_detalhes`;
+
+DROP VIEW IF EXISTS `foto_veiculo_detalhes`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `foto_veiculo_detalhes`  AS SELECT `veiculo`.`id` AS `id`, `veiculo`.`n_assentos` AS `n_assentos`, `veiculo`.`marca_id` AS `marca_id`, `veiculo`.`marca` AS `marca`, `veiculo`.`modelo_id` AS `modelo_id`, `veiculo`.`modelo` AS `modelo`, `veiculo`.`transmissao` AS `transmissao`, `veiculo`.`fluido_id` AS `fluido_id`, `veiculo`.`fluido` AS `fluido`, `veiculo`.`km` AS `km`, `veiculo`.`litros` AS `litros`, `veiculo`.`ano` AS `ano`, `veiculo`.`empresa_id` AS `empresa_id`, `veiculo`.`nome_empresa` AS `nome_empresa`, `veiculo`.`nif_empresa` AS `nif_empresa`, `veiculo`.`telef_empresa` AS `telef_empresa`, `veiculo`.`email_empresa` AS `email_empresa`, `veiculo`.`endereco_empresa` AS `endereco_empresa`, `veiculo`.`created_at` AS `created_at`, `veiculo`.`updated_at` AS `updated_at`, `foto`.`veiculo_id` AS `veiculo_id`, `foto`.`tem_foto` AS `tem_foto`, `foto`.`foto_url` AS `foto_url` FROM (`foto_veiculos` `foto` join `veiculo_detalhes` `veiculo` on(`veiculo`.`id` = `foto`.`veiculo_id`))  ;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para view `marca_modelos`
 --
 DROP TABLE IF EXISTS `marca_modelos`;
@@ -1045,7 +1040,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `veiculo_detalhes`;
 
 DROP VIEW IF EXISTS `veiculo_detalhes`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `veiculo_detalhes`  AS SELECT `frota`.`id` AS `id`, `frota`.`n_assentos` AS `n_assentos`, `frota`.`marca_id` AS `marca_id`, `marca`.`marca` AS `marca`, `frota`.`modelo_id` AS `modelo_id`, `marca`.`modelo` AS `modelo`, `frota`.`empresa_id` AS `empresa_id`, `empresa`.`nome` AS `nome_empresa`, `frota`.`created_at` AS `created_at`, `frota`.`updated_at` AS `updated_at` FROM ((`veiculos` `frota` join `marca_modelos` `marca` on(`frota`.`marca_id` = `marca`.`marca_id` and `frota`.`marca_id` = `marca`.`modelo_id`)) join `empresas` `empresa` on(`frota`.`empresa_id` = `empresa`.`id`))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `veiculo_detalhes`  AS SELECT `frota`.`id` AS `id`, `frota`.`n_assentos` AS `n_assentos`, `frota`.`marca_id` AS `marca_id`, `marca`.`marca` AS `marca`, `frota`.`modelo_id` AS `modelo_id`, `marca`.`modelo` AS `modelo`, `frota`.`transmissao` AS `transmissao`, `frota`.`fluido_id` AS `fluido_id`, `fluido`.`fluido` AS `fluido`, `frota`.`km` AS `km`, `frota`.`litros` AS `litros`, `frota`.`ano` AS `ano`, `frota`.`empresa_id` AS `empresa_id`, `empresa`.`nome` AS `nome_empresa`, `empresa`.`nif` AS `nif_empresa`, `empresa`.`telefone` AS `telef_empresa`, `empresa`.`email` AS `email_empresa`, `empresa`.`endereco_sede` AS `endereco_empresa`, `frota`.`created_at` AS `created_at`, `frota`.`updated_at` AS `updated_at` FROM (((`veiculos` `frota` join `marca_modelos` `marca` on(`frota`.`marca_id` = `marca`.`marca_id` and `frota`.`modelo_id` = `marca`.`modelo_id`)) join `empresas` `empresa` on(`frota`.`empresa_id` = `empresa`.`id`)) join `fluidos` `fluido` on(`fluido`.`id` = `frota`.`fluido_id`))  ;
 
 -- --------------------------------------------------------
 
@@ -1056,6 +1051,371 @@ DROP TABLE IF EXISTS `viagem_detalhes`;
 
 DROP VIEW IF EXISTS `viagem_detalhes`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `viagem_detalhes`  AS SELECT `viagem`.`id` AS `id`, `rota`.`origem` AS `rota_origem`, `rota`.`destino` AS `rota_destino`, `rota`.`kilometros` AS `kilometros`, `rota`.`preco` AS `preco`, `viagem`.`itinerario` AS `itinerario`, `classes`.`classe` AS `classe`, `viagem`.`total_passageiro` AS `total_passageiro`, `pontos_e`.`ponto` AS `ponto_e`, `pontos_d`.`ponto` AS `ponto_d`, `viagem`.`ref_autocarro` AS `ref_autocarro`, `viagem`.`capacidade` AS `capacidade`, `viagem`.`data_partida` AS `data_partida`, `viagem`.`data_chegada` AS `data_chegada`, timediff(`viagem`.`data_chegada`,`viagem`.`data_partida`) AS `tempo`, `viagem`.`estado` AS `estado`, `viagem`.`created_at` AS `created_at`, `viagem`.`updated_at` AS `updated_at` FROM ((((`viagens` `viagem` join `pontos_detalhes` `pontos_e` on(`viagem`.`embarque_id` = `pontos_e`.`id`)) join `pontos_detalhes` `pontos_d` on(`viagem`.`desembarque_id` = `pontos_d`.`id`)) join `rotas` `rota` on(`rota`.`id` = `viagem`.`rota_id`)) join `classes` on(`viagem`.`classe_id` = `classes`.`id`))  ;
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices de tabela `aluguer`
+--
+ALTER TABLE `aluguer`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `aluguer_pedido_id_foreign` (`pedido_id`);
+
+--
+-- Índices de tabela `bilhetes`
+--
+ALTER TABLE `bilhetes`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `viagem_id` (`viagem_id`,`cliente_id`,`data_compra`),
+  ADD UNIQUE KEY `n_bilhete` (`n_bilhete`),
+  ADD KEY `cliente_id` (`cliente_id`);
+
+--
+-- Índices de tabela `bi_reservados`
+--
+ALTER TABLE `bi_reservados`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `viagem_id` (`viagem_id`,`cliente_id`,`data_compra`),
+  ADD KEY `cliente_id` (`cliente_id`);
+
+--
+-- Índices de tabela `carros_alugados`
+--
+ALTER TABLE `carros_alugados`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `carros_alugados_matricula_unique` (`matricula`),
+  ADD KEY `carros_alugados_veiculos_id_foreign` (`veiculos_id`),
+  ADD KEY `carros_alugados_aluguer_id_foreign` (`aluguer_id`);
+
+--
+-- Índices de tabela `classes`
+--
+ALTER TABLE `classes`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `classe` (`classe`);
+
+--
+-- Índices de tabela `clientes`
+--
+ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `tipo_doc` (`tipo_doc`,`n_doc`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
+-- Índices de tabela `empresas`
+--
+ALTER TABLE `empresas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
+-- Índices de tabela `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Índices de tabela `fluidos`
+--
+ALTER TABLE `fluidos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `foto_veiculos`
+--
+ALTER TABLE `foto_veiculos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `veiculo_id` (`veiculo_id`);
+
+--
+-- Índices de tabela `funcionarios`
+--
+ALTER TABLE `funcionarios`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `funcionarios_username_unique` (`username`),
+  ADD KEY `funcionarios_empresa_id_foreign` (`empresa_id`);
+
+--
+-- Índices de tabela `marcas`
+--
+ALTER TABLE `marcas`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `marca` (`marca`);
+
+--
+-- Índices de tabela `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `modelos`
+--
+ALTER TABLE `modelos`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `modelo` (`modelo`),
+  ADD KEY `modelos_marca_id_foreign` (`marca_id`);
+
+--
+-- Índices de tabela `pagamento`
+--
+ALTER TABLE `pagamento`
+  ADD KEY `pagamento_aluguer_id_foreign` (`aluguer_id`);
+
+--
+-- Índices de tabela `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Índices de tabela `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pedidos_veiculo_id_foreign` (`veiculo_id`),
+  ADD KEY `pedidos_cliente_id_foreign` (`cliente_id`);
+
+--
+-- Índices de tabela `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
+  ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
+
+--
+-- Índices de tabela `pontos_desembarque`
+--
+ALTER TABLE `pontos_desembarque`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pontos_desembarque_provincia_id_foreign` (`provincia_id`);
+
+--
+-- Índices de tabela `pontos_embarque`
+--
+ALTER TABLE `pontos_embarque`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `pontos_embarque_ponto_unique` (`ponto`),
+  ADD KEY `pontos_embarque_provincia_id_foreign` (`provincia_id`);
+
+--
+-- Índices de tabela `pontos_e_d`
+--
+ALTER TABLE `pontos_e_d`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `pontos_embarque_ponto_unique` (`ponto`),
+  ADD KEY `pontos_embarque_provincia_id_foreign` (`provincia_id`);
+
+--
+-- Índices de tabela `precos_carros`
+--
+ALTER TABLE `precos_carros`
+  ADD KEY `precos_carros_veiculo_id_foreign` (`veiculo_id`);
+
+--
+-- Índices de tabela `provincias`
+--
+ALTER TABLE `provincias`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `provincia` (`provincia`);
+
+--
+-- Índices de tabela `rotas`
+--
+ALTER TABLE `rotas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_tipo_usuario` (`id_tipo_user`);
+
+--
+-- Índices de tabela `user_roles`
+--
+ALTER TABLE `user_roles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `veiculos`
+--
+ALTER TABLE `veiculos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `autocarros_empresa_id_foreign` (`empresa_id`),
+  ADD KEY `autocarros_marca_id_foreign` (`marca_id`),
+  ADD KEY `autocarros_modelo_id_foreign` (`modelo_id`),
+  ADD KEY `fluido` (`fluido_id`);
+
+--
+-- Índices de tabela `viagens`
+--
+ALTER TABLE `viagens`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `viagens_embarque_id_foreign` (`embarque_id`),
+  ADD KEY `viagens_desembarque_id_foreign` (`desembarque_id`),
+  ADD KEY `viagens_rota_id_foreign` (`rota_id`),
+  ADD KEY `viagens_classe_id_foreign` (`classe_id`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `aluguer`
+--
+ALTER TABLE `aluguer`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `bilhetes`
+--
+ALTER TABLE `bilhetes`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+
+--
+-- AUTO_INCREMENT de tabela `bi_reservados`
+--
+ALTER TABLE `bi_reservados`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de tabela `carros_alugados`
+--
+ALTER TABLE `carros_alugados`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `classes`
+--
+ALTER TABLE `classes`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de tabela `clientes`
+--
+ALTER TABLE `clientes`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `empresas`
+--
+ALTER TABLE `empresas`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `fluidos`
+--
+ALTER TABLE `fluidos`
+  MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de tabela `foto_veiculos`
+--
+ALTER TABLE `foto_veiculos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de tabela `funcionarios`
+--
+ALTER TABLE `funcionarios`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `marcas`
+--
+ALTER TABLE `marcas`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT de tabela `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT de tabela `modelos`
+--
+ALTER TABLE `modelos`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+
+--
+-- AUTO_INCREMENT de tabela `pedidos`
+--
+ALTER TABLE `pedidos`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `pontos_desembarque`
+--
+ALTER TABLE `pontos_desembarque`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `pontos_embarque`
+--
+ALTER TABLE `pontos_embarque`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `pontos_e_d`
+--
+ALTER TABLE `pontos_e_d`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT de tabela `provincias`
+--
+ALTER TABLE `provincias`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de tabela `rotas`
+--
+ALTER TABLE `rotas`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de tabela `user_roles`
+--
+ALTER TABLE `user_roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `veiculos`
+--
+ALTER TABLE `veiculos`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `viagens`
+--
+ALTER TABLE `viagens`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restrições para tabelas despejadas
@@ -1161,7 +1521,7 @@ ALTER TABLE `veiculos`
   ADD CONSTRAINT `autocarros_empresa_id_foreign` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`),
   ADD CONSTRAINT `autocarros_marca_id_foreign` FOREIGN KEY (`marca_id`) REFERENCES `marcas` (`id`),
   ADD CONSTRAINT `autocarros_modelo_id_foreign` FOREIGN KEY (`modelo_id`) REFERENCES `modelos` (`id`),
-  ADD CONSTRAINT `veiculos_ibfk_1` FOREIGN KEY (`fluido`) REFERENCES `fluidos` (`id`);
+  ADD CONSTRAINT `veiculos_ibfk_1` FOREIGN KEY (`fluido_id`) REFERENCES `fluidos` (`id`);
 
 --
 -- Restrições para tabelas `viagens`
@@ -1173,6 +1533,6 @@ ALTER TABLE `viagens`
   ADD CONSTRAINT `viagens_rota_id_foreign` FOREIGN KEY (`rota_id`) REFERENCES `rotas` (`id`);
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CpARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

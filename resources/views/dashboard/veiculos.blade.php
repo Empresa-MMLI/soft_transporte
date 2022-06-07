@@ -154,7 +154,7 @@
             </tr>
         </thead>
         <tbody>
-          @php $tem_imagem = 0; @endphp
+
             @if(isset($veiculos[0]->id))
             @foreach($veiculos as $item)
             <tr>
@@ -162,12 +162,12 @@
                 <td>
                     @if(isset($foto_veiculos[0]->veiculo_id))
                     @foreach($foto_veiculos as $foto)
-                    @if($foto->veiculo_id == $item->id)
+                    @if($foto->veiculo_id == $item->id  && $foto->tem_foto)
                     <a href="#" foto_veiculo="{{ asset('storage/'.$foto->foto_url) }}" foto_nome="{{ $item->marca.' '.$item->modelo }}"  onclick="event.preventDefault(); $('#foto_veiculo').attr('src', $(this).attr('foto_veiculo')); $('#foto_detalhes').text($(this).attr('foto_nome')); $('#modalImagem').modal('show'); " > <img src="{{ asset('storage/'.$foto->foto_url) }}" alt="Imagem{{ $foto->veiculo_id }}"  class="foto_veiculo"></a>
                     @php $tem_imagem = 1; @endphp
                     @else
-                    @if(isset($tem_imagem) && $tem_imagem == 0)
-                    <img src="{{ asset('assets/resources/sem_foto.jpg') }}" alt="Imagem00" class="foto_veiculo">
+                    @if($foto->veiculo_id == $item->id && $foto->tem_foto == 0)
+                    <img src="{{ asset('assets/'.$foto->foto_url) }}" alt="Imagem00" class="foto_veiculo">
                     @php $tem_imagem = 0; @endphp
                     @endif
                      @endif
