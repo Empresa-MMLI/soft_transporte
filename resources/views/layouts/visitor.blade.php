@@ -14,7 +14,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name') }}</title>
     <!-- Styles -->
-    <!-- <link href="{{ url('assets/css/bootstrap.min.css') }}" rel="stylesheet"> --> 
+    <!--<link href="{{ url('assets/css/bootstrap.min.css') }}" rel="stylesheet">-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="{{ url('assets/css/hello.css') }}?r=<?php echo random_int(1,50); ?>" rel="stylesheet">
   <link href="{{ url('assets/css/bootstrap.grid.min.css') }}" rel="stylesheet"> 

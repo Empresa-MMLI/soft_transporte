@@ -57,7 +57,7 @@
                                     <div class="row my-4">
                             <div class="col">
                                 <label for="capacidade">Nº Assento:</label>
-                                <input type="number" class="form-control" name="capacidade" id="capacidade" min="1" value="4" placeholder="Total de passageiros">
+                                <input type="number" class="form-control" name="capacidade" id="capacidade" min="1" value="5" placeholder="Total de passageiros">
                             </div>
                             <div class="col">
                                 <label for="transmissao">Transmissão:</label>
@@ -89,7 +89,7 @@
                             <div class="row my-4">
                             <div class="col">
                                 <label for="ano_lancamento">Ano de Lançamento:</label>
-                                <input type="number" class="form-control" name="ano_lancamento" id="ano_lancamento" min="1999" value="date('Y')" placeholder="Ano de Lançamento" list="anos_lancamentos">
+                                <input type="number" class="form-control" name="ano_lancamento" id="ano_lancamento" min="1999" value="{{ date('Y') }}" placeholder="Ano de Lançamento" list="anos_lancamentos" required>
                                 <datalist id="anos_lancamentos">
                                     @php $anos = range(1999, strftime('%Y', time()));  @endphp
                                     @foreach($anos as $ano)
@@ -113,13 +113,29 @@
 
                             <div class="row my-4">
                             <div class="col">
+                                <label for="tempo">Duração:</label>
+                                <select  class="form-control custom-select text-uppercase" name="tempo" id="tempo" aria-describedby="addon-wrapping" required>
+                                <option value="Part time">Part time</option>
+                                <option value="Diário" selected>Diário</option>
+                                <option value="Semanal">Semanal</option>
+                                <option value="Mensal">Mensal</option>
+                                <option value="Anual">Anual</option>
+                            </select>
+                            </div>
+                            <div class="col">
+                                <label for="preco">Preço do Aluguer:</label>
+                                <input type="number" class="form-control" name="preco" id="preco" min="5000" placeholder="Preço do aluguer...">
+                            </div>
+                            </div>
+                            <div class="row my-4">
+                            <div class="col">
                                 <label for="litros">Litros <code>(Capacidade máxima)</code>:</label>
-                                <input type="number" class="form-control" name="litros" id="litros"  value="1" placeholder="Litros de combustível" required>
+                                <input type="number" class="form-control" name="litros" id="litros"  value="36" placeholder="Litros de combustível" required>
                                 </div>
 
                             <div class="col">
                             <label for="foto_url">Carregar Imagem de Destaque (<code>PNG, JPG</code>):</label>
-                            <input type="file" class="form-control" id="foto_url" name="foto_url" placeholder="Foto do veículo" required>
+                            <input type="file" class="form-control" id="foto_url" name="foto_url" placeholder="Foto do veículo">
                             </div>
 
                             </div>
@@ -192,7 +208,7 @@
                 <td>{{ $item->ano }}</td>
                 <td class="text-left">
 		        <a href="" class="btn btn-success btn-sm mb-1" data-toggle="tooltip" data-placement="left" title="Editar Veículo"><i class="fa fa-edit" ></i></a>
-                <a href="" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes excluir Veículo?');" data-toggle="tooltip" data-placement="right" title="Excluir Veículo..."><i class="fa fa-trash"></i></a>
+                <a href="{{ route('veiculos.delete', ['id_veiculo'=>$item->id]) }}" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes excluir o Veículo?');" data-toggle="tooltip" data-placement="right" title="Excluir Veículo..."><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
             @endforeach

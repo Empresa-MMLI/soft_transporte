@@ -2412,6 +2412,8 @@ p.padding-text.no-pb{
 }
 .car__slider img {
   width: 100%;
+  height: 280px!important;
+  max-height: 290px!important;
   border-radius: 16px;
 }
 .car__slider .splide__pagination {
@@ -2648,7 +2650,6 @@ p.padding-text.no-pb{
 }
 .car__more:hover {
   box-shadow: 3px 3px 9px rgba(55,170,247,0.3);
-  color: #fff;
 }
 .car__more:hover:before {
   opacity: 1;

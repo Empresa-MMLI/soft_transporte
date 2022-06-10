@@ -32,11 +32,32 @@ class VeiculoController extends Controller
     }
     //area de aluguer de veiculos
     public function aluguer_veiculos(){
-        $veiculos = VeiculoDetalhes::latest()->get();
+        $veiculos = VeiculoDetalhes::latest()->paginate(6);
         $foto_veiculos = FotoVeiculoDetalhes::latest()->get();
         $marcas = MarcaDetalhes::orderBy('marca')->get();
         $fluidos = FLuido::orderBy('fluido')->get();
+        
         return view('aluguer_search', ['veiculos'=>$veiculos,'foto_veiculos'=>$foto_veiculos,'marcas'=>$marcas,'fluidos'=>$fluidos]);
+    }
+
+    //area de aluguer de veiculos pesquisados
+    public function search_veiculos(Request $request){
+        $valor = '%'.$request->valor_p.'%';
+        $res = $request->valor_p;
+
+        if(isset($request->valor_p))
+            $veiculos = VeiculoDetalhes::where('marca','like',$valor)->orwhere('modelo','like', $valor)->latest()->paginate(6);
+        else{
+            $item = MarcaDetalhes::find($request->modelo_id);
+            $res = $item->marca.' '.$item->modelo.' » '.$request->transmissao; 
+            $veiculos = VeiculoDetalhes::where('modelo_id', $request->modelo_id)->where('fluido_id', $request->fluido_id)->latest()->paginate(6);
+            //return $veiculos;
+        }
+        $foto_veiculos = FotoVeiculoDetalhes::latest()->get();
+        $marcas = MarcaDetalhes::orderBy('marca')->get();
+        $fluidos = FLuido::orderBy('fluido')->get();
+        
+        return view('veiculos_procurados', ['veiculos'=>$veiculos,'foto_veiculos'=>$foto_veiculos,'marcas'=>$marcas,'fluidos'=>$fluidos, 'valor_p'=>$res]);
     }
     //store
     public function store(Request $request){
@@ -52,6 +73,8 @@ class VeiculoController extends Controller
             $register->km = $request->km;
             $register->litros = $request->litros;
             $register->ano = $request->ano_lancamento;
+            $register->preco_aluguer = $request->preco;
+            $register->tempo = $request->tempo;
             $register->empresa_id = $request->operadora;
             $register->save();
         
@@ -83,9 +106,73 @@ class VeiculoController extends Controller
             }
 
             }catch(\Exception $e) {
-                return $e;
                 return redirect()->back()->with('error','Veículo não foi cadastrado na plataforma!');
             }
+    }
+    //reservar ou pedidos de levantamento de veiculos
+    public function reservar_veiculos(Request $request){
+        //dados recolhidos
+        try{
+            if(isset($request->estado_cliente) && $request->estado_cliente == 1){//cliente novo
+                                    
+                $register = new Usuario;
+                $register->name  = $request->nome_cliente;
+                $register->email  = $request->user;
+                $register->password  = Hash::make($request->pass);
+                $register->id_tipo_user = 3;
+                $register->save();
+
+                //pega o ult registro
+                $dados_acesso = Usuario::latest()->first();
+                $id_acesso = $dados_acesso->id;
+                
+                $cliente = new Cliente;
+                $cliente->nome  = $request->nome_cliente;
+                $cliente->tipo_doc  = $request->tipo_doc_cliente;
+                $cliente->n_doc  = $request->n_doc_cliente;
+                $cliente->email  = $request->email_cliente;
+                $cliente->telefone  = $request->telef_cliente;
+                $cliente->endereco_fisico  = $request->endereco;
+                $cliente->id_usuario = $id_acesso;
+                $cliente->save();
+            }
+    
+            $empresa = null;//$empresa::first();
+            $cliente = Cliente::where('n_doc',$request->n_doc_cliente)->orwhere('n_doc',$request->n_doc)->first();
+            if(!isset($cliente)){
+            //buscar veiculos
+            
+            $veiculos = VeiculoDetalhes::latest()->paginate(6);
+            $foto_veiculos = FotoVeiculoDetalhes::latest()->get();
+            $marcas = MarcaDetalhes::orderBy('marca')->get();
+            $fluidos = FLuido::orderBy('fluido')->get();
+            
+            return view('aluguer_search', ['veiculos'=>$veiculos,'foto_veiculos'=>$foto_veiculos,'marcas'=>$marcas,'fluidos'=>$fluidos, 'error'=>"Nº de Documento não encontrado."]);
+    
+            }
+
+            $pedido = Pedido::find($id_pedido);
+            $veiculo = VeiculoDetalhes::find($request->id_veiculo);
+            return view('veiculo_pagto', ['cliente'=>$cliente,'empresa'=>$empresa,'veiculo'=>$veiculo]);
+         }catch(\Exception $e){
+            return redirect()->back()->with('error','Não foi possível efectuar a Compra do Bilhete, tente novamente!');
+        }
+    }
+    //delatar os itens selecionados
+    public function delete(Request $request){
+    
+    try{
+        $remove_foto = FotoVeiculo::where('veiculo_id',$request->id_veiculo)->delete();
+        $remove_veiculo = Veiculo::find($request->id_veiculo)->delete();
+        if($remove_veiculo && $remove_foto){
+            return redirect()->back()->with('success','Veículo removido com sucesso!');
+        }else{
+            return redirect()->back()->with('success','Não foi possível remover o Veículo selecionado.');
+        }
+    }catch(\Exception $e) {
+        return redirect()->back()->with('error','Veículo não foi removido.');
+    }
+
     }
     /*
     |--------------------------------------------------------------------------

@@ -30,12 +30,12 @@ Route::get('/index', function () {
 Route::get('/search', function (Request $request) {
     //return view('aluguel_res');
     if($request->mySearch == "Comprar Bilhetes")
-    return redirect()->route('compra.bilhetes');
+        return redirect()->route('compra.bilhetes');
     else if($request->mySearch == "Alugar Carro")
     //return view('aluguer_search');
-    return redirect()->route('aluguer.veiculos');
+        return redirect()->route('aluguer.veiculos');
     else if($request->mySearch == "Comprar B.I e Aluguel Carro")
-    return view('bi_search');
+        return redirect()->route('compra.bilhetes');
 
 })->name('search.res');
 
@@ -175,8 +175,16 @@ Route::any('/search_bi', [ViagemController::class, 'bilhetes'])->name('search.bi
 
 //mostrar veiculos
 Route::get('/veiculos', [VeiculoController::class, 'index'])->name('dashboard.veiculos');
+
+//mostrar results do veiculos searched
+Route::post('/search_veiculos', [VeiculoController::class, 'search_veiculos'])->name('veiculos.search');
+
 //store
 Route::post('/store_veiculos', [VeiculoController::class, 'store'])->name('veiculos.store');
+//delete
+Route::get('/delete_veiculos', [VeiculoController::class, 'delete'])->name('veiculos.delete');
+//store new pedido
+Route::any('/reservar_veiculos', [ViagemController::class, 'reservar_veiculos'])->name('veiculos.reservar');
 
 //mostrar marcas
 Route::get('/marcas', [VeiculoController::class, 'marcas'])->name('dashboard.marcas');

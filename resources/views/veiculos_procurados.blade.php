@@ -1,7 +1,7 @@
 @extends ('layouts.visitor') <!--Call of template welcome-->
 @section('content')  <!--Sectino to show content to yield -->
 <!-- banner principal -->
-<div class="banner-box-img3">
+<div class="banner-box-img3 d-none">
 <div class="banner-escuro-img3">
     <div class="container">
            <div class="row">
@@ -22,9 +22,9 @@
 <div class="container">
     <!-- title -->
 <div class="col-12">
-					<div class="main__title main__title--page">
-						<h2>Uma forma diferente de satisfazer seus gostos!</h2>
-					</div>
+            <div class="main__title main__title--page">
+              <h2><strong>Resultados da Pesquisa</strong> <span class="px-4"><code class="text-info"> "{{ isset($valor_p)? $valor_p:'...' }}"</code></span></h2>
+            </div>
 				</div>
 				<!-- end title -->
                 <div class="row">
@@ -110,16 +110,6 @@
 					<div class="row row--grid">
 						<!-- car -->
             @if(isset($veiculos[0]->id))
-
-            @if(isset($error))
-           <div class="container">
-            <div class="row my-4">
-              <div class="text-danger" role="alert">
-                <i class="fa fa-info-circle"></i> {{ $error }}
-              </div>
-            </div>
-            </div>
-            @endif
             @foreach($veiculos as $item)
             			<div class="col-sm-12 col-md-6 col-lg-6">
 							<div class="car">
@@ -178,6 +168,10 @@
 						</div>
 						<!-- end car -->
 						@endforeach
+            @else 
+            <div class="my-4 py-4">
+            <span><i class="fa fa-info-circle text-danger"></i> Nenhum Resultado encontrado...</span>
+            </div>
 						@endif
 							</div>
 						<div class="d-flex justify-content-start my-4">
@@ -230,10 +224,10 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-sm-12">
-              <h6>Nome completo: <span id="titular" class="text-muted"></span> </h6>
-              <h6>Nº de Contribuinte: <span id="nif_empresa" class="text-muted"></span> </h6>
-              <h6>E-mail: <span id="email_empresa" class="text-muted"></span></h6>
-              <h6>Telefone: <span id="telef_empresa" class="text-muted"></span> </h6>
+              <h6 class="text-normal">Nome completo: <span id="titular" class="text-muted"></span> </h6>
+              <h6 class="text-normal">Nº de Contribuinte: <span id="nif_empresa" class="text-muted"></span> </h6>
+              <h6 class="text-normal">E-mail: <span id="email_empresa" class="text-muted"></span></h6>
+              <h6 class="text-normal">Telefone: <span id="telef_empresa" class="text-muted"></span> </h6>
           </div>
         </div>
       </div>
@@ -261,8 +255,6 @@
   </div>
 </div>
 
-
-
 <!-- mostrar formulario de aluguel --> 
 <div class="modal fade" id="modalAluguer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" role="document">
@@ -277,7 +269,7 @@
       
         <p class="p-1 alert alert-info text-dark py-2"> <i class="fa fa-info-circle"></i> Preencha devidamente os campos abaixos.</p>
 
-        <form method="post" action="{{ route('veiculos.reservar') }}">
+        <form method="post" action="{{ route('bilhete.reservar') }}">
             @csrf
     <div class="text-center">
     <span> <img src="{{ url('assets/img/logo/logo.png') }}"  alt="logo" class="d-none logo_auth_0 img-responsive"></span><br>
@@ -341,7 +333,7 @@
   <div class="form-group">
     <label for="endereco">Onde está localizado:</label>
     <!--<input type="text" class="form-control" id="n_doc_cliente" name="n_doc_cliente" value="00" onfocus="$(this).val('');"  placeholder="Nº Documento apresentado" required>--> 
-	<textarea class="form-control" id="endereco" name="endereco" placeholder="Seu endereço..." onfocus="$(this).val('');" required>Endereço</textarea>
+	<textarea class="form-control" id="endereco" name="endereco" placeholder="Seu endereço..." required></textarea>
   </div>
 </div>
 </div>
