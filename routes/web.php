@@ -184,7 +184,7 @@ Route::post('/store_veiculos', [VeiculoController::class, 'store'])->name('veicu
 //delete
 Route::get('/delete_veiculos', [VeiculoController::class, 'delete'])->name('veiculos.delete');
 //store new pedido
-Route::any('/reservar_veiculos', [ViagemController::class, 'reservar_veiculos'])->name('veiculos.reservar');
+Route::any('/reservar_veiculos', [VeiculoController::class, 'reservar_veiculos'])->name('veiculos.reservar');
 
 //mostrar marcas
 Route::get('/marcas', [VeiculoController::class, 'marcas'])->name('dashboard.marcas');

@@ -28,40 +28,41 @@
                         <div class="col-sm-12 col-md-6">
                             <h3 class="my-4 text-info"> <i class="text-info fa fa-info-circle"></i> Estimado(a) Cliente <u>{{ isset($cliente->nome)? $cliente->nome:'...'}}</u>, desde já agradecemos sua preferência!</h3>
                             <p class="text-normal">Informamos que estão a pagamento os serviços indicados abaixo:</p>
-                            <p class="text-normal"><code>*</code> Compra de Bilhetes: <strong>{{ isset($viagem->rota_origem)? $viagem->rota_origem.' - '.$viagem->rota_destino:'...' }}</strong></p>
-                            <p class="text-normal"><code>*</code> Montante: <strong>{{ isset($viagem->preco)? number_format(($viagem->preco*$total_passageiros),2,',','.'):'0,00' }} Kz</strong></p>
-                            <input type="hidden" value="{{ isset($viagem->preco)? number_format(($viagem->preco*$total_passageiros),2,',','.'):'0,00' }}" id="custo_viagem" name="custo_viagem">
-                            <p class="text-normal"><code>*</code> Total Passageiro(s): <strong>{{ isset($total_passageiros)? $total_passageiros:'1' }}</strong></p>
+                            <p class="text-normal"><code>*</code> Veículo: <strong>{{ isset($veiculo->marca)? $veiculo->marca.' '.$veiculo->modelo:'...' }}</strong></p>
+                            <p class="text-normal"><code>*</code> Montante: <strong>{{ isset($veiculo->preco_aluguer)? number_format(($veiculo->preco_aluguer*$pedido->qtd_carros*$pedido->total_dias),2,',','.'):'0,00' }} Kz</strong></p>
+                            <input type="hidden" value="{{ isset($veiculo->preco_aluguer)? number_format(($veiculo->preco_aluguer*$pedido->qtd_carros*$pedido->total_dias),2,',','.'):'0,00' }}" id="custo_veiculo" name="custo_veiculo">
+                            <p class="text-normal"><code>*</code> Quantidade veículo(s): <strong>{{ isset($pedido->qtd_carros)? $pedido->qtd_carros:'1' }}</strong></p>
+                            <p class="text-simples"><code>*Nota</code> Veículo será alugado por <strong>{{ isset($pedido->total_dias)? $pedido->total_dias:'1' }}</strong> dia(s)</p>
                             <h4 class="my-2">Meio de Pagamento: transferência Bancária</h4>
-                            <p class="text-normal">Deve colocar na descrição da transferência o seguinte xxxx-xxx-xxx enviar o mesmo para comercial@mmlisolucoes.com</p>
+                            <p class="text-">Deve colocar na descrição da transferência o seguinte xxxx-xxx-xxx enviar o mesmo para comercial@mmlisolucoes.com</p>
                             <h4 class="my-2">Coordenadas Bancárias:</h4>
                             <p class="text-normal">Empresa: SLA - Agência de Turismo e Prestação de Serviços, Lda</p>
                             <p class="text-normal">Swift: MMLI</p>
                             <p class="text-normal">IBAN: AO06.0000.0000.0000.0000</p>
                             <p class="text-normal">Nº Conta: AOA 23994939994</p>
                             <span class="text-simples"><code>Nota:</code><strong>Esta informação também será enviada para seu Email email@dominio.com<br>
-                        Apóis a validação do seu pagamento o serviço será activado o mais urgente possível</strong></span>
+                        Apóis a validação do seu pagamento o serviço será activado o mais urgente possível.</strong></span>
                                     
                         </div>
                         <div class="col-sm-12 col-md-6">
                         <fieldset class="scheduler-border">
-    <legend class="scheduler-border"> Formulário de Reserva</legend>
+    <legend class="scheduler-border"> Formulário de Reserva de Veículos</legend>
     <form method="post" action="{{ route('bilhete.store') }}" enctype="multipart/form-data">
             @csrf
-<p class="my-1"><code>* Detalhes da viagem</code></p>
+<p class="my-1"><code>* Detalhes do Pedido</code></p>
 
 <div class="row">
 <div class="col-6">
 <div class="form-groups">
-    <label for="t_criancas">Rota:</label>
-    <input type="text" class="form-control" min="0" id="rota" name="rota" value="{{ isset($viagem->rota_origem)? $viagem->rota_origem.' - '.$viagem->rota_destino:'Desconhecido' }}" placeholder="Total de crianças" readonly>
-    <input type="hidden" class="form-control" value="{{ $viagem->id }}" id="id_viagem" name="id_viagem" placeholder="ID viagem">
+    <label for="nome">Veículo:</label>
+    <input type="text" class="form-control" id="nome_veiculo" name="nome_veiculo" value="{{ isset($veiculo->marca)? $veiculo->marca.' '.$veiculo->modelo:'Desconhecido' }}" placeholder="Veículo" readonly>
+    <input type="hidden" class="form-control" value="{{ $veiculo->id }}" id="id_viagem" name="id_viagem" placeholder="ID viagem">
 </div>
 </div>
   <div class="col-6">
 <div class="form-groups">
-    <label for="t_adultos">Total Passageiros:</label>
-    <input type="number" class="form-control" min="0" id="t_passageiros" name="t_passageiros" value="{{ isset($total_passageiros)? $total_passageiros:1 }}" placeholder="Total adultos" required readonly>
+    <label for="t_adultos">Quantidade Veículo:</label>
+    <input type="number" class="form-control" min="0" id="qtd_veiculos" name="qtd_veiculos" value="{{ isset($pedido->qtd_carros)? $pedido->qtd_carros:1 }}" placeholder="Total veículos" required>
 </div>
 </div>
 </div>
@@ -71,7 +72,7 @@
 <div class="form-groups">
     <label for="estado_cliente">Documento apresentado:</label>
     <select  class="form-control custom-select text-capitalize" name="estado_cliente" id="estado_cliente" aria-describedby="addon-wrapping" onchange=" criar_conta($(this).val());" readonly required>
-    <option value="{{ isset($cliente->tipo_doc)? $cliente->tipo_doc:'' }}" selected>{{ (isset($cliente->tipo_doc) && $cliente->tipo_doc == 'BI')? 'Bilhete de Identidade':'Passa Porte' }}</option>
+    <option value="{{ isset($cliente->tipo_doc)? $cliente->tipo_doc:'' }}" selected>{{ (isset($cliente->tipo_doc) && $cliente->tipo_doc == 'BI')? 'Bilhete de Identidade':'Nº de Contribuinte' }}</option>
   </select>
 </div>
 </div>
@@ -136,7 +137,7 @@
             <li>Escolha pagamentos por referência</li>
             <li>Introduza o código da entidade <strong>00266</strong></li>
             <li>Introduza o número da referência gerada em cima</li>
-            <li>Introduza o valor total da viagem <strong><span id="valor_viagem">0,00</span> kz</strong></li>
+            <li>Introduza o valor total da viagem <strong><span id="valor_veiculo">0,00</span> kz</strong></li>
             <li>Confirmar pagamento</li>
           </ul>
         </p>

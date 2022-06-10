@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Empresa;
+use App\Models\Cliente;
 use App\Models\Veiculo;
 use App\Models\VeiculoDetalhes;
 use App\Models\FotoVeiculo;
 use App\Models\FotoVeiculoDetalhes;
+use App\Models\Pedido;
 use App\Models\Marca;
 use App\Models\Modelo;
 use App\Models\Fluido;
 use App\Models\MarcaDetalhes;
 use Session;
+use Carbon\Carbon;
 
 class VeiculoController extends Controller
 {
@@ -141,19 +144,37 @@ class VeiculoController extends Controller
             $cliente = Cliente::where('n_doc',$request->n_doc_cliente)->orwhere('n_doc',$request->n_doc)->first();
             if(!isset($cliente)){
             //buscar veiculos
-            
             $veiculos = VeiculoDetalhes::latest()->paginate(6);
             $foto_veiculos = FotoVeiculoDetalhes::latest()->get();
             $marcas = MarcaDetalhes::orderBy('marca')->get();
             $fluidos = FLuido::orderBy('fluido')->get();
-            
             return view('aluguer_search', ['veiculos'=>$veiculos,'foto_veiculos'=>$foto_veiculos,'marcas'=>$marcas,'fluidos'=>$fluidos, 'error'=>"Nº de Documento não encontrado."]);
-    
             }
+            //calculando o total de dias
+            $data_inicio = Carbon::parse($request->data_inicio);
+            $data_fim = Carbon::parse($request->data_fim);
+
+            $total_dias = $data_fim->diffInDays($data_inicio);
+            $novo_pedido = new Pedido;
+            $novo_pedido->veiculo_id = $request->id_veiculo;
+            $novo_pedido->cliente_id = $cliente->id;
+            $novo_pedido->qtd_carros = $request->qtd_veiculos;
+            $novo_pedido->total_dias = $total_dias;
+            $novo_pedido->data_inicio = $request->data_inicio;
+            $novo_pedido->data_fim = $request->data_fim;
+            $novo_pedido->save();
+            //buscar o ult registro
+            $dados_pedido = Pedido::latest()->first();
+
+            $id_pedido = $dados_pedido->id;
 
             $pedido = Pedido::find($id_pedido);
             $veiculo = VeiculoDetalhes::find($request->id_veiculo);
-            return view('veiculo_pagto', ['cliente'=>$cliente,'empresa'=>$empresa,'veiculo'=>$veiculo]);
+            
+            
+             //return $total_dias. ' Diferenca entre os dias...' ;
+            
+            return view('veiculo_pagto', ['cliente'=>$cliente,'empresa'=>$empresa,'veiculo'=>$veiculo,'total_dias'=>$total_dias,'pedido'=>$pedido]);
          }catch(\Exception $e){
             return redirect()->back()->with('error','Não foi possível efectuar a Compra do Bilhete, tente novamente!');
         }

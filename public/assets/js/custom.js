@@ -223,8 +223,9 @@ function ativar_comprovativo($value){
   }else if($value == 'REF'){
     $('#comprovativo_url').removeAttr('required');
     $('#comprovativo_url').attr('disabled',true);
-    $custo = $('#custo_viagem').val();
-    $('#valor_viagem').text($custo);
+    $custo = $('#custo_viagem, #custo_veiculo').val();
+    
+    $('#valor_viagem, #valor_veiculo').text($custo);
     $('#modalReferencia').modal('show');
   }else{
     $('#comprovativo_url').attr('required',true);
