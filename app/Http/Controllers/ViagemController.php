@@ -268,7 +268,7 @@ class ViagemController extends Controller
         try{
             
             //verificar a origem do BI (Bilhete ou Reserva)
-        if(1 == 1 || $request->ajax()){
+        if($request->ajax()){
         if($request->origem_bilhete == 'bi'){
             
             $bilhete = Bilhete::find($request->id_bilhete);

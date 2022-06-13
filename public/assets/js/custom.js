@@ -232,3 +232,22 @@ function ativar_comprovativo($value){
     $('#comprovativo_url').removeAttr('disabled');
   }
 }
+//funcao para validar aluguer
+function validarAluguer($this){
+  $('#origem_aluguer').val('pedido');
+  $('#id_cliente').val($($this).attr('id_cliente'));
+  $('#nome_cliente').val($($this).attr('nome_cliente'));
+  $('#veiculo').val($($this).attr('veiculo'));
+  $qtd_carros = parseInt($($this).attr('qtd_carros'));
+  $('#id_aluguer').val($($this).attr('id_aluguer'));
+  $('#data_entrega').val($($this).attr('data_entrega'));
+    
+  for(let i=1;i<=$qtd_carros;i++){
+    if(i == 1)
+    $('#carros_alugados').append('   <input type="text" class="form-control mb-1" name="matricula[]" id="matricula[]" placeholder="Informe nº da matrícula do Carro" required required>');
+    else
+    $('#carros_alugados').append('   <input type="text" class="form-control mb-1" name="matricula[]" id="matricula[]" placeholder="Informe nº da matrícula do '+(i)+' º Carro" required required>');
+  }
+
+  $('#modalConfirmacao').modal('show');
+}

@@ -239,57 +239,40 @@ class VeiculoController extends Controller
         try{
             
             //verificar a origem do BI (Bilhete ou Reserva)
-        if(1 == 1 || $request->ajax()){
-        if($request->origem_bilhete == 'bi'){
-            
-            $bilhete = Bilhete::find($request->id_bilhete);
-            $bilhete->n_bilhete = $request->n_bilhete;
-            $bilhete->estado = 1;
-            $bilhete->save();
-            
-            $id_viagem = Bilhete::find($request->id_bilhete);
-            $id_viagem = $id_viagem->viagem_id;
+        if($request->ajax()){
+            $n_aluguer = strtoupper('SLA_'.random_bytes(3));
 
-        }else{
-            $update = BilheteReservado::find($request->id_bilhete);
-            $update->estado = 1;
-            $update->save();
-            $reserva = BilheteReservado::find($request->id_bilhete);
-            //apos ativacao da reserva regista-se a compra do bi
-            
-            $register = new Bilhete;
-            $register->n_bilhete = $request->n_bilhete;
-            $register->viagem_id  = $reserva->viagem_id;
-            $register->cliente_id = $reserva->cliente_id;
-            $register->total_passageiro  = $reserva->total_passageiro;
-            $register->forma_pagto  = $reserva->forma_pagto;
-            $register->estado = 1;
-            $register->data_compra = $reserva->data_compra;
-            $register->save();
-            
+            $aluguer = Aluguer::find($request->id_aluguer);
+            $aluguer->n_aluguer = $n_aluguer;
+            $aluguer->data_entrega = $request->data_entrega;
+            $aluguer->data_devolcuao = $request->data_dev;
+            $aluguer->estado = 1;
+            $aluguer->save();
 
-            $id_viagem = BilheteReservado::find($request->id_bilhete);
-            $id_viagem = $id_viagem->viagem_id;
-        }
+            if($aluguer){ 
+                $register = new CarrosAlugados;
+                $register->matricula = $matricula;
+                $register->aluguer_id = $request->id_aluguer;
+                $register->save();
+            }
         
         //envia no seu perfil 
         $cliente = Cliente::find($request->id_cliente);//pegar dados do cliente
-        $viagem = ViagemDetalhes::find($id_viagem);//pegar dados da viagem
+        $aluguer = Aluguer::find($request->id_aluguer);//pegar dados da viagem
         
         //envia por email
         $sms = 'Bom dia prezado(a) cliente '.$cliente->nome.', a SLA vem por meio desta agradecer e '.
-        'confirmar a compra do seu bilhete. abaixo temos o nº do seu Bilhete, por favor faça-se'.
-        'apresentado do mesmo no Pontos de Levant. do(a) "'.$viagem->ponto_e.'" no dia '.date('d/m/Y', strtotime($viagem->data_partida));
-        $n_bilhete = $request->n_bilhete;
+        'confirmar o aluguer do(s) automóvel(eis). abaixo temos o nº do aluguer, por favor faça-se'.
+        'apresentado no seguinte Ponto de Levant. "'.$aluguer->local_entrega.'" no dia '.date('d/m/Y', strtotime($aluguer->data_entrega)).' com previsão de devolução no dia'.date('d/m/Y', strtotime($aluguer->data_devolucao));
         
-        if((isset($bilhete) && $bilhete) || (isset($register) && $register))
-        return response()->json(['estado'=>1,'success'=>'Nº de Bilhete atribuido e enviado com sucesso!','email'=>$cliente->email,'telef'=>$cliente->telefone,'sms'=>$sms,'n_bilhete'=>$n_bilhete,'destino'=>1]);
+        if((isset($aluguer) && $aluguer) || (isset($register) && $register))
+        return response()->json(['estado'=>1,'success'=>'Aluguer de Automóvel(eis) confirmado com sucesso!','email'=>$cliente->email,'telef'=>$cliente->telefone,'sms'=>$sms,'n_aluguer'=>$n_aluguer,'destino'=>1]);
     
     }else{
-        return redirect()->back()->with('error','Falha ao validar o Bilhete de Viagem, tente novamente!');
+        return redirect()->back()->with('error','Falha ao validar o aluguer do cliente, tente novamente!');
     }
         }catch(\Exception $e){
-        return response()->json(['error'=>'Falha ao atribuir nº do Bilhete, tente de novo!']);
+        return response()->json(['error'=>'Falha ao validar o aluguer, tente de novo!']);
         }
     
     }  
@@ -458,7 +441,7 @@ function enviar_email($request){
 
         //trata-se do cliente
         $sms = $request->sms;
-        $n_bilhete = $request->n_bilhete;
+        $n_aluguer = $request->n_aluguer;
         $cliente = $request->cliente_email;
 
         $info = [
@@ -483,9 +466,9 @@ function enviar_sms_ws($request){
 
     $telefone =  $request->telef;//cliente telef
     $sms = $request->sms;
-    $n_bilhete = $request->n_bilhete;
+    $n_aluguer = $request->n_aluguer;
 
-    $whatsapp = $sms.'\n\n'.'Segue-se o nº do Bilhete comprado B.I nº _'.$n_bilhete.'_';
+    $whatsapp = $sms.'\n\n'.'Segue-se o nº do Bilhete comprado B.I nº _'.$n_aluguer.'_';
     //$curl = curl_init();
     $telef =  '+244'.$telefone;
     

@@ -128,7 +128,7 @@
                 <td class="text-center">{{ $item->total_passageiro }}</td>
                 <td>{{ number_format($item->preco*$item->total_passageiro,2,',','.') }} Kz</td>   
                 <td>
-                    <span class="alert alert-success p-1" data-toggle="tooltip" data-placement="top" title="Recebido {{ number_format($item->preco*$item->total_passageiro,2,',','.') }} kz"> <i class="fa fa-check-circle"></i> Pago</span>
+                    <span class="alert alert-warning text-dark p-1" data-toggle="tooltip" data-placement="top" title="Recebido {{ number_format($item->preco*$item->total_passageiro,2,',','.') }} kz"> <i class="fa fa-check-circle"></i> Reservado</span>
                 </td>
                 <td class="text-center">{{ date('d/m/Y', strtotime($item->data_compra)) }}</td>
               

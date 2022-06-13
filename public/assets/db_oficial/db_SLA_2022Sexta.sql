@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 10/06/2022 às 16:33
+-- Tempo de geração: 13/06/2022 às 17:10
 -- Versão do servidor: 10.4.24-MariaDB
 -- Versão do PHP: 7.4.28
 
@@ -35,15 +35,57 @@ CREATE TABLE IF NOT EXISTS `aluguer` (
   `pedido_id` bigint(20) NOT NULL,
   `total_pago` decimal(10,2) NOT NULL,
   `forma_pagto` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'ATM',
+  `comprovativo_file` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `estado` bit(1) NOT NULL DEFAULT b'0',
   `data_entrega` date NOT NULL,
   `data_prev_devolucao` date NOT NULL,
-  `data_devolucao` date NOT NULL,
+  `data_devolucao` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `aluguer_pedido_id_foreign` (`pedido_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  UNIQUE KEY `pedido_id` (`pedido_id`,`total_pago`,`forma_pagto`,`data_entrega`,`data_prev_devolucao`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Despejando dados para a tabela `aluguer`
+--
+
+INSERT INTO `aluguer` (`id`, `pedido_id`, `total_pago`, `forma_pagto`, `comprovativo_file`, `estado`, `data_entrega`, `data_prev_devolucao`, `data_devolucao`, `created_at`, `updated_at`) VALUES
+(1, 4, '1.00', 'ATM', 'Comprovativos/pagto_aluguer/13-Jun-2022/pagto_62a726e65b11b.jpg', b'0', '2022-06-13', '2022-06-14', NULL, '2022-06-13 11:00:38', '2022-06-13 11:00:38');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura stand-in para view `aluguerDetalhes`
+-- (Veja abaixo para a visão atual)
+--
+DROP VIEW IF EXISTS `aluguerDetalhes`;
+CREATE TABLE IF NOT EXISTS `aluguerDetalhes` (
+`id_aluguer` bigint(20)
+,`pedido_id` bigint(20)
+,`total_pago` decimal(10,2)
+,`forma_pagto` varchar(10)
+,`comprovativo_file` varchar(255)
+,`estado` bit(1)
+,`data_entrega` date
+,`data_prev_devolucao` date
+,`data_devolucao` date
+,`id` bigint(20)
+,`veiculo_id` bigint(20)
+,`marca` varchar(255)
+,`modelo` varchar(255)
+,`preco_aluguer` decimal(10,2)
+,`qtd_carros` tinyint(4)
+,`total_dias` tinyint(4)
+,`local_entrega` varchar(255)
+,`nome_cliente` varchar(255)
+,`email` varchar(172)
+,`telefone` varchar(255)
+,`data_inicio` date
+,`data_fim` date
+,`created_at` timestamp
+,`updated_at` timestamp
+);
 
 -- --------------------------------------------------------
 
@@ -213,13 +255,11 @@ DROP TABLE IF EXISTS `carros_alugados`;
 CREATE TABLE IF NOT EXISTS `carros_alugados` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `matricula` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `veiculos_id` bigint(20) NOT NULL,
   `aluguer_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `carros_alugados_matricula_unique` (`matricula`),
-  KEY `carros_alugados_veiculos_id_foreign` (`veiculos_id`),
   KEY `carros_alugados_aluguer_id_foreign` (`aluguer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -636,6 +676,30 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura stand-in para view `pedidoDetalhes`
+-- (Veja abaixo para a visão atual)
+--
+DROP VIEW IF EXISTS `pedidoDetalhes`;
+CREATE TABLE IF NOT EXISTS `pedidoDetalhes` (
+`id` bigint(20)
+,`veiculo_id` bigint(20)
+,`marca` varchar(255)
+,`modelo` varchar(255)
+,`preco_aluguer` decimal(10,2)
+,`qtd_carros` tinyint(4)
+,`total_dias` tinyint(4)
+,`local_entrega` varchar(255)
+,`nome_cliente` varchar(255)
+,`email` varchar(172)
+,`telefone` varchar(255)
+,`n_doc` varchar(150)
+,`data_inicio` date
+,`data_fim` date
+);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `pedidos`
 --
 
@@ -646,6 +710,7 @@ CREATE TABLE IF NOT EXISTS `pedidos` (
   `cliente_id` bigint(20) NOT NULL,
   `qtd_carros` tinyint(4) NOT NULL DEFAULT 1,
   `total_dias` tinyint(4) NOT NULL DEFAULT 1,
+  `local_entrega` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'Local predefinido',
   `data_inicio` date NOT NULL,
   `data_fim` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -653,19 +718,16 @@ CREATE TABLE IF NOT EXISTS `pedidos` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `veiculo_id` (`veiculo_id`,`cliente_id`,`qtd_carros`,`data_inicio`,`data_fim`),
   KEY `pedidos_cliente_id_foreign` (`cliente_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `pedidos`
 --
 
-INSERT INTO `pedidos` (`id`, `veiculo_id`, `cliente_id`, `qtd_carros`, `total_dias`, `data_inicio`, `data_fim`, `created_at`, `updated_at`) VALUES
-(1, 11, 3, 1, 1, '2022-06-10', '2022-06-11', '2022-06-10 11:59:31', '2022-06-10 11:59:31'),
-(2, 15, 5, 1, 1, '2022-06-10', '2022-06-11', '2022-06-10 12:41:47', '2022-06-10 12:41:47'),
-(5, 10, 5, 1, 1, '2022-06-10', '2022-06-11', '2022-06-10 12:45:03', '2022-06-10 12:45:03'),
-(6, 10, 3, 2, 1, '2022-06-10', '2022-06-11', '2022-06-10 13:08:57', '2022-06-10 13:08:57'),
-(7, 10, 3, 4, 1, '2022-06-10', '2022-06-11', '2022-06-10 13:11:10', '2022-06-10 13:11:10'),
-(8, 10, 3, 1, 1, '2022-06-10', '2022-06-11', '2022-06-10 13:14:14', '2022-06-10 13:14:14');
+INSERT INTO `pedidos` (`id`, `veiculo_id`, `cliente_id`, `qtd_carros`, `total_dias`, `local_entrega`, `data_inicio`, `data_fim`, `created_at`, `updated_at`) VALUES
+(2, 11, 5, 1, 1, 'Local', '2022-06-13', '2022-06-14', '2022-06-13 07:17:23', '2022-06-13 07:17:23'),
+(3, 14, 5, 1, 1, 'sdfsd', '2022-06-13', '2022-06-14', '2022-06-13 07:41:10', '2022-06-13 07:41:10'),
+(4, 15, 5, 1, 1, 'México noas longe', '2022-06-13', '2022-06-14', '2022-06-13 10:45:14', '2022-06-13 10:45:14');
 
 -- --------------------------------------------------------
 
@@ -1047,6 +1109,16 @@ INSERT INTO `viagens` (`id`, `itinerario`, `data_partida`, `data_chegada`, `emba
 -- --------------------------------------------------------
 
 --
+-- Estrutura para view `aluguerDetalhes`
+--
+DROP TABLE IF EXISTS `aluguerDetalhes`;
+
+DROP VIEW IF EXISTS `aluguerDetalhes`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `aluguerDetalhes`  AS SELECT `aluguer`.`id` AS `id_aluguer`, `aluguer`.`pedido_id` AS `pedido_id`, `aluguer`.`total_pago` AS `total_pago`, `aluguer`.`forma_pagto` AS `forma_pagto`, `aluguer`.`comprovativo_file` AS `comprovativo_file`, `aluguer`.`estado` AS `estado`, `aluguer`.`data_entrega` AS `data_entrega`, `aluguer`.`data_prev_devolucao` AS `data_prev_devolucao`, `aluguer`.`data_devolucao` AS `data_devolucao`, `pedido`.`id` AS `id`, `pedido`.`veiculo_id` AS `veiculo_id`, `pedido`.`marca` AS `marca`, `pedido`.`modelo` AS `modelo`, `pedido`.`preco_aluguer` AS `preco_aluguer`, `pedido`.`qtd_carros` AS `qtd_carros`, `pedido`.`total_dias` AS `total_dias`, `pedido`.`local_entrega` AS `local_entrega`, `pedido`.`nome_cliente` AS `nome_cliente`, `pedido`.`email` AS `email`, `pedido`.`telefone` AS `telefone`, `pedido`.`data_inicio` AS `data_inicio`, `pedido`.`data_fim` AS `data_fim`, `aluguer`.`created_at` AS `created_at`, `aluguer`.`updated_at` AS `updated_at` FROM (`pedidoDetalhes` `pedido` join `aluguer` on(`pedido`.`id` = `aluguer`.`pedido_id`))  ;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para view `bilhete_detalhes`
 --
 DROP TABLE IF EXISTS `bilhete_detalhes`;
@@ -1083,6 +1155,16 @@ DROP TABLE IF EXISTS `marca_modelos`;
 
 DROP VIEW IF EXISTS `marca_modelos`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `marca_modelos`  AS SELECT `modelo`.`id` AS `id`, `marcas`.`id` AS `marca_id`, `marcas`.`marca` AS `marca`, `modelo`.`id` AS `modelo_id`, `modelo`.`modelo` AS `modelo` FROM (`marcas` join `modelos` `modelo` on(`marcas`.`id` = `modelo`.`marca_id`))  ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para view `pedidoDetalhes`
+--
+DROP TABLE IF EXISTS `pedidoDetalhes`;
+
+DROP VIEW IF EXISTS `pedidoDetalhes`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pedidoDetalhes`  AS SELECT `pedidos`.`id` AS `id`, `pedidos`.`veiculo_id` AS `veiculo_id`, `carro`.`marca` AS `marca`, `carro`.`modelo` AS `modelo`, `carro`.`preco_aluguer` AS `preco_aluguer`, `pedidos`.`qtd_carros` AS `qtd_carros`, `pedidos`.`total_dias` AS `total_dias`, `pedidos`.`local_entrega` AS `local_entrega`, `cliente`.`nome` AS `nome_cliente`, `cliente`.`email` AS `email`, `cliente`.`telefone` AS `telefone`, `cliente`.`n_doc` AS `n_doc`, `pedidos`.`data_inicio` AS `data_inicio`, `pedidos`.`data_fim` AS `data_fim` FROM ((`pedidos` join `veiculo_detalhes` `carro` on(`pedidos`.`veiculo_id` = `carro`.`id`)) join `clientes` `cliente` on(`cliente`.`id` = `pedidos`.`cliente_id`))  ;
 
 -- --------------------------------------------------------
 
@@ -1141,8 +1223,7 @@ ALTER TABLE `bi_reservados`
 -- Restrições para tabelas `carros_alugados`
 --
 ALTER TABLE `carros_alugados`
-  ADD CONSTRAINT `carros_alugados_aluguer_id_foreign` FOREIGN KEY (`aluguer_id`) REFERENCES `aluguer` (`id`),
-  ADD CONSTRAINT `carros_alugados_veiculos_id_foreign` FOREIGN KEY (`veiculos_id`) REFERENCES `veiculos` (`id`);
+  ADD CONSTRAINT `carros_alugados_aluguer_id_foreign` FOREIGN KEY (`aluguer_id`) REFERENCES `aluguer` (`id`);
 
 --
 -- Restrições para tabelas `clientes`

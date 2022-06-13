@@ -29,7 +29,7 @@
                                 <h2 class="my-4"><i class="fa fa-edit text-muted"></i> Confirmação de Aluguer de Automóveis</h2>
  <a href="{{ route('aluguer.send_sms') }}" id="link_send_sms" class="btn btn-submit d-none">Enviar sms</a>
                                 <hr>
- <!-- tabela de bilhetes comprados --> 
+ <!-- tabela de pedido de aluguer --> 
 
  <div class="container">
                                <div class="table-responsive">
@@ -37,16 +37,15 @@
       <table  id="dataTables" class="display nowrap" style="width:100%">
         <thead>
             <tr>
-                <th>ID Aluguer</th>
+                <th>ID</th>
                 <th>ID Pedido</th>
                 <th class="text-center">Cliente</th>
                 <th>Veículo</th>
                 <th>Qtd. carros</th>
-                <th>Total pago(Akz)</th>
-                <th>Forma Pagto</th>
                 <th>Local entrega</th>
                 <th>Data Entrega</th>
                 <th>Data Prev. Dev.</th>
+                <th>Total pago(Akz)</th>
                 <th>Comprovativo</th>
                 <th>Data Aluguer</th>
                 <th>Opções</th>
@@ -56,15 +55,15 @@
             @if(isset($novos_pedidos[0]->id))
             @foreach($novos_pedidos as $item)
             <tr>
-                <td>{{ $item->id }}</td>
-                <td>{{ $item->pedido_id }}</td>
+                <td class="text-right">{{ $item->id }}</td>
+                <td class="text-right">{{ $item->pedido_id }}</td>
                 <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->nome_cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" email_cliente="{{ $item->email }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#email_cliente').text($(this).attr('email_cliente')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->nome_cliente }}</td>
                 <td>{{ $item->marca }}  {{ $item->modelo }}</td>
-                <td>{{ $item->qtd_carros }}</td>
-                <td>{{ number_format($item->total_pago,2,',','.') }}</td>
+                <td class="text-right">{{ $item->qtd_carros }}</td>
                 <td>{{ $item->local_entrega }}</td>
-                <td class="text-center">{{ date('d/m/Y H:i', strtotime($item->data_entrega)) }}</td>
-                <td class="text-center">{{ date('d/m/Y H:i', strtotime($item->data_prev_devolucao)) }}</td>
+                <td class="text-right">{{ date('d/m/Y', strtotime($item->data_entrega)) }}</td>
+                <td class="text-right">{{ date('d/m/Y', strtotime($item->data_prev_devolucao)) }}</td>
+                <td class="text-right">{{ number_format($item->total_pago,2,',','.') }}</td>
                 <td>
                 @if(isset($item->comprovativo_file) && $item->forma_pagto == 'ATM')	
                 <a href="{{ asset('storage/'.$item->comprovativo_file) }}" target="_blank" class="btn btn-warning btn-sm mb-1 btn-block text-dark" data-toggle="tooltip" data-placement="bottom" title="Mostrar comprovativo" onclick="event.preventDefault(); $('#comprovativo').attr('src', $(this).attr('href')); $('#modalComprovativo').modal('show');"><i class="fa fa-file-pdf"></i> Comprovativo</a>
@@ -80,7 +79,7 @@
                 </td>
                 <td class="text-center">{{ date('d/m/Y', strtotime($item->updated_at)) }}</td>
                 <td class="text-left">
-		        <a href="#" class="btn btn-success btn-sm mb-1" data-toggle="tooltip" data-placement="bottom" title="Confirmar compra de Bilhete" nome_cliente="{{ $item->cliente }}" id_cliente="{{ $item->id_cliente }}" nome_rota="{{ $item->rota_origem }} - {{ $item->rota_destino }}" id_bilhete="{{ $item->id }}" onclick="event.preventDefault(); $('#origem_bilhete').val('bi'); $('#id_cliente').val($(this).attr('id_cliente')); $('#nome_cliente').val($(this).attr('nome_cliente')); $('#nome_rota').val($(this).attr('nome_rota')); $('#id_bilhete').val($(this).attr('id_bilhete'));  $('#modalConfirmacao').modal('show');"><i class="fa fa-check" ></i></a>
+		        <a href="#" class="btn btn-success btn-sm mb-1" data-toggle="tooltip" data-placement="bottom" title="Confirmar aluguer de Automóvel" nome_cliente="{{ $item->nome_cliente }}" id_cliente="{{ $item->id_cliente }}" veiculo="{{ $item->marca }} {{ $item->modelo }}" qtd_carros="{{ $item->qtd_carros }}" id_aluguer="{{ $item->id }}" data_entrega="{{ $item->data_entrega }}" onclick="event.preventDefault(); validarAluguer($(this)); "><i class="fa fa-check" ></i></a>
             <a href="{{ route('aluguer.delete', ['id_aluguer'=>$item->id_aluguer, 'id_pedido'=>$item->pedido_id]) }}" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes cancelar o aluguer do veículo?');" data-toggle="tooltip" data-placement="right" title="cancelar o aluguer do veículo..."><i class="fa fa-trash"></i></a>
                  </td>
             </tr>
@@ -88,7 +87,7 @@
             @endif
         </tbody>
         </table>
-                               <!-- fim tabela de bilhetes comprados --> 
+                               <!-- fim tabela de pedidos comprados --> 
                             </div>
                         </div>
                         </div>
@@ -103,48 +102,50 @@
                                <div class="container">
                                <div class="table-responsive">
                                <table id="dataTables2" class="display nowrap dataTables" style="width:100%">
-                               <thead>
+        <thead>
             <tr>
                 <th>ID</th>
-                <th class="text-left">Cliente</th>
-                <th>Rota</th>
-                <th>Ponto Levant.</th>
-                <th>Data viagem</th>
-                <th>Classe</th>
-                <th>Passageiro(s)</th>
-                <th>Total Pago</th>
+                <th>ID Pedido</th>
+                <th class="text-center">Cliente</th>
+                <th>Veículo</th>
+                <th>Qtd. carros</th>
+                <th>Local entrega</th>
+                <th>Data Entrega</th>
+                <th>Data Prev. Dev.</th>
+                <th>Total pago(Akz)</th>
                 <th>Estado</th>
-                <th>Data compra</th>
+                <th>Data Aluguer</th>
                 <th>Opções</th>
             </tr>
         </thead>
         <tbody>
-            @if(isset($bi_reservados[0]->id))
-            @foreach($bi_reservados as $item)
+            @if(isset($reservados[0]->id))
+            @foreach($reservados as $item)
             <tr>
-                <td>{{ $item->id }}</td>
-                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" email_cliente="{{ $item->email }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#email_cliente').text($(this).attr('email_cliente')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->cliente }}</td>
-                <td>{{ $item->rota_origem }} - {{ $item->rota_destino }}</td>
-                <td>{{ $item->ponto_e }}</td>
-                <td class="text-center">{{ date('d/m/Y H:i', strtotime($item->data_partida)) }}</td>
-                <td class="text-uppercase">{{ $item->classe }}</td> 
-                <td class="text-center">{{ $item->total_passageiro }}</td>
-                <td>{{ number_format($item->preco*$item->total_passageiro,2,',','.') }} Kz</td>   
+                <td class="text-right">{{ $item->id }}</td>
+                <td class="text-right">{{ $item->pedido_id }}</td>
+                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->nome_cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" email_cliente="{{ $item->email }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#email_cliente').text($(this).attr('email_cliente')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->nome_cliente }}</td>
+                <td>{{ $item->marca }}  {{ $item->modelo }}</td>
+                <td class="text-right">{{ $item->qtd_carros }}</td>
+                <td>{{ $item->local_entrega }}</td>
+                <td class="text-right">{{ date('d/m/Y', strtotime($item->data_entrega)) }}</td>
+                <td class="text-right">{{ date('d/m/Y', strtotime($item->data_prev_devolucao)) }}</td>
+                <td class="text-right">{{ number_format($item->total_pago,2,',','.') }}</td>
                 <td>
-                    <span class="alert alert-success p-1" data-toggle="tooltip" data-placement="top" title="Recebido {{ number_format($item->preco*$item->total_passageiro,2,',','.') }} kz"> <i class="fa fa-check-circle"></i> Pago</span>
+                    <span class="alert alert-warning text-dark p-1" data-toggle="tooltip" data-placement="top" title="Recebido {{ number_format($item->preco*$item->total_passageiro,2,',','.') }} kz"> <i class="fa fa-check-circle"></i> Reservado</span>
                 </td>
-                <td class="text-center">{{ date('d/m/Y', strtotime($item->data_compra)) }}</td>
-              
-                <td class="text-center">
-                <a href="#" class="btn btn-success btn-sm mb-1" data-toggle="tooltip" data-placement="bottom" title="Confirmar compra de Bilhete" nome_cliente="{{ $item->cliente }}" id_cliente="{{ $item->id_cliente }}" nome_rota="{{ $item->rota_origem }} - {{ $item->rota_destino }}" id_bilhete="{{ $item->id }}" onclick="event.preventDefault(); $('#origem_bilhete').val('res'); $('#id_cliente').val($(this).attr('id_cliente')); $('#nome_cliente').val($(this).attr('nome_cliente')); $('#nome_rota').val($(this).attr('nome_rota')); $('#id_bilhete').val($(this).attr('id_bilhete'));  $('#modalConfirmacao').modal('show');"><i class="fa fa-check" ></i></a>
-                <a href="{{ route('bilhete.delete', $item->id) }}" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes cancelar a compra deste Bilhete?');" data-toggle="tooltip" data-placement="right" title="cancelar a compra do Bilhete indicado..."><i class="fa fa-trash"></i></a>
-                </td>
+                <td class="text-center">{{ date('d/m/Y', strtotime($item->updated_at)) }}</td>
+                <td class="text-left">
+		        <a href="#" class="btn btn-success btn-sm mb-1" data-toggle="tooltip" data-placement="bottom" title="Confirmar aluguer de Automóvel" nome_cliente="{{ $item->cliente }}" id_cliente="{{ $item->id_cliente }}" nome_rota="{{ $item->rota_origem }} - {{ $item->rota_destino }}" id_bilhete="{{ $item->id }}" onclick="event.preventDefault(); $('#origem_bilhete').val('bi'); $('#id_cliente').val($(this).attr('id_cliente')); $('#nome_cliente').val($(this).attr('nome_cliente')); $('#nome_rota').val($(this).attr('nome_rota')); $('#id_bilhete').val($(this).attr('id_bilhete'));  $('#modalConfirmacao').modal('show');"><i class="fa fa-check" ></i></a>
+            <a href="{{ route('aluguer.delete', ['id_aluguer'=>$item->id_aluguer, 'id_pedido'=>$item->pedido_id]) }}" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes cancelar o aluguer do veículo?');" data-toggle="tooltip" data-placement="right" title="cancelar o aluguer do veículo..."><i class="fa fa-trash"></i></a>
+                 </td>
             </tr>
             @endforeach
             @endif
         </tbody>
         </table>
-                               <!-- fim tabela de provincias --> 
+     
+                               <!-- fim tabela de pedidos --> 
                             </div>
                             </div>
                             </div>
@@ -159,40 +160,35 @@
                                <div class="container">
                                <div class="table-responsive">
                                <table id="dataTables3" class="display nowrap dataTables" style="width:100%">
-                               <thead>
+        <thead>
             <tr>
                 <th>ID</th>
-                <th>Nº Bilhete</th>
-                <th class="text-left">Cliente</th>
-                <th>Rota</th>
-                <th>Ponto Levant.</th>
-                <th>Data viagem</th>
-                <th>Passageiro(s)</th>
-                <th>Classe</th>
-                <th>Total Pago</th>
-                <th>Estado</th>
-                <th class="text-center">Comprovativo</th>
-                <th>Data compra</th>
+                <th>ID Pedido</th>
+                <th class="text-center">Cliente</th>
+                <th>Veículo</th>
+                <th>Qtd. carros</th>
+                <th>Local entrega</th>
+                <th>Data Entrega</th>
+                <th>Data Prev. Dev.</th>
+                <th>Total pago(Akz)</th>
+                <th>Comprovativo</th>
+                <th>Data Aluguer</th>
                 <th>Opções</th>
             </tr>
         </thead>
         <tbody>
-            @if(isset($bilhete_ativos[0]->id))
-            @foreach($bilhete_ativos as $item)
+            @if(isset($alugueres[0]->id))
+            @foreach($alugueres as $item)
             <tr>
-                <td>{{ $item->id }}</td>
-                <td>{{ $item->n_bilhete }}</td>
-                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" email_cliente="{{ $item->email }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#email_cliente').text($(this).attr('email_cliente')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->cliente }}</td>
-                <td>{{ $item->rota_origem }} - {{ $item->rota_destino }}</td>
-                <td>{{ $item->ponto_e }}</td>
-                <td class="text-center">{{ date('d/m/Y H:i', strtotime($item->data_partida)) }}</td>
-                <td class="text-center">{{ $item->total_passageiro }}</td>
-                <td class="text-uppercase">{{ $item->classe }}</td>
-                <td>{{ number_format($item->preco*$item->total_passageiro,2,',','.') }} Kz</td>
-               
-                <td>
-                    <span class="alert alert-success p-1" data-toggle="tooltip" data-placement="top" title="Recebido {{ number_format($item->preco*$item->total_passageiro,2,',','.') }} kz"> <i class="fa fa-check-circle"></i> Pago</span>
-                </td>
+                <td class="text-right">{{ $item->id }}</td>
+                <td class="text-right">{{ $item->pedido_id }}</td>
+                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->nome_cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" email_cliente="{{ $item->email }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#email_cliente').text($(this).attr('email_cliente')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->nome_cliente }}</td>
+                <td>{{ $item->marca }}  {{ $item->modelo }}</td>
+                <td class="text-right">{{ $item->qtd_carros }}</td>
+                <td>{{ $item->local_entrega }}</td>
+                <td class="text-right">{{ date('d/m/Y', strtotime($item->data_entrega)) }}</td>
+                <td class="text-right">{{ date('d/m/Y', strtotime($item->data_prev_devolucao)) }}</td>
+                <td class="text-right">{{ number_format($item->total_pago,2,',','.') }}</td>
                 <td>
                 @if(isset($item->comprovativo_file) && $item->forma_pagto == 'ATM')	
                 <a href="{{ asset('storage/'.$item->comprovativo_file) }}" target="_blank" class="btn btn-warning btn-sm mb-1 btn-block text-dark" data-toggle="tooltip" data-placement="bottom" title="Mostrar comprovativo" onclick="event.preventDefault(); $('#comprovativo').attr('src', $(this).attr('href')); $('#modalComprovativo').modal('show');"><i class="fa fa-file-pdf"></i> Comprovativo</a>
@@ -206,11 +202,10 @@
                 @endif
                 @endif    
                 </td>
-                <td class="text-center">{{ date('d/m/Y', strtotime($item->data_compra)) }}</td>
-                
-                <td class="text-center">
-                <a href="{{ route('bilhete.delete', $item->id) }}" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes cancelar a compra deste Bilhete?');" data-toggle="tooltip" data-placement="right" title="cancelar a compra do Bilhete indicado..."><i class="fa fa-trash"></i></a>
-                </td>
+                <td class="text-center">{{ date('d/m/Y', strtotime($item->updated_at)) }}</td>
+                <td class="text-left">
+		    <a href="{{ route('aluguer.delete', ['id_aluguer'=>$item->id_aluguer, 'id_pedido'=>$item->pedido_id]) }}" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes cancelar o aluguer do veículo?');" data-toggle="tooltip" data-placement="right" title="cancelar o aluguer do veículo..."><i class="fa fa-trash"></i></a>
+                 </td>
             </tr>
             @endforeach
             @endif
@@ -258,13 +253,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-header-modal">
-        <h5 class="modal-title text-light" id="confirmModalLabel">Confirmar compra de Bilhete</h5>
+        <h5 class="modal-title text-light" id="confirmModalLabel">Confirmar aluguer de Automóvel</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" class="text-light">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      <form method="post" action="{{ route('bilhete.validacao') }}" id="form_validacao_bi">
+      <form method="post" action="{{ route('aluguer.validacao') }}" id="form_validacao_bi">
                                     @csrf
                             <div class="row mb-2">
                             <div class="col-12">
@@ -274,17 +269,27 @@
                             </div></div>
                             <div class="row mb-2">
                             <div class="col-12">
-                            <label for="nome_rota">Rota:</label>
-                                <input type="text" class="form-control text-capitalize" name="nome_rota" id="nome_rota" placeholder="Rota" required readonly>
+                            <label for="nome_rota">Veículo:</label>
+                                <input type="text" class="form-control text-capitalize" name="veiculo" id="veiculo" placeholder="Rota" required readonly>
                             </div>
                             </div>
                             <div class="row">
-                                <div class="col-12">
-                                <label for="n_bilhete">Nº Bilhete de Viagem:</label>
-                                <input type="hidden" class="form-control" id="id_bilhete" name="id_bilhete" placeholder="ID de Bilhete" required>
-                                <input type="hidden" class="form-control" id="origem_bilhete" name="origem_bilhete" value="bi" placeholder="Origem Bilhete" required>
-                                <input type="text" class="form-control" id="n_bilhete" name="n_bilhete" placeholder="Nº de Bilhete de viagem" required >
+                                <div class="col-12 mb-2">
+                                <label for="nome_rota">Matrículas:</label>
+                                    <div class="inputs" id="carros_alugados"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                <label for="data_entrega"><code>*</code>Data entrega:</label>
+                                <input type="hidden" class="form-control" id="id_aluguer" name="id_aluguer" placeholder="ID do Aluguer" required>
+                                <input type="hidden" class="form-control" id="origem_aluguer" name="origem_aluguer" value="pedido" placeholder="Origem Aluguer" required>
+                                <input type="date" class="form-control" id="data_entrega" name="data_entrega" placeholder="Data entrega" required >
   
+                                </div>
+                                <div class="col-6">
+                                <label for="data_dev"><code>*</code>Data Devolução:</label>
+                                <input type="date" class="form-control" id="data_dev" name="data_dev" placeholder="Data entrega" required >
                                 </div>
                             </div>
                             <div class="row my-2">
