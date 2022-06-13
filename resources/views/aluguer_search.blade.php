@@ -374,9 +374,9 @@
 
 <div class="col-sm-12 col-md-6 ">
   <div class="form-group">
-    <label for="ponto_levantamento"><code>*</code>Ponto de Levantamento:</label>
+    <label for="local_entrega"><code>*</code>Ponto de Levantamento:</label>
     <!--<input type="text" class="form-control" id="n_doc_cliente" name="n_doc_cliente" value="00" onfocus="$(this).val('');"  placeholder="Nº Documento apresentado" required>--> 
-	<textarea class="form-control" id="ponto_levantamento" name="ponto_levantamento" placeholder="Endereço de entrega..." required></textarea>
+	<textarea class="form-control" id="local_entrega" name="local_entrega" placeholder="Endereço de entrega..." required></textarea>
   </div>
 </div>
 </div>

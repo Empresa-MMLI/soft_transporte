@@ -47,7 +47,7 @@
                         <div class="col-sm-12 col-md-6">
                         <fieldset class="scheduler-border">
     <legend class="scheduler-border"> Formulário de Reserva de Veículos</legend>
-    <form method="post" action="{{ route('bilhete.store') }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('veiculos.alugar') }}" enctype="multipart/form-data">
             @csrf
 <p class="my-1"><code>* Detalhes do Pedido</code></p>
 
@@ -56,13 +56,14 @@
 <div class="form-groups">
     <label for="nome">Veículo:</label>
     <input type="text" class="form-control" id="nome_veiculo" name="nome_veiculo" value="{{ isset($veiculo->marca)? $veiculo->marca.' '.$veiculo->modelo:'Desconhecido' }}" placeholder="Veículo" readonly>
-    <input type="hidden" class="form-control" value="{{ $veiculo->id }}" id="id_viagem" name="id_viagem" placeholder="ID viagem">
+    <input type="hidden" class="form-control" value="{{ $pedido->id }}" id="id_pedido" name="id_pedido" placeholder="ID Pedido">
 </div>
 </div>
   <div class="col-6">
 <div class="form-groups">
     <label for="t_adultos">Quantidade Veículo:</label>
     <input type="number" class="form-control" min="0" id="qtd_veiculos" name="qtd_veiculos" value="{{ isset($pedido->qtd_carros)? $pedido->qtd_carros:1 }}" placeholder="Total veículos" required>
+    <input type="hidden" class="form-control" value="{{ $veiculo->preco_aluguer*$pedido->qtd_carros*$pedido->total_dias }}" id="total_pago" name="total_pago" placeholder="Total carros">
 </div>
 </div>
 </div>

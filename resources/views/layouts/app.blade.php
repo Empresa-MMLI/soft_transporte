@@ -52,7 +52,7 @@
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="{{ route('dashboard.bilhetes') }}">
-              <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Bilhetes</span>
+              <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Venda de Bilhetes</span>
             </a>
 					</li>
 

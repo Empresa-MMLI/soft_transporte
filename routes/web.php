@@ -161,9 +161,6 @@ Route::any('/send_sms', [ViagemController::class, 'send_sms_cliente'])->name('bi
 
 //buscar bilhetes de viagens
 Route::any('/compras_bi', [ViagemController::class, 'comprar_bilhetes'])->name('compra.bilhetes');
-
-//buscar veiculos
-Route::any('/veiculos_search', [VeiculoController::class, 'aluguer_veiculos'])->name('aluguer.veiculos');
 //resultado busca bilhetes de viagens
 Route::any('/search_bi', [ViagemController::class, 'bilhetes'])->name('search.bilhetes');
 
@@ -183,8 +180,18 @@ Route::post('/search_veiculos', [VeiculoController::class, 'search_veiculos'])->
 Route::post('/store_veiculos', [VeiculoController::class, 'store'])->name('veiculos.store');
 //delete
 Route::get('/delete_veiculos', [VeiculoController::class, 'delete'])->name('veiculos.delete');
+//buscar veiculos
+Route::any('/veiculos_search', [VeiculoController::class, 'aluguer_veiculos'])->name('aluguer.veiculos');
 //store new pedido
 Route::any('/reservar_veiculos', [VeiculoController::class, 'reservar_veiculos'])->name('veiculos.reservar');
+//store new aluguer
+Route::any('/alugar_veiculos', [VeiculoController::class, 'alugar_veiculos'])->name('veiculos.alugar');
+//store new aluguer
+Route::any('/delete_aluguer', [VeiculoController::class, 'delete_aluguer'])->name('aluguer.delete');
+//validacao do aluguer do automovel
+Route::any('/validacao_aluguer', [VeiculoController::class, 'validacao_aluguer'])->name('veiculos.validacao');
+//Envio de email, sms e whatsapp para o cliente e admin
+Route::any('/aluguer_send_sms', [VeiculoController::class, 'send_sms_cliente'])->name('aluguer.send_sms');
 
 //mostrar marcas
 Route::get('/marcas', [VeiculoController::class, 'marcas'])->name('dashboard.marcas');
@@ -206,9 +213,7 @@ Route::get('/dashbord', [DashboardController::class, 'index'])->name('dashboard.
 Route::get('/dashbord/cliente', [DashboardController::class, 'index_cliente'])->name('cliente.index');
 
 
-Route::get('/alugueres', function () {
-    return view('dashboard.alugueres');
-})->name('dashboard.alugueres');
+Route::get('/alugueres', [VeiculoController::class, 'alugueres'])->name('dashboard.alugueres');
 
 Route::get('/servicos', function () {
     return view('dashboard.servicos');

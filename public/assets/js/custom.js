@@ -118,8 +118,8 @@ $(this).css('display','nones');
 
         $('#modalOperacao').modal('show');
         $link_sms = $('#link_send_sms').attr('href');
-        $dados = {'telef':response.telef,'sms':response.sms,'n_bilhete':response.n_bilhete,'destino':response.destino};
-        console.log($link_sms);
+        $dados = {'telef':response.telef,'sms':response.sms,'n_bilhete':response.n_bilhete,'destino':response.destino,'cliente_email':response.email};
+        //console.log($link_sms);
         $.get($link_sms, $dados, function(data){
           if(data.estado !== undefined){
             console.log(data)

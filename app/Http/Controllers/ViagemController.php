@@ -317,7 +317,7 @@ class ViagemController extends Controller
         //return $sms;
         //envia por sms
         if((isset($bilhete) && $bilhete) || (isset($register) && $register))
-        return response()->json(['estado'=>1,'success'=>'Nº de Bilhete atribuido e enviado com sucesso!','telef'=>$cliente->telefone,'sms'=>$sms,'n_bilhete'=>$n_bilhete,'destino'=>1]);
+        return response()->json(['estado'=>1,'success'=>'Nº de Bilhete atribuido e enviado com sucesso!','email'=>$cliente->email,'telef'=>$cliente->telefone,'sms'=>$sms,'n_bilhete'=>$n_bilhete,'destino'=>1]);
     
     }else{
         return redirect()->back()->with('error','Falha ao validar o Bilhete de Viagem, tente novamente!');
@@ -330,8 +330,8 @@ class ViagemController extends Controller
     //envio de sms para o cliente
     public function send_sms_cliente(Request $request){
 
-       // $email = enviar_email($request);
-       // $whatsapp = enviar_sms_ws($request);
+        $email = enviar_email($request);
+        $whatsapp = enviar_sms_ws($request);
         $sms = enviar_sms($request);
         //return response()->json(['estado'=>1,'email'=>$email,'sms'=>$sms,'whatsapp'=>$whatsapp]);
         return response()->json(['estado'=>1,'sms'=>$sms]);
@@ -352,7 +352,7 @@ function upload_file($request){
         $nome_file = 'abast_'.$request->nome_frota;
         $novo_file = uniqid($nome_file).'.'.$extensao;
         $novo_nome = str_replace(' ','_',$novo_file);
-        $path = "Comprovativos/".date('d-M-Y');
+        $path = "Comprovativos/pagto_bi/".date('d-M-Y');
         $upload_file = $request->file('comprovativo_url')->storeAs($path, $novo_nome);
         $url_file = $path.'/'.$novo_nome;
         $estado_upload = 1; 
@@ -366,9 +366,14 @@ function upload_file($request){
 }
 
 //funcao para enviar o email
-function enviar_email($cliente, $sms, $n_bilhete){
+function enviar_email($request){
     try{
-     
+
+        //trata-se do cliente
+        $sms = $request->sms;
+        $n_bilhete = $request->n_bilhete;
+        $cliente = $request->cliente_email;
+
         $info = [
             'titulo'=> 'Compra efectuada com sucesso!',
             'sms'=>$sms,
@@ -387,14 +392,15 @@ function enviar_email($cliente, $sms, $n_bilhete){
         }
 }
 
-function enviar_sms_ws($cliente, $sms, $n_bilhete){
+function enviar_sms_ws($request){
+
     $telefone =  $request->telef;//cliente telef
     $sms = $request->sms;
     $n_bilhete = $request->n_bilhete;
 
     $whatsapp = $sms.'\n\n'.'Segue-se o nº do Bilhete comprado B.I nº _'.$n_bilhete.'_';
     //$curl = curl_init();
-    $telef =  $telefone;
+    $telef =  '+244'.$telefone;
     
 
     $url = "https://api.twilio.com/2010-04-01/Accounts/AC7987914196473b0e11ab10200f9cc1df/Messages.json";
@@ -423,28 +429,6 @@ function enviar_sms_ws($cliente, $sms, $n_bilhete){
     curl_close($x);
 
     return var_dump($y);
-    /*
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => "https://api.positus.global/v2/sandbox/whatsapp/numbers/6334ea09-d3fe-4689-8acb-684eb0d0ec78/messages",
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => "",
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 0,
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => "POST",
-      CURLOPT_POSTFIELDS =>"{\r\n  \"to\": \"$telef\",\r\n  \"type\": \"text\",\r\n  \"text\": {\r\n      \"body\": \"$whatsapp\"\r\n  }\r\n}",
-      CURLOPT_HTTPHEADER => array(
-        "Content-Type: application/json",
-        "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYzNjM2M1YTNjMWYzNGY5NGE4NDI4NWUwNDJjNWRmYTM3MWUwMzY0ZjY3NzY3YzhiZjY4YmI0MTgxMGNkMDdiZTU5Mjg1MmE5NDg0MmUzMTIiLCJpYXQiOjE2NTMzMDQwMzEuODg5NzgsIm5iZiI6MTY1MzMwNDAzMS44ODk3ODMsImV4cCI6MTY4NDg0MDAzMS44ODc5OTQsInN1YiI6IjUyMDEiLCJzY29wZXMiOltdfQ.INU1lepOUANODgy7vvKE_LvtWt8bzF59ZLWso3AfULjQHTCVhVbXMmpVW082BsJmUC_TefCZmel-wH5parbcTJQ3fTrIAnBOBYMC--Z6b-zKwJvvKx2lYIAK5Zu-oBQ3oBg9RGsUeAu9QRWzmp1RbJ1Ixw_1NrpFRpCt9k0uaCRilm97wzbaN6Gefmjxw5gvSJz-eANjwZXYBNhvKc8Sx2URdtGJw0wuIn4niuBuwMpaw4dKWARD5oS35ccYA9BVpecxWe9lV1eQOTYvNh4BPMqcGf4TvVYwaWRlP3kpI59kdWH2ulV2UdHxsEox3YjZ20v4vP97HIqcRYryrb8R2id5oJRIviQIEVd7WriQRCCY69ETGxLQFpKwvF0ozd-fbIS-UTud-cB8EYLZTBrTxAmbg65URgyC3SN2nvUG1aT8Dwx1RELj5HTlSw2j297KSmr3i86oSSslk3UN9u93xm3hqnWeGuOTSsBiFbuDabNuTzhelXPXpHNurueCpyAYAMbktw5HkhXlY_BtXlgBcSSKP3UjmACNlFLodmTbgbywt8QA1rG5n5WbtXIsKFgIwBFXb_d3p0ak2VsC_MdlyVGVbi-wM2PL7FtvzBxddjO3G_KcZtLBoIDz_9cMqR6WK0lm0NmgBawj4yPojiaOAKGMF-gfw8G_5Ufj64FZhTs"
-      ),
-    ));
-    
-    $response = curl_exec($curl);
-    
-    curl_close($curl);
-    return $response;*/
-
 }
 //function to send Telegram
 function enviar_telegram($msg) {
