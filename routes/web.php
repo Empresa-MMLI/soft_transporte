@@ -174,7 +174,7 @@ Route::any('/search_bi', [ViagemController::class, 'bilhetes'])->name('search.bi
 Route::get('/veiculos', [VeiculoController::class, 'index'])->name('dashboard.veiculos');
 
 //mostrar results do veiculos searched
-Route::post('/search_veiculos', [VeiculoController::class, 'search_veiculos'])->name('veiculos.search');
+Route::any('/search_veiculos', [VeiculoController::class, 'search_veiculos'])->name('veiculos.search');
 
 //store
 Route::post('/store_veiculos', [VeiculoController::class, 'store'])->name('veiculos.store');
@@ -189,7 +189,7 @@ Route::any('/alugar_veiculos', [VeiculoController::class, 'alugar_veiculos'])->n
 //store new aluguer
 Route::any('/delete_aluguer', [VeiculoController::class, 'delete_aluguer'])->name('aluguer.delete');
 //validacao do aluguer do automovel
-Route::any('/validacao_aluguer', [VeiculoController::class, 'validacao_aluguer'])->name('veiculos.validacao');
+Route::any('/validacao_aluguer', [VeiculoController::class, 'validacao_aluguer'])->name('aluguer.validacao');
 //Envio de email, sms e whatsapp para o cliente e admin
 Route::any('/aluguer_send_sms', [VeiculoController::class, 'send_sms_cliente'])->name('aluguer.send_sms');
 

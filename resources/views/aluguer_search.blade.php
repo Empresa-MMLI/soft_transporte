@@ -120,6 +120,15 @@
             </div>
             </div>
             @endif
+            @if((isset($estado) && $estado == 0) && isset($warning))
+           <div class="container">
+            <div class="row my-4">
+              <div class="text-danger" role="alert">
+                <i class="fa fa-info-circle"></i> {{ $warning }}
+              </div>
+            </div>
+            </div>
+            @endif
             @foreach($veiculos as $item)
             			<div class="col-sm-12 col-md-6 col-lg-6">
 							<div class="car">

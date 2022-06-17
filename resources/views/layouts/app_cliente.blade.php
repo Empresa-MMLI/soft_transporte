@@ -121,7 +121,7 @@
 
 								</div>
 								<div class="dropdown-menu-footer">
-									<a href="{{ route('dashboard.notificacoes') }}" class="text-muted">Mostrar todas Notificações</a>
+									<a href="#" class="text-muted">Mostrar todas Notificações</a>
 								</div>
 							</div>
 						</li>

@@ -62,7 +62,7 @@
             </a>
 					</li>
 
-					<li class="sidebar-item">
+					<li class="sidebar-item d-none">
 						<a class="sidebar-link" href="{{ route('dashboard.servicos') }}">
               <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Serviços</span>
             </a>
@@ -116,7 +116,7 @@
 
 		</div>
 
-			<li class="sidebar-header text-normal" data-toggle="collapse" href="#marketing" role="button" aria-expanded="false" aria-controls="collapseExample" >
+			<li class="sidebar-header text-normal d-none" data-toggle="collapse" href="#marketing" role="button" aria-expanded="false" aria-controls="collapseExample" >
 			Dept. Comuinicação <i class="fa fa-caret-down float-right"></i>
 		</li>
 		<div class="collapse" id="marketing">
@@ -223,7 +223,7 @@
 
 								</div>
 								<div class="dropdown-menu-footer">
-									<a href="{{ route('dashboard.notificacoes') }}" class="text-muted">Mostrar todas Notificações</a>
+									<a href="#" class="text-muted">Mostrar todas Notificações</a>
 								</div>
 							</div>
 						</li>

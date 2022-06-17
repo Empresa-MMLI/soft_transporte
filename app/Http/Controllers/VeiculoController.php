@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Empresa;
 use App\Models\Cliente;
+use App\Models\Usuario;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Veiculo;
+use App\Models\CarrosAlugados;
 use App\Models\VeiculoDetalhes;
 use App\Models\FotoVeiculo;
 use App\Models\FotoVeiculoDetalhes;
@@ -55,6 +58,7 @@ class VeiculoController extends Controller
 
     //area de aluguer de veiculos pesquisados
     public function search_veiculos(Request $request){
+        try{
         $valor = '%'.$request->valor_p.'%';
         $res = $request->valor_p;
 
@@ -71,6 +75,9 @@ class VeiculoController extends Controller
         $fluidos = FLuido::orderBy('fluido')->get();
         
         return view('veiculos_procurados', ['veiculos'=>$veiculos,'foto_veiculos'=>$foto_veiculos,'marcas'=>$marcas,'fluidos'=>$fluidos, 'valor_p'=>$res]);
+    }catch(\Exception $e){
+        return redirect()->route('aluguer.veiculos')->with('error','Não foi possível efectuar o seu Pedido, tente novamente!');
+    }
     }
     //store
     public function store(Request $request){
@@ -127,21 +134,20 @@ class VeiculoController extends Controller
         //dados recolhidos
         try{
             if(isset($request->estado_cliente) && $request->estado_cliente == 1){//cliente novo
-                                    
                 $register = new Usuario;
                 $register->name  = $request->nome_cliente;
                 $register->email  = $request->user;
                 $register->password  = Hash::make($request->pass);
                 $register->id_tipo_user = 3;
                 $register->save();
-
+                
                 //pega o ult registro
                 $dados_acesso = Usuario::latest()->first();
                 $id_acesso = $dados_acesso->id;
                 
                 $cliente = new Cliente;
                 $cliente->nome  = $request->nome_cliente;
-                $cliente->tipo_doc  = $request->tipo_doc_cliente;
+                $cliente->tipo_doc  = 'BI';
                 $cliente->n_doc  = $request->n_doc_cliente;
                 $cliente->email  = $request->email_cliente;
                 $cliente->telefone  = $request->telef_cliente;
@@ -149,7 +155,7 @@ class VeiculoController extends Controller
                 $cliente->id_usuario = $id_acesso;
                 $cliente->save();
             }
-    
+
             $empresa = null;//$empresa::first();
             $cliente = Cliente::where('n_doc',$request->n_doc_cliente)->orwhere('n_doc',$request->n_doc)->first();
             if(!isset($cliente)){
@@ -157,7 +163,7 @@ class VeiculoController extends Controller
             $veiculos = VeiculoDetalhes::latest()->paginate(6);
             $foto_veiculos = FotoVeiculoDetalhes::latest()->get();
             $marcas = MarcaDetalhes::orderBy('marca')->get();
-            $fluidos = FLuido::orderBy('fluido')->get();
+            $fluidos = Fluido::orderBy('fluido')->get();
             return view('aluguer_search', ['veiculos'=>$veiculos,'foto_veiculos'=>$foto_veiculos,'marcas'=>$marcas,'fluidos'=>$fluidos, 'error'=>"Nº de Documento não encontrado."]);
             }
             //calculando o total de dias
@@ -184,10 +190,9 @@ class VeiculoController extends Controller
             
             
              //return $total_dias. ' Diferenca entre os dias...' ;
-            
             return view('veiculo_pagto', ['cliente'=>$cliente,'empresa'=>$empresa,'veiculo'=>$veiculo,'total_dias'=>$total_dias,'pedido'=>$pedido]);
          }catch(\Exception $e){
-            return redirect()->back()->with('error','Não foi possível efectuar a Compra do Bilhete, tente novamente!');
+            return redirect()->back()->with('error','Não foi possível processar seu Pedido, tente novamente!');
         }
     }
     //alugar veiculos
@@ -207,8 +212,8 @@ class VeiculoController extends Controller
             $upload = upload_comprovativo($request);
             if(isset($upload) && $upload['estado'] == 1){
                 $novo_aluguer->comprovativo_file  = $upload['url_file'];
-            }else{
-                return redirect()->back()->with(['estado'=>0,'warning'=>"O formato do comprovotivo anexado é inválido, suportamos apenas JPG, PNG e PDF"]);
+            }else if($request->forma_pagto == 'ATM'){
+                return redirect()->route('aluguer.veiculos')->with(['estado'=>0,'warning'=>"O formato do comprovotivo anexado é inválido, suportamos apenas JPG, PNG e PDF"]);
             }
             $novo_aluguer->save();
             
@@ -217,9 +222,9 @@ class VeiculoController extends Controller
             $empresa = Empresa::find(2);//2 Referece-se 
             $telef_admin = '+244'.$empresa->telefone;
             if($request->forma_pagto == "PD")
-            $sms = 'Nova reserva de Automóvel(eis) detectado na plataforma, o(a) cliente '.$cliente->nome.' reservou '.$pedido->qtd_carros.' Automóvel(eis), local de entrega '.$pedido->local_entrega.' pretende receber no dia '.date('d/m/Y',strtotime($pedido->data_inicio));
+            $sms = 'Nova reserva de Automóvel(eis) detectado na plataforma, o(a) cliente '.$cliente->nome.' reservou '.$pedido->qtd_carros.' Automóvel(eis), local de entrega "'.$pedido->local_entrega.'" pretende receber no dia '.date('d/m/Y',strtotime($pedido->data_inicio));
             else
-            $sms = 'Novo Pedido de Automóvel(eis) detectado na plataforma, o(a) cliente '.$cliente->nome.' pediu '.$pedido->qtd_carros.' Automóvel(eis), local de entrega '.$pedido->local_entrega.' pretende receber no dia '.date('d/m/Y',strtotime($pedido->data_inicio));
+            $sms = 'Novo Pedido de Automóvel(eis) detectado na plataforma, o(a) cliente '.$cliente->nome.' pediu '.$pedido->qtd_carros.' Automóvel(eis), local de entrega "'.$pedido->local_entrega.'" pretende receber no dia '.date('d/m/Y',strtotime($pedido->data_inicio));
             //NOTIFICAR O ADMIN SLA sobre nova compra 
             $telegram = enviar_telegram($sms);
             //pegando os dados
@@ -229,7 +234,7 @@ class VeiculoController extends Controller
             }
             
          }catch(\Exception $e){
-            return redirect()->back()->with('error','Não foi possível efectuar a Compra do Bilhete, tente novamente!');
+            return redirect()->back()->with('error','Não foi possível efectuar o aluguer de seu(s) automóvel(eis), tente novamente!');
         }
     }
 
@@ -237,33 +242,36 @@ class VeiculoController extends Controller
     public function validacao_aluguer(Request $request){
         //buscar blhetes
         try{
-            
+        
             //verificar a origem do BI (Bilhete ou Reserva)
         if($request->ajax()){
-            $n_aluguer = strtoupper('SLA_'.random_bytes(3));
-
+            $n_aluguer = strtoupper('SLA_'.random_int(999,1000*$request->id_aluguer));
             $aluguer = Aluguer::find($request->id_aluguer);
             $aluguer->n_aluguer = $n_aluguer;
             $aluguer->data_entrega = $request->data_entrega;
-            $aluguer->data_devolcuao = $request->data_dev;
+            $aluguer->data_devolucao = $request->data_dev;
             $aluguer->estado = 1;
             $aluguer->save();
 
             if($aluguer){ 
+                if(sizeof($request->matricula)>=1){
+                    for($i=0;$i<sizeof($request->matricula);$i++){
                 $register = new CarrosAlugados;
-                $register->matricula = $matricula;
+                $register->matricula = $request->matricula[$i];
                 $register->aluguer_id = $request->id_aluguer;
                 $register->save();
             }
+        }
+        }
         
         //envia no seu perfil 
         $cliente = Cliente::find($request->id_cliente);//pegar dados do cliente
-        $aluguer = Aluguer::find($request->id_aluguer);//pegar dados da viagem
+        $aluguer = AluguerDetalhes::find($request->id_aluguer);//pegar dados da viagem
         
         //envia por email
         $sms = 'Bom dia prezado(a) cliente '.$cliente->nome.', a SLA vem por meio desta agradecer e '.
-        'confirmar o aluguer do(s) automóvel(eis). abaixo temos o nº do aluguer, por favor faça-se'.
-        'apresentado no seguinte Ponto de Levant. "'.$aluguer->local_entrega.'" no dia '.date('d/m/Y', strtotime($aluguer->data_entrega)).' com previsão de devolução no dia'.date('d/m/Y', strtotime($aluguer->data_devolucao));
+        'confirmar o aluguer do(s) automóvel(eis). abaixo temos o nº do aluguer, por favor faça-se '.
+        'apresentado no seguinte Ponto de Levant. "'.$aluguer->local_entrega.'" no dia '.date('d/m/Y', strtotime($aluguer->data_entrega)).' com previsão de devolução no dia '.date('d/m/Y', strtotime($aluguer->data_devolucao));
         
         if((isset($aluguer) && $aluguer) || (isset($register) && $register))
         return response()->json(['estado'=>1,'success'=>'Aluguer de Automóvel(eis) confirmado com sucesso!','email'=>$cliente->email,'telef'=>$cliente->telefone,'sms'=>$sms,'n_aluguer'=>$n_aluguer,'destino'=>1]);
@@ -445,15 +453,15 @@ function enviar_email($request){
         $cliente = $request->cliente_email;
 
         $info = [
-            'titulo'=> 'Compra efectuada com sucesso!',
+            'titulo'=> 'Confirmação do aluguer dos automóveis',
             'sms'=>$sms,
-            'n_bilhete'=>$n_bilhete
+            'n_aluguer'=>$n_aluguer
         ];
         //enviando email
         \Mail::to($cliente)
         ->cc(['mmligeral@mmlisolucoes.com','josekinanga@mmlisolucoes.com'],'MMLI - Soluções Comércio & Prestação de Serviços')
         ->bcc('jose922884206@gmail.com','MMLI - Team Devs')//trocar com o da SLA
-        ->send(new \App\Mail\NumeroBilheteMail($info));
+        ->send(new \App\Mail\AluguerCarroMail($info));
 
         return 1;//response()->json(['sms'=>'O email foi enviado com sucesso ao Admin. do Sistema']);
     
@@ -537,7 +545,7 @@ function enviar_sms($request){
         $destino = $request['destino'];
 
         //administrador sla - interno
-        $content = $sms.'%0'.' Segue-se o ID do Pedido do(s) Automóvel(eis) '.$id_pedido;
+        $content = $sms.' Segue-se o ID do Pedido '.$id_pedido;
         $telef =  $telefone; //telef do admin neste caso
     }else{
         //trata-se do cliente
@@ -545,7 +553,7 @@ function enviar_sms($request){
         $sms = $request->sms;
         $n_aluguer = $request->n_aluguer;
         $destino = $request->destino;
-        $content = $sms.'. Segue-se o nº do Aluguer do(s) Automóvel(eis) '.$n_aluguer;
+        $content = $sms.'. Segue-se o código do Aluguer '.$n_aluguer;
         $telef =  '+244'.$telefone;
     }
  

@@ -52,12 +52,12 @@
             </tr>
         </thead>
         <tbody>
-            @if(isset($novos_pedidos[0]->id))
+            @if(isset($novos_pedidos[0]->id_aluguer))
             @foreach($novos_pedidos as $item)
             <tr>
-                <td class="text-right">{{ $item->id }}</td>
+                <td class="text-right">{{ $item->id_aluguer }}</td>
                 <td class="text-right">{{ $item->pedido_id }}</td>
-                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->nome_cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" email_cliente="{{ $item->email }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#email_cliente').text($(this).attr('email_cliente')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->nome_cliente }}</td>
+                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->nome_cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" email_cliente="{{ $item->email }}" endereco="{{ $item->endereco_cliente }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#email_cliente').text($(this).attr('email_cliente')); $('#endereco').text($(this).attr('endereco')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->nome_cliente }}</td>
                 <td>{{ $item->marca }}  {{ $item->modelo }}</td>
                 <td class="text-right">{{ $item->qtd_carros }}</td>
                 <td>{{ $item->local_entrega }}</td>
@@ -69,7 +69,7 @@
                 <a href="{{ asset('storage/'.$item->comprovativo_file) }}" target="_blank" class="btn btn-warning btn-sm mb-1 btn-block text-dark" data-toggle="tooltip" data-placement="bottom" title="Mostrar comprovativo" onclick="event.preventDefault(); $('#comprovativo').attr('src', $(this).attr('href')); $('#modalComprovativo').modal('show');"><i class="fa fa-file-pdf"></i> Comprovativo</a>
                 @else
                 @if($item->forma_pagto == 'REF')
-                <a href="#" class="btn btn-warning btn-sm btn-block mb-1 text-dark" data-toggle="tooltip" data-placement="bottom" title="Detalhes do Pagamento..." id-bi="{{ $item->id }}" onclick=" $('id_bi').val($(this).attr('id-bi')); $('#modalReferencia').modal('show');"><i class="fa fa-credit-card"></i> Referência</a>
+                <a href="#" class="btn btn-warning btn-sm btn-block mb-1 text-dark" data-toggle="tooltip" data-placement="bottom" title="Detalhes do Pagamento..." id-bi="{{ $item->id_aluguer }}" onclick=" $('id_bi').val($(this).attr('id-bi')); $('#modalReferencia').modal('show');"><i class="fa fa-credit-card"></i> Referência</a>
                 @else
                 @if($item->forma_pagto == 'PD')
                 <a href="#" class="btn btn-warning btn-sm mb-1 btn-block text-dark" data-toggle="tooltip" data-placement="bottom" title="Nenhum arquivo anexado" onclick=" alert('Nenhum arquivo anexado')"><i class="fa fa-money"></i> Pagto à Cash</a>
@@ -79,7 +79,7 @@
                 </td>
                 <td class="text-center">{{ date('d/m/Y', strtotime($item->updated_at)) }}</td>
                 <td class="text-left">
-		        <a href="#" class="btn btn-success btn-sm mb-1" data-toggle="tooltip" data-placement="bottom" title="Confirmar aluguer de Automóvel" nome_cliente="{{ $item->nome_cliente }}" id_cliente="{{ $item->id_cliente }}" veiculo="{{ $item->marca }} {{ $item->modelo }}" qtd_carros="{{ $item->qtd_carros }}" id_aluguer="{{ $item->id }}" data_entrega="{{ $item->data_entrega }}" onclick="event.preventDefault(); validarAluguer($(this)); "><i class="fa fa-check" ></i></a>
+		        <a href="#" class="btn btn-success btn-sm mb-1" data-toggle="tooltip" data-placement="bottom" title="Confirmar aluguer de Automóvel" nome_cliente="{{ $item->nome_cliente }}" id_cliente="{{ $item->id_cliente }}" veiculo="{{ $item->marca }} {{ $item->modelo }}" qtd_carros="{{ $item->qtd_carros }}" id_aluguer="{{ $item->id_aluguer }}" data_entrega="{{ $item->data_entrega }}" onclick="event.preventDefault(); validarAluguer($(this)); "><i class="fa fa-check" ></i></a>
             <a href="{{ route('aluguer.delete', ['id_aluguer'=>$item->id_aluguer, 'id_pedido'=>$item->pedido_id]) }}" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes cancelar o aluguer do veículo?');" data-toggle="tooltip" data-placement="right" title="cancelar o aluguer do veículo..."><i class="fa fa-trash"></i></a>
                  </td>
             </tr>
@@ -101,7 +101,7 @@
                                <!-- tabela de provincias --> 
                                <div class="container">
                                <div class="table-responsive">
-                               <table id="dataTables2" class="display nowrap dataTables" style="width:100%">
+                               <table id="dataTables1" class="display nowrap dataTables" style="width:100%">
         <thead>
             <tr>
                 <th>ID</th>
@@ -119,12 +119,12 @@
             </tr>
         </thead>
         <tbody>
-            @if(isset($reservados[0]->id))
+            @if(isset($reservados[0]->id_aluguer))
             @foreach($reservados as $item)
             <tr>
                 <td class="text-right">{{ $item->id }}</td>
                 <td class="text-right">{{ $item->pedido_id }}</td>
-                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->nome_cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" email_cliente="{{ $item->email }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#email_cliente').text($(this).attr('email_cliente')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->nome_cliente }}</td>
+                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->nome_cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" email_cliente="{{ $item->email }}" endereco="{{ $item->endereco_cliente }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#email_cliente').text($(this).attr('email_cliente')); $('#endereco').text($(this).attr('endereco')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->nome_cliente }}</td>
                 <td>{{ $item->marca }}  {{ $item->modelo }}</td>
                 <td class="text-right">{{ $item->qtd_carros }}</td>
                 <td>{{ $item->local_entrega }}</td>
@@ -136,7 +136,7 @@
                 </td>
                 <td class="text-center">{{ date('d/m/Y', strtotime($item->updated_at)) }}</td>
                 <td class="text-left">
-		        <a href="#" class="btn btn-success btn-sm mb-1" data-toggle="tooltip" data-placement="bottom" title="Confirmar aluguer de Automóvel" nome_cliente="{{ $item->cliente }}" id_cliente="{{ $item->id_cliente }}" nome_rota="{{ $item->rota_origem }} - {{ $item->rota_destino }}" id_bilhete="{{ $item->id }}" onclick="event.preventDefault(); $('#origem_bilhete').val('bi'); $('#id_cliente').val($(this).attr('id_cliente')); $('#nome_cliente').val($(this).attr('nome_cliente')); $('#nome_rota').val($(this).attr('nome_rota')); $('#id_bilhete').val($(this).attr('id_bilhete'));  $('#modalConfirmacao').modal('show');"><i class="fa fa-check" ></i></a>
+                <a href="#" class="btn btn-success btn-sm mb-1" data-toggle="tooltip" data-placement="bottom" title="Confirmar aluguer de Automóvel" nome_cliente="{{ $item->nome_cliente }}" id_cliente="{{ $item->id_cliente }}" veiculo="{{ $item->marca }} {{ $item->modelo }}" qtd_carros="{{ $item->qtd_carros }}" id_aluguer="{{ $item->id_aluguer }}" data_entrega="{{ $item->data_entrega }}" onclick="event.preventDefault(); validarAluguer($(this)); "><i class="fa fa-check" ></i></a>
             <a href="{{ route('aluguer.delete', ['id_aluguer'=>$item->id_aluguer, 'id_pedido'=>$item->pedido_id]) }}" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes cancelar o aluguer do veículo?');" data-toggle="tooltip" data-placement="right" title="cancelar o aluguer do veículo..."><i class="fa fa-trash"></i></a>
                  </td>
             </tr>
@@ -159,7 +159,7 @@
                                <!-- tabela de provincias --> 
                                <div class="container">
                                <div class="table-responsive">
-                               <table id="dataTables3" class="display nowrap dataTables" style="width:100%">
+                               <table id="dataTables2" class="display nowrap dataTables" style="width:100%">
         <thead>
             <tr>
                 <th>ID</th>
@@ -173,16 +173,16 @@
                 <th>Total pago(Akz)</th>
                 <th>Comprovativo</th>
                 <th>Data Aluguer</th>
-                <th>Opções</th>
+                <th>Opções</th> 
             </tr>
         </thead>
         <tbody>
-            @if(isset($alugueres[0]->id))
+            @if(isset($alugueres[0]->id_aluguer))
             @foreach($alugueres as $item)
             <tr>
                 <td class="text-right">{{ $item->id }}</td>
                 <td class="text-right">{{ $item->pedido_id }}</td>
-                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->nome_cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" email_cliente="{{ $item->email }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#email_cliente').text($(this).attr('email_cliente')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->nome_cliente }}</td>
+                <td class="text-left"><a href="#" class="btn btn-light p-0 m-0" data-toggle="tooltip" data-placement="top" title="Detalhes do cliente..."  cliente="{{ $item->nome_cliente }}" bi_cliente="{{ $item->n_doc }}" telef_cliente="{{ $item->telefone }}" email_cliente="{{ $item->email }}" endereco="{{ $item->endereco_cliente }}" onclick="event.preventDefault(); $('#cliente').text($(this).attr('cliente')); $('#bi_cliente').text($(this).attr('bi_cliente')); $('#telef_cliente').text($(this).attr('telef_cliente')); $('#email_cliente').text($(this).attr('email_cliente')); $('#endereco').text($(this).attr('endereco')); $('#modalCliente').modal('show');"><i class="fa fa-sm fa-info-circle text-muted"></i></a> {{ $item->nome_cliente }}</td>
                 <td>{{ $item->marca }}  {{ $item->modelo }}</td>
                 <td class="text-right">{{ $item->qtd_carros }}</td>
                 <td>{{ $item->local_entrega }}</td>
@@ -203,7 +203,7 @@
                 @endif    
                 </td>
                 <td class="text-center">{{ date('d/m/Y', strtotime($item->updated_at)) }}</td>
-                <td class="text-left">
+                <td class="text-center">
 		    <a href="{{ route('aluguer.delete', ['id_aluguer'=>$item->id_aluguer, 'id_pedido'=>$item->pedido_id]) }}" class="btn btn-danger btn-sm mb-1" onclick=" return confirm('Pretendes cancelar o aluguer do veículo?');" data-toggle="tooltip" data-placement="right" title="cancelar o aluguer do veículo..."><i class="fa fa-trash"></i></a>
                  </td>
             </tr>
@@ -259,7 +259,7 @@
         </button>
       </div>
       <div class="modal-body">
-      <form method="post" action="{{ route('aluguer.validacao') }}" id="form_validacao_bi">
+      <form method="get" action="{{ route('aluguer.validacao') }}" id="form_validacao_aluguer">
                                     @csrf
                             <div class="row mb-2">
                             <div class="col-12">
@@ -269,12 +269,12 @@
                             </div></div>
                             <div class="row mb-2">
                             <div class="col-12">
-                            <label for="nome_rota">Veículo:</label>
-                                <input type="text" class="form-control text-capitalize" name="veiculo" id="veiculo" placeholder="Rota" required readonly>
+                            <label for="nome_rota">Automóvel:</label>
+                                <input type="text" class="form-control text-capitalize" name="veiculo" id="veiculo" placeholder="Automóvel" required readonly>
                             </div>
                             </div>
                             <div class="row">
-                                <div class="col-12 mb-2">
+                                <div class="col-12 mb-2" style="max-height:250px;overflow-y:auto;overflow-x:hidden;">
                                 <label for="nome_rota">Matrículas:</label>
                                     <div class="inputs" id="carros_alugados"></div>
                                 </div>
@@ -296,12 +296,12 @@
                               <div class="col-12" id="spinner" style="display:none">
                               <button class="btn btn-secondarys btn-sm text-info text-capitalize" type="button" disabled>
                               <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-  Validando detalhes do Bilhete de Viagem comprado...
+  Validando detalhes do Aluguer do Automóvel
 </button>
                               </div>
                               
                                 <div class="col-12">
-                                <button type="submit" class="btn btn-submit float-right" onclick=" var n_bi = $('#n_bilhete').val(); if(n_bi != null){ $('#spinner').fadeIn(); }"> <i class="fa fa-check"></i> Confirmar</button>
+                                <button type="submit" class="btn btn-submit float-right" onclick=" var matricula = $('#matricula').val(); if(matricula != null){ $('#spinner').fadeIn(); }"> <i class="fa fa-check"></i> Confirmar</button>
                                 </div>
                             </div>
                             </form>
@@ -328,6 +328,7 @@
               <h5>Nº Documento: <span id="bi_cliente" class="text-muted"></span> </h5>
               <h5>E-mail: <span id="email_cliente" class="text-muted"></span></h5>
               <h5>Telefone: <span id="telef_cliente" class="text-muted"></span> </h5>
+              <h5>Endereço: <span id="endereco" class="text-muted"></span> </h5>
           </div>
         </div>
       </div>

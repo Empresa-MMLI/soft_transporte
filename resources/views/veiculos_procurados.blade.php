@@ -197,8 +197,8 @@
     </li>
 </ul>
 @endif
-						<!--	<button class="main__load" type="button" data-toggle="collapse" data-target="#collapsemore3" aria-expanded="false" aria-controls="collapsemore3"><span>Carregar mais...</span></button>-->
-						</div>
+											<!--	<button class="main__load" type="button" data-toggle="collapse" data-target="#collapsemore3" aria-expanded="false" aria-controls="collapsemore3"><span>Carregar mais...</span></button>-->
+                      </div>
 						</div>
 
 						<!-- end collapse -->
@@ -224,10 +224,10 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-sm-12">
-              <h6 class="text-normal">Nome completo: <span id="titular" class="text-muted"></span> </h6>
-              <h6 class="text-normal">Nº de Contribuinte: <span id="nif_empresa" class="text-muted"></span> </h6>
-              <h6 class="text-normal">E-mail: <span id="email_empresa" class="text-muted"></span></h6>
-              <h6 class="text-normal">Telefone: <span id="telef_empresa" class="text-muted"></span> </h6>
+              <h6>Nome completo: <span id="titular" class="text-muted"></span> </h6>
+              <h6>Nº de Contribuinte: <span id="nif_empresa" class="text-muted"></span> </h6>
+              <h6>E-mail: <span id="email_empresa" class="text-muted"></span></h6>
+              <h6>Telefone: <span id="telef_empresa" class="text-muted"></span> </h6>
           </div>
         </div>
       </div>
@@ -255,6 +255,8 @@
   </div>
 </div>
 
+
+
 <!-- mostrar formulario de aluguel --> 
 <div class="modal fade" id="modalAluguer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" role="document">
@@ -269,7 +271,7 @@
       
         <p class="p-1 alert alert-info text-dark py-2"> <i class="fa fa-info-circle"></i> Preencha devidamente os campos abaixos.</p>
 
-        <form method="post" action="{{ route('bilhete.reservar') }}">
+        <form method="post" action="{{ route('veiculos.reservar') }}">
             @csrf
     <div class="text-center">
     <span> <img src="{{ url('assets/img/logo/logo.png') }}"  alt="logo" class="d-none logo_auth_0 img-responsive"></span><br>
@@ -333,7 +335,7 @@
   <div class="form-group">
     <label for="endereco">Onde está localizado:</label>
     <!--<input type="text" class="form-control" id="n_doc_cliente" name="n_doc_cliente" value="00" onfocus="$(this).val('');"  placeholder="Nº Documento apresentado" required>--> 
-	<textarea class="form-control" id="endereco" name="endereco" placeholder="Seu endereço..." required></textarea>
+	<textarea class="form-control" id="endereco" name="endereco" placeholder="Seu endereço..." onfocus="$(this).val('');" required>Endereço</textarea>
   </div>
 </div>
 </div>
@@ -359,19 +361,36 @@
   <div class="row">
   <div class="col-sm-12 col-md-6 ">
   <div class="form-group">
-  <label for="qtd_veiculo">Quantidade:</label>
-    <input type="number" class="form-control" id="qtd_veiculo" name="qtd_veiculo" value="1" onfocus="$(this).val('');"  placeholder="Quantidade Veículo" required>
+  <label for="qtd_veiculos">Quantidade:</label>
+    <input type="number" class="form-control" id="qtd_veiculos" name="qtd_veiculos" value="1" onfocus="$(this).val('');"  placeholder="Quantidade Veículo" required>
   </div>  
 </div>
 
 <div class="col-sm-12 col-md-6 ">
   <div class="form-group">
-    <label for="ponto_levantamento"><code>*</code>Ponto de Levantamento:</label>
+    <label for="local_entrega"><code>*</code>Ponto de Levantamento:</label>
     <!--<input type="text" class="form-control" id="n_doc_cliente" name="n_doc_cliente" value="00" onfocus="$(this).val('');"  placeholder="Nº Documento apresentado" required>--> 
-	<textarea class="form-control" id="ponto_levantamento" name="ponto_levantamento" placeholder="Localização de entrega..." required></textarea>
+	<textarea class="form-control" id="local_entrega" name="local_entrega" placeholder="Endereço de entrega..." required></textarea>
   </div>
 </div>
 </div>
+<!-- fim row --> 
+<div class="row">
+  <div class="col-sm-12 col-md-6 ">
+  <div class="form-group">
+  <label for="data_inicio"><code>*</code>Data Levantamento:</label>
+    <input type="date" class="form-control" id="data_inicio" name="data_inicio" min="{{ date('Y-m-d') }}" value="{{ date('Y-m-d') }}"  placeholder="Data entrega" required>
+  </div>  
+</div>
+
+<div class="col-sm-12 col-md-6 ">
+  <div class="form-group">
+  <label for="data_fim"><code>*</code>Data Devolução<small>(Previsão)</small>:</label>
+    <input type="date" class="form-control" id="data_fim" name="data_fim" min="{{ date('Y-m').'-'.date('d')+1 }}" value="{{ date('Y-m').'-'.date('d')+1 }}"  placeholder="Data devolução" required>
+  </div>
+</div>
+</div>
+<!-- termino de tudo--> 
   <button type="submit" class="btn btn-submit btn-blocks float-right">Alugar e Pagar</button>
 </form>
       </div>
