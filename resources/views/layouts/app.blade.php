@@ -176,9 +176,62 @@
 					<ul class="navbar-nav navbar-align">
 						<li class="nav-item dropdown">
 							<a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
-								<div class="position-relative">
+								<div class="position-relative" title="Bilhetes">
 									<i class="align-middle" data-feather="bell"></i>
-									<span class="indicator">{{ isset($total_bi)? $total_bi: 0 }}</span>
+									<span class="indicator">{{ isset($total_pedidos)? $total_pedidos: 0 }}</span>
+								</div>
+							</a>
+							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
+								<div class="dropdown-menu-header">
+								{{ isset($total_pedidos)? $total_pedidos: 0 }} Nova(s) Notificações
+								</div>
+								<div class="list-group" style="overflow-y: auto!important; max-height:500px;">
+									<!-- BI comprados -->
+									@if(isset($novos_pedidos[0]->id_aluguer))
+									@foreach($novos_pedidos as $item)
+									<a href="{{ route('dashboard.alugueres') }}#form" class="list-group-item">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<i class="text-success" data-feather="user-plus"></i>
+											</div>
+											<div class="col-10">
+												<div class="text-dark">+{{ $item->qtd_carros}} Automóvel(eis) foram pedido(s)!</div>
+												<div class="text-muted small mt-1"><strong>{{ $item->nome_cliente }}</strong> pediu ({{ $item->qtd_carros}}) automóvel(eis), pretende receber em {{ $item->local_entrega }}.</div>
+												<div class="text-muted small mt-1">Previsão de entrega: {{ date('d-m-Y H:i', strtotime($item->data_entrega)) }}</div>
+											</div>
+										</div>
+									</a>
+									@endforeach
+									<!-- BI reservados -->
+									@endif
+									@if(isset($bilhete_reservados[0]->id))
+									@foreach($bilhete_reservados as $item)
+									<a href="{{ route('dashboard.bilhetes') }}#reservados" class="list-group-item">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<i class="text-warning" data-feather="user-plus"></i>
+											</div>
+											<div class="col-10">
+												<div class="text-dark">+{{ $item->total_passageiro}} Bilhete(s) reservado(s)!</div>
+												<div class="text-muted small mt-1"><strong>{{ $item->cliente }}</strong> comprou ({{ $item->total_passageiro}}) bilhete(s), pretende receber em {{ $item->ponto_e }}.</div>
+												<div class="text-muted small mt-1">Previsão de viagem: {{ date('d-m-Y H:i', strtotime($item->data_partida)) }}</div>
+											</div>
+										</div>
+									</a>
+									@endforeach
+									@endif
+
+								</div>
+								<div class="dropdown-menu-footer">
+									<a href="#" class="text-muted">Mostrar todas Notificações</a>
+								</div>
+							</div>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
+								<div class="position-relative" title="Aluguer">
+									<i class="align-middle" data-feather="bell"></i>
+									<span class="indicator bg-info">{{ isset($total_bi)? $total_bi: 0 }}</span>
 								</div>
 							</a>
 							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
@@ -231,7 +284,7 @@
 							<a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown">
 								<div class="position-relative">
 									<i class="align-middle" data-feather="message-square"></i>
-									<span class="indicator">1</span>
+									<span class="indicator bg-warning">1</span>
 								</div>
 							</a>
 							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
