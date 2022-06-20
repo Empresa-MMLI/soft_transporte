@@ -196,12 +196,14 @@
  
     	<!-- modal operacao-->
 <div class="modal fade" id="modal_carregamento" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm modal-dialog-centered">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
     <button class="btn btn-padrao" type="button" disabled>
   <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+  <span class="text-center">
   O Sistema esta processando as informações... <br>
-  Em breve, receberá uma mensagem de texto, e-mail e notificação no seu perfil de usuário.
+  Em breve, receberá uma mensagem de texto, e-mail <br> e notificação no seu perfil de usuário.
+  </span>
 </button>
     </div>
   </div>
