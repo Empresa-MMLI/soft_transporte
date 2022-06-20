@@ -48,6 +48,8 @@ class VeiculoController extends Controller
     }
     //area de aluguer de veiculos
     public function aluguer_veiculos(){
+
+        Session::put('link_ativo','aluguer.veiculos');
         $veiculos = VeiculoDetalhes::latest()->paginate(6);
         $foto_veiculos = FotoVeiculoDetalhes::latest()->get();
         $marcas = MarcaDetalhes::orderBy('marca')->get();

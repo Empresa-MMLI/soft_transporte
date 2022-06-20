@@ -40,14 +40,19 @@ Route::get('/search', function (Request $request) {
 })->name('search.res');
 
 Route::get('/planos', function () {
+    Session::put('link_ativo','planos');
     return view('planos');
 })->name('planos');
 
 Route::get('/pontos', function () {
+
+    Session::put('link_ativo','pontos');
     return view('pontos');
 })->name('pontos');
 
 Route::get('/contactos', function () {
+
+    Session::put('link_ativo','contacts');
     return view('contactos');
 })->name('contacts');
 
@@ -147,6 +152,8 @@ Route::any('/bilhetes', [ViagemController::class, 'index_bilhetes'])->name('dash
 Route::get('/bilhete_clientes', [ViagemController::class, 'cliente_bilhetes'])->name('cliente.bilhetes');
 //compra de Bilhetes
 Route::get('/comprar_bilhetes', [ViagemController::class, 'comprar_bilhetes'])->name('comprar.bilhete');
+
+Route::get('/home', [ViagemController::class, 'home_page'])->name('home');
 //store new bilhete
 Route::post('/store_bilhete', [ViagemController::class, 'store_bilhete'])->name('bilhete.store');
 //delete bilhete
@@ -163,6 +170,8 @@ Route::any('/send_sms', [ViagemController::class, 'send_sms_cliente'])->name('bi
 Route::any('/compras_bi', [ViagemController::class, 'comprar_bilhetes'])->name('compra.bilhetes');
 //resultado busca bilhetes de viagens
 Route::any('/search_bi', [ViagemController::class, 'bilhetes'])->name('search.bilhetes');
+//filtragem e ordenacao
+Route::any('/filtro_bi', [ViagemController::class, 'filtro_bilhetes'])->name('filtro.bilhetes');
 
 /*
 |--------------------------------------------------------------------------

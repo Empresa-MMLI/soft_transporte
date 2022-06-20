@@ -298,10 +298,19 @@ function validarAluguer($this){
 
   for(let i=1;i<=$qtd_carros;i++){
     if(i == 1)
-    $('#carros_alugados').append('   <input type="text" class="form-control mb-1" name="matricula[]" id="matricula[]" placeholder="Informe nº da matrícula do Automóvel" onfocus="$(this).val(\'LD-\');" required>');
+    $('#carros_alugados').append('   <input type="text" class="form-control mb-1" name="matricula[]" id="matricula[]" placeholder="Informe nº da matrícula do Automóvel" required>');
     else
-    $('#carros_alugados').append('   <input type="text" class="form-control mb-1" name="matricula[]" id="matricula[]" placeholder="Informe nº da matrícula do '+(i)+' º Automóvel" onfocus="$(this).val(\'LD-\');" required>');
+    $('#carros_alugados').append('   <input type="text" class="form-control mb-1" name="matricula[]" id="matricula[]" placeholder="Informe nº da matrícula do '+(i)+' º Automóvel" required>');
   }
 
   $('#modalConfirmacao').modal('show');
+}
+//filtro
+function BilheteOrdenacao(){
+  $url = $('#bilheteFiltro_ordem').attr('action');
+  $dados = $('#ordenacao').val();
+  //preenchimento da url
+  $url = $url+'?ordem='+$dados;
+  window.location.replace($url);    
+
 }

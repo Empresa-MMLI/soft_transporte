@@ -144,7 +144,6 @@
             	</a>
 				</li>
 				
-				
 				<li class="sidebar-item">
 				<a class="sidebar-link" href="{{ route('dashboard.provincias') }}">
               	<i class="align-middle" data-feather="activity"></i> <span class="align-middle">Províncias</span>

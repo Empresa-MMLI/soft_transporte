@@ -371,12 +371,13 @@ Pesquisar
     
   </div>
   <div class="col-sm-12 col-md-6 ">
-  <form class="form-inline float-right">
-  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Ordenar por</label>
-  <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-    <option selected>Hora de Partida</option><!-- data partida viagem --> 
-    <option value="1">Preço mais rápido</option><!-- menor preco de viagem rota--> 
-    <option value="2">Mais rápido</option><!-- kilometragem menor order by km rota -->
+  <form class="form-inline float-right" action="{{ route('filtro.bilhetes') }}" id="bilheteFiltro_ordem">
+  <label class="my-1 mr-2" for="ordenacao">Ordenar por</label>
+  <select class="custom-select my-1 mr-sm-2" name="ordenacao" id="ordenacao" onchange="BilheteOrdenacao()">
+    <option value="" selected>Selecionar...</option>
+    <option value="tempo">Hora de Partida</option><!-- data partida viagem --> 
+    <option value="preco">Preço mais baixo</option><!-- menor preco de viagem rota--> 
+    <option value="km">Viagem mais rápida</option><!-- kilometragem menor order by km rota -->
   </select>
     </form>
   </div>
@@ -503,6 +504,33 @@ Pesquisar
 </div>
 @endif
 <!-- end card-bilhete -->
+
+<!--
+<div class="d-flex justify-content-end my-4">
+						@if (isset($bilhetes[0]->id) && $bilhetes->lastPage() > 1)
+<ul class="pagination">
+    <li class="page-item {{ ($bilhetes->currentPage() == 1) ? ' disabled' : '' }}">
+        <a href="{{ $bilhetes->url(1) }}" class="page-link">
+		<span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Anterior</span>
+		</a>
+    </li>
+    @for ($i = 1; $i <= $bilhetes->lastPage(); $i++)
+        <li class="page-item {{ ($bilhetes->currentPage() == $i) ? ' active' : ''     }}">
+            <a href="{{ $bilhetes->url($i) }}" class="page-link">{{ $i }}</a>
+        </li>
+    @endfor
+    <li class="page-item {{ ($bilhetes->currentPage() == $bilhetes->lastPage()) ? ' disabled' : '' }}">
+        <a href="{{ $bilhetes->url($bilhetes->currentPage()+1) }}" class="page-link">
+		<span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Próximo</span>
+		</a>
+    </li>
+</ul>
+@endif
+--> 
+						<!--	<button class="main__load" type="button" data-toggle="collapse" data-target="#collapsemore3" aria-expanded="false" aria-controls="collapsemore3"><span>Carregar mais...</span></button>-->
+						</div>
 
 </div>
 

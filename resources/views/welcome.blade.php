@@ -12,7 +12,6 @@
 </div>
 @section('content')  <!--Sectino to show content to yield -->
 
-
 <div class="containers text-center welcome mb-4">
 <span> <img src="{{ url('assets/img/logo/logo.png') }}"  alt="logo" class="logo img-responsive"></span><br>
 </div>
@@ -22,8 +21,8 @@
 <form action="{{ route('search.res') }}">
 <div class="input-group flex-nowrap mb-1">
   <span class="input-group-text search-radius-input" id="addon-wrapping"> <i class="fa fa-search fa-sm text-muted"></i> </span>
-  <select  class="form-control custom-select input-radius-md" name="mySearch" id="mySearch"  placeholder="Escolher uma opção..." list="list_opcao" aria-describedby="addon-wrapping">
-  <option value="Selecionar uma opção" selected disabled>Selecionar uma opção</option>
+  <select  class="form-control custom-select input-radius-md" name="mySearch" id="mySearch"  placeholder="Escolher uma opção..." list="list_opcao" aria-describedby="addon-wrapping" required>
+  <option value="" selected disabled>Selecionar uma opção</option>
     <option value="Comprar Bilhetes">Comprar Bilhetes</option>
     <option value="Alugar Carro">Alugar Carro</option>
     <option value="Comprar B.I e Aluguel Carro">Comprar B.I e Aluguer de Carros</option>

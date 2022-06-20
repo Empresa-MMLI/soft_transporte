@@ -109,20 +109,27 @@ class ViagemController extends Controller
     }
     public function comprar_bilhetes(Request $request){
         //buscar viagens 
+        Session::put('link_ativo','comprar.bilhete');
         $provincias = Provincia::orderby('provincia','asc')->get();
         return view('bi_search', ['provincias'=>$provincias]);
     }
 
+    public function home_page(Request $request){
+        //buscar viagens 
+        Session::put('link_ativo','home');
+        $provincias = Provincia::orderby('provincia','asc')->get();
+        return view('bi_search', ['provincias'=>$provincias]);
+    }
     public function bilhetes(Request $request){ 
         //buscar viagens 
         $provincias = Provincia::orderby('provincia','asc')->get();
         if(isset($request->origem)){
-        $bilhetes = ViagemDetalhes::where('estado',1)->where('total_passageiro','>=',0)->where('rota_origem',$request->origem)->where('rota_destino',$request->destino)->where('data_partida','>=',$request->checkin)->orderBy('data_partida','asc')->get();
+        $bilhetes = ViagemDetalhes::where('estado',1)->where('total_passageiro','>=',0)->where('rota_origem',$request->origem)->where('rota_destino',$request->destino)->where('data_chegada','>=',$request->checkin)->orderBy('data_partida','asc')->paginate(20);
         $total_search = $bilhetes->count();
 
         if(!isset($bilhetes->id)){
-            $bilhetes = ViagemDetalhes::where('estado',1)->where('total_passageiro','>=',0)->where('rota_origem',$request->origem)->where('rota_destino',$request->destino)->where('data_chegada','>=',$request->checkin)->orderBy('data_partida','asc')->get();
-            $total_search = $bilhetes->count();  
+            $bilhetes = ViagemDetalhes::where('estado',1)->where('total_passageiro','>=',0)->where('rota_origem',$request->origem)->where('rota_destino',$request->destino)->where('data_chegada','>=',$request->checkin)->orderBy('data_partida','asc')->paginate(20);
+            $total_search = $bilhetes->count(); 
             return view('bilhete_results', ['bilhetes'=>$bilhetes,'provincias'=>$provincias,'total_search'=>$total_search,'total_adultos'=>$request->group_adults,'total_criancas'=>$request->group_children,'founds'=>$total_search]);
         }
         }
@@ -130,8 +137,29 @@ class ViagemController extends Controller
         $bilhetes = null;
         $total_search = 0;
         }
+       
         return view('bilhete_results', ['bilhetes'=>$bilhetes,'provincias'=>$provincias,'total_search'=>$total_search,'total_adultos'=>$request->group_adults,'total_criancas'=>$request->group_children]);
     }
+    //fazer filtragem
+    public function filtro_bilhetes(Request $request){ 
+        //buscar viagens 
+        $provincias = Provincia::orderby('provincia','asc')->get();
+        $bilhetes = ViagemDetalhes::where('estado',1)->where('total_passageiro','>=',0)->orderBy('id','asc')->paginate(2);
+        $total_search = $bilhetes->count();
+
+        if(isset($request->ordem)){
+        if($request->ordem == 'tempo')//viagem de hoje 
+        $bilhetes = ViagemDetalhes::where('estado',1)->where('total_passageiro','>=',0)->orderBy('data_partida','asc')->paginate(20);
+        else if($request->ordem == 'preco')//preco 
+        $bilhetes = ViagemDetalhes::where('estado',1)->where('total_passageiro','>=',0)->orderBy('preco','asc')->paginate(20);
+        else if($request->ordem == 'km')//preco 
+        $bilhetes = ViagemDetalhes::where('estado',1)->where('total_passageiro','>=',0)->orderBy('kilometros','asc')->paginate(20);
+        
+        $total_search = $bilhetes->count();
+        }
+        return view('bilhete_results', ['bilhetes'=>$bilhetes,'provincias'=>$provincias,'total_search'=>$total_search]);
+    }
+
     //reservar bilhete
     public function reservar_bilhetes(Request $request){
         //dados recolhidos

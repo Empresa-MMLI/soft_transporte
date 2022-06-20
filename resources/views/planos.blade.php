@@ -20,14 +20,14 @@
 <!-- end banner --> 
 <div class="container">
     <!-- title -->
-<div class="col-12 mb-4">
+<div class="col-12 mb-2">
 					<div class="main__title main__title--page">
 						<h2>Planos exclusivos e preparados para ti!</h2>
 					</div>
 				</div>
 				<!-- end title -->
 	<!-- contacts --> 
-	<div class="row row--grid">
+	<div class="row row--grid mb-4">
 								<div class="col-12 col-md-6 col-lg-4 order-md-2 order-lg-1">
 									<div class="plan">
 										<h3 class="plan__title">Viaje agora</h3>

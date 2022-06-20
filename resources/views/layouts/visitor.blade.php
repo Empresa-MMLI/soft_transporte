@@ -87,23 +87,23 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ route('index') }}"><i class="fa fa-home"></i> Página inicial <span class="sr-only">(current)</span></a>
+      <li class="nav-item {{ (Session::has('link_ativo') && Session::get('link_ativo') == 'home') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('home') }}"><i class="fa fa-home"></i> Página inicial <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item {{ (Session::has('link_ativo') && Session::get('link_ativo') == 'comprar.bilhete') ? 'active' : '' }}">
       <a class="nav-link" href="{{ route('comprar.bilhete') }}"><i class="fa fa-credit-card-alt"></i> Bilhetes e Horários</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item {{ (Session::has('link_ativo') && Session::get('link_ativo') == 'pontos') ? 'active' : '' }}">
       <a class="nav-link" href="{{ route('pontos') }}"><i class="fa fa-map-marker"></i> Pontos de Venda e Embarque</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item {{ (Session::has('link_ativo') && Session::get('link_ativo') == 'aluguer.veiculos') ? 'active' : '' }}">
       <a class="nav-link" href="{{ route('aluguer.veiculos') }}"><i class="fa fa-bus"> </i> Alugueres de Carros</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item {{ (Session::has('link_ativo') && Session::get('link_ativo') == 'planos') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('planos') }}"><i class="fa fa-list"></i> Planos e Preçários</a>
       </li>
       
-      <li class="nav-item">
+      <li class="nav-item {{ (Session::has('link_ativo') && Session::get('link_ativo') == 'contacts') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('contacts') }}"><i class="fa fa-phone"></i> Contactos</a>
       </li>
     </ul>
@@ -194,6 +194,19 @@
     <p class="color-padraos text-light text-simples">Copyright &copy; 2021-{{ date('Y') }} <strong>MMLI</strong> - Soluções Tecnólogicas para todos Lda. Todos direitos reservados.</p>
     </div>
  
+    	<!-- modal operacao-->
+<div class="modal fade" id="modal_carregamento" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+    <button class="btn btn-padrao" type="button" disabled>
+  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+  O Sistema esta processando as informações... <br>
+  Em breve, receberá uma mensagem de texto, e-mail e notificação no seu perfil de usuário.
+</button>
+    </div>
+  </div>
+</div>
+<!-- fim do modal operacao-->
 	    <!-- Scripts -->
   <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>

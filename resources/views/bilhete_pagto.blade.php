@@ -46,7 +46,7 @@
                         <div class="col-sm-12 col-md-6">
                         <fieldset class="scheduler-border">
     <legend class="scheduler-border"> Formulário de Reserva</legend>
-    <form method="post" action="{{ route('bilhete.store') }}" enctype="multipart/form-data">
+    <form method="post" actions="{{ route('bilhete.store') }}" enctype="multipart/form-data">
             @csrf
 <p class="my-1"><code>* Detalhes da viagem</code></p>
 
@@ -105,6 +105,7 @@
 </div>
 </div>
   <!-- detalhes do cliente --> 
+  <button type="button" class="btn btn-submit btn-blocks float-right" onclick="if($('#forma_pagto').val() != '' || $('#forma_pagto').val() !== undefined){alert('error')}else{alert('ok')}"> <i class="fa fa-check-circle"></i> ok</button>
   <button type="submit" class="btn btn-submit btn-blocks float-right"> <i class="fa fa-check-circle"></i> Confirmar</button>
 </form>
 </fieldset>
