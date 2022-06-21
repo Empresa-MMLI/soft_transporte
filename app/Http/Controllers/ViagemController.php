@@ -16,6 +16,7 @@ use App\Models\BilheteDetalhes;
 use App\Models\BilheteReservado;
 use App\Models\BilheteReservadoDetalhes;
 use App\Models\Cliente;
+use App\Models\ClienteAssociado;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
 use Twilio\Rest\Client;
@@ -208,6 +209,7 @@ class ViagemController extends Controller
      //store
      public function store_bilhete(Request $request){
         try{
+
         //buscar o total de assentos por veiculo
         $t_passageiro = ($request->t_passageiros);
         $viagem = ViagemDetalhes::find($request->id_viagem);
@@ -247,6 +249,10 @@ class ViagemController extends Controller
         $register->save();
         $sms = 'Nova compra de Bilhete detectado na plataforma, o(a) cliente '.$cliente->nome.' comprou '.$t_passageiro.' bilhete(s) para '.$viagem->rota_origem.' - '.$viagem->rota_destino.' pretende viajar no dia '.date('d/m/Y',strtotime($viagem->data_partida));
         
+        }
+        //Cadastrar os associados ao BI
+        if($t_passageiro>=2){
+            $associados = add_cliente_bi($request->id_cliente, $request->lista_nominal, date('Y-m-d'));
         }
         //NOTIFICAR O ADMIN SLA sobre nova compra 
         $telegram = enviar_telegram($sms);
@@ -533,4 +539,23 @@ function enviar_sms($request){
     curl_close($x);
 
     return $y;
+}
+
+//funcao para add os clientes associados
+function add_cliente_bi($id_cliente, $nomes, $data){
+
+    if(isset($nomes)>=1){
+       // for($i=0;$i<sizeof($nomes);$i++){
+            $register = new ClienteAssociado;
+            $register->cliente_id = $id_cliente;
+            $register->nome =  $nome[i];
+            $register->data_compra = $data;
+            $register->save();
+        //}
+        if($register){
+            return true;
+        }
+    }
+    return false;
+
 }

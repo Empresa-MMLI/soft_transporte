@@ -7,6 +7,13 @@ $(document).on("click", function(e) {
   if (fora) $(divNome).css('display','none');
   console.log(fora ? 'Fora!' : 'Dentro!');
 });*/
+if($('#t_passageiros').val()>=2){
+  $('#lista_nominal').val('');
+  $('#lista').fadeIn();
+}else{
+  $('#lista_nominal').val('Apenas o titular do Bilhete...');
+}
+
 $('button.close').click(function(){
   $('.modal').modal('hide');
 })
@@ -312,5 +319,42 @@ function BilheteOrdenacao(){
   //preenchimento da url
   $url = $url+'?ordem='+$dados;
   window.location.replace($url);    
+}
+
+function processamento(){
+  if(($('#forma_pagto').val() != '') || ($('#forma_pagto').val() !== undefined)){
+    if((($('#forma_pagto').val() != 'ATM') && (($('#comprovativo_url').val() == '') || $('#comprovativo_url').val() === undefined))
+    || (($('#forma_pagto').val() == 'ATM') && $('#estado_upload').val() == 1)){ 
+      if(($('#t_passageiros').val() >= 1) && ($('#lista_nominal').val() !='' && $('#lista_nominal').val() !== undefined)){ 
+     $('#modal_carregamento').modal('show');
+     }else if($('#t_passageiros').val() == 1){
+      $('#modal_carregamento').modal('show');
+    }
+  }
+ else
+ {
+   /*
+   alert($('#forma_pagto').val());
+   alert($('#comprovativo_url').val());
+   alert($('#lista_nominal').val());
+   alert($('#t_passageiros').val());
+   alert($('#estado_upload').val());
+ */
+   $('#estado_upload').val(0);
+   return 0;}
+}
+return false;
+}
+
+function comprar_bilhete($form){
+  $url = $($form).attr('action');
+  $dados = $($form).serialize();
+  alert($url+'?'+$dados);
+  setTimeout(
+    function() 
+    {
+      window.location.replace($url+'?'+$dados);  
+    }, 2000);
+ // window.location.replace($url+'?'+$dados);  
 
 }

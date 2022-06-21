@@ -155,7 +155,7 @@ Route::get('/comprar_bilhetes', [ViagemController::class, 'comprar_bilhetes'])->
 
 Route::get('/home', [ViagemController::class, 'home_page'])->name('home');
 //store new bilhete
-Route::post('/store_bilhete', [ViagemController::class, 'store_bilhete'])->name('bilhete.store');
+Route::any('/store_bilhete', [ViagemController::class, 'store_bilhete'])->name('bilhete.store');
 //delete bilhete
 Route::get('/delete_bilhete/{id}', [ViagemController::class, 'delete_bilhete'])->name('bilhete.delete');
 

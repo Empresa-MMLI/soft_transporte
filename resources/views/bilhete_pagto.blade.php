@@ -46,9 +46,9 @@
                         <div class="col-sm-12 col-md-6">
                         <fieldset class="scheduler-border">
     <legend class="scheduler-border"> Formulário de Reserva</legend>
-    <form method="post" action="{{ route('bilhete.store') }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('bilhete.store') }}" enctype="multipart/form-data" onsubmit="event.preventDefault(); comprar_bilhete($(this));">
             @csrf
-<p class="my-1"><code>* Detalhes da viagem</code></p>
+<p class="my-1"><code class="text-dark">* Detalhes da viagem</code></p>
 
 <div class="row">
 <div class="col-6">
@@ -65,7 +65,7 @@
 </div>
 </div>
 </div>
-<p class="my-1"><code>* Detalhes do cliente</code></p>
+<p class="my-1"><code class="text-dark">* Detalhes do cliente</code></p>
 <div class="row mb-2">
   <div class="col-6">
 <div class="form-groups">
@@ -88,7 +88,7 @@
 <div class="row mb-2">
   <div class="col-6">
 <div class="form-groups">
-    <label for="estado_cliente"><code>*</code> Forma de Pagamento:</label>
+    <label for="forma_pagto"><code>*</code> Forma de Pagamento:</label>
     <select  class="form-control custom-select" name="forma_pagto" id="forma_pagto" aria-describedby="addon-wrapping" onchange=" ativar_comprovativo($(this).val());" required>
     <option value="">Escolher...</option>
     <option value="PD">Pagamento Directo</option>
@@ -100,12 +100,23 @@
 <div class="col-6">
 <div class="form-groups">
     <label for="nome">Comprovativo (<code>PNG, JPG ou PDF</code>):</label>
-    <input type="file" class="form-control" id="comprovativo_url" name="comprovativo_url" placeholder="Foto do comprovativo" required>
+    <input type="file" class="form-control" id="comprovativo_url" name="comprovativo_url" required oninput="$('#estado_upload').val(1);">
+    <input type="hiddens" class="form-control" id="estado_upload" name="estado_upload" placeholder="Estado..." value="0" required>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-12">
+<div class="form-groups" id="lista" style="display:none">
+    <label for="lista_nominal">Lista nominal (Viajantes):</label>
+    <input type="text" class="form-control" id="lista_nominal" name="lista_nominal" placeholder="Informe o nome dos viajantes seprando por (,) ..." required>
+    <code>Separar os nomes por vírgula(,)</code>
 </div>
 </div>
 </div>
   <!-- detalhes do cliente --> 
-  <button type="submit" class="btn btn-submit btn-blocks float-right" onclick="if($('#forma_pagto').val() != '' || $('#forma_pagto').val() !== undefined){$('#modal_carregamento').modal('show');}else{return 0;}"> <i class="fa fa-check-circle"></i> Confirmar</button>
+  <button type="submit" class="btn btn-submit btn-blocks float-right" onclick=" processamento();"> <i class="fa fa-check-circle"></i> Confirmar</button>
 </form>
 </fieldset>
                         </div>

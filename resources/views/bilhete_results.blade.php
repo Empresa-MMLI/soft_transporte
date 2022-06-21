@@ -347,7 +347,7 @@ Pesquisar
   <h5 class="text-identity">Operadores</h5>
   <div class="row border-boottom-line p-4">
     <div class="col-sm-12 col-md-10 ">
-      <p style="font-size:14px;">Rede SLA</p>
+      <p style="font-size:14px;">Tcul (Transportes Colectivos Urbanos de Luanda) </p>
     </div>
     <div class="col-sm-12 col-md-2 ">
     <div class="form-check">
@@ -507,6 +507,8 @@ Pesquisar
 
 <!--
 <div class="d-flex justify-content-end my-4">
+  @php 
+  /*
 						@if (isset($bilhetes[0]->id) && $bilhetes->lastPage() > 1)
 <ul class="pagination">
     <li class="page-item {{ ($bilhetes->currentPage() == 1) ? ' disabled' : '' }}">
@@ -528,10 +530,11 @@ Pesquisar
     </li>
 </ul>
 @endif
+*/
+@endphp
 --> 
 						<!--	<button class="main__load" type="button" data-toggle="collapse" data-target="#collapsemore3" aria-expanded="false" aria-controls="collapsemore3"><span>Carregar mais...</span></button>-->
-						</div>
-
+						
 </div>
 
 <!-- carrinho de compra -->
