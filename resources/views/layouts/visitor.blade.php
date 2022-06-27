@@ -127,7 +127,7 @@
         <ul class="Footer--footer__listVertical--2Hxvk">
           <li>
           <a href="#" title="SLA Agência - Logotipo" class="footer-img-logo" target="" rel="">
-            <img class="footer-img-logo" src="{{ url('assets/img/logo/logo_branco.png') }}" alt="SLA Agência de Turismo- Logotipo" title="SLA Agência de Turismo - Logotipo" loading="lazy">
+            <img class="footer-img-logo" src="{{ url('assets/images/logo/logo_branco.png') }}" alt="SLA Agência de Turismo- Logotipo" title="SLA Agência de Turismo - Logotipo" loading="lazy">
           </a>
         </li>
         <li>
