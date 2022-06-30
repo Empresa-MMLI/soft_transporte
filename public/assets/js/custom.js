@@ -349,7 +349,6 @@ return false;
 function comprar_bilhete($form){
   $url = $($form).attr('action');
   $dados = $($form).serialize();
-  alert($url+'?'+$dados);
   setTimeout(
     function() 
     {

@@ -201,7 +201,7 @@
     <button class="btn btn-padrao" type="button" disabled>
   <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
   <span class="text-center">
-  O Sistema esta processando as informações... <br>
+  O Sistema está processando as informações... <br>
   Em breve, receberá uma mensagem de texto, e-mail <br> e notificação no seu perfil de usuário.
   </span>
 </button>

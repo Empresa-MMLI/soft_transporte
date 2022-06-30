@@ -101,7 +101,7 @@
 <div class="form-groups">
     <label for="nome">Comprovativo (<code>PNG, JPG ou PDF</code>):</label>
     <input type="file" class="form-control" id="comprovativo_url" name="comprovativo_url" required oninput="$('#estado_upload').val(1);">
-    <input type="hiddens" class="form-control" id="estado_upload" name="estado_upload" placeholder="Estado..." value="0" required>
+    <input type="hidden" class="form-control" id="estado_upload" name="estado_upload" placeholder="Estado..." value="0" required>
 </div>
 </div>
 </div>
