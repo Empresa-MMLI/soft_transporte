@@ -317,14 +317,14 @@
               </a>
 
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                <img src="{{ url('assets/img/logo/ico.png') }}" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">MMLI-Soluções</span>
+							<i class="fa fa-user"></i> <span class="text-dark">{{ Session::has('usuario.nome')? substr(Session::get('usuario.nome'), 0,30):"Administrador" }}</span>
               </a>
 							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Perfil</a>
+								<a class="dropdown-item" href="{{ route('dashboard.usuarios') }}"><i class="align-middle me-1" data-feather="user"></i> Perfil</a>
 								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Visão Geral</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Configurações</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Centro de ajuda</a>
+								<!--<a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Configurações</a>-->
+								<!--<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Centro de ajuda</a>-->
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="{{ route('logout.admin') }}"><i class="align-middle me-1 text-danger" data-feather="power"></i> Sair do Sistema</a>
 							</div>

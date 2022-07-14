@@ -132,6 +132,7 @@ class UsuarioController extends Controller
         //$hash_password = Hash::make($request->pass);
         $existe = Usuario::where('email',$request->user)->where('id_tipo_user',1)->first();
         Session::put('usuario.id',$existe->id);
+        Session::put('usuario.nome',$existe->name);
 
         if(isset($existe->id) && Hash::check($request->pass, $existe->password)){
             return redirect()->route('dashboard.index');
